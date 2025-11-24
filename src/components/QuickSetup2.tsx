@@ -1,0 +1,452 @@
+import {
+  X,
+  ChevronLeft,
+  Calendar as CalendarIcon,
+} from "lucide-react";
+import { StatusBar } from "./StatusBar";
+import { useState, useEffect } from "react";
+import { Calendar } from "./ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "./ui/popover";
+import { format } from "date-fns";
+import { motion } from "framer-motion";
+import optionButtonBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
+
+interface Setup2FormData {
+  goal: string;
+  selectedPerson: string | null;
+  date: Date | undefined;
+}
+
+interface QuickSetup2Props {
+  onClose: () => void;
+  onBack: () => void;
+  onNext: () => void;
+  onAdvancedSetup: () => void;
+  initialData?: Setup2FormData;
+  onDataChange?: (data: Setup2FormData) => void;
+}
+
+export function QuickSetup2({
+  onClose,
+  onBack,
+  onNext,
+  onAdvancedSetup,
+  initialData,
+  onDataChange,
+}: QuickSetup2Props) {
+  const [goal, setGoal] = useState(initialData?.goal || "");
+  const [selectedPerson, setSelectedPerson] = useState<
+    string | null
+  >(initialData?.selectedPerson || null);
+  const [date, setDate] = useState<Date | undefined>(
+    initialData?.date,
+  );
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  const isFormValid =
+    goal.trim() !== "" && selectedPerson !== null;
+
+  // Update parent component when form data changes
+  useEffect(() => {
+    if (onDataChange) {
+      onDataChange({ goal, selectedPerson, date });
+    }
+  }, [goal, selectedPerson, date, onDataChange]);
+
+  return (
+    <div className="relative w-[390px] h-[844px] bg-white">
+      {/* Status Bar */}
+      <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] gap-[154px] h-[62px]">
+        <div className="flex-1 flex justify-center items-center">
+          <span
+            className="text-black text-center"
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "17px",
+              fontWeight: 590,
+              lineHeight: "22px",
+            }}
+          >
+            9:41
+          </span>
+        </div>
+        <StatusBar />
+      </div>
+
+      {/* Toolbar */}
+      <div className="flex justify-between items-center px-4 pb-[10px] h-[54px]">
+        {/* Back Button */}
+        <button
+          onClick={onBack}
+          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
+          style={{
+            background: "rgba(247, 247, 247, 0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "0.5px solid rgba(255, 255, 255, 0.8)",
+            boxShadow:
+              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
+          }}
+        >
+          <span
+            className="flex items-center justify-center"
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "20px",
+              fontWeight: 400,
+              lineHeight: "20px",
+              color: "#404040",
+            }}
+          >
+            􀯶
+          </span>
+        </button>
+
+        {/* Title */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <h1
+            className="text-[#333333] text-center"
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "17px",
+              fontWeight: 590,
+              lineHeight: "22px",
+              letterSpacing: "-0.43px",
+            }}
+          >
+            Setup
+          </h1>
+        </div>
+
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
+          style={{
+            background: "rgba(247, 247, 247, 0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "0.5px solid rgba(255, 255, 255, 0.8)",
+            boxShadow:
+              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
+          }}
+        >
+          <span
+            className="flex items-center justify-center"
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "20px",
+              fontWeight: 400,
+              lineHeight: "20px",
+              color: "#404040",
+            }}
+          >
+            􀆄
+          </span>
+        </button>
+      </div>
+
+      {/* Progress Indicator */}
+      <div className="flex items-start px-5 gap-1 h-[3px]">
+        {/* Step 1 - Already filled */}
+        <div
+          className="w-[114px] h-[3px] rounded-sm"
+          style={{
+            background:
+              "linear-gradient(90deg, #3E5FFF 41.06%, #00AEFF 100%)",
+          }}
+        />
+        {/* Step 2 - Animated fill */}
+        <div className="w-[114px] h-[3px] bg-[#E9EBF3] rounded-sm overflow-hidden">
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="w-full h-full rounded-sm origin-left"
+            style={{
+              background:
+                "linear-gradient(90deg, #00AEFF 62.5%, #FF2AB4 100%)",
+            }}
+          />
+        </div>
+        {/* Step 3 - Not filled */}
+        <div className="w-[114px] h-[3px] bg-[#E9EBF3] rounded-sm" />
+      </div>
+
+      {/* Content */}
+      <div
+        className="flex flex-col pt-8 px-5 gap-10"
+        style={{ paddingBottom: "36px" }}
+      >
+        {/* Title */}
+        <div className="flex flex-col" style={{ gap: "4px" }}>
+          <h2
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "28px",
+              fontWeight: 600,
+              lineHeight: "34px",
+              color: "#333333",
+            }}
+          >
+            Set your real situation
+          </h2>
+          <p
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "15px",
+              fontWeight: 350,
+              lineHeight: "20px",
+              color: "#333333",
+            }}
+          >
+            AI will play your manager, client, or partner to
+            help you practice before the real talk
+          </p>
+        </div>
+
+        {/* Form Fields */}
+        <div className="flex flex-col gap-[42px]">
+          {/* What do you want to achieve? */}
+          <div className="flex flex-col gap-3">
+            <label
+              style={{
+                fontFamily: "SF Pro",
+                fontSize: "15px",
+                fontWeight: 600,
+                lineHeight: "20px",
+                color: "#333333",
+              }}
+            >
+              What do you want to achieve?
+            </label>
+            <input
+              type="text"
+              value={goal}
+              onChange={(e) => setGoal(e.target.value)}
+              placeholder="e.g., Ask for a raise, Set boundaries..."
+              className="w-full h-12 px-5 border border-[#E9EBF3] rounded-[26px] outline-none"
+              style={{
+                fontFamily: "SF Pro",
+                fontSize: "16px",
+                fontWeight: 400,
+                lineHeight: "20px",
+                letterSpacing: "-0.150391px",
+                color: goal ? "#0A0A0A" : "#717182",
+              }}
+            />
+          </div>
+
+          {/* Who are you talking to? */}
+          <div className="flex flex-col gap-3">
+            <label
+              style={{
+                fontFamily: "SF Pro",
+                fontSize: "15px",
+                fontWeight: 600,
+                lineHeight: "20px",
+                color: "#333333",
+              }}
+            >
+              Who are you talking to?
+            </label>
+            <div className="flex flex-wrap gap-2.5">
+              {[
+                "Manager",
+                "Peer",
+                "Direct Report",
+                "Client",
+              ].map((person) => (
+                <button
+                  key={person}
+                  onClick={() => setSelectedPerson(person)}
+                  className="flex justify-center items-center px-3.5 py-3.5 h-[47px] rounded-3xl border transition-all overflow-hidden"
+                  style={{
+                    borderColor:
+                      selectedPerson === person
+                        ? "transparent"
+                        : "#E9EBF3",
+                    backgroundImage:
+                      selectedPerson === person
+                        ? `url(${optionButtonBg})`
+                        : "none",
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundColor:
+                      selectedPerson === person
+                        ? "transparent"
+                        : "#FFFFFF",
+                    width: "170px",
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: "SF Compact",
+                      fontSize: "16px",
+                      fontWeight: 400,
+                      lineHeight: "21px",
+                      color:
+                        selectedPerson === person
+                          ? "#FFFFFF"
+                          : "rgba(0, 0, 0, 0.9)",
+                    }}
+                  >
+                    {person}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Date (Optional) */}
+          <div className="flex flex-col gap-3">
+            <label
+              style={{
+                fontFamily: "SF Pro",
+                fontSize: "15px",
+                fontWeight: 600,
+                lineHeight: "20px",
+                color: "#333333",
+              }}
+            >
+              Date (Optional)
+            </label>
+            <Popover
+              open={isCalendarOpen}
+              onOpenChange={setIsCalendarOpen}
+            >
+              <PopoverTrigger asChild>
+                <div className="flex items-center px-5 py-3.5 h-12 border border-[#E9EBF3] rounded-[26px] gap-2.5 cursor-pointer">
+                  <CalendarIcon
+                    className="w-5 h-5 text-[#99A1AF]"
+                    strokeWidth={1.67}
+                  />
+                  <input
+                    type="text"
+                    value={date ? format(date, "PPP") : ""}
+                    readOnly
+                    placeholder=""
+                    className="flex-1 outline-none bg-transparent cursor-pointer"
+                    style={{
+                      fontFamily: "SF Pro",
+                      fontSize: "16px",
+                      fontWeight: 400,
+                      lineHeight: "20px",
+                      letterSpacing: "-0.150391px",
+                      color: "#0A0A0A",
+                    }}
+                  />
+                </div>
+              </PopoverTrigger>
+              <PopoverContent
+                className="w-auto p-0"
+                align="start"
+              >
+                <Calendar
+                  mode="single"
+                  selected={date}
+                  onSelect={(selectedDate) => {
+                    setDate(selectedDate);
+                    setIsCalendarOpen(false);
+                  }}
+                  initialFocus
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+
+          {/* Advanced Setup Module */}
+          <div
+            className="flex flex-col items-center gap-2"
+            style={{
+              padding: "0px",
+              width: "350px",
+              height: "76px",
+              alignSelf: "stretch",
+            }}
+          >
+            <button
+              disabled={!isFormValid}
+              onClick={onAdvancedSetup}
+              className="flex justify-center items-center rounded-[22px] transition-opacity"
+              style={{
+                boxSizing: "border-box",
+                padding: "10px 69px",
+                gap: "10px",
+                width: "351px",
+                height: "44px",
+                border: "1px solid #000000",
+                background: "transparent",
+                opacity: isFormValid ? 1 : 0.5,
+                cursor: isFormValid ? "pointer" : "not-allowed",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "SF Pro",
+                  fontStyle: "normal",
+                  fontWeight: 510,
+                  fontSize: "16px",
+                  lineHeight: "24px",
+                  letterSpacing: "-0.3125px",
+                  color: "#000000",
+                }}
+              >
+                + Advanced Setup (optional)
+              </span>
+            </button>
+            <p
+              style={{
+                fontFamily: "SF Pro",
+                fontStyle: "normal",
+                fontWeight: 274,
+                fontSize: "14px",
+                lineHeight: "24px",
+                textAlign: "center",
+                letterSpacing: "-0.3125px",
+                color: "rgba(0, 0, 0, 0.6)",
+                width: "327px",
+                height: "24px",
+              }}
+            >
+              Fine-tune your practice session for maximum impact
+            </p>
+          </div>
+        </div>
+
+        {/* Start Practice Button */}
+        <button
+          disabled={!isFormValid}
+          onClick={onNext}
+          className="flex justify-center items-center h-12 rounded-[28px] transition-opacity mt-auto"
+          style={{
+            width: "350px",
+            padding: "14px 113px",
+            background: "#000000",
+            opacity: isFormValid ? 1 : 0.5,
+          }}
+        >
+          <span
+            className="text-white text-center"
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "16px",
+              fontWeight: 590,
+              lineHeight: "20px",
+              letterSpacing: "-0.150391px",
+            }}
+          >
+            Next
+          </span>
+        </button>
+      </div>
+
+      {/* Notch - Black container at top */}
+      <div className="absolute w-[150px] h-[37px] left-[126px] top-0 bg-black rounded-b-[24px]" />
+    </div>
+  );
+}
