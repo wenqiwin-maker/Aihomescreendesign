@@ -16,12 +16,12 @@ export function AuroraBackground() {
         className="absolute flex h-[calc(1px*((var(--transform-inner-width)*0.6560276746749878)+(var(--transform-inner-height)*0.7547368407249451)))] items-center justify-center left-[20.01px] mix-blend-color-burn top-[-235.03px] w-[calc(1px*((var(--transform-inner-height)*0.6560276746749878)+(var(--transform-inner-width)*0.7547368407249451)))]" 
         style={{ "--transform-inner-width": "645.140625", "--transform-inner-height": "203.046875" } as React.CSSProperties}
         animate={{
-          x: [0, -40, -20, 35, 50, 15, -25, 0],
-          y: [0, 45, 65, 40, -10, -30, 10, 0],
-          scale: [1, 1.15, 0.92, 1.25, 1.08, 0.88, 1.12, 1],
+          x: [0, -30, 40, -20, 0],
+          y: [0, 35, -28, 22, 0],
+          scale: [1, 1.2, 0.88, 1.12, 1],
         }}
         transition={{
-          duration: 12,
+          duration: 5,
           repeat: Infinity,
           ease: [0.45, 0.05, 0.55, 0.95],
         }}
@@ -38,9 +38,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="100" />
-                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.5 0.5; 1 1; 0.5 0.5; 0 0" dur="12s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />
@@ -65,15 +63,15 @@ export function AuroraBackground() {
         className="absolute flex h-[calc(1px*((var(--transform-inner-width)*0.6560276746749878)+(var(--transform-inner-height)*0.7547368407249451)))] items-center justify-center left-[-121.41px] mix-blend-color-burn top-[-147.43px] w-[calc(1px*((var(--transform-inner-height)*0.6560276746749878)+(var(--transform-inner-width)*0.7547368407249451)))]" 
         style={{ "--transform-inner-width": "131.140625", "--transform-inner-height": "115.828125" } as React.CSSProperties}
         animate={{
-          x: [0, 30, 45, 20, -15, -35, -10, 0],
-          y: [0, -25, 5, 35, 50, 20, -10, 0],
-          scale: [1, 1.25, 1.08, 0.88, 1.18, 0.95, 1.15, 1],
+          x: [0, 25, -18, 12, 0],
+          y: [0, -22, 30, -15, 0],
+          scale: [1, 1.3, 0.85, 1.18, 1],
         }}
         transition={{
-          duration: 10,
+          duration: 4.5,
           repeat: Infinity,
           ease: [0.42, 0, 0.58, 1],
-          delay: 1.5
+          delay: 0.2
         }}
       >
         <div className="flex-none rotate-[220.998deg]">
@@ -88,9 +86,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="100" />
-                    <feTurbulence baseFrequency="1.5 1.5" numOctaves="3" result="noise" seed="2056" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.3 0.3; 0.8 0.8; 0.4 0.4; 0 0" dur="10s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />
@@ -115,15 +111,15 @@ export function AuroraBackground() {
         className="absolute flex h-[calc(1px*((var(--transform-inner-width)*0.6560276746749878)+(var(--transform-inner-height)*0.7547368407249451)))] items-center justify-center left-[68px] mix-blend-color-burn top-[95.7px] w-[calc(1px*((var(--transform-inner-height)*0.6560276746749878)+(var(--transform-inner-width)*0.7547368407249451)))]" 
         style={{ "--transform-inner-width": "230.625", "--transform-inner-height": "283.53125" } as React.CSSProperties}
         animate={{
-          x: [0, -35, -50, -25, 20, 40, 10, 0],
-          y: [0, 30, 10, -20, -40, -15, 15, 0],
-          scale: [1, 0.88, 1.18, 1.25, 1.05, 0.92, 1.12, 1],
+          x: [0, -35, 28, -20, 0],
+          y: [0, 32, -26, 18, 0],
+          scale: [1, 0.88, 1.25, 0.95, 1],
         }}
         transition={{
-          duration: 14,
+          duration: 6,
           repeat: Infinity,
           ease: [0.65, 0, 0.35, 1],
-          delay: 2
+          delay: 0.4
         }}
       >
         <div className="flex-none rotate-[220.998deg]">
@@ -138,9 +134,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="100" />
-                    <feTurbulence baseFrequency="2.5 2.5" numOctaves="3" result="noise" seed="7890" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.4 0.4; 0.9 0.9; 0.5 0.5; 0 0" dur="14s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />
@@ -165,15 +159,15 @@ export function AuroraBackground() {
         className="absolute flex h-[calc(1px*((var(--transform-inner-width)*0.46023234724998474)+(var(--transform-inner-height)*0.8352011442184448)))] items-center justify-center left-[-170px] mix-blend-color-burn top-[-150.66px] w-[calc(1px*((var(--transform-inner-height)*0.5499446392059326)+(var(--transform-inner-width)*0.8877984881401062)))]" 
         style={{ "--transform-inner-width": "174.515625", "--transform-inner-height": "527.21875" } as React.CSSProperties}
         animate={{
-          x: [0, 35, 55, 30, -10, -40, -20, 0],
-          y: [0, -35, -10, 20, 50, 35, 5, 0],
-          scale: [1, 1.18, 0.88, 1.22, 1.05, 0.9, 1.15, 1],
+          x: [0, 40, -32, 22, 0],
+          y: [0, -38, 35, -25, 0],
+          scale: [1, 1.22, 0.86, 1.15, 1],
         }}
         transition={{
-          duration: 13,
+          duration: 6.5,
           repeat: Infinity,
           ease: [0.43, 0.13, 0.23, 0.96],
-          delay: 3
+          delay: 0.6
         }}
       >
         <div className="flex-none rotate-[152.598deg] skew-x-[5.929deg]">
@@ -188,10 +182,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="50" />
-                    <feTurbulence baseFrequency="1.8 1.8" numOctaves="3" result="noise" seed="3456" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.35 0.35; 0.75 0.75; 0.45 0.45; 0 0" dur="13s" repeatCount="indefinite" />
-                      <animate attributeName="seed" values="3456; 5678; 8901; 4321; 3456" dur="13s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />
@@ -221,15 +212,15 @@ export function AuroraBackground() {
         className="absolute flex h-[calc(1px*((var(--transform-inner-width)*0.5835411548614502)+(var(--transform-inner-height)*0.7470895648002625)))] items-center justify-center left-[-82.82px] mix-blend-color-burn top-[-238.26px] w-[calc(1px*((var(--transform-inner-height)*0.6647233963012695)+(var(--transform-inner-width)*0.8120835423469543)))]" 
         style={{ "--transform-inner-width": "117.09375", "--transform-inner-height": "527.21875" } as React.CSSProperties}
         animate={{
-          x: [0, -35, -45, -20, 15, 45, 25, 0],
-          y: [0, 35, 55, 45, 10, -25, -5, 0],
-          scale: [1, 1.25, 1.05, 0.85, 1.18, 0.92, 1.12, 1],
+          x: [0, -38, 32, -22, 0],
+          y: [0, 36, -32, 20, 0],
+          scale: [1, 1.28, 0.83, 1.18, 1],
         }}
         transition={{
-          duration: 11,
+          duration: 5.5,
           repeat: Infinity,
           ease: [0.25, 0.46, 0.45, 0.94],
-          delay: 0.5
+          delay: 0.8
         }}
       >
         <div className="flex-none rotate-[144.3deg] skew-x-[5.929deg]">
@@ -244,10 +235,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="50" />
-                    <feTurbulence baseFrequency="2.2 2.2" numOctaves="3" result="noise" seed="6789" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.5 0.5; 1.2 1.2; 0.6 0.6; 0 0" dur="11s" repeatCount="indefinite" />
-                      <animate attributeName="seed" values="6789; 1234; 9876; 5432; 6789" dur="11s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />
@@ -277,15 +265,15 @@ export function AuroraBackground() {
         className="absolute flex h-[calc(1px*((var(--transform-inner-width)*0.8113777041435242)+(var(--transform-inner-height)*0.49709710478782654)))] items-center justify-center left-[-7px] mix-blend-color-burn top-[-121.69px] w-[calc(1px*((var(--transform-inner-height)*0.8676949143409729)+(var(--transform-inner-width)*0.5845221877098083)))]" 
         style={{ "--transform-inner-width": "63.71875", "--transform-inner-height": "527.21875" } as React.CSSProperties}
         animate={{
-          x: [0, 25, 40, 30, -5, -30, -15, 0],
-          y: [0, -20, 10, 35, 45, 25, -5, 0],
-          scale: [1, 1.12, 0.92, 1.15, 1.05, 0.88, 1.08, 1],
+          x: [0, 28, -22, 15, 0],
+          y: [0, -25, 32, -18, 0],
+          scale: [1, 1.15, 0.9, 1.1, 1],
         }}
         transition={{
-          duration: 10.5,
+          duration: 5.8,
           repeat: Infinity,
           ease: [0.42, 0, 0.58, 1],
-          delay: 4
+          delay: 1
         }}
       >
         <div className="flex-none rotate-[125.769deg] skew-x-[5.929deg]">
@@ -300,10 +288,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="50" />
-                    <feTurbulence baseFrequency="1.2 1.2" numOctaves="3" result="noise" seed="9012" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.25 0.25; 0.6 0.6; 0.35 0.35; 0 0" dur="10.5s" repeatCount="indefinite" />
-                      <animate attributeName="seed" values="9012; 3456; 7890; 2345; 9012" dur="10.5s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />
@@ -332,16 +317,16 @@ export function AuroraBackground() {
       <motion.div 
         className="absolute flex h-[348px] items-center justify-center left-[-45.33px] mix-blend-color-dodge top-[-70px] w-[473px]"
         animate={{
-          x: [0, -30, -45, -30, 10, 35, 20, 0],
-          y: [0, 25, 45, 55, 40, 10, -10, 0],
-          scale: [1, 1.2, 0.9, 1.22, 1.08, 0.88, 1.15, 1],
-          rotate: [180, 185, 192, 188, 175, 170, 178, 180],
+          x: [0, -32, 40, -22, 0],
+          y: [0, 28, -35, 22, 0],
+          scale: [1, 1.25, 0.88, 1.15, 1],
+          rotate: [180, 188, 172, 184, 180],
         }}
         transition={{
-          duration: 15,
+          duration: 7,
           repeat: Infinity,
           ease: [0.37, 0, 0.63, 1],
-          delay: 1
+          delay: 0.3
         }}
       >
         <div className="flex-none">
@@ -357,10 +342,7 @@ export function AuroraBackground() {
                     <feFlood floodOpacity="0" result="BackgroundImageFix" />
                     <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
                     <feGaussianBlur result="effect1_foregroundBlur" stdDeviation="50" />
-                    <feTurbulence baseFrequency="3 3" numOctaves="3" result="noise" seed="1357" stitchTiles="stitch" type="fractalNoise">
-                      <animate attributeName="baseFrequency" values="0 0; 0.6 0.6; 1.5 1.5; 0.8 0.8; 0 0" dur="15s" repeatCount="indefinite" />
-                      <animate attributeName="seed" values="1357; 8642; 2468; 9753; 1357" dur="15s" repeatCount="indefinite" />
-                    </feTurbulence>
+                    <feTurbulence baseFrequency="2 2" numOctaves="3" result="noise" seed="4012" stitchTiles="stitch" type="fractalNoise" />
                     <feColorMatrix in="noise" result="alphaNoise" type="luminanceToAlpha" />
                     <feComponentTransfer in="alphaNoise" result="coloredNoise1">
                       <feFuncA tableValues="1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 " type="discrete" />

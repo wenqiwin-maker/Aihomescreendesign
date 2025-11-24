@@ -2,12 +2,22 @@ import { StatusBar } from './StatusBar';
 import { Sparkles, Home, Settings, BarChart2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { AuroraBackground } from './AuroraBackground';
+import { motion } from 'motion/react';
+import { useState } from 'react';
 
 interface HomePageProps {
   onStartConversation: () => void;
 }
 
 export function HomePage({ onStartConversation }: HomePageProps) {
+  const [isPressed, setIsPressed] = useState(false);
+
+  const handleClick = () => {
+    setIsPressed(true);
+    setTimeout(() => setIsPressed(false), 600);
+    onStartConversation();
+  };
+
   return (
     <div className="relative w-[390px] h-[844px] mx-auto overflow-hidden bg-white">
       {/* Top Section */}
@@ -89,12 +99,13 @@ export function HomePage({ onStartConversation }: HomePageProps) {
           >
             AI enhance............
           </p>
-          <button 
-            onClick={onStartConversation}
+          <motion.button 
+            onClick={handleClick}
             className="flex items-center justify-center gap-3 px-5 h-[45px] bg-white rounded-full shadow-inner"
             style={{ 
               boxShadow: 'inset 0px 0px 56px rgba(236, 232, 255, 0.08)' 
             }}
+            whileTap={{ scale: 0.95 }}
           >
             <span 
               className="text-[#3E5FFF]"
@@ -108,13 +119,26 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               Start a conversation
             </span>
             {/* AI Icon */}
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <motion.svg 
+              width="20" 
+              height="20" 
+              viewBox="0 0 20 20" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+              animate={{
+                rotate: isPressed ? 360 : 0
+              }}
+              transition={{
+                duration: 0.6,
+                ease: [0.34, 1.56, 0.64, 1]
+              }}
+            >
               <path d="M7.5 0.674805C7.68506 0.674805 7.84567 0.802996 7.88672 0.983398L8.47949 3.59082C8.81131 5.0496 9.95038 6.18868 11.4092 6.52051L14.0166 7.11328C14.197 7.15432 14.3252 7.31494 14.3252 7.5C14.3252 7.68506 14.197 7.84568 14.0166 7.88672L11.4092 8.47949C9.95039 8.81132 8.81132 9.95039 8.47949 11.4092L7.88672 14.0166C7.84568 14.197 7.68506 14.3252 7.5 14.3252C7.31494 14.3252 7.15432 14.197 7.11328 14.0166L6.52051 11.4092C6.18868 9.95039 5.04961 8.81132 3.59082 8.47949L0.983398 7.88672C0.803017 7.84568 0.674805 7.68506 0.674805 7.5C0.674805 7.31494 0.803018 7.15432 0.983398 7.11328L3.59082 6.52051C5.04962 6.18868 6.18869 5.0496 6.52051 3.59082L7.11328 0.983398C7.15433 0.802996 7.31494 0.674805 7.5 0.674805Z" fill="#3E5FFF" stroke="#3E5FFF" strokeWidth="1.35" strokeLinecap="round"/>
               <path d="M16.2148 13.9844C16.4187 14.8807 17.1193 15.5814 18.0156 15.7852L18.9619 16L18.0156 16.2148C17.1193 16.4186 16.4186 17.1193 16.2148 18.0156L16 18.9619L15.7852 18.0156C15.5814 17.1193 14.8807 16.4186 13.9844 16.2148L13.0371 16L13.9844 15.7852C14.8807 15.5814 15.5813 14.8807 15.7852 13.9844L16 13.0371L16.2148 13.9844Z" fill="#FF52EC" stroke="#FF52EC" strokeWidth="1.35" strokeLinecap="round"/>
               <path d="M17 2V6" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
               <path d="M15 4H19" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
-            </svg>
-          </button>
+            </motion.svg>
+          </motion.button>
         </div>
       </div>
 
