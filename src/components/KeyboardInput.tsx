@@ -17,10 +17,10 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose }: KeyboardInputP
     if (inputValue.trim()) {
       onSendMessage(inputValue);
       setInputValue('');
-      // Close keyboard after sending
-      if (onClose) {
-        onClose();
-      }
+      // Don't close keyboard after sending - keep it open
+      // if (onClose) {
+      //   onClose();
+      // }
     }
   };
 

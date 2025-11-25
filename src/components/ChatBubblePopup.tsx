@@ -1,6 +1,6 @@
-import { motion, AnimatePresence } from 'motion/react';
+import { motion, AnimatePresence, useAnimation } from 'motion/react';
 import { X } from 'lucide-react';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface Message {
   id: string;
@@ -19,11 +19,45 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const lineControls = useAnimation();
+
+  // Reset animation state when popup closes
+  useEffect(() => {
+    if (!isOpen) {
+      setHasAnimated(false);
+      lineControls.set({ height: '0px' });
+    }
+  }, [isOpen, lineControls]);
+
+  // Initial animation for bubbles when popup opens
+  useEffect(() => {
+    if (isOpen && !hasAnimated) {
+      setHasAnimated(true);
+      // Animate line starting with first bubble
+      setTimeout(() => {
+        lineControls.start({
+          height: '283px',
+          transition: { duration: 1.2, ease: 'easeOut' }
+        });
+      }, 200); // Start with first bubble
+    }
+  }, [isOpen, hasAnimated, lineControls]);
+
+  // Extend line when new messages arrive
+  useEffect(() => {
+    if (messages.length > 0 && hasAnimated) {
+      const newHeight = 283 + (messages.length * 70);
+      lineControls.start({
+        height: `${newHeight}px`,
+        transition: { duration: 0.4, ease: 'easeOut' }
+      });
+    }
+  }, [messages.length, hasAnimated, lineControls]);
 
   // Scroll to bottom when new messages arrive
   useEffect(() => {
     if (scrollContainerRef.current && messages.length > 0) {
-      // Small delay to ensure DOM is updated and animation completes
       setTimeout(() => {
         if (scrollContainerRef.current) {
           scrollContainerRef.current.scrollTo({
@@ -51,7 +85,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
             borderRadius: '24px 24px 0px 0px'
           }}
         >
-          {/* Toolbar */}
+          {/* Fixed Header with higher z-index */}
           <div 
             className="flex flex-col items-center"
             style={{
@@ -61,7 +95,10 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
               left: '0px',
               top: '0px',
               padding: '0px 0px 10px',
-              zIndex: 10
+              zIndex: 50,
+              background: 'linear-gradient(180deg, #F3F4F6 0.59%, #ECEEF1 100%)',
+              backdropFilter: 'blur(10px)',
+              WebkitBackdropFilter: 'blur(10px)'
             }}
           >
             {/* Grabber */}
@@ -167,7 +204,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
             onClick={(e) => e.stopPropagation()}
             style={{ paddingBottom: '420px' }}
           >
-            {/* Static Section Labels (for reference) */}
+            {/* Static Section Labels */}
             <div className="flex flex-row items-center gap-3 px-[27px] pt-[13px]">
               <div className="w-1.5 h-1.5 bg-black rounded-full" />
               <span
@@ -184,142 +221,36 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
               </span>
             </div>
 
-            {/* Horizontal Line 1 */}
-            <div
-              className="relative left-[29px] my-3"
-              style={{
-                width: '283px',
-                height: '0px',
-                border: '2px solid rgba(0, 0, 0, 0.1)',
-                transform: 'rotate(90deg)',
-                transformOrigin: 'top left'
-              }}
-            />
-
-            {/* Static Demo Chat Bubbles Container */}
-            <div className="w-full pl-[45px] pr-[20px]">
-              {/* Chat Bubble 1 - User */}
-              <div
-                className="flex flex-col justify-center items-start mb-3"
+            {/* Container for line and bubbles */}
+            <div className="relative" style={{ marginTop: '12px', marginBottom: '12px' }}>
+              {/* Animated Vertical Line - positioned absolutely */}
+              <motion.div
+                initial={{ height: '0px' }}
+                animate={lineControls}
                 style={{
-                  maxWidth: '285px',
-                  padding: '10px 12px',
-                  gap: '8px',
-                  background: '#FFFFFF',
-                  borderRadius: '0px 18px 18px 18px',
-                  width: 'fit-content'
+                  position: 'absolute',
+                  left: '29px',
+                  top: '0px',
+                  width: '0px',
+                  borderLeft: '2px solid rgba(0, 0, 0, 0.1)',
+                  pointerEvents: 'none'
                 }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'SF Pro',
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    lineHeight: '22px',
-                    letterSpacing: '-0.150391px',
-                    color: '#0A0A0A',
-                    textAlign: 'left'
-                  }}
-                >
-                  Let's start with opening
-                </span>
-              </div>
+              />
 
-              {/* Chat Bubble 2 - AI */}
-              <div
-                className="flex flex-col justify-center items-end mb-3 ml-auto"
-                style={{
-                  maxWidth: '285px',
-                  padding: '10px 12px',
-                  gap: '8px',
-                  background: 'rgba(62, 95, 255, 0.1)',
-                  borderRadius: '18px 18px 0px 18px',
-                  width: 'fit-content'
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'SF Pro',
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    lineHeight: '22px',
-                    letterSpacing: '-0.150391px',
-                    color: '#0A0A0A',
-                    textAlign: 'right'
-                  }}
-                >
-                  Ok, Let's start
-                </span>
-              </div>
-
-              {/* Chat Bubble 3 - User */}
-              <div
-                className="flex flex-col justify-center items-start mb-3"
-                style={{
-                  maxWidth: '285px',
-                  padding: '10px 12px',
-                  gap: '8px',
-                  background: '#FFFFFF',
-                  borderRadius: '0px 18px 18px 18px',
-                  width: 'fit-content'
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'SF Pro',
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    lineHeight: '22px',
-                    letterSpacing: '-0.150391px',
-                    color: '#0A0A0A',
-                    textAlign: 'left'
-                  }}
-                >
-                  First, you should post your request
-                </span>
-              </div>
-
-              {/* Chat Bubble 4 - AI */}
-              <div
-                className="flex flex-col justify-center items-end mb-3 ml-auto"
-                style={{
-                  maxWidth: '285px',
-                  padding: '10px 12px',
-                  gap: '8px',
-                  background: 'rgba(62, 95, 255, 0.1)',
-                  borderRadius: '18px 18px 0px 18px',
-                  width: 'fit-content'
-                }}
-              >
-                <span
-                  style={{
-                    fontFamily: 'SF Pro',
-                    fontWeight: 400,
-                    fontSize: '16px',
-                    lineHeight: '22px',
-                    letterSpacing: '-0.150391px',
-                    color: '#0A0A0A',
-                    textAlign: 'right'
-                  }}
-                >
-                  I'd like to apply for Promotion from Senior Eng to Staff Eng in Q3.
-                </span>
-              </div>
-
-              {/* Dynamic Messages from User Input */}
-              {messages.map((message) => (
+              {/* Static Demo Chat Bubbles Container with iMessage-style animation */}
+              <div className="w-full pl-[45px] pr-[20px]">
+                {/* Chat Bubble 1 - User */}
                 <motion.div
-                  key={message.id}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className={`flex flex-col justify-center mb-3 ${message.sender === 'user' ? 'items-end ml-auto' : 'items-start'}`}
+                  transition={{ duration: 0.3, delay: 0.2 }}
+                  className="flex flex-col justify-center items-start mb-3"
                   style={{
                     maxWidth: '285px',
                     padding: '10px 12px',
                     gap: '8px',
-                    background: message.sender === 'user' ? 'rgba(62, 95, 255, 0.1)' : '#FFFFFF',
-                    borderRadius: message.sender === 'user' ? '18px 18px 0px 18px' : '0px 18px 18px 18px',
+                    background: '#FFFFFF',
+                    borderRadius: '0px 18px 18px 18px',
                     width: 'fit-content'
                   }}
                 >
@@ -331,16 +262,139 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                       lineHeight: '22px',
                       letterSpacing: '-0.150391px',
                       color: '#0A0A0A',
-                      textAlign: message.sender === 'user' ? 'right' : 'left'
+                      textAlign: 'left'
                     }}
                   >
-                    {message.text}
+                    Let's start with opening
                   </span>
                 </motion.div>
-              ))}
-              
-              {/* Invisible anchor for auto-scrolling */}
-              <div ref={messagesEndRef} style={{ height: '1px' }} />
+
+                {/* Chat Bubble 2 - AI */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.5 }}
+                  className="flex flex-col justify-center items-end mb-3 ml-auto"
+                  style={{
+                    maxWidth: '285px',
+                    padding: '10px 12px',
+                    gap: '8px',
+                    background: 'rgba(62, 95, 255, 0.1)',
+                    borderRadius: '18px 18px 0px 18px',
+                    width: 'fit-content'
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'SF Pro',
+                      fontWeight: 400,
+                      fontSize: '16px',
+                      lineHeight: '22px',
+                      letterSpacing: '-0.150391px',
+                      color: '#0A0A0A',
+                      textAlign: 'right'
+                    }}
+                  >
+                    Ok, Let's start
+                  </span>
+                </motion.div>
+
+                {/* Chat Bubble 3 - User */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 0.8 }}
+                  className="flex flex-col justify-center items-start mb-3"
+                  style={{
+                    maxWidth: '285px',
+                    padding: '10px 12px',
+                    gap: '8px',
+                    background: '#FFFFFF',
+                    borderRadius: '0px 18px 18px 18px',
+                    width: 'fit-content'
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'SF Pro',
+                      fontWeight: 400,
+                      fontSize: '16px',
+                      lineHeight: '22px',
+                      letterSpacing: '-0.150391px',
+                      color: '#0A0A0A',
+                      textAlign: 'left'
+                    }}
+                  >
+                    First, you should post your request
+                  </span>
+                </motion.div>
+
+                {/* Chat Bubble 4 - AI */}
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.3, delay: 1.1 }}
+                  className="flex flex-col justify-center items-end mb-3 ml-auto"
+                  style={{
+                    maxWidth: '285px',
+                    padding: '10px 12px',
+                    gap: '8px',
+                    background: 'rgba(62, 95, 255, 0.1)',
+                    borderRadius: '18px 18px 0px 18px',
+                    width: 'fit-content'
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'SF Pro',
+                      fontWeight: 400,
+                      fontSize: '16px',
+                      lineHeight: '22px',
+                      letterSpacing: '-0.150391px',
+                      color: '#0A0A0A',
+                      textAlign: 'right'
+                    }}
+                  >
+                    I'd like to apply for Promotion from Senior Eng to Staff Eng in Q3.
+                  </span>
+                </motion.div>
+
+                {/* Dynamic Messages from User Input */}
+                {messages.map((message, index) => (
+                  <motion.div
+                    key={message.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3 }}
+                    className={`flex flex-col justify-center mb-3 ${message.sender === 'user' ? 'items-end ml-auto' : 'items-start'}`}
+                    style={{
+                      maxWidth: '285px',
+                      padding: '10px 12px',
+                      gap: '8px',
+                      background: message.sender === 'user' ? 'rgba(62, 95, 255, 0.1)' : '#FFFFFF',
+                      borderRadius: message.sender === 'user' ? '18px 18px 0px 18px' : '0px 18px 18px 18px',
+                      width: 'fit-content'
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'SF Pro',
+                        fontWeight: 400,
+                        fontSize: '16px',
+                        lineHeight: '22px',
+                        letterSpacing: '-0.150391px',
+                        color: '#0A0A0A',
+                        textAlign: message.sender === 'user' ? 'right' : 'left'
+                      }}
+                    >
+                      {message.text}
+                    </span>
+                  </motion.div>
+                ))}
+                
+                {/* Invisible anchor for auto-scrolling */}
+                <div ref={messagesEndRef} style={{ height: '1px' }} />
+              </div>
             </div>
           </div>
         </motion.div>

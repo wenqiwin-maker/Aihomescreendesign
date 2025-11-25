@@ -2,6 +2,12 @@ import { X } from 'lucide-react';
 import { motion } from 'motion/react';
 import { StatusBar } from './StatusBar';
 import { useState } from 'react';
+import { InstantRecapNew } from './InstantRecapNew';
+import { StrongerAlternatives } from './StrongerAlternatives';
+import { MomentsToWatch } from './MomentsToWatch';
+import { AdjustPlan } from './AdjustPlan';
+import { DeleteRecording } from './DeleteRecording';
+import { BottomButton } from './BottomButton';
 
 interface SimulationSummaryProps {
   onClose: () => void;
@@ -30,7 +36,7 @@ export function SimulationSummary({ onClose }: SimulationSummaryProps) {
       animate={{ y: 0 }}
       exit={{ y: '100%' }}
       transition={{ type: 'tween', duration: 0.4 }}
-      className="fixed inset-0 w-[390px] h-[844px] bg-white overflow-y-auto"
+      className="fixed inset-0 w-[390px] h-[844px] bg-[#f5f6fa] overflow-y-auto"
     >
       {/* Status Bar */}
       <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] h-[62px] bg-white" style={{ gap: '154px' }}>
@@ -156,454 +162,37 @@ export function SimulationSummary({ onClose }: SimulationSummaryProps) {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col items-start px-5 pt-4 pb-[180px] gap-10">
-        {/* Instant Recap Section */}
-        <div className="flex flex-col items-start gap-5 w-full">
-          <div className="flex flex-col items-start gap-3">
-            <h2
-              style={{ 
-                fontFamily: 'SF Pro', 
-                fontSize: '28px', 
-                fontWeight: 600, 
-                lineHeight: '34px',
-                color: '#333333'
-              }}
-            >
-              Instant Recap
-            </h2>
+      <div className="flex flex-col items-start pb-[180px] gap-10">
+        {/* Instant Recap Section - New Design */}
+        <InstantRecapNew />
 
-            {/* Cards Grid */}
-            <div className="flex flex-col items-start gap-[10px] w-full">
-              {/* Row 1 */}
-              <div className="flex items-center gap-[10px] w-full">
-                {/* Clarity Card */}
-                <div className="flex items-center p-3 gap-2 w-[170px] h-[77px] bg-[rgba(0,166,62,0.05)] rounded-[14px]">
-                  <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M25.5 0C25.8978 0 26.2792 0.158149 26.5605 0.439453C26.8419 0.720758 27 1.10218 27 1.5V25.5C27 25.8978 26.8419 26.2792 26.5605 26.5605C26.2792 26.8419 25.8978 27 25.5 27H1.5C1.15199 27 0.816692 26.8788 0.549805 26.6602L0.439453 26.5605C0.158149 26.2792 0 25.8978 0 25.5V1.5C6.3141e-08 1.10218 0.158149 0.720758 0.439453 0.439453C0.720758 0.158149 1.10218 6.31412e-08 1.5 0H25.5ZM2 25H25V2H2V25ZM21 21H9L21 9V21Z" fill="black"/>
-                  </svg>
-                  <div className="flex flex-col items-start">
-                    <div className="flex items-start gap-1">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        Clarity
-                      </span>
-                      <div className="w-2 h-2 bg-[#00C950] rounded-full" />
-                    </div>
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 590, lineHeight: '20px', color: '#08A75E' }}>
-                      Good
-                    </span>
-                  </div>
-                </div>
+        <div className="px-5 flex flex-col gap-10 w-full">
+        {/* Stronger Alternatives Section */}
+        <StrongerAlternatives />
 
-                {/* Tone Steady Card */}
-                <div className="flex items-center p-3 gap-2 w-[170px] h-[77px] bg-[rgba(62,95,255,0.05)] rounded-[14px]">
-                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M14 0C21.7318 0 28 6.26817 28 14C28 21.7318 21.7318 28 14 28C6.26817 28 0 21.7318 0 14C0 6.26817 6.26817 0 14 0ZM14 2C7.37274 2 2 7.37274 2 14C2 20.6273 7.37274 26 14 26C20.6273 26 26 20.6273 26 14C26 7.37274 20.6273 2 14 2ZM9.58008 16.5625C9.7284 16.5498 9.87779 16.5668 10.0195 16.6123C10.1614 16.6578 10.293 16.7314 10.4062 16.8281C11.4149 17.6685 12.6872 18.1275 14 18.125C15.3318 18.1249 16.5895 17.6616 17.5918 16.8281C17.8212 16.6374 18.1179 16.5459 18.415 16.5732C18.7119 16.6007 18.9861 16.7444 19.1768 16.9736C19.3675 17.2031 19.459 17.4997 19.4316 17.7969C19.4042 18.0939 19.2596 18.3679 19.0303 18.5586C17.6179 19.7344 15.8378 20.3774 14 20.375C12.1616 20.3775 10.3804 19.7342 8.96777 18.5576C8.85205 18.4639 8.75617 18.3479 8.68555 18.2168C8.61497 18.0857 8.57125 17.9421 8.55664 17.7939C8.54205 17.6457 8.55688 17.4959 8.60059 17.3535C8.64429 17.2112 8.71533 17.0784 8.81055 16.9639C8.90576 16.8494 9.0233 16.7554 9.15527 16.6865C9.28728 16.6176 9.43171 16.5752 9.58008 16.5625Z" fill="black"/>
-                  </svg>
-                  <div className="flex flex-col items-start">
-                    <div className="flex items-start gap-1">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        Tone Steady
-                      </span>
-                      <div className="w-2 h-2 bg-[#3E5FFF] rounded-full" />
-                    </div>
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 590, lineHeight: '20px', color: '#3E5FFF' }}>
-                      Strong
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* Bottom Divider */}
+        <div className="w-full h-px border-t border-[#E5E7EB]" />
 
-              {/* Row 2 */}
-              <div className="flex items-center gap-[10px] w-full">
-                {/* Boundaries Card */}
-                <div className="flex items-center p-3 gap-2 w-[170px] h-[77px] bg-[rgba(238,44,0,0.05)] rounded-[14px]">
-                  <svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M26.4004 0C27.7259 0 28.8008 1.07491 28.8008 2.40039C28.8006 3.72569 27.7257 4.7998 26.4004 4.7998V24C27.7259 24 28.8008 25.0749 28.8008 26.4004C28.8006 27.7257 27.7257 28.7998 26.4004 28.7998C25.1578 28.7998 24.1356 27.8556 24.0127 26.6455L24.001 26.4004H4.80078L4.78809 26.6455C4.66513 27.8557 3.64299 28.7998 2.40039 28.7998C1.07508 28.7998 0.000211244 27.7257 0 26.4004C0 25.0749 1.07495 24.0001 2.40039 24V4.7998C1.07508 4.79975 0.000211244 3.72566 0 2.40039C0 1.07494 1.07495 5.25698e-05 2.40039 0C3.72587 0 4.80078 1.07491 4.80078 2.40039H24.001C24.001 1.07494 25.075 5.25698e-05 26.4004 0ZM4.40039 24.4004H24.4004V4.40039H4.40039V24.4004Z" fill="black"/>
-                  </svg>
-                  <div className="flex flex-col items-start">
-                    <div className="flex items-start gap-1">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        Boundaries clear
-                      </span>
-                      <div className="w-2 h-2 bg-[#EE2C00] rounded-full" />
-                    </div>
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 590, lineHeight: '20px', color: '#EE2C00' }}>
-                      Needs work
-                    </span>
-                  </div>
-                </div>
+        {/* Moments to Watch Section */}
+        <MomentsToWatch />
 
-                {/* Actionable Ask Card */}
-                <div className="flex items-center p-3 gap-2 w-[170px] h-[77px] bg-[rgba(0,166,62,0.05)] rounded-[14px]">
-                  <svg width="26" height="31" viewBox="0 0 26 31" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M13.0508 1.37891C13.4155 0.916802 14.2093 0.875284 14.6465 1.26562L14.7285 1.34863C14.9028 1.55073 14.9917 1.80169 14.9775 2.08301L14.9648 2.20605L13.6709 10.6279L13.4932 11.7803H23.9189C24.2733 11.7803 24.5977 11.9496 24.7988 12.2305L24.8779 12.3574C25.064 12.7141 25.0361 13.1361 24.8047 13.4658L24.8037 13.4668L13.5576 29.5361L13.5557 29.5381C13.3453 29.8401 13.0337 30 12.6855 30C12.3741 30 12.0776 29.8694 11.874 29.6514L11.8721 29.6504L11.8027 29.5684C11.6511 29.3697 11.5766 29.1234 11.5967 28.8486V28.8467L12.2881 19.1553L12.3643 18.084H2.08203C1.66049 18.084 1.29396 17.8544 1.11133 17.4805L1.05273 17.3369C0.942127 16.9988 1.00622 16.6356 1.2334 16.3477V16.3467L13.0508 1.37891Z" stroke="black" strokeWidth="2"/>
-                  </svg>
-                  <div className="flex flex-col items-start">
-                    <div className="flex items-start gap-1">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        Actionable ask
-                      </span>
-                      <div className="w-2 h-2 bg-[#00C950] rounded-full" />
-                    </div>
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 590, lineHeight: '20px', color: '#08A75E' }}>
-                      Good
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Divider before Adjust Plan */}
+        <div className="w-full h-px border-t border-[#E5E7EB]" />
 
-          {/* Details Section */}
-          <div className="flex flex-col items-start gap-3 w-full">
-            {/* Keep Card */}
-            <div className="flex items-start p-4 gap-2 w-full bg-white border border-[rgba(0,0,0,0.0784314)] rounded-[14px]">
-              <div className="flex flex-col items-start gap-1 flex-1">
-                <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 510, lineHeight: '22px', letterSpacing: '-0.439453px', color: '#101828' }}>
-                  You stated a clear time frame
-                </span>
-                <span style={{ fontFamily: 'SF Pro', fontSize: '15px', fontWeight: 400, lineHeight: '20px', color: 'rgba(60, 60, 67, 0.6)' }}>
-                  You established context in the first 15 seconds and maintained clarity throughout
-                </span>
-              </div>
-              <div className="flex items-center px-1 h-5 border border-[#00A63E] rounded-xl">
-                <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', color: '#00A63E' }}>
-                  Keep
-                </span>
-              </div>
-            </div>
+        {/* Adjust Plan Section */}
+        <AdjustPlan />
 
-            {/* Improve Card */}
-            <div className="flex items-start p-4 gap-2 w-full bg-white border border-[rgba(0,0,0,0.0784314)] rounded-[14px]">
-              <div className="flex flex-col items-start gap-1 flex-1">
-                <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 510, lineHeight: '22px', letterSpacing: '-0.439453px', color: '#101828' }}>
-                  Add one line about the impact
-                </span>
-                <span style={{ fontFamily: 'SF Pro', fontSize: '15px', fontWeight: 400, lineHeight: '20px', color: 'rgba(60, 60, 67, 0.6)' }}>
-                  You established context in the first 15 seconds and maintained clarity throughout
-                </span>
-              </div>
-              <div className="flex items-center px-1 h-5 border border-[#EE2C00] rounded-xl">
-                <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', color: '#EE2C00' }}>
-                  Improve
-                </span>
-              </div>
-            </div>
-          </div>
+        {/* Divider before Delete Recording */}
+        <div className="w-full h-px border-t border-[rgba(0,0,0,0.0784314)] my-5" />
 
-          {/* Divider */}
-          <div className="w-full h-px border-t border-[rgba(0,0,0,0.0784314)]" />
-
-          {/* Stronger Alternatives Section */}
-          <div className="flex flex-col items-start gap-3 w-full">
-            <h2
-              style={{ 
-                fontFamily: 'SF Pro', 
-                fontSize: '28px', 
-                fontWeight: 600, 
-                lineHeight: '34px',
-                color: '#333333'
-              }}
-            >
-              Stronger Alternatives
-            </h2>
-
-            {/* Alternative Card 1 */}
-            <div className="flex flex-col items-start p-4 gap-4 w-full bg-[rgba(62,95,255,0.05)] border border-[rgba(140,0,255,0.05)] rounded-[14px]">
-              <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 510, lineHeight: '20px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.9)' }}>
-                Alternatives
-              </span>
-
-              <div className="flex flex-col items-start gap-3 w-full">
-                <div className="flex items-center gap-2">
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                    Tone:
-                  </span>
-                  <div className="flex items-center px-1 h-[22px] bg-[#3E5FFF] rounded-[11px]">
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', color: '#FFFFFF' }}>
-                      Neutral
-                    </span>
-                  </div>
-                  <div className="flex items-center px-1 h-[22px] border border-[rgba(0,0,0,0.1)] rounded-[11px]">
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', color: '#0A0A0A' }}>
-                      Firm-polite
-                    </span>
-                  </div>
-                  <div className="flex items-center px-1 h-[22px] border border-[rgba(0,0,0,0.1)] rounded-[11px]">
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '14px', color: '#0A0A0A' }}>
-                      Caring
-                    </span>
-                  </div>
-                </div>
-
-                <div className="flex items-start p-3 gap-2 w-full bg-white rounded-[10px]">
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 400, lineHeight: '22px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                    "I'd like to decide X by next Wednesday. If that works for you, please confirm by Friday."
-                  </span>
-                </div>
-
-                <div className="flex flex-col items-start gap-1">
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                    You said:
-                  </span>
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, fontStyle: 'italic', lineHeight: '24px', letterSpacing: '-0.3125px', color: 'rgba(0, 0, 0, 0.9)' }}>
-                    "I want to make this decision by next Wednesday."
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Bottom Divider */}
-          <div className="w-full h-px border-t border-[#E5E7EB]" />
-
-          {/* Moments to Watch Section */}
-          <div className="flex flex-col items-start gap-3 w-full">
-            <h2
-              style={{ 
-                fontFamily: 'SF Pro', 
-                fontSize: '28px', 
-                fontWeight: 600, 
-                lineHeight: '34px',
-                color: '#333333'
-              }}
-            >
-              Moments to Watch
-            </h2>
-
-            {/* Card */}
-            <div className="flex flex-row items-start p-3 gap-3 w-full bg-white border border-[rgba(0,0,0,0.0784314)] rounded-[14px]">
-              {/* Left Column - Timeline Dots */}
-              <div className="flex flex-col items-start pt-[26px] gap-2 w-[6px]">
-                {/* Dot 1 with Line */}
-                <div className="flex flex-col items-center gap-1 w-[6px]">
-                  <div className="w-[6px] h-[6px] bg-black rounded-full" />
-                  <div className="w-0 h-[47px] border-l-2 border-[rgba(0,0,0,0.1)]" />
-                </div>
-                {/* Dot 2 with Line */}
-                <div className="flex flex-col items-center gap-1 w-[6px]">
-                  <div className="w-[6px] h-[6px] bg-black rounded-full" />
-                  <div className="w-0 h-[47px] border-l-2 border-[rgba(0,0,0,0.1)]" />
-                </div>
-                {/* Dot 3 with Line */}
-                <div className="flex flex-col items-center gap-1 w-[6px]">
-                  <div className="w-[6px] h-[6px] bg-black rounded-full" />
-                  <div className="w-0 h-[47px] border-l-2 border-[rgba(0,0,0,0.1)]" />
-                </div>
-                {/* Dot 4 (no line) */}
-                <div className="flex flex-col items-center w-[6px]">
-                  <div className="w-[6px] h-[6px] bg-black rounded-full" />
-                </div>
-              </div>
-
-              {/* Right Column - Moments List */}
-              <div className="flex flex-col items-start gap-2 flex-1">
-                {/* Moment 1 - Your bookmark */}
-                <div className="flex flex-row justify-between items-center py-2 w-full">
-                  <div className="flex flex-row items-center gap-3">
-                    <div className="flex flex-row justify-center items-center w-8 h-8 border border-[#3E5FFF] rounded-full">
-                      <span style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 400, lineHeight: '24px', letterSpacing: '-0.3125px' }}>
-                        📌
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '16px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        00:23
-                      </span>
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                        Your bookmark
-                      </span>
-                    </div>
-                  </div>
-                  <button className="flex justify-center items-center w-8 h-8 rounded-full">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3.33398 2.66667L12.6673 8L3.33398 13.3333V2.66667Z" stroke="#3E5FFF" strokeWidth="1.33333"/>
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Moment 2 - Hesitation detected */}
-                <div className="flex flex-row justify-between items-center py-2 w-full">
-                  <div className="flex flex-row items-center gap-3">
-                    <div className="flex flex-row justify-center items-center w-8 h-8 border border-[#F0B100] rounded-full">
-                      <span style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 400, lineHeight: '24px', letterSpacing: '-0.3125px' }}>
-                        ⏸️
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '16px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        00:45
-                      </span>
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                        Hesitation detected
-                      </span>
-                    </div>
-                  </div>
-                  <button className="flex justify-center items-center w-8 h-8 rounded-full">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3.33398 2.66667L12.6673 8L3.33398 13.3333V2.66667Z" stroke="#3E5FFF" strokeWidth="1.33333"/>
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Moment 3 - Your bookmark */}
-                <div className="flex flex-row justify-between items-center py-2 w-full">
-                  <div className="flex flex-row items-center gap-3">
-                    <div className="flex flex-row justify-center items-center w-8 h-8 border border-[#3E5FFF] rounded-full">
-                      <span style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 400, lineHeight: '24px', letterSpacing: '-0.3125px' }}>
-                        📌
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '16px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        01:12
-                      </span>
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                        Your bookmark
-                      </span>
-                    </div>
-                  </div>
-                  <button className="flex justify-center items-center w-8 h-8 rounded-full">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3.33398 2.66667L12.6673 8L3.33398 13.3333V2.66667Z" stroke="#3E5FFF" strokeWidth="1.33333"/>
-                    </svg>
-                  </button>
-                </div>
-
-                {/* Moment 4 - Rising emotion */}
-                <div className="flex flex-row justify-between items-center py-2 w-full">
-                  <div className="flex flex-row items-center gap-3">
-                    <div className="flex flex-row justify-center items-center w-8 h-8 border border-[#FB2C36] rounded-full">
-                      <span style={{ fontFamily: 'Inter', fontSize: '16px', fontWeight: 400, lineHeight: '24px', letterSpacing: '-0.3125px' }}>
-                        📈
-                      </span>
-                    </div>
-                    <div className="flex flex-col items-start">
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 400, lineHeight: '16px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                        01:38
-                      </span>
-                      <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                        Rising emotion
-                      </span>
-                    </div>
-                  </div>
-                  <button className="flex justify-center items-center w-8 h-8 rounded-full">
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                      <path d="M3.33398 2.66667L12.6673 8L3.33398 13.3333V2.66667Z" stroke="#8C00FF" strokeWidth="1.33333"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Divider before Adjust Plan */}
-          <div className="w-full h-px border-t border-[#E5E7EB]" />
-
-          {/* Adjust Plan Section */}
-          <div className="flex flex-col items-start gap-3 w-full">
-            <div className="flex justify-between items-center w-full">
-              <h2
-                style={{ 
-                  fontFamily: 'SF Pro', 
-                  fontSize: '28px', 
-                  fontWeight: 600, 
-                  lineHeight: '34px',
-                  color: '#333333'
-                }}
-              >
-                Adjust Plan
-              </h2>
-              <button className="flex items-center gap-2 px-2 h-7 rounded-lg">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M2 10L6 14M6 14L10 10M6 14V2" stroke="#3E5FFF" strokeWidth="1.33"/>
-                </svg>
-                <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 500, lineHeight: '20px', letterSpacing: '-0.150391px', color: '#3E5FFF' }}>
-                  Edit
-                </span>
-              </button>
-            </div>
-
-            <div className="flex flex-col items-start p-4 gap-3 w-full bg-[rgba(140,0,255,0.04)] border border-[rgba(140,0,255,0.05)] rounded-[14px]">
-              <div className="flex flex-col items-start gap-3 w-full">
-                <div className="relative">
-                  <div className="flex items-center px-2 h-[22px] bg-[#3E5FFF] rounded-lg absolute top-0 left-0">
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '12px', fontWeight: 500, lineHeight: '16px', color: '#FFFFFF' }}>
-                      BLUF + Ask
-                    </span>
-                  </div>
-                  <div style={{ paddingTop: '32.5px' }}>
-                    <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                      Conclusion/Ask:
-                    </span>
-                  </div>
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 510, lineHeight: '22px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                    Apply for promotion to SWE III in Q3
-                  </span>
-                </div>
-
-                <div className="flex flex-col items-start">
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                    Reasons (Evidence):
-                  </span>
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 510, lineHeight: '22px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                    Past two quarters: Led Project X, delivered Impact Y
-                  </span>
-                </div>
-
-                <div className="flex flex-col items-start">
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '14px', fontWeight: 400, lineHeight: '20px', letterSpacing: '-0.150391px', color: 'rgba(0, 0, 0, 0.6)' }}>
-                    Action/When:
-                  </span>
-                  <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 510, lineHeight: '22px', letterSpacing: '-0.3125px', color: '#101828' }}>
-                    Confirm review window by this Friday and align on next steps
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Divider before Delete Recording */}
-          <div className="w-full h-px border-t border-[rgba(0,0,0,0.0784314)] my-5" />
-
-          {/* Delete Recording Section */}
-          <div className="flex flex-col items-start gap-1 w-full">
-            <button 
-              onClick={handleDeleteRecording}
-              className="flex flex-row justify-center items-center py-[6px] px-[94px] gap-[14px] w-full h-8 rounded-lg"
-              style={{ isolation: 'isolate' }}
-            >
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6.66667 6.66667V12" stroke="#E7000B" strokeWidth="1.33333" strokeLinecap="round"/>
-                <path d="M9.33333 6.66667V12" stroke="#E7000B" strokeWidth="1.33333" strokeLinecap="round"/>
-                <path d="M3.33333 4H12.6667V13.3333C12.6667 13.6869 12.5262 14.026 12.2761 14.2761C12.026 14.5262 11.6869 14.6667 11.3333 14.6667H4.66667C4.31304 14.6667 3.97391 14.5262 3.72386 14.2761C3.47381 14.026 3.33333 13.6869 3.33333 13.3333V4Z" stroke="#E7000B" strokeWidth="1.33333" strokeLinecap="round"/>
-                <path d="M2 4H14" stroke="#E7000B" strokeWidth="1.33333" strokeLinecap="round"/>
-                <path d="M5.33333 4V2.66667C5.33333 2.48986 5.40357 2.32029 5.52859 2.19526C5.65362 2.07024 5.82319 2 6 2H10C10.1768 2 10.3464 2.07024 10.4714 2.19526C10.5964 2.32029 10.6667 2.48986 10.6667 2.66667V4" stroke="#E7000B" strokeWidth="1.33333" strokeLinecap="round"/>
-              </svg>
-              <span style={{ fontFamily: 'SF Pro', fontWeight: 500, fontSize: '16px', lineHeight: '20px', letterSpacing: '-0.150391px', color: '#E7000B' }}>
-                Delete Recording
-              </span>
-            </button>
-            <p 
-              className="w-full text-center"
-              style={{ fontFamily: 'SF Pro', fontWeight: 400, fontSize: '12px', lineHeight: '16px', color: 'rgba(0, 0, 0, 0.6)' }}
-            >
-              Audio/video stays on this device. Deleting is permanent.
-            </p>
-          </div>
+        {/* Delete Recording Section */}
+        <DeleteRecording onDelete={handleDeleteRecording} />
         </div>
       </div>
 
       {/* Bottom Action Bar */}
-      <div className="fixed bottom-0 left-0 w-[390px] flex flex-col items-center px-5 pt-4 pb-10 bg-white border-t border-[rgba(0,0,0,0.1)] shadow-[0px_10px_15px_-3px_rgba(0,0,0,0.1),0px_4px_6px_-4px_rgba(0,0,0,0.1)]">
-        <button 
-          onClick={onClose}
-          className="flex items-center justify-center w-full h-12 bg-[#3E5FFF] rounded-[28px]"
-        >
-          <span style={{ fontFamily: 'SF Pro', fontSize: '16px', fontWeight: 590, lineHeight: '20px', letterSpacing: '-0.150391px', color: '#FFFFFF' }}>
-            Quick-Practice 30s
-          </span>
-        </button>
+      <div className="fixed bottom-0 left-0 w-[390px]">
+        <BottomButton onClick={onClose} />
       </div>
 
       {/* Delete Confirmation Modal */}
