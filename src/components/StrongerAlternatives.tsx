@@ -2,6 +2,7 @@ import image_fb7add15620a6daf8191d3c5f44230e7b5c088ad from "figma:asset/fb7add15
 import svgPaths from "../imports/svg-2dfu8bzznl";
 import imgBadge from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
 import imgCopyIcon from "figma:asset/9d4126fe1f8085e89c8e064eb4d1a1bbd7697c56.png";
+import { useState } from 'react';
 
 function Heading() {
   return (
@@ -35,87 +36,106 @@ function Text() {
   );
 }
 
-function Badge() {
+function Badge({ onClick, isSelected }: { onClick: () => void; isSelected: boolean }) {
   return (
-    <div
-      className="h-[22px] relative rounded-[11px] shrink-0 w-[60.453px]"
+    <button
+      onClick={onClick}
+      className="h-[22px] relative rounded-[11px] shrink-0 w-[60.453px] transition-all"
       data-name="Badge"
     >
-      <img
-        alt=""
-        className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[11px] size-full"
-        src={imgBadge}
-      />
-      <div className="box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[60.453px]">
+      {isSelected && (
+        <img
+          alt=""
+          className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[11px] size-full"
+          src={imgBadge}
+        />
+      )}
+      <div className={`box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[60.453px] ${!isSelected ? 'bg-[#f5f6fa]' : ''}`}>
         <p
-          className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-nowrap text-white whitespace-pre"
+          className={`font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-nowrap whitespace-pre`}
           style={{ fontVariationSettings: "'wdth' 100" }}
         >
-          Neutral
+          <span className={isSelected ? 'text-white' : 'text-neutral-950'}>Neutral</span>
         </p>
       </div>
       <div
         aria-hidden="true"
         className="absolute border border-[rgba(0,0,0,0)] border-solid inset-0 pointer-events-none rounded-[11px]"
       />
-    </div>
+    </button>
   );
 }
 
-function Badge1() {
+function Badge1({ onClick, isSelected }: { onClick: () => void; isSelected: boolean }) {
   return (
-    <div
-      className="h-[22px] relative rounded-[11px] shrink-0 w-[81.844px]"
+    <button
+      onClick={onClick}
+      className="h-[22px] relative rounded-[11px] shrink-0 w-[81.844px] transition-all"
       data-name="Badge"
     >
-      <div className="box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[81.844px]">
+      {isSelected && (
+        <img
+          alt=""
+          className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[11px] size-full"
+          src={imgBadge}
+        />
+      )}
+      <div className={`box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[81.844px] ${!isSelected ? 'bg-[#f5f6fa]' : ''}`}>
         <p
-          className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-neutral-950 text-nowrap whitespace-pre"
+          className={`font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-nowrap whitespace-pre`}
           style={{ fontVariationSettings: "'wdth' 100" }}
         >
-          Firm-polite
+          <span className={isSelected ? 'text-white' : 'text-neutral-950'}>Firm-polite</span>
         </p>
       </div>
       <div
         aria-hidden="true"
-        className="absolute border border-[rgba(0,0,0,0.1)] border-solid inset-0 pointer-events-none rounded-[11px]"
+        className={`absolute border ${isSelected ? 'border-[rgba(0,0,0,0)]' : 'border-[rgba(0,0,0,0.1)]'} border-solid inset-0 pointer-events-none rounded-[11px]`}
       />
-    </div>
+    </button>
   );
 }
 
-function Badge2() {
+function Badge2({ onClick, isSelected }: { onClick: () => void; isSelected: boolean }) {
   return (
-    <div
-      className="h-[22px] relative rounded-[11px] shrink-0 w-[56.016px]"
+    <button
+      onClick={onClick}
+      className="h-[22px] relative rounded-[11px] shrink-0 w-[56.016px] transition-all"
       data-name="Badge"
     >
-      <div className="box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[56.016px]">
+      {isSelected && (
+        <img
+          alt=""
+          className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[11px] size-full"
+          src={imgBadge}
+        />
+      )}
+      <div className={`box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[56.016px] ${!isSelected ? 'bg-[#f5f6fa]' : ''}`}>
         <p
-          className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-neutral-950 text-nowrap whitespace-pre"
+          className={`font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-nowrap whitespace-pre`}
           style={{ fontVariationSettings: "'wdth' 100" }}
         >
-          Caring
+          <span className={isSelected ? 'text-white' : 'text-neutral-950'}>Caring</span>
         </p>
       </div>
       <div
         aria-hidden="true"
-        className="absolute border border-[rgba(0,0,0,0.1)] border-solid inset-0 pointer-events-none rounded-[11px]"
+        className={`absolute border ${isSelected ? 'border-[rgba(0,0,0,0)]' : 'border-[rgba(0,0,0,0.1)]'} border-solid inset-0 pointer-events-none rounded-[11px]`}
       />
-    </div>
+    </button>
   );
 }
 
-function PostSimMicroReview() {
+function PostSimMicroReview({ selectedTone, onToneClick }: { selectedTone: string; onToneClick: (tone: string) => void }) {
   return (
     <div
       className="content-stretch flex gap-[8px] items-center relative shrink-0"
       data-name="PostSimMicroReview"
     >
       <Text />
-      <Badge />
-      <Badge1 />
-      <Badge2 />
+      <Badge onClick={() => onToneClick('neutral')} isSelected={selectedTone === 'neutral'} />
+      <Badge1 onClick={() => onToneClick('firm-polite')} isSelected={selectedTone === 'firm-polite'} />
+      <Badge2 onClick={() => onToneClick('caring')} isSelected={selectedTone === 'caring'} />
     </div>
   );
 }
@@ -146,7 +166,13 @@ function Button() {
   );
 }
 
-function PostSimMicroReview1() {
+function PostSimMicroReview1({ selectedTone }: { selectedTone: string }) {
+  const content = {
+    'neutral': `\"I'd like to decide X by next Wednesday. If that works, I can do Y to support it.\"`,
+    'firm-polite': `\"I need a decision by Wednesday to move forward. Can you confirm by then?\"`,
+    'caring': `\"Would Wednesday work for you? I want to make sure we're both comfortable with the timeline.\"`
+  };
+
   return (
     <div
       className="bg-[#f5f6fa] box-border content-stretch flex gap-[8px] items-start pb-[16px] pt-[12px] px-[16px] relative rounded-[10px] shrink-0 w-[314px]"
@@ -155,20 +181,20 @@ function PostSimMicroReview1() {
       <p
         className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[21px] relative shrink-0 text-[#101828] text-[16px] tracking-[-0.3125px] w-[254px]"
         style={{ fontVariationSettings: "'wdth' 100" }}
-      >{`"I'd like to decide X by next Wednesday. If that works, I can do Y to support it."`}</p>
+      >{content[selectedTone as keyof typeof content]}</p>
       <Button />
     </div>
   );
 }
 
-function ToneCards() {
+function ToneCards({ selectedTone, onToneClick }: { selectedTone: string; onToneClick: (tone: string) => void }) {
   return (
     <div
       className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0"
       data-name="Tone-cards"
     >
-      <PostSimMicroReview />
-      <PostSimMicroReview1 />
+      <PostSimMicroReview selectedTone={selectedTone} onToneClick={onToneClick} />
+      <PostSimMicroReview1 selectedTone={selectedTone} />
     </div>
   );
 }
@@ -215,7 +241,7 @@ function PostSimMicroReview2() {
   );
 }
 
-function Card() {
+function Card({ selectedTone, onToneClick }: { selectedTone: string; onToneClick: (tone: string) => void }) {
   return (
     <div
       className="bg-white relative rounded-[14px] shrink-0 w-full"
@@ -233,7 +259,7 @@ function Card() {
           >
             Alternatives
           </p>
-          <ToneCards />
+          <ToneCards selectedTone={selectedTone} onToneClick={onToneClick} />
           <PostSimMicroReview2 />
         </div>
       </div>
@@ -241,226 +267,31 @@ function Card() {
   );
 }
 
-function Text1() {
-  return (
-    <div
-      className="h-[20px] relative shrink-0 w-[35.352px]"
-      data-name="Text"
-    >
-      <p
-        className="absolute font-['SF_Pro:Regular',sans-serif] font-normal leading-[20px] left-0 text-[14px] text-[rgba(60,60,67,0.6)] text-nowrap top-[0.5px] tracking-[-0.1504px] whitespace-pre"
-        style={{ fontVariationSettings: "'wdth' 100" }}
-      >
-        Tone:
-      </p>
-    </div>
-  );
-}
-
-function Badge3() {
-  return (
-    <div
-      className="h-[22px] relative rounded-[11px] shrink-0 w-[60.453px]"
-      data-name="Badge"
-    >
-      <img
-        alt=""
-        className="absolute inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[11px] size-full"
-        src={imgBadge}
-      />
-      <div className="box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[60.453px]">
-        <p
-          className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-nowrap text-white whitespace-pre"
-          style={{ fontVariationSettings: "'wdth' 100" }}
-        >
-          Neutral
-        </p>
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute border border-[rgba(0,0,0,0)] border-solid inset-0 pointer-events-none rounded-[11px]"
-      />
-    </div>
-  );
-}
-
-function Badge4() {
-  return (
-    <div
-      className="h-[22px] relative rounded-[11px] shrink-0 w-[81.844px]"
-      data-name="Badge"
-    >
-      <div className="box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[81.844px]">
-        <p
-          className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-neutral-950 text-nowrap whitespace-pre"
-          style={{ fontVariationSettings: "'wdth' 100" }}
-        >
-          Firm-polite
-        </p>
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute border border-[rgba(0,0,0,0.1)] border-solid inset-0 pointer-events-none rounded-[11px]"
-      />
-    </div>
-  );
-}
-
-function Badge5() {
-  return (
-    <div
-      className="h-[22px] relative rounded-[11px] shrink-0 w-[56.016px]"
-      data-name="Badge"
-    >
-      <div className="box-border content-stretch flex gap-[4px] h-[22px] items-center justify-center overflow-clip px-[5px] py-[3px] relative rounded-[inherit] w-[56.016px]">
-        <p
-          className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[14px] relative shrink-0 text-[12px] text-neutral-950 text-nowrap whitespace-pre"
-          style={{ fontVariationSettings: "'wdth' 100" }}
-        >
-          Caring
-        </p>
-      </div>
-      <div
-        aria-hidden="true"
-        className="absolute border border-[rgba(0,0,0,0.1)] border-solid inset-0 pointer-events-none rounded-[11px]"
-      />
-    </div>
-  );
-}
-
-function PostSimMicroReview3() {
-  return (
-    <div
-      className="content-stretch flex gap-[8px] items-center relative shrink-0"
-      data-name="PostSimMicroReview"
-    >
-      <Text1 />
-      <Badge3 />
-      <Badge4 />
-      <Badge5 />
-    </div>
-  );
-}
-
-function Icon1() {
-  return (
-    <div
-      className="relative shrink-0 size-[16px]"
-      data-name="Icon"
-    >
-      <img
-        alt=""
-        className="block size-full"
-        src={image_fb7add15620a6daf8191d3c5f44230e7b5c088ad}
-      />
-    </div>
-  );
-}
-
-function Button1() {
-  return (
-    <div
-      className="content-stretch flex items-start justify-end relative rounded-[8px] shrink-0 size-[20px]"
-      data-name="Button"
-    >
-      <Icon1 />
-    </div>
-  );
-}
-
-function PostSimMicroReview4() {
-  return (
-    <div
-      className="bg-[#f5f6fa] box-border content-stretch flex gap-[8px] items-start pb-[16px] pt-[12px] px-[16px] relative rounded-[10px] shrink-0 w-[314px]"
-      data-name="PostSimMicroReview"
-    >
-      <p
-        className="font-['SF_Pro:Regular',sans-serif] font-normal leading-[21px] relative shrink-0 text-[#101828] text-[16px] tracking-[-0.3125px] w-[250px]"
-        style={{ fontVariationSettings: "'wdth' 100" }}
-      >{`"If that's not realistic, what's the earliest date we can set? I'll adjust my plan."`}</p>
-      <Button1 />
-    </div>
-  );
-}
-
-function ToneCards1() {
-  return (
-    <div
-      className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0"
-      data-name="Tone-cards"
-    >
-      <PostSimMicroReview3 />
-      <PostSimMicroReview4 />
-    </div>
-  );
-}
-
-function PostSimMicroReview5() {
-  return (
-    <div
-      className="content-stretch flex flex-col font-normal gap-[4px] items-start relative shrink-0 w-[326px]"
-      data-name="PostSimMicroReview"
-    >
-      <p
-        className="font-['SF_Pro:Regular',sans-serif] leading-[20px] relative shrink-0 text-[14px] text-[rgba(60,60,67,0.6)] text-nowrap tracking-[-0.1504px] whitespace-pre"
-        style={{ fontVariationSettings: "'wdth' 100" }}
-      >
-        You said:
-      </p>
-      <p
-        className="font-['SF_Pro:Regular_Italic',sans-serif] italic leading-[24px] relative shrink-0 text-[16px] text-[rgba(0,0,0,0.9)] tracking-[-0.3125px] w-[326px]"
-        style={{ fontVariationSettings: "'YAXS' 400" }}
-      >{`"That timing doesn't work."`}</p>
-    </div>
-  );
-}
-
-function Card1() {
-  return (
-    <div
-      className="bg-white relative rounded-[14px] shrink-0 w-full"
-      data-name="Card"
-    >
-      <div
-        aria-hidden="true"
-        className="absolute border border-[rgba(140,0,255,0.05)] border-solid inset-0 pointer-events-none rounded-[14px] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.1)]"
-      />
-      <div className="size-full">
-        <div className="box-border content-stretch flex flex-col gap-[16px] items-start pb-[20px] pt-[16px] px-[16px] relative w-full">
-          <p
-            className="font-['SF_Pro:Medium',sans-serif] font-[510] leading-[19px] relative shrink-0 text-[14px] text-[rgba(0,0,0,0.9)] text-nowrap tracking-[-0.1504px] whitespace-pre"
-            style={{ fontVariationSettings: "'wdth' 100" }}
-          >
-            Alternatives
-          </p>
-          <ToneCards1 />
-          <PostSimMicroReview5 />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Container() {
+function Container({ selectedTone, onToneClick }: { selectedTone: string; onToneClick: (tone: string) => void }) {
   return (
     <div
       className="content-stretch flex flex-col gap-[12px] items-start relative shrink-0 w-full"
       data-name="Container"
     >
-      <Card />
-      <Card1 />
+      <Card selectedTone={selectedTone} onToneClick={onToneClick} />
     </div>
   );
 }
 
 export function StrongerAlternatives() {
+  const [selectedTone, setSelectedTone] = useState('neutral');
+
+  const handleToneClick = (tone: string) => {
+    setSelectedTone(tone);
+  };
+
   return (
     <div
       className="content-stretch flex flex-col gap-[12px] items-start relative w-full"
       data-name="Container"
     >
       <Heading />
-      <Container />
+      <Container selectedTone={selectedTone} onToneClick={handleToneClick} />
     </div>
   );
 }

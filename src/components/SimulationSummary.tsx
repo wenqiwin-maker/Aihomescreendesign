@@ -162,7 +162,7 @@ export function SimulationSummary({ onClose }: SimulationSummaryProps) {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col items-start pb-[180px] gap-10">
+      <div className="flex flex-col items-start pb-[146px] gap-10">
         {/* Instant Recap Section - New Design */}
         <InstantRecapNew />
 
@@ -170,20 +170,11 @@ export function SimulationSummary({ onClose }: SimulationSummaryProps) {
         {/* Stronger Alternatives Section */}
         <StrongerAlternatives />
 
-        {/* Bottom Divider */}
-        <div className="w-full h-px border-t border-[#E5E7EB]" />
-
         {/* Moments to Watch Section */}
         <MomentsToWatch />
 
-        {/* Divider before Adjust Plan */}
-        <div className="w-full h-px border-t border-[#E5E7EB]" />
-
         {/* Adjust Plan Section */}
         <AdjustPlan />
-
-        {/* Divider before Delete Recording */}
-        <div className="w-full h-px border-t border-[rgba(0,0,0,0.0784314)] my-5" />
 
         {/* Delete Recording Section */}
         <DeleteRecording onDelete={handleDeleteRecording} />

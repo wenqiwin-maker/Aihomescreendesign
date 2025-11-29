@@ -253,7 +253,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -401,7 +401,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -457,7 +457,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -513,7 +513,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -634,7 +634,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -691,7 +691,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -839,7 +839,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >
@@ -895,7 +895,7 @@ export function CaptionPopup({
                     style={{
                       maxWidth: "80%",
                       padding: "10px 12px",
-                      background: "rgba(62, 95, 255, 0.1)",
+                      background: "rgba(131, 68, 204, 0.1)",
                       borderRadius: "18px 18px 0px 18px",
                     }}
                   >

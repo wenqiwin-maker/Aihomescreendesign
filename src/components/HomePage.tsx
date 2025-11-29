@@ -3,7 +3,7 @@ import { Sparkles, Home, Settings, BarChart2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { AuroraBackground } from './AuroraBackground';
 import { motion } from 'motion/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface HomePageProps {
   onStartConversation: () => void;
@@ -11,6 +11,45 @@ interface HomePageProps {
 
 export function HomePage({ onStartConversation }: HomePageProps) {
   const [isPressed, setIsPressed] = useState(false);
+  const [titleText, setTitleText] = useState('');
+  const [descText, setDescText] = useState('');
+  
+  const fullTitle = "I'm SimTalk";
+  const fullDesc = "Your space to rehearse important conversations";
+
+  // Typewriter effect for title
+  useEffect(() => {
+    let titleIndex = 0;
+    const titleInterval = setInterval(() => {
+      if (titleIndex < fullTitle.length) {
+        setTitleText(fullTitle.slice(0, titleIndex + 1));
+        titleIndex++;
+      } else {
+        clearInterval(titleInterval);
+      }
+    }, 100);
+
+    return () => clearInterval(titleInterval);
+  }, []);
+
+  // Typewriter effect for description (starts after title completes)
+  useEffect(() => {
+    const descTimeout = setTimeout(() => {
+      let descIndex = 0;
+      const descInterval = setInterval(() => {
+        if (descIndex < fullDesc.length) {
+          setDescText(fullDesc.slice(0, descIndex + 1));
+          descIndex++;
+        } else {
+          clearInterval(descInterval);
+        }
+      }, 50);
+      
+      return () => clearInterval(descInterval);
+    }, fullTitle.length * 100);
+
+    return () => clearTimeout(descTimeout);
+  }, []);
 
   const handleClick = () => {
     setIsPressed(true);
@@ -76,39 +115,43 @@ export function HomePage({ onStartConversation }: HomePageProps) {
         </div>
 
         {/* Top Content */}
-        <div className="absolute left-[25px] top-[111px] w-[274px]">
+        <div className="absolute left-[25px] top-[111px] w-[274px] flex flex-col" style={{ height: '134px' }}>
           <h1 
-            className="text-white mb-3"
+            className="text-white"
             style={{ 
-              fontFamily: 'SF Pro', 
+              fontFamily: 'IBM Plex Serif', 
               fontSize: '32px', 
               fontWeight: 700, 
-              lineHeight: '125%' 
+              lineHeight: '125%',
+              marginBottom: '4px',
+              minHeight: '40px'
             }}
           >
-            I'm SimTalk
+            {titleText}
           </h1>
           <p 
-            className="text-white mb-6"
+            className="text-white"
             style={{ 
-              fontFamily: 'SF Pro', 
-              fontSize: '14px', 
+              fontFamily: 'IBM Plex Serif', 
+              fontSize: '16px', 
               fontWeight: 400, 
-              lineHeight: '135%' 
+              lineHeight: '20px',
+              width: '350px',
+              minHeight: '40px'
             }}
           >
-            AI enhance............
+            {descText}
           </p>
           <motion.button 
             onClick={handleClick}
-            className="flex items-center justify-center gap-3 px-5 h-[45px] bg-white rounded-full shadow-inner"
+            className="flex items-center justify-center gap-3 px-5 h-[45px] bg-white rounded-full shadow-inner mt-auto"
             style={{ 
               boxShadow: 'inset 0px 0px 56px rgba(236, 232, 255, 0.08)' 
             }}
             whileTap={{ scale: 0.95 }}
           >
             <span 
-              className="text-[#3E5FFF]"
+              className="text-[#8C00FF]"
               style={{ 
                 fontFamily: 'SF Pro', 
                 fontSize: '16px', 
@@ -133,7 +176,7 @@ export function HomePage({ onStartConversation }: HomePageProps) {
                 ease: [0.34, 1.56, 0.64, 1]
               }}
             >
-              <path d="M7.5 0.674805C7.68506 0.674805 7.84567 0.802996 7.88672 0.983398L8.47949 3.59082C8.81131 5.0496 9.95038 6.18868 11.4092 6.52051L14.0166 7.11328C14.197 7.15432 14.3252 7.31494 14.3252 7.5C14.3252 7.68506 14.197 7.84568 14.0166 7.88672L11.4092 8.47949C9.95039 8.81132 8.81132 9.95039 8.47949 11.4092L7.88672 14.0166C7.84568 14.197 7.68506 14.3252 7.5 14.3252C7.31494 14.3252 7.15432 14.197 7.11328 14.0166L6.52051 11.4092C6.18868 9.95039 5.04961 8.81132 3.59082 8.47949L0.983398 7.88672C0.803017 7.84568 0.674805 7.68506 0.674805 7.5C0.674805 7.31494 0.803018 7.15432 0.983398 7.11328L3.59082 6.52051C5.04962 6.18868 6.18869 5.0496 6.52051 3.59082L7.11328 0.983398C7.15433 0.802996 7.31494 0.674805 7.5 0.674805Z" fill="#3E5FFF" stroke="#3E5FFF" strokeWidth="1.35" strokeLinecap="round"/>
+              <path d="M7.5 0.674805C7.68506 0.674805 7.84567 0.802996 7.88672 0.983398L8.47949 3.59082C8.81131 5.0496 9.95038 6.18868 11.4092 6.52051L14.0166 7.11328C14.197 7.15432 14.3252 7.31494 14.3252 7.5C14.3252 7.68506 14.197 7.84568 14.0166 7.88672L11.4092 8.47949C9.95039 8.81132 8.81132 9.95039 8.47949 11.4092L7.88672 14.0166C7.84568 14.197 7.68506 14.3252 7.5 14.3252C7.31494 14.3252 7.15432 14.197 7.11328 14.0166L6.52051 11.4092C6.18868 9.95039 5.04961 8.81132 3.59082 8.47949L0.983398 7.88672C0.803017 7.84568 0.674805 7.68506 0.674805 7.5C0.674805 7.31494 0.803018 7.15432 0.983398 7.11328L3.59082 6.52051C5.04962 6.18868 6.18869 5.0496 6.52051 3.59082L7.11328 0.983398C7.15433 0.802996 7.31494 0.674805 7.5 0.674805Z" fill="#8C00FF" stroke="#8C00FF" strokeWidth="1.35" strokeLinecap="round"/>
               <path d="M16.2148 13.9844C16.4187 14.8807 17.1193 15.5814 18.0156 15.7852L18.9619 16L18.0156 16.2148C17.1193 16.4186 16.4186 17.1193 16.2148 18.0156L16 18.9619L15.7852 18.0156C15.5814 17.1193 14.8807 16.4186 13.9844 16.2148L13.0371 16L13.9844 15.7852C14.8807 15.5814 15.5813 14.8807 15.7852 13.9844L16 13.0371L16.2148 13.9844Z" fill="#FF52EC" stroke="#FF52EC" strokeWidth="1.35" strokeLinecap="round"/>
               <path d="M17 2V6" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
               <path d="M15 4H19" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
@@ -145,7 +188,7 @@ export function HomePage({ onStartConversation }: HomePageProps) {
       {/* Body Section */}
       <div 
         className="absolute w-[390px] left-0 bg-white rounded-t-[20px] flex flex-col gap-[30px] p-5"
-        style={{ top: '270px', height: '510px' }}
+        style={{ top: '275px', height: '505px' }}
       >
         {/* Top Practice Section */}
         <div className="flex flex-col gap-3">
@@ -185,7 +228,7 @@ export function HomePage({ onStartConversation }: HomePageProps) {
             </div>
 
             {/* Chat with AI Card */}
-            <div className="flex-1 h-[162px] bg-[#3E5FFF] rounded-2xl px-4 py-4 flex flex-col gap-2">
+            <div className="flex-1 h-[162px] rounded-2xl px-4 py-4 flex flex-col gap-2 bg-[rgb(62,95,255)]">
               <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path fillRule="evenodd" clipRule="evenodd" d="M34.8 0H23.2V14.9976L12.5951 4.39269L4.39269 12.5951L14.9976 23.2H0V34.8H14.9976L4.39269 45.4047L12.5951 53.6074L23.2 43.0024V58H34.8V43.0024L45.405 53.6074L53.6074 45.405L43.0024 34.8H58V23.2H43.0024L53.6074 12.5951L45.405 4.39266L34.8 14.9976V0Z" fill="white"/>
               </svg>
@@ -201,7 +244,7 @@ export function HomePage({ onStartConversation }: HomePageProps) {
                   color: '#FFFFFF'
                 }}
               >
-                Complete your Information to enhance AI
+                Set a longterm Communication planing
               </span>
             </div>
           </div>
@@ -326,11 +369,11 @@ export function HomePage({ onStartConversation }: HomePageProps) {
           <div className="flex flex-col items-center justify-center w-14">
             <div className="w-[30px] h-[30px] relative flex items-center justify-center">
               <svg width="23" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fillRule="evenodd" clipRule="evenodd" d="M11.4034 0.0581172C11.8167 -0.0193988 12.2411 -0.019346 12.6543 0.0581172C13.1241 0.146271 13.5597 0.364329 14.1123 0.641125L20.2735 3.72218C20.3208 3.74585 20.368 3.76849 20.4141 3.79152C21.4655 4.3167 22.1919 4.68099 22.7364 5.23683C23.2159 5.72652 23.5812 6.3165 23.8047 6.96437C24.0584 7.69985 24.0581 8.51281 24.0577 9.688V14.2456C24.0577 15.9377 24.0578 17.2653 23.9707 18.3316C23.882 19.4172 23.6978 20.3145 23.2842 21.1265C22.6042 22.4611 21.5193 23.5459 20.1846 24.2261C19.3727 24.6399 18.4746 24.8249 17.3887 24.9136C16.3227 25.0006 14.9963 25.0005 13.3047 25.0005H10.7539C9.06207 25.0005 7.73518 25.0006 6.66899 24.9136C5.58314 24.8249 4.68504 24.6399 3.87309 24.2261C2.53861 23.546 1.45347 22.461 0.773478 21.1265C0.359854 20.3147 0.175668 19.4172 0.0869544 18.3316C-0.000130579 17.2653 4.02924e-05 15.9376 4.02924e-05 14.2456V9.688C-0.00044075 8.51283 -0.000630081 7.69984 0.25297 6.96437C0.476524 6.31653 0.841855 5.72652 1.32133 5.23683C1.86574 4.68099 2.59222 4.31667 3.64359 3.79152C3.68986 3.76842 3.73768 3.74593 3.7852 3.72218L9.84965 0.688977C9.88192 0.672891 9.91405 0.65685 9.94535 0.641125C10.498 0.364336 10.9338 0.14627 11.4034 0.0581172ZM12.0313 14.3257C11.6585 14.3257 11.3565 14.6277 11.3565 15.0005V20.0005C11.3567 20.3731 11.6587 20.6753 12.0313 20.6753C12.4039 20.6753 12.7058 20.3731 12.7061 20.0005V15.0005C12.7061 14.6277 12.4041 14.3257 12.0313 14.3257Z" fill="#3E5FFF"/>
+                <path fillRule="evenodd" clipRule="evenodd" d="M11.4034 0.0581172C11.8167 -0.0193988 12.2411 -0.019346 12.6543 0.0581172C13.1241 0.146271 13.5597 0.364329 14.1123 0.641125L20.2735 3.72218C20.3208 3.74585 20.368 3.76849 20.4141 3.79152C21.4655 4.3167 22.1919 4.68099 22.7364 5.23683C23.2159 5.72652 23.5812 6.3165 23.8047 6.96437C24.0584 7.69985 24.0581 8.51281 24.0577 9.688V14.2456C24.0577 15.9377 24.0578 17.2653 23.9707 18.3316C23.882 19.4172 23.6978 20.3145 23.2842 21.1265C22.6042 22.4611 21.5193 23.5459 20.1846 24.2261C19.3727 24.6399 18.4746 24.8249 17.3887 24.9136C16.3227 25.0006 14.9963 25.0005 13.3047 25.0005H10.7539C9.06207 25.0005 7.73518 25.0006 6.66899 24.9136C5.58314 24.8249 4.68504 24.6399 3.87309 24.2261C2.53861 23.546 1.45347 22.461 0.773478 21.1265C0.359854 20.3147 0.175668 19.4172 0.0869544 18.3316C-0.000130579 17.2653 4.02924e-05 15.9376 4.02924e-05 14.2456V9.688C-0.00044075 8.51283 -0.000630081 7.69984 0.25297 6.96437C0.476524 6.31653 0.841855 5.72652 1.32133 5.23683C1.86574 4.68099 2.59222 4.31667 3.64359 3.79152C3.68986 3.76842 3.73768 3.74593 3.7852 3.72218L9.84965 0.688977C9.88192 0.672891 9.91405 0.65685 9.94535 0.641125C10.498 0.364336 10.9338 0.14627 11.4034 0.0581172ZM12.0313 14.3257C11.6585 14.3257 11.3565 14.6277 11.3565 15.0005V20.0005C11.3567 20.3731 11.6587 20.6753 12.0313 20.6753C12.4039 20.6753 12.7058 20.3731 12.7061 20.0005V15.0005C12.7061 14.6277 12.4041 14.3257 12.0313 14.3257Z" fill="#8C00FF"/>
               </svg>
             </div>
             <span 
-              className="text-[#3E5FFF]"
+              className="text-[#8C00FF]"
               style={{ 
                 fontFamily: 'SF Pro', 
                 fontSize: '12px', 
@@ -367,7 +410,7 @@ export function HomePage({ onStartConversation }: HomePageProps) {
           <div className="flex flex-col items-center justify-center w-14">
             <div className="w-[30px] h-[30px] relative flex items-center justify-center">
               <svg width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M11.4521 0C12.2707 7.24412e-05 13.0498 0.190303 13.6455 0.536133L20.1484 4.28223C22.7823 6.05755 22.9385 6.32791 22.9385 9.09961V15.8984C22.9385 18.6764 22.7856 18.9456 20.21 20.6904L13.6816 24.4619C13.0771 24.8091 12.2951 25 11.4697 25C10.6443 25 9.86291 24.8087 9.26953 24.4619L2.79199 20.7285C0.15658 18.952 1.71146e-05 18.6821 0 15.9111V9.10059C0 6.32156 0.152833 6.05204 2.72852 4.30762L9.25781 0.536133C9.85368 0.190226 10.6335 0 11.4521 0ZM11.4746 9.375C9.74872 9.375 8.34961 10.7741 8.34961 12.5C8.34961 14.2259 9.74872 15.625 11.4746 15.625C13.2005 15.625 14.5996 14.2259 14.5996 12.5C14.5996 10.7741 13.2005 9.375 11.4746 9.375Z" fill="#515B70"/>
+                <path d="M11.4521 0C12.2707 7.24412e-05 13.0498 0.190303 13.6455 0.536133L20.1484 4.28223C22.7823 6.05755 22.9385 6.32791 22.9385 9.09961V15.8984C22.9385 18.6764 22.7856 18.9456 20.21 20.6904L13.6816 24.4619C13.0771 24.8091 12.2951 25 11.4697 25C10.6443 25 9.86291 24.8087 9.26953 24.4619L2.79199 20.7285C0.15658 18.952 1.71146e-05 18.6821 0 15.9111V9.10059C0 6.32156 0.152833 6.05204 2.72852 4.30762L9.25781 0.536133C9.85368 0.190226 10.6335 0 11.4521 0ZM11.4746 9.375C9.74872 9.375 8.34961 10.7741 8.34961 12.5C8.34961 14.2259 9.74872 15.625 11.4746 15.625C13.2005 15.625 14.5996 14.2259 14.5996 12.5C14.5996 10.7741 13.2005 9.375 11.4746 9.375Z" fill="#000000"/>
               </svg>
             </div>
             <span 

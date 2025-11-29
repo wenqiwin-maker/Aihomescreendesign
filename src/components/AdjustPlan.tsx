@@ -27,7 +27,7 @@ function Button() {
     <div className="h-[28px] relative rounded-[8px] shrink-0 w-[71.594px]" data-name="Button">
       <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border h-[28px] relative w-[71.594px]">
         <Icon />
-        <p className="absolute font-['Inter:Medium',sans-serif] font-medium leading-[20px] left-[36px] not-italic text-[#3E5FFF] text-[14px] text-nowrap top-[4.5px] tracking-[-0.1504px] whitespace-pre">Edit</p>
+        <p className="absolute font-['Inter:Medium',sans-serif] font-medium leading-[20px] left-[36px] not-italic text-[#8C00FF] text-[14px] text-nowrap top-[4.5px] tracking-[-0.1504px] whitespace-pre">Edit</p>
       </div>
     </div>
   );

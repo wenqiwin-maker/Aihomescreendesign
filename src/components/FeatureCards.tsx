@@ -39,7 +39,7 @@ export function FeatureCards() {
         
         {/* Chat with AI Card */}
         <div className="flex-1 h-[162px] rounded-2xl overflow-hidden relative">
-          <div className="absolute inset-0 bg-[#3E5FFF]" />
+          <div className="absolute inset-0 bg-[#8C00FF]" />
           <div className="relative z-10 p-4 flex flex-col h-full">
             <MessageSquare className="w-[58px] h-[58px] text-white mb-2" strokeWidth={1.5} />
             <div 

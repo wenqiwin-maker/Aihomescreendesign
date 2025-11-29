@@ -96,7 +96,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
               top: '0px',
               padding: '0px 0px 10px',
               zIndex: 50,
-              background: 'linear-gradient(180deg, #F3F4F6 0.59%, #ECEEF1 100%)',
+              background: 'rgb(242, 243, 245)',
               backdropFilter: 'blur(10px)',
               WebkitBackdropFilter: 'blur(10px)'
             }}
@@ -279,7 +279,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                     maxWidth: '285px',
                     padding: '10px 12px',
                     gap: '8px',
-                    background: 'rgba(62, 95, 255, 0.1)',
+                    background: 'rgba(131, 68, 204, 0.1)',
                     borderRadius: '18px 18px 0px 18px',
                     width: 'fit-content'
                   }}
@@ -339,7 +339,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                     maxWidth: '285px',
                     padding: '10px 12px',
                     gap: '8px',
-                    background: 'rgba(62, 95, 255, 0.1)',
+                    background: 'rgba(131, 68, 204, 0.1)',
                     borderRadius: '18px 18px 0px 18px',
                     width: 'fit-content'
                   }}
@@ -371,7 +371,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                       maxWidth: '285px',
                       padding: '10px 12px',
                       gap: '8px',
-                      background: message.sender === 'user' ? 'rgba(62, 95, 255, 0.1)' : '#FFFFFF',
+                      background: message.sender === 'user' ? 'rgba(131, 68, 204, 0.1)' : '#FFFFFF',
                       borderRadius: message.sender === 'user' ? '18px 18px 0px 18px' : '0px 18px 18px 18px',
                       width: 'fit-content'
                     }}

@@ -394,6 +394,7 @@ export function QuickSetup2({
                   lineHeight: "24px",
                   letterSpacing: "-0.3125px",
                   color: "#000000",
+                  whiteSpace: "nowrap",
                 }}
               >
                 + Advanced Setup (optional)
