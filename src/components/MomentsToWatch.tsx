@@ -125,9 +125,9 @@ function Button() {
   );
 }
 
-function Container3() {
+function Container3({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px]" data-name="Container">
+    <div onClick={onClick} className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px] cursor-pointer hover:bg-gray-50 transition-colors px-2 -mx-2" data-name="Container">
       <Container2 />
       <Button />
     </div>
@@ -188,9 +188,9 @@ function Button1() {
   );
 }
 
-function Container7() {
+function Container7({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px]" data-name="Container">
+    <div onClick={onClick} className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px] cursor-pointer hover:bg-gray-50 transition-colors px-2 -mx-2" data-name="Container">
       <Container6 />
       <Button1 />
     </div>
@@ -251,9 +251,9 @@ function Button2() {
   );
 }
 
-function Container11() {
+function Container11({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px]" data-name="Container">
+    <div onClick={onClick} className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px] cursor-pointer hover:bg-gray-50 transition-colors px-2 -mx-2" data-name="Container">
       <Container10 />
       <Button2 />
     </div>
@@ -314,46 +314,46 @@ function Button3() {
   );
 }
 
-function Container15() {
+function Container15({ onClick }: { onClick?: () => void }) {
   return (
-    <div className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px]" data-name="Container">
+    <div onClick={onClick} className="content-stretch flex h-[56px] items-center justify-between relative rounded-[10px] shrink-0 w-[298px] cursor-pointer hover:bg-gray-50 transition-colors px-2 -mx-2" data-name="Container">
       <Container14 />
       <Button3 />
     </div>
   );
 }
 
-function PostSimMicroReview() {
+function PostSimMicroReview({ onPlay }: { onPlay?: () => void }) {
   return (
     <div className="h-full relative shrink-0 w-[306px]" data-name="PostSimMicroReview">
       <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex flex-col gap-[8px] h-full items-start relative w-[306px]">
-        <Container3 />
-        <Container7 />
-        <Container11 />
-        <Container15 />
+        <Container3 onClick={onPlay} />
+        <Container7 onClick={onPlay} />
+        <Container11 onClick={onPlay} />
+        <Container15 onClick={onPlay} />
       </div>
     </div>
   );
 }
 
-function Card() {
+function Card({ onPlay }: { onPlay?: () => void }) {
   return (
     <div className="bg-white h-[274px] relative rounded-[14px] shadow-[0px_2px_4px_0px_rgba(0,0,0,0.1)] shrink-0 w-full" data-name="Card">
       <div className="size-full">
         <div className="box-border content-stretch flex gap-[12px] h-[274px] items-start px-[16px] py-[12px] relative w-full">
           <Frame2 />
-          <PostSimMicroReview />
+          <PostSimMicroReview onPlay={onPlay} />
         </div>
       </div>
     </div>
   );
 }
 
-export function MomentsToWatch() {
+export function MomentsToWatch({ onPlay }: { onPlay?: () => void }) {
   return (
     <div className="content-stretch flex flex-col gap-[12px] items-start relative w-full" data-name="Container">
       <Heading />
-      <Card />
+      <Card onPlay={onPlay} />
     </div>
   );
 }

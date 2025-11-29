@@ -9,6 +9,8 @@ import { SimulationSummary } from './components/SimulationSummary';
 import { AnimatePresence } from 'motion/react';
 import { Toaster } from './components/ui/sonner';
 
+import { PracticePlayback } from './components/PracticePlayback';
+
 interface Setup2FormData {
   goal: string;
   selectedPerson: string | null;
@@ -16,7 +18,7 @@ interface Setup2FormData {
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'setup' | 'setup2' | 'setup3' | 'review' | 'voiceChat' | 'summary'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'setup' | 'setup2' | 'setup3' | 'review' | 'voiceChat' | 'summary' | 'playback'>('home');
   const [setup2FormData, setSetup2FormData] = useState<Setup2FormData>({
     goal: '',
     selectedPerson: null,
@@ -45,7 +47,14 @@ export default function App() {
   }
 
   if (currentPage === 'review') {
-    return <PostSimMicroReview onClose={() => setCurrentPage('home')} onBack={() => setCurrentPage('setup2')} onStartPractice={() => setCurrentPage('voiceChat')} />;
+    return (
+      <PostSimMicroReview 
+        onClose={() => setCurrentPage('home')} 
+        onBack={() => setCurrentPage('setup2')} 
+        onStartPractice={() => setCurrentPage('voiceChat')} 
+        onWatchVideo={() => setCurrentPage('playback')}
+      />
+    );
   }
 
   if (currentPage === 'voiceChat') {
@@ -66,10 +75,17 @@ export default function App() {
     return (
       <div className="relative w-[390px] h-[844px] mx-auto overflow-hidden">
         <AnimatePresence mode="wait">
-          <SimulationSummary onClose={() => setCurrentPage('home')} />
+          <SimulationSummary 
+            onClose={() => setCurrentPage('home')} 
+            onPlay={() => setCurrentPage('playback')}
+          />
         </AnimatePresence>
       </div>
     );
+  }
+
+  if (currentPage === 'playback') {
+    return <PracticePlayback onBack={() => setCurrentPage('summary')} />;
   }
 
   return <HomePage onStartConversation={() => setCurrentPage('setup')} />;

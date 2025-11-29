@@ -11,9 +11,10 @@ import { BottomButton } from './BottomButton';
 
 interface SimulationSummaryProps {
   onClose: () => void;
+  onPlay?: () => void;
 }
 
-export function SimulationSummary({ onClose }: SimulationSummaryProps) {
+export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
   const handleDeleteRecording = () => {
@@ -171,7 +172,7 @@ export function SimulationSummary({ onClose }: SimulationSummaryProps) {
         <StrongerAlternatives />
 
         {/* Moments to Watch Section */}
-        <MomentsToWatch />
+        <MomentsToWatch onPlay={onPlay} />
 
         {/* Adjust Plan Section */}
         <AdjustPlan />
