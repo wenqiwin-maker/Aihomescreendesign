@@ -114,7 +114,7 @@ export function PostSimMicroReview({
   ];
 
   return (
-    <div className="relative w-full min-h-screen bg-[#F5F6FA]">
+    <div className="relative w-[390px] min-h-screen bg-[#F5F6FA] mx-auto">
       {/* Top Card - Sticky */}
       <div
         className="sticky top-0 z-50 bg-white overflow-hidden"

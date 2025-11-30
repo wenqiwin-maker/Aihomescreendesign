@@ -476,7 +476,7 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
 
       {/* Bottom Navigation - Floating */}
       <div 
-        className="fixed bottom-5 left-5 w-[350px]"
+        className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[350px]"
         style={{ 
           borderRadius: '42px',
           background: 'rgba(247, 247, 247, 0.85)',

@@ -37,7 +37,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       animate={{ y: 0 }}
       exit={{ y: '100%' }}
       transition={{ type: 'tween', duration: 0.4 }}
-      className="fixed inset-0 w-[390px] h-[844px] bg-[#f5f6fa] overflow-y-auto"
+      className="fixed inset-0 w-[390px] h-[844px] bg-[#f5f6fa] overflow-y-auto mx-auto left-0 right-0"
     >
       {/* Status Bar */}
       <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] h-[62px] bg-white" style={{ gap: '154px' }}>
@@ -183,7 +183,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       </div>
 
       {/* Bottom Action Bar */}
-      <div className="fixed bottom-0 left-0 w-[390px]">
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[390px]">
         <BottomButton onClick={onClose} />
       </div>
 
