@@ -1,7 +1,7 @@
 import { X } from "lucide-react";
 import { StatusBar } from "./StatusBar";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import optionButtonBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
 import workIcon from "figma:asset/49695633fb316040da977cf200fa479419e49388.png";
@@ -233,7 +233,7 @@ export function QuickSetup({
                       className="absolute inset-0 rounded-2xl"
                       initial={{ clipPath: "polygon(0 100%, 0 100%, 0 100%)" }}
                       animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                       style={{
                         backgroundImage: `url(${workBgHighlighted})`,
                         backgroundSize: "cover",
@@ -309,7 +309,7 @@ export function QuickSetup({
                       className="absolute inset-0 rounded-2xl"
                       initial={{ clipPath: "polygon(0 100%, 0 100%, 0 100%)" }}
                       animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
-                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                       style={{
                         backgroundImage: `url(${lifeBgHighlighted})`,
                         backgroundSize: "cover",

@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import { X, Sparkles } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface CaptionPopupProps {
   isOpen: boolean;
@@ -10,6 +11,33 @@ export function CaptionPopup({
   isOpen,
   onClose,
 }: CaptionPopupProps) {
+  const [loadingPhase, setLoadingPhase] = useState<'icon' | 'text' | 'complete'>('icon');
+
+  useEffect(() => {
+    if (isOpen) {
+      // Reset to icon phase when popup opens
+      setLoadingPhase('icon');
+      
+      // Phase 1: Icon rotation (0-1.5s)
+      const textTimer = setTimeout(() => {
+        setLoadingPhase('text');
+      }, 1500);
+      
+      // Phase 2: Text fade in (1.5-2.5s)
+      const completeTimer = setTimeout(() => {
+        setLoadingPhase('complete');
+      }, 2500);
+      
+      return () => {
+        clearTimeout(textTimer);
+        clearTimeout(completeTimer);
+      };
+    }
+  }, [isOpen]);
+
+  // Base delay for all animations after loading completes
+  const baseDelay = 2.5;
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -155,109 +183,28 @@ export function CaptionPopup({
               paddingBottom: "50px",
             }}
           >
-            {/* Section 1: Opening-Ask */}
-            <div className="mb-1 pb-[10px]">
-              {/* Title with dot */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 0.3 }}
-                className="flex flex-row items-center gap-3 mb-1"
-              >
-                <div
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    background: "#000000",
-                    borderRadius: "50%",
-                    flexShrink: 0,
+            {/* Loading State */}
+            {loadingPhase !== 'complete' && (
+              <div className="flex flex-col items-center justify-center gap-6 pt-20">
+                {/* Rotating Icon */}
+                <motion.div
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 1,
+                    repeat: Infinity,
+                    ease: "linear",
                   }}
-                />
-                <span
-                  style={{
-                    fontFamily: "SF Pro",
-                    fontWeight: 510,
-                    fontSize: "16px",
-                    lineHeight: "20px",
-                    letterSpacing: "-0.150391px",
-                    color: "#0A0A0A",
-                  }}
+                  className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-lg"
                 >
-                  Opening-Ask
-                </span>
-              </motion.div>
+                  <Sparkles size={24} className="text-[#8C00FF]" fill="#8C00FF" />
+                </motion.div>
 
-              {/* Line and bubbles container */}
-              <div className="flex flex-row gap-0">
-                {/* Vertical line */}
-                <div
-                  className="relative"
-                  style={{ width: "6px", flexShrink: 0 }}
-                >
-                  <motion.div
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{
-                      duration: 0.9,
-                      delay: 0.5,
-                      ease: "linear",
-                    }}
-                    style={{
-                      position: "absolute",
-                      left: "2px",
-                      top: "0px",
-                      width: "2px",
-                      bottom: "-10px",
-                      background: "rgba(233, 235, 243, 1)",
-                      transformOrigin: "top",
-                    }}
-                  />
-                </div>
-
-                {/* Bubbles */}
-                <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                  {/* chat-bubble-AI 1 */}
+                {/* Loading Text */}
+                {loadingPhase === 'text' && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.5 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      I'd like to discuss your promotion
-                      timeline. What are you thinking?
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-user 1 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 0.8 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
+                    transition={{ duration: 0.5 }}
                   >
                     <span
                       style={{
@@ -265,677 +212,592 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
+                        color: "#666666",
                       }}
                     >
-                      I'd like to apply for promotion from
-                      Senior Engineer to Staff Engineer in Q3.
+                      AI正在生成对话...
                     </span>
                   </motion.div>
-
-                  {/* chat-bubble-AI 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 1.1 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      That sounds like a great goal. Tell me why
-                      you think you're ready.
-                    </span>
-                  </motion.div>
-                </div>
+                )}
               </div>
-            </div>
+            )}
 
-            {/* Section 2: Evidence-Why */}
-            <div className="mb-1 pb-[10px]">
-              {/* Title with dot */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 1.5 }}
-                className="flex flex-row items-center gap-3 mb-1"
-              >
-                <div
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    background: "#000000",
-                    borderRadius: "50%",
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "SF Pro",
-                    fontWeight: 510,
-                    fontSize: "16px",
-                    lineHeight: "20px",
-                    letterSpacing: "-0.150391px",
-                    color: "#0A0A0A",
-                  }}
-                >
-                  Evidence-Why
-                </span>
-              </motion.div>
-
-              {/* Line and bubbles container */}
-              <div className="flex flex-row gap-0">
-                {/* Vertical line */}
-                <div
-                  className="relative"
-                  style={{ width: "6px", flexShrink: 0 }}
-                >
+            {/* Content - Only show when loading is complete */}
+            {loadingPhase === 'complete' && (
+              <>
+                {/* Section 1: Opening-Ask */}
+                <div className="mb-1 pb-[10px]">
+                  {/* Title with dot */}
                   <motion.div
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{
-                      duration: 1.8,
-                      delay: 1.7,
-                      ease: "linear",
-                    }}
-                    style={{
-                      position: "absolute",
-                      left: "2px",
-                      top: "0px",
-                      width: "2px",
-                      bottom: "-10px",
-                      background: "rgba(233, 235, 243, 1)",
-                      transformOrigin: "top",
-                    }}
-                  />
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 0.3 }}
+                    className="flex flex-row items-center gap-3 mb-1"
+                  >
+                    <div
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        background: "#000000",
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "SF Pro",
+                        fontWeight: 510,
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        letterSpacing: "-0.150391px",
+                        color: "#0A0A0A",
+                      }}
+                    >
+                      Opening-Ask
+                    </span>
+                  </motion.div>
+
+                  {/* Line and bubbles container */}
+                  <div className="flex flex-row gap-0">
+                    {/* Vertical line */}
+                    <div
+                      className="relative"
+                      style={{ width: "6px", flexShrink: 0 }}
+                    >
+                      <motion.div
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{
+                          duration: 0.9,
+                          delay: 0.5,
+                          ease: "linear",
+                        }}
+                        style={{
+                          position: "absolute",
+                          left: "2px",
+                          top: "0px",
+                          width: "2px",
+                          bottom: "-10px",
+                          background: "rgba(233, 235, 243, 1)",
+                          transformOrigin: "top",
+                        }}
+                      />
+                    </div>
+
+                    {/* Bubbles */}
+                    <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
+                      {/* chat-bubble-AI 1 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.5 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          I'd like to discuss your promotion
+                          timeline. What are you thinking?
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-user 1 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.8 }}
+                        className="flex flex-col justify-center items-end self-end"
+                        style={{
+                          maxWidth: "80%",
+                          padding: "10px 12px",
+                          background: "rgba(131, 68, 204, 0.1)",
+                          borderRadius: "18px 18px 0px 18px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            textAlign: "left",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          I'd like to apply for promotion from
+                          Senior Engineer to Staff Engineer in Q3.
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-AI 2 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 1.1 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          That sounds like a great goal. Tell me why
+                          you think you're ready.
+                        </span>
+                      </motion.div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Bubbles */}
-                <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                  {/* chat-bubble-AI 1 */}
+                {/* Section 2: Evidence-Why */}
+                <div className="mb-1 pb-[10px]">
+                  {/* Title with dot */}
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 1.7 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 1.5 }}
+                    className="flex flex-row items-center gap-3 mb-1"
                   >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    <div
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        background: "#000000",
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "SF Pro",
+                        fontWeight: 510,
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        letterSpacing: "-0.150391px",
+                        color: "#0A0A0A",
+                      }}
+                    >
+                      Evidence-Why
+                    </span>
+                  </motion.div>
+
+                  {/* Line and bubbles container */}
+                  <div className="flex flex-row gap-0">
+                    {/* Vertical line */}
+                    <div
+                      className="relative"
+                      style={{ width: "6px", flexShrink: 0 }}
+                    >
+                      <motion.div
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{
+                          duration: 1.8,
+                          delay: 1.7,
+                          ease: "linear",
+                        }}
+                        style={{
+                          position: "absolute",
+                          left: "2px",
+                          top: "0px",
+                          width: "2px",
+                          bottom: "-10px",
+                          background: "rgba(233, 235, 243, 1)",
+                          transformOrigin: "top",
+                        }}
+                      />
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Can you walk me through your key projects?
-                    </span>
-                  </motion.div>
 
-                  {/* chat-bubble-user 1 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.0 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      In the last two quarters, I led the
-                      payment system redesign project.
-                    </span>
-                  </motion.div>
+                    {/* Bubbles */}
+                    <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
+                      {/* chat-bubble-AI 1 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 1.7 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          Can you walk me through your key projects?
+                        </span>
+                      </motion.div>
 
-                  {/* chat-bubble-AI 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.3 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                      {/* chat-bubble-user 1 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 2.0 }}
+                        className="flex flex-col justify-center items-end self-end"
+                        style={{
+                          maxWidth: "80%",
+                          padding: "10px 12px",
+                          background: "rgba(131, 68, 204, 0.1)",
+                          borderRadius: "18px 18px 0px 18px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            textAlign: "left",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          In the last two quarters, I led the
+                          payment system redesign project.
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-AI 2 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 2.3 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          What were the results?
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-user 2 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 2.6 }}
+                        className="flex flex-col justify-center items-end self-end"
+                        style={{
+                          maxWidth: "80%",
+                          padding: "10px 12px",
+                          background: "rgba(131, 68, 204, 0.1)",
+                          borderRadius: "18px 18px 0px 18px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            textAlign: "left",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          We reduced transaction failures by 40% and
+                          increased throughput by 3x.
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-AI 3 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 2.9 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          What about cross-functional impact?
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-user 3 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 3.2 }}
+                        className="flex flex-col justify-center items-end self-end"
+                        style={{
+                          maxWidth: "80%",
+                          padding: "10px 12px",
+                          background: "rgba(131, 68, 204, 0.1)",
+                          borderRadius: "18px 18px 0px 18px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            textAlign: "left",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          I also mentored three junior engineers and
+                          they've all been promoted.
+                        </span>
+                      </motion.div>
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      What were the results?
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-user 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.6 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      We reduced transaction failures by 40% and
-                      increased throughput by 3x.
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-AI 3 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 2.9 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      What about cross-functional impact?
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-user 3 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 3.2 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      I also mentored three junior engineers and
-                      they've all been promoted.
-                    </span>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 3: Next steps */}
-            <div className="mb-1 pb-[10px]">
-              {/* Title with dot */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 3.6 }}
-                className="flex flex-row items-center gap-3 mb-1"
-              >
-                <div
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    background: "#000000",
-                    borderRadius: "50%",
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "SF Pro",
-                    fontWeight: 510,
-                    fontSize: "16px",
-                    lineHeight: "20px",
-                    letterSpacing: "-0.150391px",
-                    color: "#0A0A0A",
-                  }}
-                >
-                  Next steps
-                </span>
-              </motion.div>
-
-              {/* Line and bubbles container */}
-              <div className="flex flex-row gap-0">
-                {/* Vertical line */}
-                <div
-                  className="relative"
-                  style={{ width: "6px", flexShrink: 0 }}
-                >
-                  <motion.div
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{
-                      duration: 1.5,
-                      delay: 3.8,
-                      ease: "linear",
-                    }}
-                    style={{
-                      position: "absolute",
-                      left: "2px",
-                      top: "0px",
-                      width: "2px",
-                      bottom: "-10px",
-                      background: "rgba(233, 235, 243, 1)",
-                      transformOrigin: "top",
-                    }}
-                  />
-                </div>
-
-                {/* Bubbles */}
-                <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                  {/* chat-bubble-AI 1 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 3.8 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Let's start with the formal review
-                      process. When would you like to submit?
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-user 1 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 4.1 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      I'd like to submit by end of this month
-                      for Q3 review.
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-AI 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 4.4 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      That works. You'll need to prepare your
-                      packet and get peer reviews.
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-user 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 4.7 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Can you confirm the review committee and
-                      timeline?
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-AI 3 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 5.0 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                    </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Yes, I'll send you the details by Friday.
-                    </span>
-                  </motion.div>
-                </div>
-              </div>
-            </div>
-
-            {/* Section 4: Ending */}
-            <div className="pb-[10px]">
-              {/* Title with dot */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3, delay: 5.4 }}
-                className="flex flex-row items-center gap-3 mb-1"
-              >
-                <div
-                  style={{
-                    width: "6px",
-                    height: "6px",
-                    background: "#000000",
-                    borderRadius: "50%",
-                    flexShrink: 0,
-                  }}
-                />
-                <span
-                  style={{
-                    fontFamily: "SF Pro",
-                    fontWeight: 510,
-                    fontSize: "16px",
-                    lineHeight: "20px",
-                    letterSpacing: "-0.150391px",
-                    color: "#0A0A0A",
-                  }}
-                >
-                  Ending
-                </span>
-              </motion.div>
-
-              {/* Line and bubbles container */}
-              <div className="flex flex-row gap-0">
-                {/* Vertical line */}
-                <div
-                  className="relative"
-                  style={{ width: "6px", flexShrink: 0 }}
-                >
-                  <motion.div
-                    initial={{ scaleY: 0 }}
-                    animate={{ scaleY: 1 }}
-                    transition={{
-                      duration: 1.2,
-                      delay: 5.6,
-                      ease: "linear",
-                    }}
-                    style={{
-                      position: "absolute",
-                      left: "2px",
-                      top: "0px",
-                      width: "2px",
-                      bottom: "-10px",
-                      background: "rgba(233, 235, 243, 1)",
-                      transformOrigin: "top",
-                    }}
-                  />
+                  </div>
                 </div>
 
-                {/* Bubbles */}
-                <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                  {/* chat-bubble-AI 1 */}
+                {/* Section 3: Next steps */}
+                <div className="mb-1 pb-[10px]">
+                  {/* Title with dot */}
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 5.6 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.3, delay: 3.6 }}
+                    className="flex flex-row items-center gap-3 mb-1"
                   >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    <div
+                      style={{
+                        width: "6px",
+                        height: "6px",
+                        background: "#000000",
+                        borderRadius: "50%",
+                        flexShrink: 0,
+                      }}
+                    />
+                    <span
+                      style={{
+                        fontFamily: "SF Pro",
+                        fontWeight: 510,
+                        fontSize: "16px",
+                        lineHeight: "20px",
+                        letterSpacing: "-0.150391px",
+                        color: "#0A0A0A",
+                      }}
+                    >
+                      Next steps
+                    </span>
+                  </motion.div>
+
+                  {/* Line and bubbles container */}
+                  <div className="flex flex-row gap-0">
+                    {/* Vertical line */}
+                    <div
+                      className="relative"
+                      style={{ width: "6px", flexShrink: 0 }}
+                    >
+                      <motion.div
+                        initial={{ scaleY: 0 }}
+                        animate={{ scaleY: 1 }}
+                        transition={{
+                          duration: 1.5,
+                          delay: 3.8,
+                          ease: "linear",
+                        }}
+                        style={{
+                          position: "absolute",
+                          left: "2px",
+                          top: "0px",
+                          width: "2px",
+                          bottom: "-10px",
+                          background: "rgba(233, 235, 243, 1)",
+                          transformOrigin: "top",
+                        }}
+                      />
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      I'm confident in your readiness for this
-                      promotion.
-                    </span>
-                  </motion.div>
 
-                  {/* chat-bubble-user 1 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 5.9 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Thank you for your support. I appreciate
-                      the guidance.
-                    </span>
-                  </motion.div>
+                    {/* Bubbles */}
+                    <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
+                      {/* chat-bubble-AI 1 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 3.8 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          Let's start with the formal review
+                          process. When would you like to submit?
+                        </span>
+                      </motion.div>
 
-                  {/* chat-bubble-AI 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 6.2 }}
-                    className="flex flex-row items-start gap-3 self-start"
-                    style={{
-                      maxWidth: "100%",
-                      padding: "0px",
-                      background: "transparent",
-                    }}
-                  >
-                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                      {/* chat-bubble-user 1 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 4.1 }}
+                        className="flex flex-col justify-center items-end self-end"
+                        style={{
+                          maxWidth: "80%",
+                          padding: "10px 12px",
+                          background: "rgba(131, 68, 204, 0.1)",
+                          borderRadius: "18px 18px 0px 18px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            textAlign: "left",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          I'd like to submit by end of this month
+                          for Q3 review.
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-AI 2 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 4.4 }}
+                        className="flex flex-row items-start gap-3 self-start"
+                        style={{
+                          maxWidth: "100%",
+                          padding: "0px",
+                          background: "transparent",
+                        }}
+                      >
+                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                        </div>
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          That works. You'll need to prepare your
+                          packet and get peer reviews.
+                        </span>
+                      </motion.div>
+
+                      {/* chat-bubble-user 2 */}
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 4.7 }}
+                        className="flex flex-col justify-center items-end self-end"
+                        style={{
+                          maxWidth: "80%",
+                          padding: "10px 12px",
+                          background: "rgba(131, 68, 204, 0.1)",
+                          borderRadius: "18px 18px 0px 18px",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "SF Pro",
+                            fontWeight: 400,
+                            fontSize: "16px",
+                            lineHeight: "22px",
+                            textAlign: "left",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          I'll get started on that this week.
+                        </span>
+                      </motion.div>
                     </div>
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Let me know if you need anything.
-                    </span>
-                  </motion.div>
-
-                  {/* chat-bubble-user 2 */}
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: 6.5 }}
-                    className="flex flex-col justify-center items-end self-end"
-                    style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "rgba(131, 68, 204, 0.1)",
-                      borderRadius: "18px 18px 0px 18px",
-                    }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        textAlign: "left",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      I'll start on the packet this week.
-                    </span>
-                  </motion.div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </motion.div>
       )}

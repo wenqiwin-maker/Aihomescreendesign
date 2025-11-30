@@ -1,7 +1,7 @@
 import { X, ChevronDown, ChevronUp, Play } from "lucide-react";
 import { StatusBar } from "./StatusBar";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import blufIcon from "figma:asset/c152f6ddc8f8cc8dd8ffc69c0a41a52dff0c6f72.png";
 import starIcon from "figma:asset/b263585bdaba08a84842c9aaa8c1a9b4d330bda8.png";

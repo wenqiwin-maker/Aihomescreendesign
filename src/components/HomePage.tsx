@@ -4,6 +4,7 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { AuroraBackground } from './AuroraBackground';
 import { motion } from 'motion/react';
 import { useState, useEffect } from 'react';
+import { Settings as SettingsPage } from './Settings';
 
 interface HomePageProps {
   onStartConversation: () => void;
@@ -14,6 +15,7 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [titleText, setTitleText] = useState('');
   const [descText, setDescText] = useState('');
+  const [currentPage, setCurrentPage] = useState<'home' | 'settings'>('home');
   
   const fullTitle = "I'm SimTalk";
   const fullDesc = "Your space to rehearse important conversations";
@@ -57,6 +59,11 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
     setTimeout(() => setIsPressed(false), 600);
     onStartConversation();
   };
+
+  // Show Settings page if selected
+  if (currentPage === 'settings') {
+    return <SettingsPage onBack={() => setCurrentPage('home')} />;
+  }
 
   return (
     <div className="relative w-[390px] h-[844px] mx-auto overflow-hidden bg-white">
@@ -533,7 +540,10 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
           <div className="w-14 h-14" />
 
           {/* Settings */}
-          <div className="flex flex-col items-center justify-center w-14">
+          <button 
+            onClick={() => setCurrentPage('settings')}
+            className="flex flex-col items-center justify-center w-14"
+          >
             <div className="w-[30px] h-[30px] relative flex items-center justify-center">
               <svg width="23" height="25" viewBox="0 0 23 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.4521 0C12.2707 7.24412e-05 13.0498 0.190303 13.6455 0.536133L20.1484 4.28223C22.7823 6.05755 22.9385 6.32791 22.9385 9.09961V15.8984C22.9385 18.6764 22.7856 18.9456 20.21 20.6904L13.6816 24.4619C13.0771 24.8091 12.2951 25 11.4697 25C10.6443 25 9.86291 24.8087 9.26953 24.4619L2.79199 20.7285C0.15658 18.952 1.71146e-05 18.6821 0 15.9111V9.10059C0 6.32156 0.152833 6.05204 2.72852 4.30762L9.25781 0.536133C9.85368 0.190226 10.6335 0 11.4521 0ZM11.4746 9.375C9.74872 9.375 8.34961 10.7741 8.34961 12.5C8.34961 14.2259 9.74872 15.625 11.4746 15.625C13.2005 15.625 14.5996 14.2259 14.5996 12.5C14.5996 10.7741 13.2005 9.375 11.4746 9.375Z" fill="#000000"/>
@@ -550,7 +560,7 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             >
               Me
             </span>
-          </div>
+          </button>
         </div>
       </div>
 
