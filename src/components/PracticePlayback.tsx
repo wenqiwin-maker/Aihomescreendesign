@@ -6,6 +6,7 @@ import {
   Target,
   Flag,
   MessageSquare,
+  Sparkles,
 } from "lucide-react";
 import imgImageAiCharacter from "figma:asset/90d021ade914fe47e4dd2fdd3fc4a07e9d6c5450.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -220,26 +221,46 @@ export function PracticePlayback({
         <div className="flex-1 overflow-y-auto p-5 bg-[#F5F6FA]">
           <div className="flex flex-col gap-6">
             {chatHistory.map((msg, idx) => (
-              <div key={idx} className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between px-1">
-                  <span
-                    className={`text-xs font-semibold tracking-wide ${msg.speaker === "You" ? "text-[#8C00FF]" : "text-gray-500"}`}
-                  >
-                    {msg.speaker}
-                  </span>
-                  <span className="text-[11px] text-gray-400 tabular-nums">
-                    {msg.time}
-                  </span>
-                </div>
-                <div
-                  className={`p-3.5 rounded-2xl text-[15px] leading-relaxed shadow-sm border ${
-                    msg.speaker === "You"
-                      ? "bg-white border-gray-100 text-gray-900 rounded-tl-sm"
-                      : "bg-white border-gray-100 text-gray-900 rounded-tr-sm"
-                  }`}
-                >
-                  {msg.text}
-                </div>
+              <div
+                key={idx}
+                className={`flex flex-col gap-1 ${
+                  msg.speaker === "You" ? "items-end" : "items-start"
+                }`}
+              >
+                {msg.speaker === "You" ? (
+                  // User Message (Right)
+                  <>
+                    <div
+                      className="p-[10px_12px] max-w-[85%] rounded-[18px_18px_0px_18px] bg-[#8344CC]/10"
+                    >
+                      <span className="text-[16px] leading-[22px] tracking-[-0.15px] text-[#0A0A0A] text-left font-normal font-['SF_Pro'] block">
+                        {msg.text}
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-gray-400 tabular-nums mr-1">
+                      {msg.time}
+                    </span>
+                  </>
+                ) : (
+                  // AI Message (Left)
+                  <>
+                    <div className="flex flex-row items-start gap-3 max-w-full">
+                      <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                        <Sparkles
+                          size={14}
+                          className="text-[#8C00FF]"
+                          fill="#8C00FF"
+                        />
+                      </div>
+                      <span className="text-[16px] leading-[22px] tracking-[-0.15px] text-[#0A0A0A] text-left font-normal font-['SF_Pro'] pt-0.5">
+                        {msg.text}
+                      </span>
+                    </div>
+                    <span className="text-[11px] text-gray-400 tabular-nums ml-11">
+                      {msg.time}
+                    </span>
+                  </>
+                )}
               </div>
             ))}
 

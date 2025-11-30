@@ -8,8 +8,7 @@ import { KeyboardInput } from "./KeyboardInput";
 import { CaptionPopup } from "./CaptionPopup";
 import { TagPopup } from "./TagPopup";
 import { UploadPopup } from "./UploadPopup";
-import videoIcon from "figma:asset/6caa8856c8cea93d878e2617e611ab5478ffd1aa.png";
-import { toast } from "sonner";
+import Keynote1 from "../imports/Keynote";
 
 interface VoiceChatProps {
   onClose: () => void;
@@ -23,6 +22,12 @@ export interface Message {
   timestamp: Date;
 }
 
+export interface Tag {
+  position: number;
+  text: string;
+  timestamp: string;
+}
+
 export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
   const [speed, setSpeed] = useState("1x");
   const [isChatPopupOpen, setIsChatPopupOpen] = useState(false);
@@ -34,8 +39,9 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
   const [isUploadPopupOpen, setIsUploadPopupOpen] =
     useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  const [tags, setTags] = useState<number[]>([]); // Tag positions in percentage
+  const [tags, setTags] = useState<Tag[]>([]); // Tag objects with position and text
   const [currentTagText, setCurrentTagText] = useState("");
+  const [activeTagIndex, setActiveTagIndex] = useState<number | null>(null);
   const [currentTime, setCurrentTime] = useState(0); // Current playback time in seconds (0-120)
 
   const totalDuration = 120; // 2 minutes in seconds
@@ -62,10 +68,23 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
   };
 
   const handleAddTag = () => {
-    // Add a tag at current progress position (42% for demo)
+    // Add a tag at current progress position
     const newTagPosition = (currentTime / totalDuration) * 100;
-    // Allow unlimited tags at the same position
-    setTags([...tags, newTagPosition]);
+    
+    const minutes = Math.floor(currentTime / 60);
+    const seconds = currentTime % 60;
+    const timeString = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    
+    const newTag: Tag = {
+      position: newTagPosition,
+      text: "",
+      timestamp: timeString
+    };
+
+    const newTags = [...tags, newTag];
+    setTags(newTags);
+    setActiveTagIndex(newTags.length - 1);
+
     setIsTagPopupOpen(true);
     setCurrentTagText(""); // Reset text for new tag
   };
@@ -78,19 +97,17 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
   };
 
   const handleSendTagNote = (text: string) => {
-    if (text.trim()) {
-      // Calculate the time position (42% of total duration, assuming 10 minutes)
-      const totalDuration = 10 * 60; // 10 minutes in seconds
-      const currentPosition = 42;
-      const timeInSeconds = Math.floor(
-        (currentPosition / 100) * totalDuration,
-      );
-      const minutes = Math.floor(timeInSeconds / 60);
-      const seconds = timeInSeconds % 60;
-      const timeString = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    if (text.trim() && activeTagIndex !== null) {
+      // Update the specific tag
+      const newTags = [...tags];
+      newTags[activeTagIndex] = {
+        ...newTags[activeTagIndex],
+        text: text
+      };
+      setTags(newTags);
 
       // Show toast notification
-      toast.success(`Tag saved at ${timeString}`, {
+      toast.success(`Tag saved at ${newTags[activeTagIndex].timestamp}`, {
         duration: 3000,
         style: {
           fontFamily: "SF Pro",
@@ -103,6 +120,7 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
       setIsTagPopupOpen(false);
       setIsTagKeyboardOpen(false);
       setCurrentTagText("");
+      setActiveTagIndex(null);
     }
   };
 
@@ -110,6 +128,7 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
     setIsTagPopupOpen(false);
     setIsTagKeyboardOpen(false);
     setCurrentTagText(""); // Reset text when closing
+    setActiveTagIndex(null);
   };
 
   const handleTagInputFocus = () => {
@@ -314,14 +333,20 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
               </span>
             </div>
             {/* Tags on Progress Bar */}
-            {tags.map((tagPosition, index) => (
+            {tags.map((tag, index) => (
               <div
                 key={index}
-                className="absolute"
+                className="absolute cursor-pointer"
                 style={{
-                  left: `${tagPosition}%`,
+                  left: `${tag.position}%`,
                   top: "-27px",
                   transform: "translateX(-50%)",
+                  zIndex: 30 // Ensure clickable above other elements
+                }}
+                onClick={() => {
+                    setActiveTagIndex(index);
+                    setCurrentTagText(tag.text);
+                    setIsTagPopupOpen(true);
                 }}
               >
                 <svg
@@ -358,7 +383,7 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
               {(() => {
                 const currentProgress =
                   (currentTime / totalDuration) * 100;
-                const uniqueTags = [...new Set(tags)].sort(
+                const uniqueTags = [...new Set(tags.map(t => t.position))].sort(
                   (a, b) => a - b,
                 );
                 const segments: Array<{
@@ -547,7 +572,7 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
               </svg>
             </button>
 
-            {/* Upload/Share Button */}
+            {/* Upload Button */}
             <button
               onClick={() => setIsUploadPopupOpen(true)}
               className="flex items-center justify-center rounded-full bg-white"
@@ -555,21 +580,15 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
                 width: "48px",
                 height: "48px",
                 boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
+                padding: 0
               }}
             >
-              <svg
-                width="22"
-                height="22"
-                viewBox="276 15 22 22"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M287 15C288.445 15 289.875 15.2841 291.21 15.8369C292.544 16.3897 293.757 17.2003 294.778 18.2217C295.8 19.2431 296.61 20.4555 297.163 21.79C297.716 23.1246 298 24.5555 298 26C298 27.4445 297.716 28.8754 297.163 30.21L296.943 30.7041C296.404 31.8442 295.672 32.8846 294.778 33.7783L294.387 34.1514C293.452 34.9983 292.378 35.6794 291.21 36.1631L290.705 36.3574C289.517 36.7823 288.264 37 287 37C285.736 37 284.483 36.7823 283.295 36.3574L282.79 36.1631C281.622 35.6794 280.548 34.9983 279.613 34.1514L279.222 33.7783C278.328 32.8846 277.596 31.8442 277.057 30.7041L276.837 30.21C276.284 28.8754 276 27.4445 276 26C276 24.5555 276.284 23.1246 276.837 21.79C277.39 20.4555 278.2 19.2431 279.222 18.2217C280.243 17.2003 281.456 16.3897 282.79 15.8369C284.125 15.2841 285.555 15 287 15ZM287 16.3301C285.73 16.3301 284.473 16.5805 283.3 17.0664C282.127 17.5524 281.06 18.2642 280.162 19.1621C279.264 20.0601 278.552 21.1266 278.066 22.2998C277.58 23.473 277.33 24.7302 277.33 26C277.33 27.2698 277.58 28.527 278.066 29.7002C278.552 30.8734 279.264 31.9399 280.162 32.8379C281.06 33.7358 282.127 34.4476 283.3 34.9336C284.473 35.4195 285.73 35.6699 287 35.6699C288.27 35.6699 289.527 35.4195 290.7 34.9336C291.873 34.4476 292.94 33.7358 293.838 32.8379C294.736 31.9399 295.448 30.8734 295.934 29.7002C296.42 28.527 296.67 27.2698 296.67 26C296.67 24.7302 296.42 23.473 295.934 22.2998C295.448 21.1266 294.736 20.0601 293.838 19.1621C292.94 18.2642 291.873 17.5524 290.7 17.0664C289.527 16.5805 288.27 16.3301 287 16.3301ZM291.75 24.957L290.81 25.8975L287.83 22.918V30H286.5V22.7324L283.336 25.8975L282.396 24.957L287.072 20.2793L291.75 24.957Z"
-                  fill="black"
-                />
-              </svg>
+              <div className="w-full h-full">
+                <Keynote1 />
+              </div>
             </button>
+
+
           </div>
 
           {/* Mention - Bottom spacing */}
@@ -652,6 +671,7 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
         onTagInputFocus={handleTagInputFocus}
         isTagKeyboardOpen={isTagKeyboardOpen}
         onSendTagNote={handleSendTagNote}
+        onUpload={() => setIsUploadPopupOpen(true)}
       />
 
       {/* Keyboard Input for Tag - When Tag Popup is open */}
@@ -659,6 +679,7 @@ export function VoiceChat({ onClose, onBack }: VoiceChatProps) {
         isOpen={isTagKeyboardOpen}
         onSendMessage={handleSendTagNote}
         onClose={() => setIsTagKeyboardOpen(false)}
+        showInput={false}
       />
 
       {/* Upload Popup */}

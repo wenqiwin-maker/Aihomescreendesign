@@ -74,7 +74,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       </div>
 
       {/* Toolbar */}
-      <div className="flex justify-between items-start px-4 pb-[10px] h-[54px] bg-white">
+      <div className="sticky top-0 z-50 flex justify-between items-start px-4 pb-[10px] h-[54px] bg-white">
         {/* Left Icons */}
         <div className="flex flex-row items-center gap-3">
           {/* Download Button */}
@@ -119,7 +119,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
           </button>
         </div>
         
-        <div className="absolute left-1/2 -translate-x-1/2 top-[75px]">
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
           <h1 
             className="text-[#333333] text-center"
             style={{ 

@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "motion/react";
-import { X } from "lucide-react";
+import { X, Sparkles } from "lucide-react";
 
 interface CaptionPopupProps {
   isOpen: boolean;
@@ -221,14 +221,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 0.5 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -263,7 +265,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -278,14 +280,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 1.1 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -370,14 +374,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 1.7 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -411,7 +417,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -426,14 +432,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 2.3 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -467,7 +475,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -482,14 +490,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 2.9 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -523,7 +533,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -602,14 +612,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 3.8 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -644,7 +656,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -659,14 +671,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 4.4 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -701,7 +715,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -716,14 +730,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 5.0 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -807,14 +823,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 5.6 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -849,7 +867,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}
@@ -864,14 +882,16 @@ export function CaptionPopup({
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3, delay: 6.2 }}
-                    className="flex flex-col justify-center items-start self-start"
+                    className="flex flex-row items-start gap-3 self-start"
                     style={{
-                      maxWidth: "80%",
-                      padding: "10px 12px",
-                      background: "#FFFFFF",
-                      borderRadius: "0px 18px 18px 18px",
+                      maxWidth: "100%",
+                      padding: "0px",
+                      background: "transparent",
                     }}
                   >
+                    <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                      <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                    </div>
                     <span
                       style={{
                         fontFamily: "SF Pro",
@@ -905,7 +925,7 @@ export function CaptionPopup({
                         fontWeight: 400,
                         fontSize: "16px",
                         lineHeight: "22px",
-                        textAlign: "right",
+                        textAlign: "left",
                         letterSpacing: "-0.150391px",
                         color: "#0A0A0A",
                       }}

@@ -329,8 +329,8 @@ export function QuickSetup2({
                     type="text"
                     value={date ? format(date, "PPP") : ""}
                     readOnly
-                    placeholder=""
-                    className="flex-1 outline-none bg-transparent cursor-pointer"
+                    placeholder="Select date"
+                    className="flex-1 outline-none bg-transparent cursor-pointer placeholder:text-[#99A1AF]"
                     style={{
                       fontFamily: "SF Pro",
                       fontSize: "16px",

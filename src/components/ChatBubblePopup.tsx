@@ -1,5 +1,5 @@
 import { motion, AnimatePresence, useAnimation } from 'motion/react';
-import { X } from 'lucide-react';
+import { X, Sparkles } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 
 interface Message {
@@ -185,7 +185,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                     fontSize: '17px',
                     lineHeight: '22px',
                     textAlign: 'center',
-                    letterSpacing: '-0.43px',
+                    letterSpacing: "-0.43px",
                     color: '#333333',
                     mixBlendMode: 'plus-darker',
                     whiteSpace: 'nowrap'
@@ -239,21 +239,21 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
 
               {/* Static Demo Chat Bubbles Container with iMessage-style animation */}
               <div className="w-full pl-[45px] pr-[20px]">
-                {/* Chat Bubble 1 - User */}
+                {/* Chat Bubble 1 - AI (Left, No Bubble, Icon) */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.2 }}
-                  className="flex flex-col justify-center items-start mb-3"
+                  className="flex flex-row items-start gap-3 mb-3"
                   style={{
-                    maxWidth: '285px',
-                    padding: '10px 12px',
-                    gap: '8px',
-                    background: '#FFFFFF',
-                    borderRadius: '0px 18px 18px 18px',
-                    width: 'fit-content'
+                    maxWidth: '100%',
+                    padding: '0px',
+                    background: 'transparent'
                   }}
                 >
+                  <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                    <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                  </div>
                   <span
                     style={{
                       fontFamily: 'SF Pro',
@@ -269,7 +269,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                   </span>
                 </motion.div>
 
-                {/* Chat Bubble 2 - AI */}
+                {/* Chat Bubble 2 - User (Right, Bubble, Left-aligned text) */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -292,28 +292,28 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                       lineHeight: '22px',
                       letterSpacing: '-0.150391px',
                       color: '#0A0A0A',
-                      textAlign: 'right'
+                      textAlign: 'left'
                     }}
                   >
                     Ok, Let's start
                   </span>
                 </motion.div>
 
-                {/* Chat Bubble 3 - User */}
+                {/* Chat Bubble 3 - AI (Left, No Bubble, Icon) */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.3, delay: 0.8 }}
-                  className="flex flex-col justify-center items-start mb-3"
+                  className="flex flex-row items-start gap-3 mb-3"
                   style={{
-                    maxWidth: '285px',
-                    padding: '10px 12px',
-                    gap: '8px',
-                    background: '#FFFFFF',
-                    borderRadius: '0px 18px 18px 18px',
-                    width: 'fit-content'
+                    maxWidth: '100%',
+                    padding: '0px',
+                    background: 'transparent'
                   }}
                 >
+                   <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                    <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                  </div>
                   <span
                     style={{
                       fontFamily: 'SF Pro',
@@ -329,7 +329,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                   </span>
                 </motion.div>
 
-                {/* Chat Bubble 4 - AI */}
+                {/* Chat Bubble 4 - User (Right, Bubble, Left-aligned text) */}
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -352,7 +352,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                       lineHeight: '22px',
                       letterSpacing: '-0.150391px',
                       color: '#0A0A0A',
-                      textAlign: 'right'
+                      textAlign: 'left'
                     }}
                   >
                     I'd like to apply for Promotion from Senior Eng to Staff Eng in Q3.
@@ -366,16 +366,21 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.3 }}
-                    className={`flex flex-col justify-center mb-3 ${message.sender === 'user' ? 'items-end ml-auto' : 'items-start'}`}
+                    className={`flex ${message.sender === 'user' ? 'flex-col items-end ml-auto' : 'flex-row items-start gap-3'} mb-3`}
                     style={{
-                      maxWidth: '285px',
-                      padding: '10px 12px',
-                      gap: '8px',
-                      background: message.sender === 'user' ? 'rgba(131, 68, 204, 0.1)' : '#FFFFFF',
-                      borderRadius: message.sender === 'user' ? '18px 18px 0px 18px' : '0px 18px 18px 18px',
-                      width: 'fit-content'
+                      maxWidth: message.sender === 'user' ? '285px' : '100%',
+                      padding: message.sender === 'user' ? '10px 12px' : '0px',
+                      gap: message.sender === 'user' ? '8px' : '12px',
+                      background: message.sender === 'user' ? 'rgba(131, 68, 204, 0.1)' : 'transparent',
+                      borderRadius: message.sender === 'user' ? '18px 18px 0px 18px' : '0px',
+                      width: message.sender === 'user' ? 'fit-content' : '100%'
                     }}
                   >
+                    {message.sender === 'ai' && (
+                      <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
+                        <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+                      </div>
+                    )}
                     <span
                       style={{
                         fontFamily: 'SF Pro',
@@ -384,7 +389,7 @@ export function ChatBubblePopup({ isOpen, onClose, messages }: ChatBubblePopupPr
                         lineHeight: '22px',
                         letterSpacing: '-0.150391px',
                         color: '#0A0A0A',
-                        textAlign: message.sender === 'user' ? 'right' : 'left'
+                        textAlign: 'left'
                       }}
                     >
                       {message.text}
