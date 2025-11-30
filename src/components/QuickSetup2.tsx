@@ -12,7 +12,7 @@ import {
   PopoverTrigger,
 } from "./ui/popover";
 import { format } from "date-fns";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import optionButtonBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
 
 interface Setup2FormData {
@@ -183,7 +183,13 @@ export function QuickSetup2({
         style={{ paddingBottom: "36px" }}
       >
         {/* Title */}
-        <div className="flex flex-col" style={{ gap: "4px" }}>
+        <motion.div
+          className="flex flex-col"
+          style={{ gap: "4px" }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+        >
           <h2
             style={{
               fontFamily: "SF Pro",
@@ -207,10 +213,24 @@ export function QuickSetup2({
             AI will play your manager, client, or partner to
             help you practice before the real talk
           </p>
-        </div>
+        </motion.div>
 
         {/* Form Fields */}
-        <div className="flex flex-col gap-[42px]">
+        <motion.div
+          className="flex flex-col gap-[42px]"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2,
+              },
+            },
+          }}
+        >
           {/* What do you want to achieve? */}
           <div className="flex flex-col gap-3">
             <label
@@ -261,29 +281,36 @@ export function QuickSetup2({
                 "Direct Report",
                 "Client",
               ].map((person) => (
-                <button
+                <motion.button
                   key={person}
                   onClick={() => setSelectedPerson(person)}
-                  className="flex justify-center items-center px-3.5 py-3.5 h-[47px] rounded-3xl border transition-all overflow-hidden"
+                  className="flex justify-center items-center px-3.5 py-3.5 h-[47px] rounded-3xl border transition-all overflow-hidden relative"
+                  whileTap={{ scale: 0.97 }}
                   style={{
                     borderColor:
                       selectedPerson === person
                         ? "transparent"
                         : "#E9EBF3",
-                    backgroundImage:
-                      selectedPerson === person
-                        ? `url(${optionButtonBg})`
-                        : "none",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundColor:
-                      selectedPerson === person
-                        ? "transparent"
-                        : "#FFFFFF",
+                    backgroundColor: "#FFFFFF",
                     width: "170px",
                   }}
                 >
+                  {/* Animated Background */}
+                  {selectedPerson === person && (
+                    <motion.div
+                      className="absolute inset-0"
+                      initial={{ clipPath: "polygon(0 100%, 0 100%, 0 100%)" }}
+                      animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+                      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                      style={{
+                        backgroundImage: `url(${optionButtonBg})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                  )}
                   <span
+                    className="relative z-10"
                     style={{
                       fontFamily: "SF Compact",
                       fontSize: "16px",
@@ -293,11 +320,12 @@ export function QuickSetup2({
                         selectedPerson === person
                           ? "#FFFFFF"
                           : "rgba(0, 0, 0, 0.9)",
+                      transition: "color 0.3s ease",
                     }}
                   >
                     {person}
                   </span>
-                </button>
+                </motion.button>
               ))}
             </div>
           </div>
@@ -417,7 +445,7 @@ export function QuickSetup2({
               Fine-tune your practice session for maximum impact
             </p>
           </div>
-        </div>
+        </motion.div>
 
         {/* Start Practice Button */}
         <button

@@ -1,6 +1,7 @@
 import { Sparkles, Plus, AlertCircle, X } from "lucide-react";
 import { StatusBar } from "./StatusBar";
 import { useState, useRef } from "react";
+import { motion } from "motion/react";
 import { Textarea } from "./ui/textarea";
 import selectedBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
 import visualStyleSelectedBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
@@ -349,12 +350,17 @@ export function QuickSetup3({
                   Things you need to be careful about
                 </p>
               </div>
-              <div
+              <motion.div
                 className="rounded-xl px-4 pt-5 pb-6"
+                whileHover={{ 
+                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                  transition: { duration: 0.2 } 
+                }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   backgroundColor: "#FFFFFF",
                   boxShadow:
-                    "0px 2px 4px 0px rgba(0, 0, 0, 0.1)",
+                    "0px 2px 8px rgba(0, 0, 0, 0.08)",
                 }}
               >
                 <div className="grid grid-cols-2 gap-3">
@@ -398,7 +404,7 @@ export function QuickSetup3({
                     </button>
                   ))}
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* EVIDENCE SECTION */}
@@ -450,12 +456,17 @@ export function QuickSetup3({
                   Specific examples to back up your points
                 </p>
               </div>
-              <div
+              <motion.div
                 className="rounded-xl px-4 pt-5 pb-6"
+                whileHover={{ 
+                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                  transition: { duration: 0.2 } 
+                }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   backgroundColor: "#FFFFFF",
                   boxShadow:
-                    "0px 2px 4px 0px rgba(0, 0, 0, 0.1)",
+                    "0px 2px 8px rgba(0, 0, 0, 0.08)",
                 }}
               >
                 <div className="flex flex-col gap-4">
@@ -494,7 +505,7 @@ export function QuickSetup3({
                     </span>
                   </button>
                 </div>
-              </div>
+              </motion.div>
             </div>
 
             {/* CONVERSATION DYNAMICS SECTION */}
@@ -523,12 +534,17 @@ export function QuickSetup3({
                   Set the tone and difficulty of the practice
                 </p>
               </div>
-              <div
+              <motion.div
                 className="rounded-xl px-4 pt-5 pb-6"
+                whileHover={{ 
+                  boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                  transition: { duration: 0.2 } 
+                }}
+                whileTap={{ scale: 0.98 }}
                 style={{
                   backgroundColor: "#FFFFFF",
                   boxShadow:
-                    "0px 2px 4px 0px rgba(0, 0, 0, 0.1)",
+                    "0px 2px 8px rgba(0, 0, 0, 0.08)",
                 }}
               >
                 <div className="flex flex-col gap-6">
@@ -991,7 +1007,7 @@ export function QuickSetup3({
                     </div>
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* AVATAR APPEARANCE SECTION */}
               <div className="flex flex-col gap-3 mt-2">
@@ -1021,12 +1037,17 @@ export function QuickSetup3({
                     Choose how your counterpart looks
                   </p>
                 </div>
-                <div
+                <motion.div
                   className="rounded-xl px-4 pt-5 pb-6"
+                  whileHover={{ 
+                    boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                    transition: { duration: 0.2 } 
+                  }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     backgroundColor: "#FFFFFF",
                     boxShadow:
-                      "0px 2px 4px 0px rgba(0, 0, 0, 0.1)",
+                      "0px 2px 8px rgba(0, 0, 0, 0.08)",
                   }}
                 >
                   <div className="flex flex-col gap-6">
@@ -1230,7 +1251,7 @@ export function QuickSetup3({
                       </div>
                     )}
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </div>
