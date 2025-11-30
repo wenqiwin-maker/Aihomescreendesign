@@ -695,7 +695,7 @@ export function CaptionPopup({
                 </div>
 
                 {/* Section 2: Evidence-Why */}
-                <div className="mb-1 pb-[10px]">
+                <div className="pt-5 mb-1 pb-[10px]">
                   {/* Title with dot */}
                   <motion.div
                     initial={{ opacity: 0 }}
@@ -791,7 +791,7 @@ export function CaptionPopup({
                 </div>
 
                 {/* Section 3: Next steps */}
-                <div className="mb-1 pb-[10px]">
+                <div className="pt-8 mb-1 pb-[10px]">
                   {/* Title with dot */}
                   <motion.div
                     initial={{ opacity: 0 }}
