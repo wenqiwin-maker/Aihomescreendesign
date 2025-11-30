@@ -1,6 +1,43 @@
 import svgPaths from "./svg-iau0xe5r7j";
 import imgPill from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+
+// Animated path component for rings
+function AnimatedPath({ 
+  d, 
+  stroke, 
+  strokeWidth = "9",
+  opacity = "0.9"
+}: { 
+  d: string; 
+  stroke: string; 
+  strokeWidth?: string;
+  opacity?: string;
+}) {
+  const [isAnimated, setIsAnimated] = useState(false);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsAnimated(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <path
+      d={d}
+      opacity={opacity}
+      stroke={stroke}
+      strokeLinecap="round"
+      strokeWidth={strokeWidth}
+      style={{
+        strokeDasharray: 1000,
+        strokeDashoffset: isAnimated ? 0 : 1000,
+        transition: `stroke-dashoffset 5s cubic-bezier(0.4, 0, 0.2, 1)`,
+      }}
+    />
+  );
+}
 
 function Group() {
   return (
@@ -19,13 +56,9 @@ function Group() {
               stroke="var(--stroke-0, #E8EBF6)"
               strokeWidth="9"
             />
-            <path
+            <AnimatedPath
               d={svgPaths.p20216a80}
-              id="Vector_2"
-              opacity="0.9"
               stroke="var(--stroke-0, #FA2CBC)"
-              strokeLinecap="round"
-              strokeWidth="9"
             />
           </g>
         </svg>
@@ -51,13 +84,9 @@ function Group1() {
               stroke="var(--stroke-0, #E8EBF6)"
               strokeWidth="9"
             />
-            <path
+            <AnimatedPath
               d={svgPaths.p1afaa820}
-              id="Vector_2"
-              opacity="0.9"
               stroke="var(--stroke-0, #06B6FF)"
-              strokeLinecap="round"
-              strokeWidth="9"
             />
           </g>
         </svg>
@@ -83,13 +112,9 @@ function Group2() {
               stroke="var(--stroke-0, #E8EBF6)"
               strokeWidth="9"
             />
-            <path
+            <AnimatedPath
               d={svgPaths.p16458f80}
-              id="Vector_2"
-              opacity="0.9"
               stroke="var(--stroke-0, #FF7B00)"
-              strokeLinecap="round"
-              strokeWidth="9"
             />
           </g>
         </svg>
@@ -115,13 +140,9 @@ function Group3() {
               stroke="var(--stroke-0, #E8EBF6)"
               strokeWidth="9"
             />
-            <path
+            <AnimatedPath
               d={svgPaths.pd834880}
-              id="Vector_2"
-              opacity="0.9"
               stroke="var(--stroke-0, #17DAD5)"
-              strokeLinecap="round"
-              strokeWidth="9"
             />
           </g>
         </svg>
@@ -685,6 +706,55 @@ function Pill2({
   );
 }
 
+function Pill3({
+  onClick,
+  isSelected,
+}: {
+  onClick: () => void;
+  isSelected: boolean;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="h-[35.99px] relative rounded-[2.5061e+07px] shrink-0 transition-all"
+      data-name="Pill"
+    >
+      {isSelected && (
+        <img
+          alt=""
+          className="absolute bg-clip-padding border-0 border-[transparent] border-solid box-border inset-0 max-w-none object-50%-50% object-cover pointer-events-none rounded-[2.5061e+07px] size-full"
+          src={imgPill}
+        />
+      )}
+      <div
+        className={`bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex gap-[4px] h-[35.99px] items-center px-[16px] py-0 relative rounded-[2.5061e+07px] ${!isSelected ? "bg-[#f5f6fa]" : ""}`}
+      >
+        <p
+          className={`font-['SF_Pro:Medium',sans-serif] font-[510] leading-[18px] relative shrink-0 text-[14px] text-nowrap tracking-[-0.1504px] whitespace-pre`}
+          style={{ fontVariationSettings: "'wdth' 100" }}
+        >
+          <span
+            className={
+              isSelected
+                ? "text-[rgba(255,255,255,0.9)]"
+                : "text-[rgba(0,0,0,0.9)]"
+            }
+          >{`Actionable ask `}</span>
+          <span
+            className={
+              isSelected
+                ? "text-[rgba(255,255,255,0.6)]"
+                : "text-[rgba(60,60,67,0.6)]"
+            }
+          >
+            60%
+          </span>
+        </p>
+      </div>
+    </button>
+  );
+}
+
 function Summary({
   selectedPill,
   onPillClick,
@@ -694,7 +764,7 @@ function Summary({
 }) {
   return (
     <div
-      className="content-stretch flex gap-[8px] items-start overflow-x-auto overflow-y-hidden relative shrink-0 w-full"
+      className="content-stretch flex gap-[8px] items-start overflow-x-auto overflow-y-hidden relative w-full max-w-full"
       data-name="Summary"
       style={{
         scrollbarWidth: "none",
@@ -718,6 +788,10 @@ function Summary({
         onClick={() => onPillClick("boundaries")}
         isSelected={selectedPill === "boundaries"}
       />
+      <Pill3
+        onClick={() => onPillClick("actionable")}
+        isSelected={selectedPill === "actionable"}
+      />
     </div>
   );
 }
@@ -731,7 +805,7 @@ function InstantRecap({
 }) {
   return (
     <div
-      className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full"
+      className="content-stretch flex flex-col gap-[20px] items-start relative shrink-0 w-full overflow-hidden"
       data-name="Instant Recap"
     >
       <Summary
@@ -750,7 +824,7 @@ function Frame({
   onPillClick: (pill: string) => void;
 }) {
   return (
-    <div className="content-stretch flex flex-col gap-[20px] h-[35.99px] items-start justify-end relative rounded-bl-[20px] rounded-br-[20px] shrink-0 w-[390px]">
+    <div className="content-stretch flex flex-col gap-[20px] h-[35.99px] items-start justify-end relative rounded-bl-[20px] rounded-br-[20px] shrink-0 w-full max-w-full overflow-hidden">
       <InstantRecap
         selectedPill={selectedPill}
         onPillClick={onPillClick}
@@ -808,6 +882,7 @@ function Frame9({ title, selectedPill }: { title: string; selectedPill: string }
   const badgeType = 
     selectedPill === 'tone' ? 'strong' : 
     selectedPill === 'boundaries' ? 'improve' : 
+    selectedPill === 'actionable' ? 'good' :
     'good';
   
   return (
@@ -839,6 +914,11 @@ function Container({ selectedPill }: { selectedPill: string }) {
       title: "Set clear timeframes earlier",
       description:
         "Establish specific deadlines or response windows at the start of the conversation to create accountability and show you value both your time and theirs.",
+    },
+    actionable: {
+      title: "Make your request more specific",
+      description:
+        "Include concrete next steps or specific actions you want the other person to take. Clear asks lead to better outcomes.",
     },
   };
 
@@ -914,9 +994,9 @@ export default function Frame10() {
   };
 
   return (
-    <div className="bg-white relative rounded-bl-[20px] rounded-br-[20px] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.05),0px_6px_16px_0px_rgba(0,0,0,0.06)] w-full">
-      <div className="size-full">
-        <div className="box-border content-stretch flex flex-col gap-[20px] items-start px-[16px] py-[20px] relative size-full">
+    <div className="bg-white relative rounded-bl-[20px] rounded-br-[20px] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.05),0px_6px_16px_0px_rgba(0,0,0,0.06)] w-full overflow-hidden">
+      <div className="size-full overflow-hidden">
+        <div className="box-border content-stretch flex flex-col gap-[20px] items-start px-[16px] py-[20px] relative size-full overflow-hidden">
           <Frame7 />
           <Frame
             selectedPill={selectedPill}
