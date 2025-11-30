@@ -1,6 +1,199 @@
 import { motion, AnimatePresence } from "motion/react";
 import { X, Sparkles } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+// Typewriter component for AI messages
+interface TypewriterTextProps {
+  text: string;
+  delay: number; // delay before starting (in seconds)
+  typingSpeed?: number; // ms per character
+  onComplete?: () => void;
+  isActive: boolean; // whether this message should start animating
+}
+
+function TypewriterText({ text, delay, typingSpeed = 30, onComplete, isActive }: TypewriterTextProps) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isThinking, setIsThinking] = useState(true);
+  const [shouldStart, setShouldStart] = useState(false);
+  const thinkingDuration = 800; // ms for thinking animation
+
+  useEffect(() => {
+    if (!isActive) {
+      setDisplayedText("");
+      setIsThinking(true);
+      setShouldStart(false);
+      return;
+    }
+
+    // Start after delay
+    const startTimer = setTimeout(() => {
+      setShouldStart(true);
+    }, delay * 1000);
+
+    return () => clearTimeout(startTimer);
+  }, [isActive, delay]);
+
+  useEffect(() => {
+    if (!shouldStart) return;
+
+    // First show thinking animation
+    const thinkingTimer = setTimeout(() => {
+      setIsThinking(false);
+    }, thinkingDuration);
+
+    return () => clearTimeout(thinkingTimer);
+  }, [shouldStart]);
+
+  useEffect(() => {
+    if (!shouldStart || isThinking) return;
+
+    let currentIndex = 0;
+    const intervalId = setInterval(() => {
+      if (currentIndex < text.length) {
+        setDisplayedText(text.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(intervalId);
+        onComplete?.();
+      }
+    }, typingSpeed);
+
+    return () => clearInterval(intervalId);
+  }, [shouldStart, isThinking, text, typingSpeed, onComplete]);
+
+  if (!shouldStart) {
+    return null;
+  }
+
+  if (isThinking) {
+    return (
+      <div className="flex items-center gap-2">
+        <motion.div
+          className="flex gap-1"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+        >
+          {[0, 1, 2].map((i) => (
+            <motion.span
+              key={i}
+              className="w-2 h-2 rounded-full"
+              style={{ background: "linear-gradient(135deg, #8C00FF 0%, #B366FF 100%)" }}
+              animate={{
+                opacity: [0.3, 1, 0.3],
+                scale: [0.8, 1, 0.8],
+              }}
+              transition={{
+                duration: 0.8,
+                repeat: Infinity,
+                delay: i * 0.2,
+              }}
+            />
+          ))}
+        </motion.div>
+      </div>
+    );
+  }
+
+  return (
+    <span>
+      {displayedText}
+      {displayedText.length < text.length && (
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.5, repeat: Infinity }}
+          style={{ marginLeft: "1px" }}
+        >
+          |
+        </motion.span>
+      )}
+    </span>
+  );
+}
+
+// AI Chat Bubble with typewriter effect
+interface AIChatBubbleProps {
+  text: string;
+  delay: number;
+  isActive: boolean;
+  onComplete?: () => void;
+}
+
+function AIChatBubble({ text, delay, isActive, onComplete }: AIChatBubbleProps) {
+  const [showContent, setShowContent] = useState(false);
+  const [isIconSpinning, setIsIconSpinning] = useState(true);
+
+  useEffect(() => {
+    if (!isActive) {
+      setShowContent(false);
+      setIsIconSpinning(true);
+      return;
+    }
+
+    const showTimer = setTimeout(() => {
+      setShowContent(true);
+    }, delay * 1000);
+
+    // Stop spinning after thinking phase ends
+    const stopSpinTimer = setTimeout(() => {
+      setIsIconSpinning(false);
+    }, delay * 1000 + 800); // delay + thinking duration
+
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(stopSpinTimer);
+    };
+  }, [isActive, delay]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 10 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-row items-start gap-3 self-start"
+      style={{
+        maxWidth: "100%",
+        padding: "0px",
+        background: "transparent",
+      }}
+    >
+      <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm overflow-hidden">
+        {showContent && isIconSpinning ? (
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 0.8,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+            className="flex items-center justify-center"
+          >
+            <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+          </motion.div>
+        ) : (
+          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+        )}
+      </div>
+      <span
+        style={{
+          fontFamily: "SF Pro",
+          fontWeight: 400,
+          fontSize: "16px",
+          lineHeight: "22px",
+          letterSpacing: "-0.150391px",
+          color: "#0A0A0A",
+          minHeight: "22px",
+        }}
+      >
+        <TypewriterText
+          text={text}
+          delay={0}
+          isActive={showContent}
+          onComplete={onComplete}
+        />
+      </span>
+    </motion.div>
+  );
+}
 
 interface CaptionPopupProps {
   isOpen: boolean;
@@ -11,27 +204,21 @@ export function CaptionPopup({
   isOpen,
   onClose,
 }: CaptionPopupProps) {
-  const [loadingPhase, setLoadingPhase] = useState<'icon' | 'text' | 'complete'>('icon');
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
-      // Reset to icon phase when popup opens
-      setLoadingPhase('icon');
-      
-      // Phase 1: Icon rotation (0-1.5s)
-      const textTimer = setTimeout(() => {
-        setLoadingPhase('text');
-      }, 1500);
-      
-      // Phase 2: Text fade in (1.5-2.5s)
-      const completeTimer = setTimeout(() => {
-        setLoadingPhase('complete');
-      }, 2500);
+      // Small delay to ensure smooth animation
+      const timer = setTimeout(() => {
+        setIsReady(true);
+      }, 100);
       
       return () => {
-        clearTimeout(textTimer);
-        clearTimeout(completeTimer);
+        clearTimeout(timer);
+        setIsReady(false);
       };
+    } else {
+      setIsReady(false);
     }
   }, [isOpen]);
 
@@ -183,47 +370,8 @@ export function CaptionPopup({
               paddingBottom: "50px",
             }}
           >
-            {/* Loading State */}
-            {loadingPhase !== 'complete' && (
-              <div className="flex flex-col items-center justify-center gap-6 pt-20">
-                {/* Rotating Icon */}
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 1,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="w-12 h-12 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-lg"
-                >
-                  <Sparkles size={24} className="text-[#8C00FF]" fill="#8C00FF" />
-                </motion.div>
-
-                {/* Loading Text */}
-                {loadingPhase === 'text' && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    <span
-                      style={{
-                        fontFamily: "SF Pro",
-                        fontWeight: 400,
-                        fontSize: "16px",
-                        lineHeight: "22px",
-                        color: "#666666",
-                      }}
-                    >
-                      AI正在生成对话...
-                    </span>
-                  </motion.div>
-                )}
-              </div>
-            )}
-
-            {/* Content - Only show when loading is complete */}
-            {loadingPhase === 'complete' && (
+            {/* Content */}
+            {isReady && (
               <>
                 {/* Section 1: Opening-Ask */}
                 <div className="mb-1 pb-[10px]">
@@ -287,40 +435,17 @@ export function CaptionPopup({
                     {/* Bubbles */}
                     <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
                       {/* chat-bubble-AI 1 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.5 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          I'd like to discuss your promotion
-                          timeline. What are you thinking?
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="I'd like to discuss your promotion timeline. What are you thinking?"
+                        delay={0.5}
+                        isActive={isReady}
+                      />
 
                       {/* chat-bubble-user 1 */}
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 0.8 }}
+                        transition={{ duration: 0.3, delay: 3.8 }}
                         className="flex flex-col justify-center items-end self-end"
                         style={{
                           maxWidth: "80%",
@@ -346,34 +471,11 @@ export function CaptionPopup({
                       </motion.div>
 
                       {/* chat-bubble-AI 2 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 1.1 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          That sounds like a great goal. Tell me why
-                          you think you're ready.
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="That sounds like a great goal. Tell me why you think you're ready."
+                        delay={4.2}
+                        isActive={isReady}
+                      />
                     </div>
                   </div>
                 </div>
@@ -384,7 +486,7 @@ export function CaptionPopup({
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 1.5 }}
+                    transition={{ duration: 0.3, delay: 7.0 }}
                     className="flex flex-row items-center gap-3 mb-1"
                   >
                     <div
@@ -421,8 +523,8 @@ export function CaptionPopup({
                         initial={{ scaleY: 0 }}
                         animate={{ scaleY: 1 }}
                         transition={{
-                          duration: 1.8,
-                          delay: 1.7,
+                          duration: 6.0,
+                          delay: 7.2,
                           ease: "linear",
                         }}
                         style={{
@@ -440,39 +542,17 @@ export function CaptionPopup({
                     {/* Bubbles */}
                     <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
                       {/* chat-bubble-AI 1 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 1.7 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          Can you walk me through your key projects?
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="Can you walk me through your key projects?"
+                        delay={7.2}
+                        isActive={isReady}
+                      />
 
                       {/* chat-bubble-user 1 */}
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 2.0 }}
+                        transition={{ duration: 0.3, delay: 9.5 }}
                         className="flex flex-col justify-center items-end self-end"
                         style={{
                           maxWidth: "80%",
@@ -498,39 +578,17 @@ export function CaptionPopup({
                       </motion.div>
 
                       {/* chat-bubble-AI 2 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 2.3 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          What were the results?
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="What were the results?"
+                        delay={9.8}
+                        isActive={isReady}
+                      />
 
                       {/* chat-bubble-user 2 */}
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 2.6 }}
+                        transition={{ duration: 0.3, delay: 11.5 }}
                         className="flex flex-col justify-center items-end self-end"
                         style={{
                           maxWidth: "80%",
@@ -556,39 +614,17 @@ export function CaptionPopup({
                       </motion.div>
 
                       {/* chat-bubble-AI 3 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 2.9 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          What about cross-functional impact?
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="What about cross-functional impact?"
+                        delay={11.8}
+                        isActive={isReady}
+                      />
 
                       {/* chat-bubble-user 3 */}
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 3.2 }}
+                        transition={{ duration: 0.3, delay: 13.8 }}
                         className="flex flex-col justify-center items-end self-end"
                         style={{
                           maxWidth: "80%",
@@ -622,7 +658,7 @@ export function CaptionPopup({
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 3.6 }}
+                    transition={{ duration: 0.3, delay: 14.0 }}
                     className="flex flex-row items-center gap-3 mb-1"
                   >
                     <div
@@ -659,8 +695,8 @@ export function CaptionPopup({
                         initial={{ scaleY: 0 }}
                         animate={{ scaleY: 1 }}
                         transition={{
-                          duration: 1.5,
-                          delay: 3.8,
+                          duration: 7.0,
+                          delay: 14.2,
                           ease: "linear",
                         }}
                         style={{
@@ -678,40 +714,17 @@ export function CaptionPopup({
                     {/* Bubbles */}
                     <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
                       {/* chat-bubble-AI 1 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 3.8 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          Let's start with the formal review
-                          process. When would you like to submit?
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="Let's start with the formal review process. When would you like to submit?"
+                        delay={14.2}
+                        isActive={isReady}
+                      />
 
                       {/* chat-bubble-user 1 */}
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 4.1 }}
+                        transition={{ duration: 0.3, delay: 17.3 }}
                         className="flex flex-col justify-center items-end self-end"
                         style={{
                           maxWidth: "80%",
@@ -737,40 +750,17 @@ export function CaptionPopup({
                       </motion.div>
 
                       {/* chat-bubble-AI 2 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 4.4 }}
-                        className="flex flex-row items-start gap-3 self-start"
-                        style={{
-                          maxWidth: "100%",
-                          padding: "0px",
-                          background: "transparent",
-                        }}
-                      >
-                        <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm">
-                          <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
-                        </div>
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          That works. You'll need to prepare your
-                          packet and get peer reviews.
-                        </span>
-                      </motion.div>
+                      <AIChatBubble
+                        text="That works. You'll need to prepare your packet and get peer reviews."
+                        delay={17.6}
+                        isActive={isReady}
+                      />
 
                       {/* chat-bubble-user 2 */}
                       <motion.div
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 4.7 }}
+                        transition={{ duration: 0.3, delay: 20.6 }}
                         className="flex flex-col justify-center items-end self-end"
                         style={{
                           maxWidth: "80%",
