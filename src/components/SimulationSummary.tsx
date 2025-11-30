@@ -17,6 +17,11 @@ interface SimulationSummaryProps {
 export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
 
+  const handleDownloadPDF = () => {
+    // Use browser's print dialog - user can save as PDF
+    window.print();
+  };
+
   const handleDeleteRecording = () => {
     setShowDeleteConfirmation(true);
   };
@@ -74,11 +79,12 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       </div>
 
       {/* Toolbar */}
-      <div className="sticky top-0 z-50 flex justify-between items-start px-4 pb-[10px] h-[54px] bg-white">
+      <div className="sticky top-0 z-50 flex justify-between items-start px-4 pb-[10px] h-[54px] bg-white print:hidden">
         {/* Left Icons */}
         <div className="flex flex-row items-center gap-3">
           {/* Download Button */}
           <button 
+            onClick={handleDownloadPDF}
             className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative"
             style={{
               background: 'linear-gradient(0deg, #F7F7F7, #F7F7F7), linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #333333',
@@ -93,27 +99,6 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
               <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M9 1V11.5M9 11.5L13 7.5M9 11.5L5 7.5" stroke="#404040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
                 <path d="M3 12V14C3 14.5304 3.21071 15.0391 3.58579 15.4142C3.96086 15.7893 4.46957 16 5 16H13C13.5304 16 14.0391 15.7893 14.4142 15.4142C14.7893 15.0391 15 14.5304 15 14V12" stroke="#404040" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </div>
-          </button>
-
-          {/* Chat History Button */}
-          <button 
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative"
-            style={{
-              background: 'linear-gradient(0deg, #F7F7F7, #F7F7F7), linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #333333',
-              backgroundBlendMode: 'plus-darker, normal, color-dodge',
-              isolation: 'isolate'
-            }}
-          >
-            <div 
-              className="flex flex-col justify-center items-center w-9 h-9 rounded-full"
-              style={{ mixBlendMode: 'plus-darker', zIndex: 1 }}
-            >
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 3.5C3 2.67157 3.67157 2 4.5 2H15.5C16.3284 2 17 2.67157 17 3.5V12.5C17 13.3284 16.3284 14 15.5 14H6.5L3 17.5V3.5Z" stroke="#404040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M6.5 6.5H13.5" stroke="#404040" strokeWidth="1.5" strokeLinecap="round"/>
-                <path d="M6.5 10H10" stroke="#404040" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
           </button>

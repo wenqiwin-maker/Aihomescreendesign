@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "motion/react";
 import { X, Sparkles } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 
 // Typewriter component for AI messages
 interface TypewriterTextProps {
@@ -15,13 +15,21 @@ function TypewriterText({ text, delay, typingSpeed = 30, onComplete, isActive }:
   const [displayedText, setDisplayedText] = useState("");
   const [isThinking, setIsThinking] = useState(true);
   const [shouldStart, setShouldStart] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
   const thinkingDuration = 800; // ms for thinking animation
+  const onCompleteRef = useRef(onComplete);
+  
+  // Keep the ref updated
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   useEffect(() => {
     if (!isActive) {
       setDisplayedText("");
       setIsThinking(true);
       setShouldStart(false);
+      setIsComplete(false);
       return;
     }
 
@@ -45,7 +53,7 @@ function TypewriterText({ text, delay, typingSpeed = 30, onComplete, isActive }:
   }, [shouldStart]);
 
   useEffect(() => {
-    if (!shouldStart || isThinking) return;
+    if (!shouldStart || isThinking || isComplete) return;
 
     let currentIndex = 0;
     const intervalId = setInterval(() => {
@@ -54,12 +62,13 @@ function TypewriterText({ text, delay, typingSpeed = 30, onComplete, isActive }:
         currentIndex++;
       } else {
         clearInterval(intervalId);
-        onComplete?.();
+        setIsComplete(true);
+        onCompleteRef.current?.();
       }
     }, typingSpeed);
 
     return () => clearInterval(intervalId);
-  }, [shouldStart, isThinking, text, typingSpeed, onComplete]);
+  }, [shouldStart, isThinking, text, typingSpeed, isComplete]);
 
   if (!shouldStart) {
     return null;
@@ -198,6 +207,239 @@ function AIChatBubble({ text, delay, isActive, onComplete }: AIChatBubbleProps) 
 interface CaptionPopupProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+// Typewriter for user bubble (purple) - simpler version without thinking dots
+interface UserTypewriterTextProps {
+  text: string;
+  typingSpeed?: number;
+  onComplete?: () => void;
+  isActive: boolean;
+}
+
+function UserTypewriterText({ text, typingSpeed = 25, onComplete, isActive }: UserTypewriterTextProps) {
+  const [displayedText, setDisplayedText] = useState("");
+  const [isComplete, setIsComplete] = useState(false);
+  const onCompleteRef = useRef(onComplete);
+  
+  // Keep the ref updated
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
+
+  useEffect(() => {
+    if (!isActive) {
+      setDisplayedText("");
+      setIsComplete(false);
+      return;
+    }
+    
+    // If already complete, don't restart
+    if (isComplete) return;
+
+    let currentIndex = 0;
+    const intervalId = setInterval(() => {
+      if (currentIndex < text.length) {
+        setDisplayedText(text.slice(0, currentIndex + 1));
+        currentIndex++;
+      } else {
+        clearInterval(intervalId);
+        setIsComplete(true);
+        onCompleteRef.current?.();
+      }
+    }, typingSpeed);
+
+    return () => clearInterval(intervalId);
+  }, [isActive, text, typingSpeed, isComplete]);
+
+  if (!isActive) return null;
+
+  // Show full text if complete, otherwise show animated text
+  const textToShow = isComplete ? text : displayedText;
+
+  return (
+    <span>
+      {textToShow}
+      {!isComplete && displayedText.length < text.length && (
+        <motion.span
+          animate={{ opacity: [1, 0] }}
+          transition={{ duration: 0.5, repeat: Infinity }}
+          style={{ marginLeft: "1px" }}
+        >
+          |
+        </motion.span>
+      )}
+    </span>
+  );
+}
+
+// Combined User Bubble + AI Response with animated icon transition
+interface UserBubbleWithAIResponseProps {
+  userText: string;
+  aiText: string;
+  startDelay: number; // when everything starts (waiting icon + user bubble typing)
+  isActive: boolean;
+  isLastMessage?: boolean; // if true, no AI response follows
+}
+
+function UserBubbleWithAIResponse({ 
+  userText, 
+  aiText, 
+  startDelay,
+  isActive,
+  isLastMessage = false
+}: UserBubbleWithAIResponseProps) {
+  const [phase, setPhase] = useState<'hidden' | 'typing' | 'aiResponse'>('hidden');
+  const [userTypingComplete, setUserTypingComplete] = useState(false);
+
+  // Calculate typing duration for user text
+  const userTypingDuration = userText.length * 25 / 1000; // 25ms per char
+
+  useEffect(() => {
+    if (!isActive) {
+      setPhase('hidden');
+      setUserTypingComplete(false);
+      return;
+    }
+
+    // Start typing phase (waiting icon + user bubble typing together)
+    const startTimer = setTimeout(() => {
+      setPhase('typing');
+    }, startDelay * 1000);
+
+    return () => {
+      clearTimeout(startTimer);
+    };
+  }, [isActive, startDelay]);
+
+  // When user typing completes, transition to AI response after a brief pause
+  useEffect(() => {
+    if (userTypingComplete && !isLastMessage) {
+      const aiTimer = setTimeout(() => {
+        setPhase('aiResponse');
+      }, 300); // 300ms pause after user finishes typing
+
+      return () => clearTimeout(aiTimer);
+    }
+  }, [userTypingComplete, isLastMessage]);
+
+  const showTypingPhase = phase === 'typing' || phase === 'aiResponse';
+  const showWaitingIcon = phase === 'typing' && !userTypingComplete && !isLastMessage;
+  const showAIResponse = phase === 'aiResponse';
+
+  return (
+    <>
+      {/* User message bubble with typewriter */}
+      {showTypingPhase && (
+        <div
+          className="flex flex-col justify-center items-end self-end"
+          style={{
+            width: "80%",
+            padding: "10px 12px",
+            background: "rgba(131, 68, 204, 0.1)",
+            borderRadius: "18px 18px 0px 18px",
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "SF Pro",
+              fontWeight: 400,
+              fontSize: "16px",
+              lineHeight: "22px",
+              textAlign: "left",
+              letterSpacing: "-0.150391px",
+              color: "#0A0A0A",
+              width: "100%",
+            }}
+          >
+            {userTypingComplete ? userText : (
+              <UserTypewriterText
+                text={userText}
+                isActive={phase === 'typing'}
+                onComplete={() => setUserTypingComplete(true)}
+              />
+            )}
+          </span>
+        </div>
+      )}
+
+      {/* Waiting icon - breathing animation, gets pushed down as user bubble grows */}
+      {showWaitingIcon && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.2 }}
+          className="flex justify-start pl-0"
+          layout
+        >
+          <motion.div
+            animate={{ 
+              scale: [1, 1.15, 1],
+              opacity: [0.7, 1, 0.7]
+            }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm"
+          >
+            <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* AI Response - icon on left with spinning animation */}
+      <AnimatePresence>
+        {!isLastMessage && showAIResponse && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }}
+            className="flex flex-row items-start gap-3 self-start"
+            style={{
+              maxWidth: "100%",
+              padding: "0px",
+              background: "transparent",
+            }}
+          >
+            <div className="flex-shrink-0 mt-0.5 w-6 h-6 rounded-full bg-white flex items-center justify-center border border-white/50 shadow-sm overflow-hidden">
+              <motion.div
+                initial={{ rotate: 0 }}
+                animate={{ rotate: 360 }}
+                transition={{
+                  duration: 0.8,
+                  repeat: 1,
+                  ease: "linear",
+                }}
+                className="flex items-center justify-center"
+              >
+                <Sparkles size={14} className="text-[#8C00FF]" fill="#8C00FF" />
+              </motion.div>
+            </div>
+            <span
+              style={{
+                fontFamily: "SF Pro",
+                fontWeight: 400,
+                fontSize: "16px",
+                lineHeight: "22px",
+                letterSpacing: "-0.150391px",
+                color: "#0A0A0A",
+                minHeight: "22px",
+              }}
+            >
+              <TypewriterText
+                text={aiText}
+                delay={0}
+                isActive={showAIResponse}
+              />
+            </span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
 
 export function CaptionPopup({
@@ -441,39 +683,11 @@ export function CaptionPopup({
                         isActive={isReady}
                       />
 
-                      {/* chat-bubble-user 1 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 3.8 }}
-                        className="flex flex-col justify-center items-end self-end"
-                        style={{
-                          maxWidth: "80%",
-                          padding: "10px 12px",
-                          background: "rgba(131, 68, 204, 0.1)",
-                          borderRadius: "18px 18px 0px 18px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            textAlign: "left",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          I'd like to apply for promotion from
-                          Senior Engineer to Staff Engineer in Q3.
-                        </span>
-                      </motion.div>
-
-                      {/* chat-bubble-AI 2 */}
-                      <AIChatBubble
-                        text="That sounds like a great goal. Tell me why you think you're ready."
-                        delay={4.2}
+                      {/* User bubble + next AI response */}
+                      <UserBubbleWithAIResponse
+                        userText="I'd like to apply for promotion from Senior Engineer to Staff Engineer in Q3."
+                        aiText="That sounds like a great goal. Tell me why you think you're ready."
+                        startDelay={3.5}
                         isActive={isReady}
                       />
                     </div>
@@ -486,7 +700,7 @@ export function CaptionPopup({
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 7.0 }}
+                    transition={{ duration: 0.3, delay: 8.0 }}
                     className="flex flex-row items-center gap-3 mb-1"
                   >
                     <div
@@ -523,8 +737,8 @@ export function CaptionPopup({
                         initial={{ scaleY: 0 }}
                         animate={{ scaleY: 1 }}
                         transition={{
-                          duration: 6.0,
-                          delay: 7.2,
+                          duration: 8.0,
+                          delay: 8.2,
                           ease: "linear",
                         }}
                         style={{
@@ -544,110 +758,34 @@ export function CaptionPopup({
                       {/* chat-bubble-AI 1 */}
                       <AIChatBubble
                         text="Can you walk me through your key projects?"
-                        delay={7.2}
+                        delay={8.2}
                         isActive={isReady}
                       />
 
-                      {/* chat-bubble-user 1 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 9.5 }}
-                        className="flex flex-col justify-center items-end self-end"
-                        style={{
-                          maxWidth: "80%",
-                          padding: "10px 12px",
-                          background: "rgba(131, 68, 204, 0.1)",
-                          borderRadius: "18px 18px 0px 18px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            textAlign: "left",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          In the last two quarters, I led the
-                          payment system redesign project.
-                        </span>
-                      </motion.div>
-
-                      {/* chat-bubble-AI 2 */}
-                      <AIChatBubble
-                        text="What were the results?"
-                        delay={9.8}
+                      {/* User bubble + next AI response */}
+                      <UserBubbleWithAIResponse
+                        userText="In the last two quarters, I led the payment system redesign project."
+                        aiText="What were the results?"
+                        startDelay={10.0}
                         isActive={isReady}
                       />
 
-                      {/* chat-bubble-user 2 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 11.5 }}
-                        className="flex flex-col justify-center items-end self-end"
-                        style={{
-                          maxWidth: "80%",
-                          padding: "10px 12px",
-                          background: "rgba(131, 68, 204, 0.1)",
-                          borderRadius: "18px 18px 0px 18px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            textAlign: "left",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          We reduced transaction failures by 40% and
-                          increased throughput by 3x.
-                        </span>
-                      </motion.div>
-
-                      {/* chat-bubble-AI 3 */}
-                      <AIChatBubble
-                        text="What about cross-functional impact?"
-                        delay={11.8}
+                      {/* User bubble + next AI response */}
+                      <UserBubbleWithAIResponse
+                        userText="We reduced transaction failures by 40% and increased throughput by 3x."
+                        aiText="What about cross-functional impact?"
+                        startDelay={12.8}
                         isActive={isReady}
                       />
 
-                      {/* chat-bubble-user 3 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 13.8 }}
-                        className="flex flex-col justify-center items-end self-end"
-                        style={{
-                          maxWidth: "80%",
-                          padding: "10px 12px",
-                          background: "rgba(131, 68, 204, 0.1)",
-                          borderRadius: "18px 18px 0px 18px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            textAlign: "left",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          I also mentored three junior engineers and
-                          they've all been promoted.
-                        </span>
-                      </motion.div>
+                      {/* Last user bubble (no AI response follows) */}
+                      <UserBubbleWithAIResponse
+                        userText="I also mentored three junior engineers and they've all been promoted."
+                        aiText=""
+                        startDelay={15.8}
+                        isActive={isReady}
+                        isLastMessage={true}
+                      />
                     </div>
                   </div>
                 </div>
@@ -658,7 +796,7 @@ export function CaptionPopup({
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 14.0 }}
+                    transition={{ duration: 0.3, delay: 17.5 }}
                     className="flex flex-row items-center gap-3 mb-1"
                   >
                     <div
@@ -695,8 +833,8 @@ export function CaptionPopup({
                         initial={{ scaleY: 0 }}
                         animate={{ scaleY: 1 }}
                         transition={{
-                          duration: 7.0,
-                          delay: 14.2,
+                          duration: 10.0,
+                          delay: 17.7,
                           ease: "linear",
                         }}
                         style={{
@@ -716,73 +854,26 @@ export function CaptionPopup({
                       {/* chat-bubble-AI 1 */}
                       <AIChatBubble
                         text="Let's start with the formal review process. When would you like to submit?"
-                        delay={14.2}
+                        delay={17.7}
                         isActive={isReady}
                       />
 
-                      {/* chat-bubble-user 1 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 17.3 }}
-                        className="flex flex-col justify-center items-end self-end"
-                        style={{
-                          maxWidth: "80%",
-                          padding: "10px 12px",
-                          background: "rgba(131, 68, 204, 0.1)",
-                          borderRadius: "18px 18px 0px 18px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            textAlign: "left",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          I'd like to submit by end of this month
-                          for Q3 review.
-                        </span>
-                      </motion.div>
-
-                      {/* chat-bubble-AI 2 */}
-                      <AIChatBubble
-                        text="That works. You'll need to prepare your packet and get peer reviews."
-                        delay={17.6}
+                      {/* User bubble + next AI response */}
+                      <UserBubbleWithAIResponse
+                        userText="I'd like to submit by end of this month for Q3 review."
+                        aiText="That works. You'll need to prepare your packet and get peer reviews."
+                        startDelay={20.5}
                         isActive={isReady}
                       />
 
-                      {/* chat-bubble-user 2 */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.3, delay: 20.6 }}
-                        className="flex flex-col justify-center items-end self-end"
-                        style={{
-                          maxWidth: "80%",
-                          padding: "10px 12px",
-                          background: "rgba(131, 68, 204, 0.1)",
-                          borderRadius: "18px 18px 0px 18px",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "SF Pro",
-                            fontWeight: 400,
-                            fontSize: "16px",
-                            lineHeight: "22px",
-                            textAlign: "left",
-                            letterSpacing: "-0.150391px",
-                            color: "#0A0A0A",
-                          }}
-                        >
-                          I'll get started on that this week.
-                        </span>
-                      </motion.div>
+                      {/* Last user bubble (no AI response follows) */}
+                      <UserBubbleWithAIResponse
+                        userText="I'll get started on that this week."
+                        aiText=""
+                        startDelay={24.5}
+                        isActive={isReady}
+                        isLastMessage={true}
+                      />
                     </div>
                   </div>
                 </div>
