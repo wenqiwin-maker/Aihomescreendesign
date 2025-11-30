@@ -6,6 +6,7 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import blufIcon from "figma:asset/c152f6ddc8f8cc8dd8ffc69c0a41a52dff0c6f72.png";
 import starIcon from "figma:asset/b263585bdaba08a84842c9aaa8c1a9b4d330bda8.png";
 import problemIcon from "figma:asset/85cf8a2e0bb1f20d8c8750e2e7d5f7cca09e5fc3.png";
+import imgImageAiCharacter from "figma:asset/90d021ade914fe47e4dd2fdd3fc4a07e9d6c5450.png";
 
 interface PostSimMicroReviewProps {
   onClose: () => void;
@@ -629,14 +630,19 @@ export function PostSimMicroReview({
           >
             {/* Video Thumbnail */}
             <div
-              className="relative w-full h-[150px]"
-              style={{
-                background:
-                  "linear-gradient(135deg, #583EFF 0%, #3E5FFF 100%)",
-              }}
+              onClick={onWatchVideo}
+              className="relative w-full h-[150px] cursor-pointer overflow-hidden"
             >
+              {/* Background Image */}
+              <ImageWithFallback
+                src={imgImageAiCharacter}
+                alt="AI Character Preview"
+                className="absolute inset-0 w-full h-full object-cover p-[0px] m-[0px]"
+                style={{ objectPosition: "center -180px" }}
+              />
+
               {/* Play Button */}
-              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+              <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
                 <div
                   className="w-16 h-16 rounded-full bg-white flex items-center justify-center"
                   style={{
@@ -650,9 +656,10 @@ export function PostSimMicroReview({
 
               {/* AI Demo Badge */}
               <div
-                className="absolute left-3 top-[14px] flex items-center px-3 h-5 rounded-lg"
+                className="absolute left-3 top-[14px] flex items-center px-3 h-5 rounded-lg z-10"
                 style={{
                   background: "rgba(255, 255, 255, 0.2)",
+                  backdropFilter: "blur(4px)",
                 }}
               >
                 <svg
@@ -690,9 +697,10 @@ export function PostSimMicroReview({
 
               {/* Duration Badge */}
               <div
-                className="absolute right-[15px] top-3 flex items-center px-3 h-7 rounded-full"
+                className="absolute right-[15px] top-3 flex items-center px-3 h-7 rounded-full z-10"
                 style={{
                   background: "rgba(0, 0, 0, 0.4)",
+                  backdropFilter: "blur(4px)",
                 }}
               >
                 <svg

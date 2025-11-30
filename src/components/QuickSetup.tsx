@@ -150,11 +150,29 @@ export function QuickSetup({
         <div className="flex flex-col gap-10">
           <div className="flex flex-col gap-[359px]">
             {/* Main Content */}
-            <div className="flex flex-col gap-10">
+            <motion.div
+              className="flex flex-col gap-10"
+              initial="hidden"
+              animate="visible"
+              variants={{
+                hidden: { opacity: 0 },
+                visible: {
+                  opacity: 1,
+                  transition: {
+                    staggerChildren: 0.1,
+                    delayChildren: 0.1
+                  }
+                }
+              }}
+            >
               {/* Title Section */}
-              <div
+              <motion.div
                 className="flex flex-col"
                 style={{ gap: "4px" }}
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                }}
               >
                 <h2
                   style={{
@@ -179,14 +197,25 @@ export function QuickSetup({
                   Tell AI about your real communication
                   situation
                 </p>
-              </div>
+              </motion.div>
 
               {/* Option Buttons */}
-              <div className="flex gap-4">
+              <motion.div
+                className="flex gap-4"
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                }}
+              >
                 {/* Work Button */}
-                <button
+                <motion.button
                   onClick={() => setSelectedOption("work")}
-                  className="flex flex-col items-start rounded-2xl transition-all overflow-hidden"
+                  className="flex flex-col items-start rounded-2xl transition-all overflow-hidden relative"
+                  whileTap={{ scale: 0.97 }}
+                  whileHover={{ 
+                    boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                    transition: { duration: 0.2 } 
+                  }}
                   style={{
                     width: "167px",
                     padding: "24px 20px",
@@ -194,19 +223,25 @@ export function QuickSetup({
                       selectedOption === "work"
                         ? "none"
                         : "1px solid #E9EBF3",
-                    backgroundImage:
-                      selectedOption === "work"
-                        ? `url(${workBgHighlighted})`
-                        : "none",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundColor:
-                      selectedOption === "work"
-                        ? "transparent"
-                        : "#FFFFFF",
+                    backgroundColor: "#FFFFFF",
+                    boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
                   }}
                 >
-                  <div className="flex flex-col items-start gap-2">
+                  {/* Animated Background */}
+                  {selectedOption === "work" && (
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl"
+                      initial={{ clipPath: "polygon(0 100%, 0 100%, 0 100%)" }}
+                      animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      style={{
+                        backgroundImage: `url(${workBgHighlighted})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                  )}
+                  <div className="flex flex-col items-start gap-2 relative z-10">
                     {/* Icon Box */}
                     <div
                       className="flex items-center justify-center"
@@ -222,6 +257,7 @@ export function QuickSetup({
                             selectedOption === "work"
                               ? "brightness(0) invert(1)"
                               : "none",
+                          transition: "filter 0.3s ease",
                         }}
                       />
                     </div>
@@ -239,17 +275,23 @@ export function QuickSetup({
                             : "#0A0A0A",
                         width: "60px",
                         textAlign: "center",
+                        transition: "color 0.3s ease",
                       }}
                     >
                       Work
                     </div>
                   </div>
-                </button>
+                </motion.button>
 
                 {/* Life Button */}
-                <button
+                <motion.button
                   onClick={() => setSelectedOption("life")}
-                  className="flex flex-col items-start rounded-2xl transition-all overflow-hidden"
+                  className="flex flex-col items-start rounded-2xl transition-all overflow-hidden relative"
+                  whileTap={{ scale: 0.97 }}
+                  whileHover={{ 
+                    boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                    transition: { duration: 0.2 } 
+                  }}
                   style={{
                     width: "167px",
                     padding: "24px 20px",
@@ -257,19 +299,25 @@ export function QuickSetup({
                       selectedOption === "life"
                         ? "none"
                         : "1px solid #E9EBF3",
-                    backgroundImage:
-                      selectedOption === "life"
-                        ? `url(${lifeBgHighlighted})`
-                        : "none",
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                    backgroundColor:
-                      selectedOption === "life"
-                        ? "transparent"
-                        : "#FFFFFF",
+                    backgroundColor: "#FFFFFF",
+                    boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
                   }}
                 >
-                  <div className="flex flex-col items-start gap-2">
+                  {/* Animated Background */}
+                  {selectedOption === "life" && (
+                    <motion.div
+                      className="absolute inset-0 rounded-2xl"
+                      initial={{ clipPath: "polygon(0 100%, 0 100%, 0 100%)" }}
+                      animate={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" }}
+                      transition={{ duration: 0.8, ease: "easeOut" }}
+                      style={{
+                        backgroundImage: `url(${lifeBgHighlighted})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+                  )}
+                  <div className="flex flex-col items-start gap-2 relative z-10">
                     {/* Icon Box */}
                     <div
                       className="flex items-center justify-center"
@@ -285,6 +333,7 @@ export function QuickSetup({
                             selectedOption === "life"
                               ? "brightness(0) invert(1)"
                               : "none",
+                          transition: "filter 0.3s ease",
                         }}
                       />
                     </div>
@@ -302,14 +351,15 @@ export function QuickSetup({
                             : "#0A0A0A",
                         width: "60px",
                         textAlign: "center",
+                        transition: "color 0.3s ease",
                       }}
                     >
                       Life
                     </div>
                   </div>
-                </button>
-              </div>
-            </div>
+                </motion.button>
+              </motion.div>
+            </motion.div>
 
             {/* Next Button */}
             <button

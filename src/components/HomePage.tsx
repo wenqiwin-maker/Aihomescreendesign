@@ -7,9 +7,10 @@ import { useState, useEffect } from 'react';
 
 interface HomePageProps {
   onStartConversation: () => void;
+  onOpenAIChat?: () => void;
 }
 
-export function HomePage({ onStartConversation }: HomePageProps) {
+export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
   const [isPressed, setIsPressed] = useState(false);
   const [titleText, setTitleText] = useState('');
   const [descText, setDescText] = useState('');
@@ -149,6 +150,10 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               boxShadow: 'inset 0px 0px 56px rgba(236, 232, 255, 0.08)' 
             }}
             whileTap={{ scale: 0.95 }}
+            whileHover={{
+              boxShadow: "inset 0px 0px 56px rgba(236, 232, 255, 0.08), 0px 8px 24px rgba(140, 0, 255, 0.2)",
+              transition: { duration: 0.2 }
+            }}
           >
             <span 
               className="text-[#8C00FF]"
@@ -171,6 +176,9 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               animate={{
                 rotate: isPressed ? 360 : 0
               }}
+              whileHover={{
+                rotate: 45
+              }}
               transition={{
                 duration: 0.6,
                 ease: [0.34, 1.56, 0.64, 1]
@@ -191,8 +199,22 @@ export function HomePage({ onStartConversation }: HomePageProps) {
         style={{ top: '275px', height: '505px' }}
       >
         {/* Top Practice Section */}
-        <div className="flex flex-col gap-3">
-          <h2 
+        <motion.div 
+          className="flex flex-col gap-3"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.3
+              }
+            }
+          }}
+        >
+          <motion.h2 
             style={{ 
               fontFamily: 'SF Pro', 
               fontSize: '14px', 
@@ -200,17 +222,46 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               lineHeight: '135%',
               color: 'rgba(0, 0, 0, 0.9)' 
             }}
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+            }}
           >
             Top Practice
-          </h2>
+          </motion.h2>
 
           {/* Feature Cards */}
-          <div className="flex gap-4">
+          <motion.div 
+            className="flex gap-4"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+            }}
+          >
             {/* Generate CV Card */}
-            <div className="w-[167px] h-[162px] bg-[#7B1017] rounded-2xl px-4 py-4 flex flex-col gap-2">
-              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <motion.div 
+              className="w-[167px] h-[162px] bg-[#7B1017] rounded-2xl px-4 py-4 flex flex-col gap-2"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ 
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                transition: { duration: 0.2 } 
+              }}
+              style={{
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+                cursor: "pointer"
+              }}
+            >
+              <motion.svg 
+                width="58" 
+                height="58" 
+                viewBox="0 0 58 58" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                whileHover={{ rotate: 45 }}
+                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+              >
                 <path d="M13.0811 0.00144998C16.4988 0.00221892 19.7763 1.36942 22.1927 3.80236C24.6091 6.23531 25.9666 9.53476 25.9666 12.9751V25.9458H13.0811C11.3725 25.9715 9.67595 25.655 8.09004 25.0146C6.50414 24.3742 5.06056 23.4228 3.8433 22.2157C2.62604 21.0086 1.65939 19.5698 0.999588 17.9832C0.339785 16.3965 0 14.6937 0 12.9736C0 11.2536 0.339785 9.55071 0.999588 7.96407C1.65939 6.37743 2.62604 4.9387 3.8433 3.73157C5.06056 2.52444 6.50414 1.57302 8.09004 0.932644C9.67595 0.292272 11.3725 -0.0242644 13.0811 0.00144998ZM13.0811 32.0527H25.9666V45.0235C25.9672 47.5897 25.2117 50.0984 23.7957 52.2323C22.3797 54.3663 20.3669 56.0296 18.0117 57.0119C15.6565 57.9942 13.0649 58.2514 10.5645 57.7509C8.06413 57.2504 5.76737 56.0147 3.96472 54.2001C2.16207 52.3855 0.934515 50.0736 0.437305 47.5567C-0.0599043 45.0398 0.195572 42.431 1.17142 40.0602C2.14727 37.6895 3.79965 35.6633 5.91958 34.238C8.03951 32.8126 10.5317 32.0522 13.0811 32.0527ZM44.9189 0.00144998C46.6275 -0.0242644 48.3241 0.292272 49.91 0.932644C51.4959 1.57302 52.9394 2.52444 54.1567 3.73157C55.374 4.9387 56.3406 6.37743 57.0004 7.96407C57.6602 9.55071 58 11.2536 58 12.9736C58 14.6937 57.6602 16.3965 57.0004 17.9832C56.3406 19.5698 55.374 21.0086 54.1567 22.2157C52.9394 23.4228 51.4959 24.3742 49.91 25.0146C48.3241 25.655 46.6275 25.9715 44.9189 25.9458H32.0334V12.9751C32.0334 9.53476 33.3909 6.23531 35.8073 3.80236C38.2237 1.36942 41.5012 0.00221894 44.9189 0.00144998ZM32.0334 32.0527H44.9189C47.4683 32.0522 49.9605 32.8126 52.0804 34.238C54.2003 35.6633 55.8527 37.6895 56.8286 40.0602C57.8044 42.431 58.0599 45.0398 57.5627 47.5567C57.0655 50.0736 55.8379 52.3855 54.0353 54.2001C52.2326 56.0147 49.9359 57.2504 47.4355 57.7509C44.9351 58.2514 42.3435 57.9942 39.9883 57.0119C37.6331 56.0296 35.6203 54.3663 34.2043 52.2323C32.7883 50.0984 32.0328 47.5897 32.0334 45.0235V32.0527Z" fill="white"/>
-              </svg>
+              </motion.svg>
               <span 
                 className="text-white flex items-center"
                 style={{ 
@@ -225,13 +276,32 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               >
                 Complete your Information to enhance AI
               </span>
-            </div>
+            </motion.div>
 
             {/* Chat with AI Card */}
-            <div className="flex-1 h-[162px] rounded-2xl px-4 py-4 flex flex-col gap-2 bg-[rgb(62,95,255)]">
-              <svg width="58" height="58" viewBox="0 0 58 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <motion.div 
+              className="flex-1 h-[162px] rounded-2xl px-4 py-4 flex flex-col gap-2 bg-[rgb(62,95,255)]"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ 
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                transition: { duration: 0.2 } 
+              }}
+              style={{
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+                cursor: "pointer"
+              }}
+            >
+              <motion.svg 
+                width="58" 
+                height="58" 
+                viewBox="0 0 58 58" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+                whileHover={{ rotate: 45 }}
+                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+              >
                 <path fillRule="evenodd" clipRule="evenodd" d="M34.8 0H23.2V14.9976L12.5951 4.39269L4.39269 12.5951L14.9976 23.2H0V34.8H14.9976L4.39269 45.4047L12.5951 53.6074L23.2 43.0024V58H34.8V43.0024L45.405 53.6074L53.6074 45.405L43.0024 34.8H58V23.2H43.0024L53.6074 12.5951L45.405 4.39266L34.8 14.9976V0Z" fill="white"/>
-              </svg>
+              </motion.svg>
               <span 
                 className="text-white flex items-center"
                 style={{ 
@@ -246,13 +316,33 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               >
                 Set a longterm Communication planing
               </span>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Recommended For You Section */}
-        <div className="flex flex-col gap-3">
-          <div className="flex justify-between items-center">
+        <motion.div 
+          className="flex flex-col gap-3"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.5
+              }
+            }
+          }}
+        >
+          <motion.div 
+            className="flex justify-between items-center"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+            }}
+          >
             <h2 
               style={{ 
                 fontFamily: 'SF Pro', 
@@ -275,12 +365,31 @@ export function HomePage({ onStartConversation }: HomePageProps) {
             >
               View all
             </span>
-          </div>
+          </motion.div>
 
           {/* Practice Scenarios */}
-          <div className="flex flex-col gap-4">
+          <motion.div 
+            className="flex flex-col gap-4"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+            }}
+          >
             {/* Scenario 1 */}
-            <div className="flex gap-3">
+            <motion.div 
+              className="flex gap-3"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ 
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                transition: { duration: 0.2 } 
+              }}
+              style={{
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+                padding: "12px",
+                borderRadius: "12px",
+                cursor: "pointer"
+              }}
+            >
               <div className="w-[86px] h-[86px] bg-[#D9D9D9] rounded-xl overflow-hidden flex-shrink-0">
                 <ImageWithFallback 
                   src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=200&h=200&fit=crop"
@@ -312,10 +421,23 @@ export function HomePage({ onStartConversation }: HomePageProps) {
                   Converse with Evelyn, review the partnership performance, discuss mutual ...
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Scenario 2 */}
-            <div className="flex gap-3">
+            <motion.div 
+              className="flex gap-3"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{ 
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                transition: { duration: 0.2 } 
+              }}
+              style={{
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+                padding: "12px",
+                borderRadius: "12px",
+                cursor: "pointer"
+              }}
+            >
               <div className="w-[86px] h-[86px] bg-[#D9D9D9] rounded-xl overflow-hidden flex-shrink-0">
                 <ImageWithFallback 
                   src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=200&h=200&fit=crop"
@@ -347,9 +469,9 @@ export function HomePage({ onStartConversation }: HomePageProps) {
                   Talk to Sarah about how the recent investments have performed and discuss...
                 </p>
               </div>
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Bottom Navigation - Floating */}
@@ -389,9 +511,13 @@ export function HomePage({ onStartConversation }: HomePageProps) {
           <div className="w-14 h-14" />
 
           {/* AI Growy - Center with gradient */}
-          <div className="relative w-12 h-12">
-            <div 
+          <button 
+            onClick={onOpenAIChat}
+            className="relative w-12 h-12"
+          >
+            <motion.div 
               className="w-12 h-12 rounded-full flex items-center justify-center"
+              whileTap={{ scale: 0.9 }}
               style={{ 
                 background: 'linear-gradient(147.61deg, #FC53EB 32.82%, #FFBF00 68.45%, #62E2F5 104.08%)',
                 boxShadow: 'inset 0px 8px 12px rgba(236, 232, 255, 0.56)'
@@ -400,8 +526,8 @@ export function HomePage({ onStartConversation }: HomePageProps) {
               <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M17.1387 12.5137C17.4052 12.5139 17.6362 12.698 17.6953 12.958L18.0117 14.3486C18.158 14.9915 18.6599 15.4933 19.3027 15.6396L20.6934 15.9561C20.9535 16.0152 21.1387 16.2469 21.1387 16.5137C21.1384 16.7802 20.9533 17.0112 20.6934 17.0703L19.3027 17.3867C18.6599 17.533 18.158 18.0349 18.0117 18.6777L17.6953 20.0684C17.6362 20.3283 17.4052 20.5134 17.1387 20.5137C16.8719 20.5137 16.6402 20.3285 16.5811 20.0684L16.2646 18.6777C16.1183 18.0349 15.6165 17.533 14.9736 17.3867L13.583 17.0703C13.3231 17.0112 13.1389 16.7802 13.1387 16.5137C13.1387 16.2469 13.3229 16.0152 13.583 15.9561L14.9736 15.6396C15.6165 15.4933 16.1183 14.9915 16.2646 14.3486L16.5811 12.958C16.6402 12.6979 16.8719 12.5137 17.1387 12.5137ZM8.83594 0.375C9.42526 0.375 9.93673 0.782762 10.0674 1.35742L10.7656 4.42871C11.0887 5.84938 12.1984 6.95919 13.6191 7.28223L16.6904 7.98047C17.2648 8.11113 17.6727 8.62183 17.6729 9.21094C17.6729 9.80023 17.265 10.3117 16.6904 10.4424L13.6191 11.1406C12.1984 11.4637 11.0887 12.5734 10.7656 13.9941L10.0674 17.0654C9.9367 17.64 9.42523 18.0479 8.83594 18.0479C8.24683 18.0477 7.73613 17.6398 7.60547 17.0654L6.90723 13.9941C6.58419 12.5734 5.47441 11.4637 4.05371 11.1406L0.982422 10.4424C0.407806 10.3117 0 9.80026 0 9.21094C0.000196601 8.6218 0.407944 8.11109 0.982422 7.98047L4.05371 7.28223C5.47441 6.95919 6.58419 5.84938 6.90723 4.42871L7.60547 1.35742C7.7361 0.78291 8.2468 0.375197 8.83594 0.375ZM16.2402 0C16.6129 0.000123598 16.915 0.302089 16.915 0.674805V2H18.2402C18.6129 2.00012 18.915 2.30209 18.915 2.6748C18.915 3.04749 18.6129 3.34949 18.2402 3.34961H16.915V4.6748C16.915 5.04749 16.6129 5.34949 16.2402 5.34961C15.8675 5.34961 15.5655 5.04757 15.5654 4.6748V3.34961H14.2402C13.8675 3.34961 13.5655 3.04757 13.5654 2.6748C13.5654 2.30201 13.8674 2 14.2402 2H15.5654V0.674805C15.5654 0.302012 15.8674 0 16.2402 0Z" fill="white"/>
               </svg>
-            </div>
-          </div>
+            </motion.div>
+          </button>
 
           {/* Notify */}
           <div className="w-14 h-14" />

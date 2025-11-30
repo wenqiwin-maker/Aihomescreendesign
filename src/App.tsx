@@ -8,6 +8,7 @@ import { VoiceChat } from './components/VoiceChat';
 import { SimulationSummary } from './components/SimulationSummary';
 import { AnimatePresence } from 'motion/react';
 import { Toaster } from './components/ui/sonner';
+import { AIChat } from './components/AIChat';
 
 import { PracticePlayback } from './components/PracticePlayback';
 
@@ -18,12 +19,22 @@ interface Setup2FormData {
 }
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'setup' | 'setup2' | 'setup3' | 'review' | 'voiceChat' | 'summary' | 'playback'>('home');
+  const [currentPage, setCurrentPage] = useState<'home' | 'setup' | 'setup2' | 'setup3' | 'review' | 'voiceChat' | 'summary' | 'playback' | 'aiChat'>('home');
+  const [isDemoMode, setIsDemoMode] = useState(false);
   const [setup2FormData, setSetup2FormData] = useState<Setup2FormData>({
     goal: '',
     selectedPerson: null,
     date: undefined
   });
+
+  if (currentPage === 'aiChat') {
+    return (
+      <AIChat 
+        onClose={() => setCurrentPage('home')} 
+        onStartConversation={() => setCurrentPage('setup')}
+      />
+    );
+  }
 
   if (currentPage === 'setup') {
     return <QuickSetup onClose={() => setCurrentPage('home')} onNext={() => setCurrentPage('setup2')} />;
@@ -51,8 +62,14 @@ export default function App() {
       <PostSimMicroReview 
         onClose={() => setCurrentPage('home')} 
         onBack={() => setCurrentPage('setup2')} 
-        onStartPractice={() => setCurrentPage('voiceChat')} 
-        onWatchVideo={() => setCurrentPage('playback')}
+        onStartPractice={() => {
+          setIsDemoMode(false);
+          setCurrentPage('voiceChat');
+        }} 
+        onWatchVideo={() => {
+          setIsDemoMode(true);
+          setCurrentPage('voiceChat');
+        }}
       />
     );
   }
@@ -64,6 +81,7 @@ export default function App() {
           <VoiceChat 
             onClose={() => setCurrentPage('summary')} 
             onBack={() => setCurrentPage('review')}
+            isDemo={isDemoMode}
           />
         </AnimatePresence>
         <Toaster position="top-center" />
@@ -88,5 +106,5 @@ export default function App() {
     return <PracticePlayback onBack={() => setCurrentPage('summary')} />;
   }
 
-  return <HomePage onStartConversation={() => setCurrentPage('setup')} />;
+  return <HomePage onStartConversation={() => setCurrentPage('setup')} onOpenAIChat={() => setCurrentPage('aiChat')} />;
 }
