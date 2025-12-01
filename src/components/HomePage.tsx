@@ -3,8 +3,70 @@ import { Sparkles, Home, Settings, BarChart2 } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { AuroraBackground } from './AuroraBackground';
 import { motion } from 'motion/react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ReactNode } from 'react';
 import { Settings as SettingsPage } from './Settings';
+
+// Reusable card component with rotating icon on hover/click
+interface CardWithRotatingIconProps {
+  bgColor: string;
+  icon: ReactNode;
+  label: string;
+  className?: string;
+  onClick?: () => void;
+}
+
+function CardWithRotatingIcon({ bgColor, icon, label, className = '', onClick }: CardWithRotatingIconProps) {
+  const [isHovered, setIsHovered] = useState(false);
+  const [clickRotation, setClickRotation] = useState(0);
+
+  const handleClick = () => {
+    setClickRotation(prev => prev + 360);
+    onClick?.();
+  };
+
+  return (
+    <motion.div 
+      className={`${className} h-[162px] rounded-2xl px-4 py-4 flex flex-col gap-2`}
+      style={{
+        backgroundColor: bgColor,
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+        cursor: "pointer"
+      }}
+      whileTap={{ scale: 0.97 }}
+      whileHover={{ 
+        boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+        transition: { duration: 0.2 } 
+      }}
+      onHoverStart={() => setIsHovered(true)}
+      onHoverEnd={() => setIsHovered(false)}
+      onClick={handleClick}
+    >
+      <motion.div
+        animate={{
+          rotate: isHovered ? clickRotation + 45 : clickRotation
+        }}
+        transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+        style={{ width: 58, height: 58, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        {icon}
+      </motion.div>
+      <span 
+        className="text-white flex items-center"
+        style={{ 
+          fontFamily: 'SF Pro', 
+          fontSize: '16px', 
+          fontWeight: 590, 
+          lineHeight: '20px',
+          width: '135px',
+          height: '64px',
+          color: '#FFFFFF'
+        }}
+      >
+        {label}
+      </span>
+    </motion.div>
+  );
+}
 
 interface HomePageProps {
   onStartConversation: () => void;
@@ -13,6 +75,8 @@ interface HomePageProps {
 
 export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
   const [isPressed, setIsPressed] = useState(false);
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const [clickRotation, setClickRotation] = useState(0);
   const [titleText, setTitleText] = useState('');
   const [descText, setDescText] = useState('');
   const [currentPage, setCurrentPage] = useState<'home' | 'settings'>('home');
@@ -56,8 +120,12 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
 
   const handleClick = () => {
     setIsPressed(true);
-    setTimeout(() => setIsPressed(false), 600);
-    onStartConversation();
+    setClickRotation(prev => prev + 360);
+    // Delay navigation until after the rotation animation completes
+    setTimeout(() => {
+      setIsPressed(false);
+      onStartConversation();
+    }, 600);
   };
 
   // Show Settings page if selected
@@ -152,6 +220,8 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
           </p>
           <motion.button 
             onClick={handleClick}
+            onHoverStart={() => setIsButtonHovered(true)}
+            onHoverEnd={() => setIsButtonHovered(false)}
             className="flex items-center justify-center gap-3 px-5 h-[45px] bg-white rounded-full shadow-inner mt-auto"
             style={{ 
               boxShadow: 'inset 0px 0px 56px rgba(236, 232, 255, 0.08)' 
@@ -174,28 +244,29 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
               Start a conversation
             </span>
             {/* AI Icon */}
-            <motion.svg 
-              width="20" 
-              height="20" 
-              viewBox="0 0 20 20" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
+            <motion.div
               animate={{
-                rotate: isPressed ? 360 : 0
-              }}
-              whileHover={{
-                rotate: 45
+                rotate: isButtonHovered ? clickRotation + 45 : clickRotation
               }}
               transition={{
                 duration: 0.6,
                 ease: [0.34, 1.56, 0.64, 1]
               }}
+              style={{ width: 20, height: 20, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
-              <path d="M7.5 0.674805C7.68506 0.674805 7.84567 0.802996 7.88672 0.983398L8.47949 3.59082C8.81131 5.0496 9.95038 6.18868 11.4092 6.52051L14.0166 7.11328C14.197 7.15432 14.3252 7.31494 14.3252 7.5C14.3252 7.68506 14.197 7.84568 14.0166 7.88672L11.4092 8.47949C9.95039 8.81132 8.81132 9.95039 8.47949 11.4092L7.88672 14.0166C7.84568 14.197 7.68506 14.3252 7.5 14.3252C7.31494 14.3252 7.15432 14.197 7.11328 14.0166L6.52051 11.4092C6.18868 9.95039 5.04961 8.81132 3.59082 8.47949L0.983398 7.88672C0.803017 7.84568 0.674805 7.68506 0.674805 7.5C0.674805 7.31494 0.803018 7.15432 0.983398 7.11328L3.59082 6.52051C5.04962 6.18868 6.18869 5.0496 6.52051 3.59082L7.11328 0.983398C7.15433 0.802996 7.31494 0.674805 7.5 0.674805Z" fill="#8C00FF" stroke="#8C00FF" strokeWidth="1.35" strokeLinecap="round"/>
-              <path d="M16.2148 13.9844C16.4187 14.8807 17.1193 15.5814 18.0156 15.7852L18.9619 16L18.0156 16.2148C17.1193 16.4186 16.4186 17.1193 16.2148 18.0156L16 18.9619L15.7852 18.0156C15.5814 17.1193 14.8807 16.4186 13.9844 16.2148L13.0371 16L13.9844 15.7852C14.8807 15.5814 15.5813 14.8807 15.7852 13.9844L16 13.0371L16.2148 13.9844Z" fill="#FF52EC" stroke="#FF52EC" strokeWidth="1.35" strokeLinecap="round"/>
-              <path d="M17 2V6" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
-              <path d="M15 4H19" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
-            </motion.svg>
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 20 20" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M7.5 0.674805C7.68506 0.674805 7.84567 0.802996 7.88672 0.983398L8.47949 3.59082C8.81131 5.0496 9.95038 6.18868 11.4092 6.52051L14.0166 7.11328C14.197 7.15432 14.3252 7.31494 14.3252 7.5C14.3252 7.68506 14.197 7.84568 14.0166 7.88672L11.4092 8.47949C9.95039 8.81132 8.81132 9.95039 8.47949 11.4092L7.88672 14.0166C7.84568 14.197 7.68506 14.3252 7.5 14.3252C7.31494 14.3252 7.15432 14.197 7.11328 14.0166L6.52051 11.4092C6.18868 9.95039 5.04961 8.81132 3.59082 8.47949L0.983398 7.88672C0.803017 7.84568 0.674805 7.68506 0.674805 7.5C0.674805 7.31494 0.803018 7.15432 0.983398 7.11328L3.59082 6.52051C5.04962 6.18868 6.18869 5.0496 6.52051 3.59082L7.11328 0.983398C7.15433 0.802996 7.31494 0.674805 7.5 0.674805Z" fill="#8C00FF" stroke="#8C00FF" strokeWidth="1.35" strokeLinecap="round"/>
+                <path d="M16.2148 13.9844C16.4187 14.8807 17.1193 15.5814 18.0156 15.7852L18.9619 16L18.0156 16.2148C17.1193 16.4186 16.4186 17.1193 16.2148 18.0156L16 18.9619L15.7852 18.0156C15.5814 17.1193 14.8807 16.4186 13.9844 16.2148L13.0371 16L13.9844 15.7852C14.8807 15.5814 15.5813 14.8807 15.7852 13.9844L16 13.0371L16.2148 13.9844Z" fill="#FF52EC" stroke="#FF52EC" strokeWidth="1.35" strokeLinecap="round"/>
+                <path d="M17 2V6" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
+                <path d="M15 4H19" stroke="#FFB200" strokeWidth="1.35" strokeLinecap="round"/>
+              </svg>
+            </motion.div>
           </motion.button>
         </div>
       </div>
@@ -246,84 +317,40 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             }}
           >
             {/* Generate CV Card */}
-            <motion.div 
-              className="w-[167px] h-[162px] bg-[#7B1017] rounded-2xl px-4 py-4 flex flex-col gap-2"
-              whileTap={{ scale: 0.97 }}
-              whileHover={{ 
-                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-                transition: { duration: 0.2 } 
-              }}
-              style={{
-                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-                cursor: "pointer"
-              }}
-            >
-              <motion.svg 
-                width="58" 
-                height="58" 
-                viewBox="0 0 58 58" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                whileHover={{ rotate: 45 }}
-                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-              >
-                <path d="M13.0811 0.00144998C16.4988 0.00221892 19.7763 1.36942 22.1927 3.80236C24.6091 6.23531 25.9666 9.53476 25.9666 12.9751V25.9458H13.0811C11.3725 25.9715 9.67595 25.655 8.09004 25.0146C6.50414 24.3742 5.06056 23.4228 3.8433 22.2157C2.62604 21.0086 1.65939 19.5698 0.999588 17.9832C0.339785 16.3965 0 14.6937 0 12.9736C0 11.2536 0.339785 9.55071 0.999588 7.96407C1.65939 6.37743 2.62604 4.9387 3.8433 3.73157C5.06056 2.52444 6.50414 1.57302 8.09004 0.932644C9.67595 0.292272 11.3725 -0.0242644 13.0811 0.00144998ZM13.0811 32.0527H25.9666V45.0235C25.9672 47.5897 25.2117 50.0984 23.7957 52.2323C22.3797 54.3663 20.3669 56.0296 18.0117 57.0119C15.6565 57.9942 13.0649 58.2514 10.5645 57.7509C8.06413 57.2504 5.76737 56.0147 3.96472 54.2001C2.16207 52.3855 0.934515 50.0736 0.437305 47.5567C-0.0599043 45.0398 0.195572 42.431 1.17142 40.0602C2.14727 37.6895 3.79965 35.6633 5.91958 34.238C8.03951 32.8126 10.5317 32.0522 13.0811 32.0527ZM44.9189 0.00144998C46.6275 -0.0242644 48.3241 0.292272 49.91 0.932644C51.4959 1.57302 52.9394 2.52444 54.1567 3.73157C55.374 4.9387 56.3406 6.37743 57.0004 7.96407C57.6602 9.55071 58 11.2536 58 12.9736C58 14.6937 57.6602 16.3965 57.0004 17.9832C56.3406 19.5698 55.374 21.0086 54.1567 22.2157C52.9394 23.4228 51.4959 24.3742 49.91 25.0146C48.3241 25.655 46.6275 25.9715 44.9189 25.9458H32.0334V12.9751C32.0334 9.53476 33.3909 6.23531 35.8073 3.80236C38.2237 1.36942 41.5012 0.00221894 44.9189 0.00144998ZM32.0334 32.0527H44.9189C47.4683 32.0522 49.9605 32.8126 52.0804 34.238C54.2003 35.6633 55.8527 37.6895 56.8286 40.0602C57.8044 42.431 58.0599 45.0398 57.5627 47.5567C57.0655 50.0736 55.8379 52.3855 54.0353 54.2001C52.2326 56.0147 49.9359 57.2504 47.4355 57.7509C44.9351 58.2514 42.3435 57.9942 39.9883 57.0119C37.6331 56.0296 35.6203 54.3663 34.2043 52.2323C32.7883 50.0984 32.0328 47.5897 32.0334 45.0235V32.0527Z" fill="white"/>
-              </motion.svg>
-              <span 
-                className="text-white flex items-center"
-                style={{ 
-                  fontFamily: 'SF Pro', 
-                  fontSize: '16px', 
-                  fontWeight: 590, 
-                  lineHeight: '20px',
-                  width: '135px',
-                  height: '64px',
-                  color: '#FFFFFF'
-                }}
-              >
-                Complete your Information to enhance AI
-              </span>
-            </motion.div>
+            <CardWithRotatingIcon 
+              bgColor="#7B1017"
+              className="w-[167px]"
+              icon={
+                <svg 
+                  width="58" 
+                  height="58" 
+                  viewBox="0 0 58 58" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M13.0811 0.00144998C16.4988 0.00221892 19.7763 1.36942 22.1927 3.80236C24.6091 6.23531 25.9666 9.53476 25.9666 12.9751V25.9458H13.0811C11.3725 25.9715 9.67595 25.655 8.09004 25.0146C6.50414 24.3742 5.06056 23.4228 3.8433 22.2157C2.62604 21.0086 1.65939 19.5698 0.999588 17.9832C0.339785 16.3965 0 14.6937 0 12.9736C0 11.2536 0.339785 9.55071 0.999588 7.96407C1.65939 6.37743 2.62604 4.9387 3.8433 3.73157C5.06056 2.52444 6.50414 1.57302 8.09004 0.932644C9.67595 0.292272 11.3725 -0.0242644 13.0811 0.00144998ZM13.0811 32.0527H25.9666V45.0235C25.9672 47.5897 25.2117 50.0984 23.7957 52.2323C22.3797 54.3663 20.3669 56.0296 18.0117 57.0119C15.6565 57.9942 13.0649 58.2514 10.5645 57.7509C8.06413 57.2504 5.76737 56.0147 3.96472 54.2001C2.16207 52.3855 0.934515 50.0736 0.437305 47.5567C-0.0599043 45.0398 0.195572 42.431 1.17142 40.0602C2.14727 37.6895 3.79965 35.6633 5.91958 34.238C8.03951 32.8126 10.5317 32.0522 13.0811 32.0527ZM44.9189 0.00144998C46.6275 -0.0242644 48.3241 0.292272 49.91 0.932644C51.4959 1.57302 52.9394 2.52444 54.1567 3.73157C55.374 4.9387 56.3406 6.37743 57.0004 7.96407C57.6602 9.55071 58 11.2536 58 12.9736C58 14.6937 57.6602 16.3965 57.0004 17.9832C56.3406 19.5698 55.374 21.0086 54.1567 22.2157C52.9394 23.4228 51.4959 24.3742 49.91 25.0146C48.3241 25.655 46.6275 25.9715 44.9189 25.9458H32.0334V12.9751C32.0334 9.53476 33.3909 6.23531 35.8073 3.80236C38.2237 1.36942 41.5012 0.00221894 44.9189 0.00144998ZM32.0334 32.0527H44.9189C47.4683 32.0522 49.9605 32.8126 52.0804 34.238C54.2003 35.6633 55.8527 37.6895 56.8286 40.0602C57.8044 42.431 58.0599 45.0398 57.5627 47.5567C57.0655 50.0736 55.8379 52.3855 54.0353 54.2001C52.2326 56.0147 49.9359 57.2504 47.4355 57.7509C44.9351 58.2514 42.3435 57.9942 39.9883 57.0119C37.6331 56.0296 35.6203 54.3663 34.2043 52.2323C32.7883 50.0984 32.0328 47.5897 32.0334 45.0235V32.0527Z" fill="white"/>
+                </svg>
+              }
+              label="Complete your Information to enhance AI"
+            />
 
             {/* Chat with AI Card */}
-            <motion.div 
-              className="flex-1 h-[162px] rounded-2xl px-4 py-4 flex flex-col gap-2 bg-[rgb(62,95,255)]"
-              whileTap={{ scale: 0.97 }}
-              whileHover={{ 
-                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-                transition: { duration: 0.2 } 
-              }}
-              style={{
-                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-                cursor: "pointer"
-              }}
-            >
-              <motion.svg 
-                width="58" 
-                height="58" 
-                viewBox="0 0 58 58" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                whileHover={{ rotate: 45 }}
-                transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
-              >
-                <path fillRule="evenodd" clipRule="evenodd" d="M34.8 0H23.2V14.9976L12.5951 4.39269L4.39269 12.5951L14.9976 23.2H0V34.8H14.9976L4.39269 45.4047L12.5951 53.6074L23.2 43.0024V58H34.8V43.0024L45.405 53.6074L53.6074 45.405L43.0024 34.8H58V23.2H43.0024L53.6074 12.5951L45.405 4.39266L34.8 14.9976V0Z" fill="white"/>
-              </motion.svg>
-              <span 
-                className="text-white flex items-center"
-                style={{ 
-                  fontFamily: 'SF Pro', 
-                  fontSize: '16px', 
-                  fontWeight: 590, 
-                  lineHeight: '20px',
-                  width: '135px',
-                  height: '64px',
-                  color: '#FFFFFF'
-                }}
-              >
-                Set a longterm Communication planing
-              </span>
-            </motion.div>
+            <CardWithRotatingIcon 
+              bgColor="rgb(62,95,255)"
+              className="flex-1"
+              icon={
+                <svg 
+                  width="58" 
+                  height="58" 
+                  viewBox="0 0 58 58" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path fillRule="evenodd" clipRule="evenodd" d="M34.8 0H23.2V14.9976L12.5951 4.39269L4.39269 12.5951L14.9976 23.2H0V34.8H14.9976L4.39269 45.4047L12.5951 53.6074L23.2 43.0024V58H34.8V43.0024L45.405 53.6074L53.6074 45.405L43.0024 34.8H58V23.2H43.0024L53.6074 12.5951L45.405 4.39266L34.8 14.9976V0Z" fill="white"/>
+                </svg>
+              }
+              label="Set a longterm Communication planing"
+            />
           </motion.div>
         </motion.div>
 
