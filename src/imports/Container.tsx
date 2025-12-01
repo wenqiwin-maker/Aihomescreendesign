@@ -643,7 +643,8 @@ function Pill3() {
 
 function Summary() {
   return (
-    <div className="content-stretch flex gap-[8px] items-start overflow-clip relative shrink-0 w-[370px]" data-name="Summary">
+    <div className="content-stretch flex gap-[8px] items-start overflow-x-auto overflow-y-hidden relative w-full max-w-full" data-name="Summary" style={{ scrollbarWidth: 'none' }}>
+      <style>{`div[data-name="Summary"]::-webkit-scrollbar { display: none; }`}</style>
       <Pill />
       <Pill1 />
       <Pill2 />
@@ -662,7 +663,7 @@ function InstantRecap() {
 
 function Frame1() {
   return (
-    <div className="content-stretch flex flex-col gap-[20px] h-[35.99px] items-start justify-end relative rounded-bl-[20px] rounded-br-[20px] shrink-0 w-[390px]">
+    <div className="content-stretch flex flex-col gap-[20px] h-[35.99px] items-start justify-end relative shrink-0 w-full max-w-full overflow-hidden">
       <InstantRecap />
     </div>
   );
@@ -1660,8 +1661,8 @@ function DeleteRecording() {
 
 function Container25() {
   return (
-    <div className="h-[1459px] relative shrink-0 w-[390px]" data-name="Container">
-      <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex flex-col gap-[40px] h-[1459px] items-start overflow-clip px-[20px] py-[30px] relative rounded-[inherit] w-[390px]">
+    <div className="relative shrink-0 w-[390px] pb-[100px]" data-name="Container">
+      <div className="bg-clip-padding border-0 border-[transparent] border-solid box-border content-stretch flex flex-col gap-[40px] items-start overflow-clip px-[20px] py-[30px] relative rounded-[inherit] w-[390px]">
         <Container2 />
         <Container19 />
         <Container24 />
@@ -1717,7 +1718,7 @@ function BottomButton() {
 
 function PostSimMicroReview13() {
   return (
-    <div className="bg-[#f5f6fa] content-stretch flex flex-col h-[2149px] items-start overflow-clip relative shrink-0 w-full" data-name="PostSimMicroReview">
+    <div className="bg-[#f5f6fa] content-stretch flex flex-col items-start overflow-clip relative shrink-0 w-full pb-[100px]" data-name="PostSimMicroReview">
       <Frame13 />
       <Container25 />
       <BottomButton />

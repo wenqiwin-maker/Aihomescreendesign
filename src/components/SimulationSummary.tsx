@@ -42,7 +42,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       animate={{ y: 0 }}
       exit={{ y: '100%' }}
       transition={{ type: 'tween', duration: 0.4 }}
-      className="fixed inset-0 w-[390px] h-[844px] bg-[#f5f6fa] overflow-y-auto mx-auto left-0 right-0"
+      className="fixed inset-0 w-[390px] h-[844px] bg-[#f5f6fa] overflow-y-auto mx-auto left-0 right-0 pb-[146px]"
     >
       {/* Status Bar */}
       <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] h-[62px] bg-white" style={{ gap: '154px' }}>
@@ -85,22 +85,19 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
           {/* Download Button */}
           <button 
             onClick={handleDownloadPDF}
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative"
+            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
             style={{
-              background: 'linear-gradient(0deg, #F7F7F7, #F7F7F7), linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #333333',
-              backgroundBlendMode: 'plus-darker, normal, color-dodge',
-              isolation: 'isolate'
+              background: 'rgba(247, 247, 247, 0.85)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)',
+              border: '0.5px solid rgba(255, 255, 255, 0.8)',
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
             }}
           >
-            <div 
-              className="flex flex-col justify-center items-center w-9 h-9 rounded-full"
-              style={{ mixBlendMode: 'plus-darker', zIndex: 1 }}
-            >
-              <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M9 1V11.5M9 11.5L13 7.5M9 11.5L5 7.5" stroke="#404040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                <path d="M3 12V14C3 14.5304 3.21071 15.0391 3.58579 15.4142C3.96086 15.7893 4.46957 16 5 16H13C13.5304 16 14.0391 15.7893 14.4142 15.4142C14.7893 15.0391 15 14.5304 15 14V12" stroke="#404040" strokeWidth="1.5" strokeLinecap="round"/>
-              </svg>
-            </div>
+            <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 1V11.5M9 11.5L13 7.5M9 11.5L5 7.5" stroke="#404040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 12V14C3 14.5304 3.21071 15.0391 3.58579 15.4142C3.96086 15.7893 4.46957 16 5 16H13C13.5304 16 14.0391 15.7893 14.4142 15.4142C14.7893 15.0391 15 14.5304 15 14V12" stroke="#404040" strokeWidth="1.5" strokeLinecap="round"/>
+            </svg>
           </button>
         </div>
         
@@ -148,7 +145,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col items-start pb-[146px] gap-10">
+      <div className="flex flex-col items-start gap-10">
         {/* Instant Recap Section - New Design */}
         <InstantRecapNew />
 
@@ -166,6 +163,9 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
         <DeleteRecording onDelete={handleDeleteRecording} />
         </div>
       </div>
+      
+      {/* Spacer for fixed bottom button */}
+      <div className="w-full" style={{ height: '120px', minHeight: '120px' }} />
 
       {/* Bottom Action Bar */}
       <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[390px]">

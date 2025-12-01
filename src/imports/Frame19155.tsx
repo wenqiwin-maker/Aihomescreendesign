@@ -824,7 +824,7 @@ function Frame({
   onPillClick: (pill: string) => void;
 }) {
   return (
-    <div className="content-stretch flex flex-col gap-[20px] h-[35.99px] items-start justify-end relative rounded-bl-[20px] rounded-br-[20px] shrink-0 w-full max-w-full overflow-hidden">
+    <div className="content-stretch flex flex-col gap-[20px] h-[35.99px] items-start justify-end relative shrink-0 w-full max-w-full overflow-hidden">
       <InstantRecap
         selectedPill={selectedPill}
         onPillClick={onPillClick}
