@@ -27,7 +27,7 @@ function Group3() {
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative shrink-0">
       <div className="[grid-area:1_/_1] ml-0 mt-0 relative size-[100px]">
         {/* Pink ring around profile */}
-        <div 
+        <div
           className="absolute inset-[-4px] rounded-full"
           style={{
             background: 'linear-gradient(135deg, #FFB6C1 0%, #FFC4B8 50%, #FFDAB9 100%)',
@@ -46,11 +46,11 @@ function Group3() {
 
 function Frame4() {
   return (
-    <div className="absolute content-stretch flex gap-[12px] items-center leading-[0] left-[20px] top-[87px]">
+    <div className="flex gap-[16px] items-center leading-[0]">
       <Group3 />
-      <div className="font-['Space_Grotesk:Bold',sans-serif] font-bold leading-[1.4] relative shrink-0 text-[0px] text-black text-nowrap whitespace-pre">
-        <p className="mb-0 text-[24px]">Qi</p>
-        <p className="text-[12px]">Free Plan</p>
+      <div className="flex flex-col justify-center gap-[4px]">
+        <p className="m-0 font-['Space_Grotesk:Bold',sans-serif] font-bold text-[32px] leading-[1.1] text-black">Qi</p>
+        <p className="m-0 font-['SF_Pro',sans-serif] text-[15px] text-gray-500 font-medium">Free Plan</p>
       </div>
     </div>
   );
@@ -59,11 +59,11 @@ function Frame4() {
 // Communication Progress Card
 function CommunicationProgressCard() {
   return (
-    <motion.div 
-      className="flex flex-row items-center gap-[8px] w-[167px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
-      whileHover={{ 
+    <motion.div
+      className="flex flex-row items-center gap-[8px] flex-1 h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
+      whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-        transition: { duration: 0.2 } 
+        transition: { duration: 0.2 }
       }}
       whileTap={{ scale: 0.98 }}
       style={{
@@ -73,45 +73,35 @@ function CommunicationProgressCard() {
       {/* Circle Icon with Chart */}
       <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E8E0FF] to-[#D4C4FF] rounded-full flex-shrink-0 flex items-center justify-center">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 3V21H21" stroke="#8C00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M7 14L11 10L15 14L21 8" stroke="#8C00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M3 3V21H21" stroke="#8C00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M7 14L11 10L15 14L21 8" stroke="#8C00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </div>
-      
+
       {/* Text */}
-      <div className="w-[95px] h-[48px]">
-        <p 
+      <div className="flex flex-col justify-center h-[48px]">
+        <p
           className="m-0"
-          style={{ 
+          style={{
             fontFamily: 'SF Pro',
             fontWeight: 700,
-            fontSize: '12px',
-            lineHeight: '16px',
+            fontSize: '14px',
+            lineHeight: '18px',
             color: 'rgba(0, 0, 0, 0.9)'
           }}
         >
           Communication
-        </p>
-        <p 
-          className="m-0"
-          style={{ 
-            fontFamily: 'SF Pro',
-            fontWeight: 700,
-            fontSize: '12px',
-            lineHeight: '16px',
-            color: 'rgba(0, 0, 0, 0.9)'
-          }}
-        >
+          <br />
           Progress
         </p>
-        <p 
-          className="m-0"
-          style={{ 
+        <p
+          className="m-0 mt-[4px]"
+          style={{
             fontFamily: 'SF Pro',
-            fontWeight: 274,
-            fontSize: '12px',
+            fontWeight: 400,
+            fontSize: '13px',
             lineHeight: '16px',
-            color: 'rgba(0, 0, 0, 0.6)'
+            color: 'rgba(0, 0, 0, 0.5)'
           }}
         >
           Level 1
@@ -124,11 +114,11 @@ function CommunicationProgressCard() {
 // Practice History Card
 function PracticeHistoryCard() {
   return (
-    <motion.div 
-      className="flex flex-col items-start gap-[8px] w-[167px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
-      whileHover={{ 
+    <motion.div
+      className="flex flex-col items-start gap-[8px] flex-1 h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
+      whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-        transition: { duration: 0.2 } 
+        transition: { duration: 0.2 }
       }}
       whileTap={{ scale: 0.98 }}
       style={{
@@ -136,49 +126,39 @@ function PracticeHistoryCard() {
       }}
     >
       {/* Content Row */}
-      <div className="flex flex-row items-center gap-[8px] w-[101px] h-[48px]">
+      <div className="flex flex-row items-center gap-[8px] w-full h-[48px]">
         {/* Circle Icon with History */}
         <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E0F0FF] to-[#C4DFFF] rounded-full flex-shrink-0 flex items-center justify-center">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9" stroke="#0066FF" strokeWidth="2"/>
-            <path d="M12 7V12L15 15" stroke="#0066FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            <circle cx="12" cy="12" r="9" stroke="#0066FF" strokeWidth="2" />
+            <path d="M12 7V12L15 15" stroke="#0066FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        
+
         {/* Text */}
-        <div className="w-[51px] h-[48px]">
-          <p 
+        <div className="flex flex-col justify-center h-[48px]">
+          <p
             className="m-0"
-            style={{ 
+            style={{
               fontFamily: 'SF Pro',
               fontWeight: 700,
-              fontSize: '12px',
-              lineHeight: '16px',
+              fontSize: '14px',
+              lineHeight: '18px',
               color: 'rgba(0, 0, 0, 0.9)'
             }}
           >
             Practice
-          </p>
-          <p 
-            className="m-0"
-            style={{ 
-              fontFamily: 'SF Pro',
-              fontWeight: 700,
-              fontSize: '12px',
-              lineHeight: '16px',
-              color: 'rgba(0, 0, 0, 0.9)'
-            }}
-          >
+            <br />
             History
           </p>
-          <p 
-            className="m-0"
-            style={{ 
+          <p
+            className="m-0 mt-[4px]"
+            style={{
               fontFamily: 'SF Pro',
-              fontWeight: 274,
-              fontSize: '12px',
+              fontWeight: 400,
+              fontSize: '13px',
               lineHeight: '16px',
-              color: 'rgba(0, 0, 0, 0.6)'
+              color: 'rgba(0, 0, 0, 0.5)'
             }}
           >
             3 Units
@@ -192,7 +172,7 @@ function PracticeHistoryCard() {
 // Top Cards Container
 function Frame5() {
   return (
-    <div className="flex flex-row items-center gap-[16px] w-[350px] h-[88px]">
+    <div className="flex flex-row items-center gap-[16px] w-full h-[88px]">
       <CommunicationProgressCard />
       <PracticeHistoryCard />
     </div>
@@ -213,28 +193,28 @@ function ArrowBackSimple() {
 // Reminder Setting Section
 function Frame() {
   return (
-    <div className="flex flex-col items-start gap-[8px] w-[350px] h-[199px]">
+    <div className="flex flex-col items-start gap-[8px] w-full">
       {/* Title */}
-      <h2 
-        className="m-0 w-[350px] h-[14px]"
-        style={{ 
+      <h2
+        className="m-0 w-full mb-[4px]"
+        style={{
           fontFamily: 'SF Pro',
-          fontWeight: 590,
-          fontSize: '14px',
-          lineHeight: '14px',
+          fontWeight: 600,
+          fontSize: '17px',
+          lineHeight: '22px',
           color: '#000000'
         }}
       >
         Reminder Setting
       </h2>
-      
+
       {/* White Card */}
-      <div className="relative w-[350px] h-[177px]">
-        <motion.div 
-          className="absolute left-0 top-[22px] flex flex-col items-start gap-[7px] w-[350px] h-[177px] bg-white rounded-[20px] p-[20px]"
-          whileHover={{ 
+      <div className="relative w-full">
+        <motion.div
+          className="flex flex-col items-start gap-[7px] w-full bg-white rounded-[20px] p-[20px]"
+          whileHover={{
             boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-            transition: { duration: 0.2 } 
+            transition: { duration: 0.2 }
           }}
           whileTap={{ scale: 0.98 }}
           style={{
@@ -242,16 +222,15 @@ function Frame() {
           }}
         >
           {/* Assist Mode & Sensitivity */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[7px_133px] w-[310px] h-[43px]">
-            <div className="flex flex-row justify-between items-center gap-[133px] w-[310px] h-[36px]">
-              <p 
-                className="m-0 w-[187px] h-[36px]"
-                style={{ 
+          <div className="flex flex-col w-full gap-[0px]">
+            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+              <p
+                className="m-0"
+                style={{
                   fontFamily: 'SF Pro',
-                  fontWeight: 590,
-                  fontSize: '15px',
-                  lineHeight: '36px',
-                  color: 'rgba(0, 0, 0, 0.9)',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  color: '#000000',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -259,22 +238,21 @@ function Frame() {
               </p>
               <ArrowBackSimple />
             </div>
-            
+
             {/* Line */}
-            <div className="w-[314px] h-0 border-t border-[rgba(0,0,0,0.12)]" />
+            <div className="w-full h-[1px] bg-[#F2F2F7]" />
           </div>
-          
+
           {/* Calibrate in 20 Seconds */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[8px_196px] w-[310px] h-[44px]">
-            <div className="flex flex-row justify-between items-center gap-[203px] w-[310px] h-[36px]">
-              <p 
-                className="m-0 w-[288px] h-[36px]"
-                style={{ 
+          <div className="flex flex-col w-full gap-[0px]">
+            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+              <p
+                className="m-0"
+                style={{
                   fontFamily: 'SF Pro',
-                  fontWeight: 590,
-                  fontSize: '15px',
-                  lineHeight: '36px',
-                  color: 'rgba(0, 0, 0, 0.9)',
+                  fontWeight: 500,
+                  fontSize: '16px',
+                  color: '#000000',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -282,36 +260,34 @@ function Frame() {
               </p>
               <ArrowBackSimple />
             </div>
-            
+
             {/* Line */}
-            <div className="w-[314px] h-0 border-t border-[rgba(0,0,0,0.12)]" />
+            <div className="w-full h-[1px] bg-[#F2F2F7]" />
           </div>
-          
+
           {/* Nudges & Delivery */}
-          <div className="flex flex-row justify-between items-center gap-[175px] w-[310px] h-[36px]">
-            <p 
-              className="m-0 w-[136px] h-[36px]"
-              style={{ 
+          <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+            <p
+              className="m-0"
+              style={{
                 fontFamily: 'SF Pro',
-                fontWeight: 590,
-                fontSize: '15px',
-                lineHeight: '36px',
-                color: 'rgba(0, 0, 0, 0.9)',
+                fontWeight: 500,
+                fontSize: '16px',
+                color: '#000000',
                 whiteSpace: 'nowrap'
               }}
             >
               Nudges & Delivery
             </p>
-            
-            <div className="flex flex-row items-center gap-[4px] w-[66px] h-[36px]">
-              <p 
-                className="m-0 w-[45px] h-[36px]"
-                style={{ 
+
+            <div className="flex flex-row items-center gap-[8px]">
+              <p
+                className="m-0"
+                style={{
                   fontFamily: 'SF Pro',
-                  fontWeight: 274,
-                  fontSize: '12px',
-                  lineHeight: '36px',
-                  color: 'rgba(0, 0, 0, 0.6)',
+                  fontWeight: 400,
+                  fontSize: '15px',
+                  color: 'rgba(60, 60, 67, 0.6)',
                   whiteSpace: 'nowrap'
                 }}
               >
@@ -329,28 +305,28 @@ function Frame() {
 // Support Section
 function Frame9() {
   return (
-    <div className="flex flex-col items-start gap-[8px] w-[350px] h-[207px]">
+    <div className="flex flex-col items-start gap-[8px] w-full">
       {/* Title */}
-      <h2 
-        className="m-0 w-[350px] h-[14px]"
-        style={{ 
+      <h2
+        className="m-0 w-full mb-[4px]"
+        style={{
           fontFamily: 'SF Pro',
-          fontWeight: 590,
-          fontSize: '14px',
-          lineHeight: '14px',
+          fontWeight: 600,
+          fontSize: '17px',
+          lineHeight: '22px',
           color: '#000000'
         }}
       >
         Support
       </h2>
-      
+
       {/* White Card */}
-      <div className="relative w-[350px] h-[185px]">
-        <motion.div 
-          className="absolute left-0 top-[22px] flex flex-col items-start gap-[7px] w-[350px] h-[185px] bg-white rounded-[20px] p-[20px]"
-          whileHover={{ 
+      <div className="relative w-full">
+        <motion.div
+          className="flex flex-col items-start gap-[7px] w-full bg-white rounded-[20px] p-[20px]"
+          whileHover={{
             boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-            transition: { duration: 0.2 } 
+            transition: { duration: 0.2 }
           }}
           whileTap={{ scale: 0.98 }}
           style={{
@@ -358,15 +334,14 @@ function Frame9() {
           }}
         >
           {/* Terms Of Service */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[7px_133px] w-[310px] h-[43px]">
-            <div className="flex flex-row justify-between items-center gap-[133px] w-[314px] h-[36px]">
-              <p 
-                className="m-0 w-[127px] h-[36px]"
-                style={{ 
+          <div className="flex flex-col w-full gap-[0px]">
+            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+              <p
+                className="m-0"
+                style={{
                   fontFamily: 'SF Pro',
-                  fontWeight: 590,
-                  fontSize: '15px',
-                  lineHeight: '36px',
+                  fontWeight: 500,
+                  fontSize: '16px',
                   color: '#000000',
                   whiteSpace: 'nowrap'
                 }}
@@ -375,21 +350,20 @@ function Frame9() {
               </p>
               <ArrowBackSimple />
             </div>
-            
+
             {/* Line */}
-            <div className="w-[314px] h-0 border-t border-[rgba(0,0,0,0.12)]" />
+            <div className="w-full h-[1px] bg-[#F2F2F7]" />
           </div>
-          
+
           {/* Privacy Policy */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[7px_133px] w-[310px] h-[43px]">
-            <div className="flex flex-row justify-between items-center gap-[133px] w-[314px] h-[36px]">
-              <p 
-                className="m-0 w-[121px] h-[36px]"
-                style={{ 
+          <div className="flex flex-col w-full gap-[0px]">
+            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+              <p
+                className="m-0"
+                style={{
                   fontFamily: 'SF Pro',
-                  fontWeight: 590,
-                  fontSize: '15px',
-                  lineHeight: '36px',
+                  fontWeight: 500,
+                  fontSize: '16px',
                   color: '#000000',
                   whiteSpace: 'nowrap'
                 }}
@@ -398,21 +372,20 @@ function Frame9() {
               </p>
               <ArrowBackSimple />
             </div>
-            
+
             {/* Line */}
-            <div className="w-[314px] h-0 border-t border-[rgba(0,0,0,0.12)]" />
+            <div className="w-full h-[1px] bg-[#F2F2F7]" />
           </div>
-          
+
           {/* Contact Support */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[7px_133px] w-[310px] h-[43px]">
-            <div className="flex flex-row justify-between items-center gap-[133px] w-[314px] h-[36px]">
-              <p 
-                className="m-0 w-[124px] h-[36px]"
-                style={{ 
+          <div className="flex flex-col w-full gap-[0px]">
+            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+              <p
+                className="m-0"
+                style={{
                   fontFamily: 'SF Pro',
-                  fontWeight: 590,
-                  fontSize: '15px',
-                  lineHeight: '36px',
+                  fontWeight: 500,
+                  fontSize: '16px',
                   color: '#000000',
                   whiteSpace: 'nowrap'
                 }}
@@ -421,9 +394,9 @@ function Frame9() {
               </p>
               <ArrowBackSimple />
             </div>
-            
+
             {/* Line */}
-            <div className="w-[314px] h-0 border-t border-[rgba(0,0,0,0.12)]" />
+            <div className="w-full h-[1px] bg-[#F2F2F7]" />
           </div>
         </motion.div>
       </div>
@@ -434,7 +407,7 @@ function Frame9() {
 // Main Content Container
 function Frame19() {
   return (
-    <div className="absolute flex flex-col gap-[24px] items-start left-[20px] top-[229px] w-[350px]">
+    <div className="flex flex-col gap-[24px] items-start w-full">
       <Frame5 />
       <Frame />
       <Frame9 />
@@ -488,12 +461,12 @@ function LeftTitle() {
 
 function UnlockPro() {
   return (
-    <motion.div 
-      className="absolute bg-black box-border content-stretch flex gap-[8px] items-center left-[268px] pl-[4px] pr-[12px] py-[4px] rounded-[100px] top-[117px]" 
+    <motion.div
+      className="bg-black box-border content-stretch flex gap-[8px] items-center pl-[4px] pr-[12px] py-[4px] rounded-[100px]"
       data-name="unlock Pro"
-      whileHover={{ 
+      whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
-        transition: { duration: 0.2 } 
+        transition: { duration: 0.2 }
       }}
       whileTap={{ scale: 0.98 }}
       style={{
@@ -512,9 +485,9 @@ interface SettingsProps {
 
 export function Settings({ onBack }: SettingsProps) {
   return (
-    <div className="relative w-[390px] h-[844px] bg-[#f5f6fa] overflow-hidden">
+    <div className="relative w-[390px] h-[844px] bg-[#f5f6fa] overflow-hidden flex flex-col">
       {/* Status Bar */}
-      <div className="absolute h-[44px] left-0 top-0 w-[390px] flex justify-between items-center px-[24px] pt-[12px]">
+      <div className="h-[44px] w-full flex justify-between items-center px-[24px] pt-[12px] shrink-0 z-20">
         <span
           className="text-black"
           style={{
@@ -529,38 +502,48 @@ export function Settings({ onBack }: SettingsProps) {
         <StatusBar variant="dark" />
       </div>
 
-      {/* Back Button */}
-      <button
-        onClick={onBack}
-        className="absolute left-[20px] top-[62px] flex items-center justify-center w-11 h-11 rounded-full z-50"
-        style={{
-          background: "rgba(247, 247, 247, 0.85)",
-          backdropFilter: "blur(20px)",
-          WebkitBackdropFilter: "blur(20px)",
-          border: "0.5px solid rgba(255, 255, 255, 0.8)",
-          boxShadow:
-            "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-        }}
-      >
-        <span
+      {/* Header with Back Button */}
+      <div className="w-full px-[20px] pt-[18px] pb-[10px] shrink-0 z-10">
+        <button
+          onClick={onBack}
+          className="flex items-center justify-center w-11 h-11 rounded-full"
           style={{
-            fontFamily: "SF Pro",
-            fontSize: "20px",
-            fontWeight: 400,
-            lineHeight: "20px",
-            color: "#404040",
+            background: "rgba(247, 247, 247, 0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "0.5px solid rgba(255, 255, 255, 0.8)",
+            boxShadow:
+              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
           }}
         >
-          􀯶
-        </span>
-      </button>
+          <span
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "20px",
+              fontWeight: 400,
+              lineHeight: "20px",
+              color: "#404040",
+            }}
+          >
+            􀯶
+          </span>
+        </button>
+      </div>
 
-      <Frame4 />
-      <Frame19 />
-      <UnlockPro />
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto px-[20px] pb-[40px] flex flex-col gap-[24px]">
+        {/* Profile Section */}
+        <div className="flex justify-between items-center w-full">
+          <Frame4 />
+          <UnlockPro />
+        </div>
+
+        {/* Main Content */}
+        <Frame19 />
+      </div>
 
       {/* Notch - Black container at top */}
-      <div className="absolute w-[150px] h-[37px] left-[126px] top-0 bg-black rounded-b-[24px]" />
+      <div className="absolute w-[150px] h-[37px] left-[126px] top-0 bg-black rounded-b-[24px] pointer-events-none z-50" />
     </div>
   );
 }
