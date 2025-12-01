@@ -26,8 +26,17 @@ function Group3() {
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative shrink-0">
       <div className="[grid-area:1_/_1] ml-0 mt-0 relative size-[100px]">
-        <div className="absolute inset-[-2%]">
-          <img alt="" className="block max-w-none size-full" height="104" src={imgEllipse8} width="104" />
+        {/* Pink ring around profile */}
+        <div 
+          className="absolute inset-[-4px] rounded-full"
+          style={{
+            background: 'linear-gradient(135deg, #FFB6C1 0%, #FFC4B8 50%, #FFDAB9 100%)',
+            padding: '3px'
+          }}
+        >
+          <div className="w-full h-full rounded-full overflow-hidden bg-white">
+            <img alt="Profile" className="block w-full h-full object-cover" src={imgEllipse8} />
+          </div>
         </div>
       </div>
       <EditIcon />
@@ -61,8 +70,13 @@ function CommunicationProgressCard() {
         boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)"
       }}
     >
-      {/* Circle Icon */}
-      <div className="w-[42px] h-[42px] bg-[#E8E8F0] rounded-full flex-shrink-0" />
+      {/* Circle Icon with Chart */}
+      <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E8E0FF] to-[#D4C4FF] rounded-full flex-shrink-0 flex items-center justify-center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 3V21H21" stroke="#8C00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M7 14L11 10L15 14L21 8" stroke="#8C00FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </div>
       
       {/* Text */}
       <div className="w-[95px] h-[48px]">
@@ -123,8 +137,13 @@ function PracticeHistoryCard() {
     >
       {/* Content Row */}
       <div className="flex flex-row items-center gap-[8px] w-[101px] h-[48px]">
-        {/* Circle Icon */}
-        <div className="w-[42px] h-[42px] bg-[#E8E8F0] rounded-full flex-shrink-0" />
+        {/* Circle Icon with History */}
+        <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E0F0FF] to-[#C4DFFF] rounded-full flex-shrink-0 flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="9" stroke="#0066FF" strokeWidth="2"/>
+            <path d="M12 7V12L15 15" stroke="#0066FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </div>
         
         {/* Text */}
         <div className="w-[51px] h-[48px]">
@@ -354,11 +373,7 @@ function Frame9() {
               >
                 Terms Of Service
               </p>
-              <div className="w-[17px] h-[17px] flex items-center justify-center" style={{ transform: 'matrix(-1, 0, 0, 1, 0, 0)' }}>
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 17 17">
-                  <path d={svgPaths.p365e80} stroke="rgba(255, 255, 255, 0.54)" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
+              <ArrowBackSimple />
             </div>
             
             {/* Line */}
@@ -366,10 +381,10 @@ function Frame9() {
           </div>
           
           {/* Privacy Policy */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[8px_196px] w-[310px] h-[44px]">
-            <div className="relative w-[314px] h-[36px]">
+          <div className="flex flex-row flex-wrap items-center content-start gap-[7px_133px] w-[310px] h-[43px]">
+            <div className="flex flex-row justify-between items-center gap-[133px] w-[314px] h-[36px]">
               <p 
-                className="absolute left-0 top-0 m-0 w-[121px] h-[36px]"
+                className="m-0 w-[121px] h-[36px]"
                 style={{ 
                   fontFamily: 'SF Pro',
                   fontWeight: 590,
@@ -381,11 +396,7 @@ function Frame9() {
               >
                 Privacy Policy
               </p>
-              <div className="absolute left-[296.21px] top-[9.5px] w-[17.79px] h-[17px] flex items-center justify-center" style={{ transform: 'matrix(-1, 0, 0, 1, 0, 0)' }}>
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 17">
-                  <path d={svgPaths.p35a4b300} stroke="rgba(255, 255, 255, 0.54)" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
+              <ArrowBackSimple />
             </div>
             
             {/* Line */}
@@ -393,13 +404,13 @@ function Frame9() {
           </div>
           
           {/* Contact Support */}
-          <div className="flex flex-row flex-wrap items-center content-start gap-[8px_196px] w-[310px] h-[44px]">
-            <div className="relative w-[314px] h-[36px]">
+          <div className="flex flex-row flex-wrap items-center content-start gap-[7px_133px] w-[310px] h-[43px]">
+            <div className="flex flex-row justify-between items-center gap-[133px] w-[314px] h-[36px]">
               <p 
-                className="absolute left-0 top-0 m-0 w-[124px] h-[36px]"
+                className="m-0 w-[124px] h-[36px]"
                 style={{ 
                   fontFamily: 'SF Pro',
-                  fontWeight: 700,
+                  fontWeight: 590,
                   fontSize: '15px',
                   lineHeight: '36px',
                   color: '#000000',
@@ -408,11 +419,7 @@ function Frame9() {
               >
                 Contact Support
               </p>
-              <div className="absolute left-[296.21px] top-[9.5px] w-[17.79px] h-[17px] flex items-center justify-center" style={{ transform: 'matrix(-1, 0, 0, 1, 0, 0)' }}>
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 18 17">
-                  <path d={svgPaths.p35a4b300} stroke="rgba(255, 255, 255, 0.54)" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
+              <ArrowBackSimple />
             </div>
             
             {/* Line */}
@@ -507,21 +514,19 @@ export function Settings({ onBack }: SettingsProps) {
   return (
     <div className="relative w-[390px] h-[844px] bg-[#f5f6fa] overflow-hidden">
       {/* Status Bar */}
-      <div className="absolute h-[44px] left-0 top-0 w-[390px] flex justify-center items-center px-4 pt-[21px] pb-[19px]">
-        <div className="flex-1 flex justify-center items-center">
-          <span
-            className="text-black text-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "17px",
-              fontWeight: 590,
-              lineHeight: "22px",
-            }}
-          >
-            9:41
-          </span>
-        </div>
-        <StatusBar />
+      <div className="absolute h-[44px] left-0 top-0 w-[390px] flex justify-between items-center px-[24px] pt-[12px]">
+        <span
+          className="text-black"
+          style={{
+            fontFamily: "SF Pro",
+            fontSize: "15px",
+            fontWeight: 600,
+            lineHeight: "20px",
+          }}
+        >
+          9:41
+        </span>
+        <StatusBar variant="dark" />
       </div>
 
       {/* Back Button */}
