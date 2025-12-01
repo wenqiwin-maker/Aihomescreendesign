@@ -476,7 +476,7 @@ export function QuickSetup3({
                       setEvidence(e.target.value)
                     }
                     placeholder="Situation: When..., Behavior: You..., Impact: It resulted in..."
-                    className="min-h-[100px] border-[#E9EBF3] bg-transparent rounded-2xl resize-none pl-5 pr-3 py-3"
+                    className="min-h-[100px] border-[#E9EBF3] bg-transparent rounded-2xl resize-none pl-5 pr-3 py-3 focus-visible:ring-0 focus-visible:border-[#E9EBF3]"
                     style={{
                       fontFamily: "SF Pro",
                       fontSize: "14px",

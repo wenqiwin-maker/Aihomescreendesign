@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { FileText, File, Image } from 'lucide-react';
+import { useRef } from 'react';
 
 interface UploadFilePopupProps {
   isOpen: boolean;
@@ -7,131 +7,176 @@ interface UploadFilePopupProps {
 }
 
 export function UploadFilePopup({ isOpen, onClose }: UploadFilePopupProps) {
-  const options = [
-    { icon: FileText, label: 'Upload Word document', color: '#2B579A' },
-    { icon: File, label: 'Upload PDF', color: '#DC3545' },
-    { icon: Image, label: 'Upload Images', color: '#FFA500' }
-  ];
+  const wordInputRef = useRef<HTMLInputElement>(null);
+  const pdfInputRef = useRef<HTMLInputElement>(null);
+  const imageInputRef = useRef<HTMLInputElement>(null);
+
+  const handleWordUpload = () => {
+    wordInputRef.current?.click();
+  };
+
+  const handlePdfUpload = () => {
+    pdfInputRef.current?.click();
+  };
+
+  const handleImageUpload = () => {
+    imageInputRef.current?.click();
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log('File selected:', file);
+      onClose();
+    }
+  };
 
   return (
     <AnimatePresence>
       {isOpen && (
         <>
+          {/* Hidden Inputs */}
+          <input
+            type="file"
+            ref={wordInputRef}
+            accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+          <input
+            type="file"
+            ref={pdfInputRef}
+            accept=".pdf,application/pdf"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+          <input
+            type="file"
+            ref={imageInputRef}
+            accept="image/*"
+            style={{ display: 'none' }}
+            onChange={handleFileChange}
+          />
+
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="absolute left-0 right-0 top-0 bottom-0 bg-black/30 z-50"
+            className="absolute left-0 right-0 top-0 bottom-0 bg-black/40 z-50"
             onClick={onClose}
           />
-          
-          {/* Upload Popup */}
+
+          {/* iOS Action Sheet */}
           <motion.div
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'tween', duration: 0.3 }}
-            className="absolute left-0 right-0 bottom-0 z-50"
-            style={{
-              width: '390px',
-              background: '#FFFFFF',
-              borderRadius: '24px 24px 0px 0px',
-              padding: '20px 0px 40px'
-            }}
+            className="absolute left-0 right-0 bottom-0 z-50 px-2 pb-2"
           >
-            {/* Grabber */}
-            <div 
-              className="flex flex-col items-center"
-              style={{
-                padding: '0px 0px 16px',
-                width: '100%'
-              }}
-            >
-              <div
-                style={{
-                  width: '36px',
-                  height: '5px',
-                  background: '#CCCCCC',
-                  borderRadius: '100px'
-                }}
-              />
-            </div>
-
-            {/* Title */}
+            {/* Options Container */}
             <div
+              className="rounded-[13px] overflow-hidden mb-2"
               style={{
-                padding: '0px 24px 20px',
-                fontFamily: 'SF Pro',
-                fontWeight: 590,
-                fontSize: '20px',
-                lineHeight: '24px',
-                letterSpacing: '-0.45px',
-                color: '#0A0A0A'
+                backdropFilter: 'blur(20px)',
+                backgroundColor: 'rgba(255, 255, 255, 0.94)',
               }}
             >
-              Upload File
-            </div>
-
-            {/* Options */}
-            <div style={{ padding: '0px 16px', gap: '12px', display: 'flex', flexDirection: 'column' }}>
-              {options.map((option, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    // Handle upload action here
-                    console.log(`Selected: ${option.label}`);
-                    onClose();
-                  }}
+              {/* Upload Word Document */}
+              <button
+                onClick={handleWordUpload}
+                className="w-full px-4 h-[57px] flex items-center justify-center border-b"
+                style={{
+                  borderBottomColor: 'rgba(60, 60, 67, 0.29)',
+                }}
+              >
+                <span
                   style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                    padding: '16px 20px',
-                    gap: '16px',
-                    background: '#F7F7F7',
-                    borderRadius: '12px',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'background 0.2s'
+                    fontFamily: 'SF Pro',
+                    fontSize: '20px',
+                    fontWeight: 400,
+                    lineHeight: '24px',
+                    letterSpacing: '-0.45px',
+                    color: '#007AFF',
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.background = '#ECECEC'}
-                  onMouseLeave={(e) => e.currentTarget.style.background = '#F7F7F7'}
                 >
-                  {/* Icon */}
-                  <div
-                    style={{
-                      width: '40px',
-                      height: '40px',
-                      borderRadius: '8px',
-                      background: option.color,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    <option.icon style={{ width: '24px', height: '24px', color: '#FFFFFF' }} />
-                  </div>
+                  Upload Word Document
+                </span>
+              </button>
 
-                  {/* Label */}
-                  <span
-                    style={{
-                      fontFamily: 'SF Pro',
-                      fontWeight: 400,
-                      fontSize: '16px',
-                      lineHeight: '22px',
-                      letterSpacing: '-0.43px',
-                      color: '#0A0A0A',
-                      flex: 1,
-                      textAlign: 'left'
-                    }}
-                  >
-                    {option.label}
-                  </span>
-                </button>
-              ))}
+              {/* Upload PDF */}
+              <button
+                onClick={handlePdfUpload}
+                className="w-full px-4 h-[57px] flex items-center justify-center border-b"
+                style={{
+                  borderBottomColor: 'rgba(60, 60, 67, 0.29)',
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'SF Pro',
+                    fontSize: '20px',
+                    fontWeight: 400,
+                    lineHeight: '24px',
+                    letterSpacing: '-0.45px',
+                    color: '#007AFF',
+                  }}
+                >
+                  Upload PDF
+                </span>
+              </button>
+
+              {/* Upload Images */}
+              <button
+                onClick={handleImageUpload}
+                className="w-full px-4 h-[57px] flex items-center justify-center"
+              >
+                <span
+                  style={{
+                    fontFamily: 'SF Pro',
+                    fontSize: '20px',
+                    fontWeight: 400,
+                    lineHeight: '24px',
+                    letterSpacing: '-0.45px',
+                    color: '#007AFF',
+                  }}
+                >
+                  Upload Images
+                </span>
+              </button>
             </div>
+
+            {/* Cancel Button */}
+            <div
+              className="rounded-[13px] overflow-hidden"
+              style={{
+                backdropFilter: 'blur(20px)',
+                backgroundColor: 'rgba(255, 255, 255, 0.94)',
+              }}
+            >
+              <button
+                onClick={onClose}
+                className="w-full px-4 h-[57px] flex items-center justify-center"
+              >
+                <span
+                  style={{
+                    fontFamily: 'SF Pro',
+                    fontSize: '20px',
+                    fontWeight: 600,
+                    lineHeight: '24px',
+                    letterSpacing: '-0.45px',
+                    color: '#007AFF',
+                  }}
+                >
+                  Cancel
+                </span>
+              </button>
+            </div>
+
+            {/* Home Indicator Space */}
+            <div className="h-[34px]" />
           </motion.div>
         </>
       )}
