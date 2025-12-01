@@ -53,6 +53,7 @@ export function VoiceChat({
   const [isUploadPopupOpen, setIsUploadPopupOpen] =
     useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isWaitingForAI, setIsWaitingForAI] = useState(false);
   const [tags, setTags] = useState<Tag[]>([]);
   const [currentTagText, setCurrentTagText] = useState("");
   const [activeTagIndex, setActiveTagIndex] = useState<
@@ -316,8 +317,10 @@ export function VoiceChat({
       timestamp: new Date(),
     };
     setMessages((prev) => [...prev, newMessage]);
+    setIsWaitingForAI(true);
 
     setTimeout(() => {
+      setIsWaitingForAI(false);
       const aiResponse: Message = {
         id: (Date.now() + 1).toString(),
         text: "Got it! Let me help you with that.",
@@ -964,6 +967,7 @@ export function VoiceChat({
         isOpen={isChatPopupOpen}
         onClose={() => setIsChatPopupOpen(false)}
         messages={messages}
+        isWaitingForAI={isWaitingForAI}
       />
       <KeyboardInput
         isOpen={isChatPopupOpen}
