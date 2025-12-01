@@ -1,5 +1,5 @@
 import svgPaths from "./svg-gr04iezp3r";
-import imgAvata from "figma:asset/245a7d0f66b2a4c07c6f65541bd8759f79b07f71.png";
+import imgAvata from "../assets/avatar.png";
 
 function TopBackground() {
   return (

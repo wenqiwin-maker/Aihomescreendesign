@@ -1,5 +1,5 @@
 import svgPaths from "./svg-2dfu8bzznl";
-import imgBadge from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
+import imgBadge from "../assets/gradient-pill-bg.png";
 
 function Heading() {
   return (

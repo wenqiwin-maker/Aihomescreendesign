@@ -2,9 +2,9 @@ import svgPaths from "../imports/svg-7ol5gy1jzb";
 import playIconPaths from "../imports/svg-7rvw220974";
 
 // Import the moment icons
-import bookmarkIcon from "figma:asset/cbb81ccfd38a6e3466ced7b5ebcf4c573848a8f0.png";
-import hesitationIcon from "figma:asset/94dc86094bb48a274fa8d1d4286e75f6ba6bb651.png";
-import risingEmotionIcon from "figma:asset/8b32da91415dc9cf6c19e5a823bf54ed72dda66a.png";
+import bookmarkIcon from "../assets/bookmark-icon.png";
+import hesitationIcon from "../assets/hesitation-icon.png";
+import risingEmotionIcon from "../assets/rising-emotion-icon.png";
 
 function Heading() {
   return (

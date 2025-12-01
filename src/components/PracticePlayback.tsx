@@ -9,11 +9,11 @@ import {
   Sparkles,
   Pin,
 } from "lucide-react";
-import imgImageAiCharacter from "figma:asset/90d021ade914fe47e4dd2fdd3fc4a07e9d6c5450.png";
+import imgImageAiCharacter from "../assets/ai-character-static.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import bookmarkIcon from "figma:asset/cbb81ccfd38a6e3466ced7b5ebcf4c573848a8f0.png";
-import hesitationIcon from "figma:asset/94dc86094bb48a274fa8d1d4286e75f6ba6bb651.png";
-import risingEmotionIcon from "figma:asset/8b32da91415dc9cf6c19e5a823bf54ed72dda66a.png";
+import bookmarkIcon from "../assets/bookmark-icon.png";
+import hesitationIcon from "../assets/hesitation-icon.png";
+import risingEmotionIcon from "../assets/rising-emotion-icon.png";
 
 // Helper function to convert time string to seconds
 function timeToSeconds(time: string): number {

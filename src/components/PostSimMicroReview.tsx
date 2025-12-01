@@ -3,10 +3,10 @@ import { StatusBar } from "./StatusBar";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import blufIcon from "figma:asset/c152f6ddc8f8cc8dd8ffc69c0a41a52dff0c6f72.png";
-import starIcon from "figma:asset/b263585bdaba08a84842c9aaa8c1a9b4d330bda8.png";
-import problemIcon from "figma:asset/85cf8a2e0bb1f20d8c8750e2e7d5f7cca09e5fc3.png";
-import imgImageAiCharacter from "figma:asset/90d021ade914fe47e4dd2fdd3fc4a07e9d6c5450.png";
+import blufIcon from "../assets/bluf-icon.png";
+import starIcon from "../assets/star-icon.png";
+import problemIcon from "../assets/problem-icon.png";
+import imgImageAiCharacter from "../assets/ai-character-static.png";
 
 interface PostSimMicroReviewProps {
   onClose: () => void;

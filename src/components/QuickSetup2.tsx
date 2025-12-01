@@ -13,7 +13,7 @@ import {
 } from "./ui/popover";
 import { format } from "date-fns";
 import { motion } from "motion/react";
-import optionButtonBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
+import optionButtonBg from "../assets/gradient-pill-bg.png";
 
 interface Setup2FormData {
   goal: string;

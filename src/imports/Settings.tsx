@@ -1,5 +1,5 @@
 import svgPaths from "./svg-q98ffmnpjl";
-import imgEllipse8 from "figma:asset/76adeb644b64864ede1a03b297c97a918e9a052a.png";
+import imgEllipse8 from "../assets/profile-avatar.png";
 
 function EditIcon() {
   return (

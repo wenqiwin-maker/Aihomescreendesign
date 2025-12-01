@@ -1,6 +1,6 @@
 import svgPaths from "./svg-gb89wx82qy";
-import imgImageAiCharacter from "figma:asset/90d021ade914fe47e4dd2fdd3fc4a07e9d6c5450.png";
-import imgImageAiCharacter1 from "figma:asset/81a9b3f706537a64e0f7ec2695020b5210851cfc.png";
+import imgImageAiCharacter from "../assets/ai-character-static.png";
+import imgImageAiCharacter1 from "../assets/user-pip.png";
 
 function ImageAiCharacter() {
   return (

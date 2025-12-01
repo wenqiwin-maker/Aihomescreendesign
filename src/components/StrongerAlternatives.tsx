@@ -1,7 +1,7 @@
-import image_fb7add15620a6daf8191d3c5f44230e7b5c088ad from "figma:asset/fb7add15620a6daf8191d3c5f44230e7b5c088ad.png";
+import image_fb7add15620a6daf8191d3c5f44230e7b5c088ad from "../assets/arrow-icon.png";
 import svgPaths from "../imports/svg-2dfu8bzznl";
-import imgBadge from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
-import imgCopyIcon from "figma:asset/9d4126fe1f8085e89c8e064eb4d1a1bbd7697c56.png";
+import imgBadge from "../assets/gradient-pill-bg.png";
+import imgCopyIcon from "../assets/copy-icon.png";
 import { useState } from 'react';
 
 function Heading() {

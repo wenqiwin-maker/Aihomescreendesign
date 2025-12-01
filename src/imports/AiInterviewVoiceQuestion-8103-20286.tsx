@@ -1,5 +1,5 @@
 import svgPaths from "./svg-bm47gwmwlu";
-import imgImageAiCharacter from "figma:asset/90d021ade914fe47e4dd2fdd3fc4a07e9d6c5450.png";
+import imgImageAiCharacter from "../assets/ai-character-static.png";
 
 function ImageAiCharacter() {
   return (

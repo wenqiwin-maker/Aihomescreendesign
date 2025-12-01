@@ -3,11 +3,11 @@ import { StatusBar } from "./StatusBar";
 import { useState } from "react";
 import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import optionButtonBg from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
-import workIcon from "figma:asset/49695633fb316040da977cf200fa479419e49388.png";
-import lifeIcon from "figma:asset/b0d0eea29691821f27c246781426ce78300c68fe.png";
-import workBgHighlighted from "figma:asset/8ff5c1824480bd6fb5a82d90de695f4904a871ce.png";
-import lifeBgHighlighted from "figma:asset/062ce7dcfc49abadde2a266df1690c5121ad114d.png";
+import optionButtonBg from "../assets/gradient-pill-bg.png";
+import workIcon from "../assets/work-icon.png";
+import lifeIcon from "../assets/life-icon.png";
+import workBgHighlighted from "../assets/gradient-bg-blue.png";
+import lifeBgHighlighted from "../assets/gradient-bg-pink.png";
 
 interface QuickSetupProps {
   onClose: () => void;

@@ -1,6 +1,6 @@
-import image_35145143825e4bf11d0c403ae2e5cf77e43e5169 from 'figma:asset/35145143825e4bf11d0c403ae2e5cf77e43e5169.png';
-import image_cd2bbe5fa8213b135a606881b5a27264dc9e1c6c from 'figma:asset/cd2bbe5fa8213b135a606881b5a27264dc9e1c6c.png';
-import image_e4a3d456f2b61aceeb89c5c13562853903075c1b from 'figma:asset/e4a3d456f2b61aceeb89c5c13562853903075c1b.png';
+import image_35145143825e4bf11d0c403ae2e5cf77e43e5169 from '../../assets/neutral-icon.png';
+import image_cd2bbe5fa8213b135a606881b5a27264dc9e1c6c from '../../assets/cooperative-icon.png';
+import image_e4a3d456f2b61aceeb89c5c13562853903075c1b from '../../assets/visual-style-icon.png';
 import React, { useState } from 'react'
 
 const ERROR_IMG_SRC =

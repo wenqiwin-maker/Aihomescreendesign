@@ -1,5 +1,5 @@
 import svgPaths from "./svg-rczgobrrth";
-import imgPill from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
+import imgPill from "../assets/gradient-pill-bg.png";
 
 function Time() {
   return (

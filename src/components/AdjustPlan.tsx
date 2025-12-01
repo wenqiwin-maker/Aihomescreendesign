@@ -1,6 +1,6 @@
 import svgPaths from "../imports/svg-0uaqswejvo";
-import imgBadge from "figma:asset/71f51ddbf8b2b5d764325230f5ad1453eab75503.png";
-import imgEditIcon from "figma:asset/0db2d2f229a4adb9d8fef4b5641d5203102bde6c.png";
+import imgBadge from "../assets/gradient-pill-bg.png";
+import imgEditIcon from "../assets/edit-icon.png";
 
 function Heading() {
   return (
