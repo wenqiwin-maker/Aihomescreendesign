@@ -6,7 +6,7 @@ export function SummaryPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="relative w-[390px] h-[844px] mx-auto overflow-hidden">
+    <div className="relative w-[390px] h-screen mx-auto overflow-hidden">
       <AnimatePresence mode="wait">
         <SimulationSummary
           onClose={() => navigate('/')}

@@ -5,7 +5,7 @@ import { motion } from "motion/react";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import blufIcon from "../assets/bluf-icon.png";
 import starIcon from "../assets/star-icon.png";
-import problemIcon from "../assets/problem-icon.png";
+import neutralIcon from "../assets/neutral-icon.png";
 import imgImageAiCharacter from "../assets/ai-character-static.png";
 
 interface PostSimMicroReviewProps {
@@ -86,7 +86,7 @@ export function PostSimMicroReview({
     {
       id: "problem",
       emoji: "💡",
-      icon: problemIcon,
+      icon: neutralIcon,
       title: "Problem-Solution",
       subtitle:
         "Clear problem framing with actionable solution",

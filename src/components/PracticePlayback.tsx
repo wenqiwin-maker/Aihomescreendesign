@@ -297,7 +297,7 @@ export function PracticePlayback({
   }, [currentProgress]);
 
   return (
-    <div className="fixed inset-0 bg-[#F5F6FA] w-[390px] h-[844px] overflow-y-auto mx-auto font-['SF_Pro']">
+    <div className="fixed inset-0 bg-[#F5F6FA] w-[390px] h-screen overflow-y-auto mx-auto font-['SF_Pro']">
       {/* Video Player Section */}
       <div className="relative w-full aspect-[390/300] bg-black group shrink-0 shadow-sm">
         <div className="absolute inset-0 overflow-hidden">

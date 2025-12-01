@@ -22,7 +22,7 @@ export function MobileFrame({
 }: MobileFrameProps) {
   return (
     <div
-      className={`relative w-[390px] h-[844px] mx-auto overflow-hidden ${className}`}
+      className={`relative w-[390px] h-screen mx-auto overflow-hidden ${className}`}
       style={{ backgroundColor }}
     >
       {children}

@@ -120,7 +120,7 @@ export function HomePage() {
   };
 
   return (
-    <div className="relative w-[390px] h-[844px] mx-auto overflow-hidden bg-white">
+    <div className="relative w-[390px] h-screen mx-auto overflow-hidden bg-white">
       {/* Top Section */}
       <div className="absolute w-[390px] h-[321px] left-0 top-0">
         {/* Top Background with Aurora Animation */}

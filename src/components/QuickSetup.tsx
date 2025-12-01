@@ -25,7 +25,7 @@ export function QuickSetup({
   >(null);
 
   return (
-    <div className="relative w-[390px] h-[844px] bg-white mx-auto">
+    <div className="relative w-[390px] h-screen bg-white mx-auto">
       {/* Status Bar */}
       <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] gap-[154px] h-[62px]">
         <div className="flex-1 flex justify-center items-center">

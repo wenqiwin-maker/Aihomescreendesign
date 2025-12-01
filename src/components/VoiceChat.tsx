@@ -297,7 +297,7 @@ export function VoiceChat({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.4 }}
-      className="absolute inset-0 w-[390px] h-[844px] overflow-hidden"
+      className="absolute inset-0 w-[390px] h-screen overflow-hidden"
       style={{ background: "#F9FAFB" }}
     >
       {/* Video/Image Background Layer - Dynamic Height */}

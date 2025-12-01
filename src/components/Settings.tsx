@@ -490,7 +490,7 @@ interface SettingsProps {
 
 export function Settings({ onBack }: SettingsProps) {
   return (
-    <div className="relative w-[390px] h-[844px] mx-auto bg-[#f5f6fa] overflow-hidden flex flex-col">
+    <div className="relative w-[390px] h-screen mx-auto bg-[#f5f6fa] overflow-hidden flex flex-col">
       {/* Status Bar */}
       <div className="h-[44px] w-full flex justify-between items-center px-[24px] pt-[12px] shrink-0 z-20">
         <span

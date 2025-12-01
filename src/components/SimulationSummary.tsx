@@ -42,7 +42,7 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
       animate={{ y: 0 }}
       exit={{ y: '100%' }}
       transition={{ type: 'tween', duration: 0.4 }}
-      className="fixed inset-0 w-[390px] h-[844px] bg-[#f5f6fa] overflow-y-auto mx-auto left-0 right-0 pb-[146px]"
+      className="fixed inset-0 w-[390px] h-screen bg-[#f5f6fa] overflow-y-auto mx-auto left-0 right-0 pb-[146px]"
     >
       {/* Status Bar */}
       <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] h-[62px] bg-white" style={{ gap: '154px' }}>
