@@ -682,8 +682,34 @@ export function VoiceChat({
               </div>
             ))}
 
-            {/* Progress Bar Background - Segmented */}
-            <div className="relative w-full h-1">
+            {/* Progress Bar Background - Segmented with Extended Touch Area */}
+            <div 
+              className="relative w-full py-4 -my-4 cursor-pointer"
+              style={{ touchAction: 'none' }}
+              onPointerDown={(e) => {
+                const target = e.currentTarget.querySelector('[data-progress-bar]') as HTMLElement;
+                if (!target) return;
+                const rect = target.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
+                setCurrentTime((percentage / 100) * totalDuration);
+                
+                const handlePointerMove = (moveEvent: PointerEvent) => {
+                  const moveX = moveEvent.clientX - rect.left;
+                  const movePercentage = Math.max(0, Math.min(100, (moveX / rect.width) * 100));
+                  setCurrentTime((movePercentage / 100) * totalDuration);
+                };
+                
+                const handlePointerUp = () => {
+                  document.removeEventListener('pointermove', handlePointerMove);
+                  document.removeEventListener('pointerup', handlePointerUp);
+                };
+                
+                document.addEventListener('pointermove', handlePointerMove);
+                document.addEventListener('pointerup', handlePointerUp);
+              }}
+            >
+              <div className="relative w-full h-1" data-progress-bar>
               {(() => {
                 const currentProgress =
                   (currentTime / totalDuration) * 100;
@@ -754,6 +780,7 @@ export function VoiceChat({
                   );
                 });
               })()}
+              </div>
             </div>
           </div>
 

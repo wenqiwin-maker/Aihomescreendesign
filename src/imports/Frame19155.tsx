@@ -945,6 +945,15 @@ function Container({ selectedPill }: { selectedPill: string }) {
 }
 
 function Improve({ selectedPill }: { selectedPill: string }) {
+  const borderColor =
+    selectedPill === "tone"
+      ? "border-[rgba(23,218,213,0.2)]"
+      : selectedPill === "boundaries"
+        ? "border-[rgba(238,44,0,0.2)]"
+        : selectedPill === "actionable"
+          ? "border-[rgba(255,123,0,0.2)]"
+          : "border-[rgba(255,123,0,0.2)]";
+
   return (
     <div
       className="bg-white relative rounded-[14px] shrink-0 w-full"
@@ -952,7 +961,7 @@ function Improve({ selectedPill }: { selectedPill: string }) {
     >
       <div
         aria-hidden="true"
-        className="absolute border-[0.75px] border-[rgba(219,61,25,0.2)] border-solid inset-0 pointer-events-none rounded-[14px]"
+        className={`absolute border-[0.75px] ${borderColor} border-solid inset-0 pointer-events-none rounded-[14px]`}
       />
       <div className="size-full">
         <div className="box-border content-stretch flex gap-[8px] items-start p-[16.75px] relative w-full">
