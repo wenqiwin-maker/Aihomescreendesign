@@ -386,6 +386,15 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  #root {
+    display: flex;
+    justify-content: center;
+    width: 100%;
   }
 
   :where(:not(:has([class*=" text-"]), :not(:has([class^="text-"])))) h1 {

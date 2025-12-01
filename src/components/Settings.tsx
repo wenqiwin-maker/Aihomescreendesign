@@ -46,11 +46,11 @@ function Group3() {
 
 function Frame4() {
   return (
-    <div className="flex gap-[16px] items-center leading-[0]">
+    <div className="flex gap-[16px] items-center">
       <Group3 />
       <div className="flex flex-col justify-center gap-[4px]">
         <p className="m-0 font-['Space_Grotesk:Bold',sans-serif] font-bold text-[32px] leading-[1.1] text-black">Qi</p>
-        <p className="m-0 font-['SF_Pro',sans-serif] text-[15px] text-gray-500 font-medium">Free Plan</p>
+        <p className="m-0 font-['SF_Pro',sans-serif] text-[15px] leading-normal text-gray-500 font-medium">Free Plan</p>
       </div>
     </div>
   );
@@ -60,7 +60,8 @@ function Frame4() {
 function CommunicationProgressCard() {
   return (
     <motion.div
-      className="flex flex-row items-center gap-[8px] flex-1 h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
+      className="flex flex-row items-center gap-[8px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
+      style={{ width: 'calc(50% - 8px)' }}
       whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
         transition: { duration: 0.2 }
@@ -115,7 +116,8 @@ function CommunicationProgressCard() {
 function PracticeHistoryCard() {
   return (
     <motion.div
-      className="flex flex-col items-start gap-[8px] flex-1 h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
+      className="flex flex-row items-center gap-[8px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
+      style={{ width: 'calc(50% - 8px)' }}
       whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
         transition: { duration: 0.2 }
@@ -125,45 +127,42 @@ function PracticeHistoryCard() {
         boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)"
       }}
     >
-      {/* Content Row */}
-      <div className="flex flex-row items-center gap-[8px] w-full h-[48px]">
-        {/* Circle Icon with History */}
-        <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E0F0FF] to-[#C4DFFF] rounded-full flex-shrink-0 flex items-center justify-center">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="12" cy="12" r="9" stroke="#0066FF" strokeWidth="2" />
-            <path d="M12 7V12L15 15" stroke="#0066FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </div>
+      {/* Circle Icon with History */}
+      <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E0F0FF] to-[#C4DFFF] rounded-full flex-shrink-0 flex items-center justify-center">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="9" stroke="#0066FF" strokeWidth="2" />
+          <path d="M12 7V12L15 15" stroke="#0066FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </div>
 
-        {/* Text */}
-        <div className="flex flex-col justify-center h-[48px]">
-          <p
-            className="m-0"
-            style={{
-              fontFamily: 'SF Pro',
-              fontWeight: 700,
-              fontSize: '14px',
-              lineHeight: '18px',
-              color: 'rgba(0, 0, 0, 0.9)'
-            }}
-          >
-            Practice
-            <br />
-            History
-          </p>
-          <p
-            className="m-0 mt-[4px]"
-            style={{
-              fontFamily: 'SF Pro',
-              fontWeight: 400,
-              fontSize: '13px',
-              lineHeight: '16px',
-              color: 'rgba(0, 0, 0, 0.5)'
-            }}
-          >
-            3 Units
-          </p>
-        </div>
+      {/* Text */}
+      <div className="flex flex-col justify-center h-[48px]">
+        <p
+          className="m-0"
+          style={{
+            fontFamily: 'SF Pro',
+            fontWeight: 700,
+            fontSize: '14px',
+            lineHeight: '18px',
+            color: 'rgba(0, 0, 0, 0.9)'
+          }}
+        >
+          Practice
+          <br />
+          History
+        </p>
+        <p
+          className="m-0 mt-[4px]"
+          style={{
+            fontFamily: 'SF Pro',
+            fontWeight: 400,
+            fontSize: '13px',
+            lineHeight: '16px',
+            color: 'rgba(0, 0, 0, 0.5)'
+          }}
+        >
+          3 Units
+        </p>
       </div>
     </motion.div>
   );
@@ -172,7 +171,7 @@ function PracticeHistoryCard() {
 // Top Cards Container
 function Frame5() {
   return (
-    <div className="flex flex-row items-center gap-[16px] w-full h-[88px]">
+    <div className="flex flex-row items-center gap-[16px] w-full">
       <CommunicationProgressCard />
       <PracticeHistoryCard />
     </div>
@@ -485,7 +484,7 @@ interface SettingsProps {
 
 export function Settings({ onBack }: SettingsProps) {
   return (
-    <div className="relative w-[390px] h-[844px] bg-[#f5f6fa] overflow-hidden flex flex-col">
+    <div className="relative w-[390px] h-[844px] mx-auto bg-[#f5f6fa] overflow-hidden flex flex-col">
       {/* Status Bar */}
       <div className="h-[44px] w-full flex justify-between items-center px-[24px] pt-[12px] shrink-0 z-20">
         <span
@@ -503,7 +502,10 @@ export function Settings({ onBack }: SettingsProps) {
       </div>
 
       {/* Header with Back Button */}
-      <div className="w-full px-[20px] pt-[18px] pb-[10px] shrink-0 z-10">
+      <div 
+        className="w-full pt-[18px] pb-[10px] shrink-0 z-10"
+        style={{ paddingLeft: '20px', paddingRight: '20px' }}
+      >
         <button
           onClick={onBack}
           className="flex items-center justify-center w-11 h-11 rounded-full"
@@ -531,7 +533,10 @@ export function Settings({ onBack }: SettingsProps) {
       </div>
 
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-[20px] pb-[40px] flex flex-col gap-[24px]">
+      <div 
+        className="flex-1 overflow-y-auto pb-[40px] flex flex-col gap-[24px]"
+        style={{ paddingLeft: '20px', paddingRight: '20px' }}
+      >
         {/* Profile Section */}
         <div className="flex justify-between items-center w-full">
           <Frame4 />
