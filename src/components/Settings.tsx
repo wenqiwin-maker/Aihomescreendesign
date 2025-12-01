@@ -544,8 +544,7 @@ export function Settings({ onBack }: SettingsProps) {
         style={{
           paddingLeft: '20px',
           paddingRight: '20px',
-          paddingBottom: '100px',
-          marginBottom: '80px'
+          paddingBottom: '100px'
         }}
       >
         {/* Profile Section */}
