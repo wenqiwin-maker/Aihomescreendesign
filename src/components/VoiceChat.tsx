@@ -1,5 +1,6 @@
 import image_e71456bb150803a8c03bf60185c7a4ea96da27af from "figma:asset/e71456bb150803a8c03bf60185c7a4ea96da27af.png";
 import imgImageAiCharacter1 from "figma:asset/81a9b3f706537a64e0f7ec2695020b5210851cfc.png";
+import aiCharacterGif from "../assets/ai-character.gif";
 import {
   X,
   Mic,
@@ -345,32 +346,13 @@ export function VoiceChat({
         className="absolute inset-0 w-full origin-bottom"
         animate={{
           height: isCaptionPopupOpen ? "400px" : "844px",
-          ...(isDemo && isAiSpeaking
-            ? {
-                y: [0, 2, 0, 1, 0],
-                scaleY: [1, 1.03, 0.98, 1.02, 1],
-              }
-            : {
-                y: 0,
-                scaleY: 1,
-              }),
         }}
         transition={{
           height: { duration: 0.3 },
-          y: {
-            duration: 0.25,
-            repeat: Infinity,
-            ease: "linear",
-          },
-          scaleY: {
-            duration: 0.25,
-            repeat: Infinity,
-            ease: "linear",
-          },
         }}
       >
-        <ImageWithFallback
-          src={image_e71456bb150803a8c03bf60185c7a4ea96da27af}
+        <img
+          src={aiCharacterGif}
           alt="AI Character"
           className="w-full h-full object-cover"
           style={{ objectPosition: "center top" }}
