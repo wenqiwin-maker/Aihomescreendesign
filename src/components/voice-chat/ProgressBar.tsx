@@ -71,7 +71,7 @@ export function ProgressBar({
           className="absolute cursor-pointer"
           style={{
             left: `${tag.position}%`,
-            top: "-27px",
+            top: "-5px",
             transform: "translateX(-50%)",
             zIndex: 30,
           }}
@@ -112,76 +112,76 @@ export function ProgressBar({
         onPointerDown={handlePointerDown}
       >
         <div className="relative w-full h-1" data-progress-bar>
-        {(() => {
-          const currentProgress =
-            (currentTime / totalDuration) * 100;
-          const uniqueTags = [
-            ...new Set(tags.map((t) => t.position)),
-          ].sort((a, b) => a - b);
-          const segments: Array<{
-            start: number;
-            end: number;
-            isActive: boolean;
-          }> = [];
-          let prevPosition = 0;
-          uniqueTags.forEach((tagPos) => {
-            if (tagPos > 0) {
+          {(() => {
+            const currentProgress =
+              (currentTime / totalDuration) * 100;
+            const uniqueTags = [
+              ...new Set(tags.map((t) => t.position)),
+            ].sort((a, b) => a - b);
+            const segments: Array<{
+              start: number;
+              end: number;
+              isActive: boolean;
+            }> = [];
+            let prevPosition = 0;
+            uniqueTags.forEach((tagPos) => {
+              if (tagPos > 0) {
+                segments.push({
+                  start: prevPosition,
+                  end: tagPos,
+                  isActive: tagPos <= currentProgress,
+                });
+              }
+              prevPosition = tagPos;
+            });
+            if (prevPosition < 100) {
               segments.push({
                 start: prevPosition,
-                end: tagPos,
-                isActive: tagPos <= currentProgress,
+                end: 100,
+                isActive: prevPosition < currentProgress,
               });
             }
-            prevPosition = tagPos;
-          });
-          if (prevPosition < 100) {
-            segments.push({
-              start: prevPosition,
-              end: 100,
-              isActive: prevPosition < currentProgress,
-            });
-          }
-          if (segments.length === 0) {
-            segments.push({
-              start: 0,
-              end: 100,
-              isActive: true,
-            });
-          }
+            if (segments.length === 0) {
+              segments.push({
+                start: 0,
+                end: 100,
+                isActive: true,
+              });
+            }
 
-          return segments.map((segment, index) => {
-            const segmentWidth =
-              segment.end - segment.start;
-            const gapWidth = 4;
-            const containerWidth = 300;
-            const gapPercentage =
-              (gapWidth / containerWidth) * 100;
+            return segments.map((segment, index) => {
+              const segmentWidth =
+                segment.end - segment.start;
+              const gapWidth = 4;
+              const containerWidth = 300;
+              const gapPercentage =
+                (gapWidth / containerWidth) * 100;
 
-            return (
-              <div
-                key={index}
-                className="absolute h-1 rounded-full"
-                style={{
-                  left: `${segment.start}%`,
-                  width: `calc(${segmentWidth}% - ${gapPercentage}%)`,
-                  background: "rgba(0, 0, 0, 0.6)",
-                }}
-              >
-                {segment.isActive && (
-                  <div
-                    className="absolute h-1 rounded-full bg-[#8C00FF]"
-                    style={{
-                      width:
-                        segment.end <= currentProgress
-                          ? "100%"
-                          : `${((currentProgress - segment.start) / segmentWidth) * 100}%`,
-                    }}
-                  />
-                )}
-              </div>
-            );
-          });
-        })()}
+              return (
+                <div
+                  key={index}
+                  className="absolute h-1 rounded-full"
+                  style={{
+                    left: `${segment.start}%`,
+                    width: `calc(${segmentWidth}% - ${gapPercentage}%)`,
+                    background: "rgba(0, 0, 0, 0.6)",
+                  }}
+                >
+                  {segment.isActive && (
+                    <div
+                      className="absolute h-1 rounded-full bg-[#8C00FF]"
+                      style={{
+                        width:
+                          segment.end <= currentProgress
+                            ? "100%"
+                            : `${((currentProgress - segment.start) / segmentWidth) * 100}%`,
+                      }}
+                    />
+                  )}
+                </div>
+              );
+            });
+          })()}
         </div>
       </div>
     </div>
