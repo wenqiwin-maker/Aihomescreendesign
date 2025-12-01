@@ -55,12 +55,16 @@ export function QuickSetup3({
     "soft-professional",
   );
   const [showPhotoSheet, setShowPhotoSheet] = useState(false);
+  const [showEvidenceSheet, setShowEvidenceSheet] = useState(false);
   const [uploadedPhoto, setUploadedPhoto] = useState<
     string | null
   >(null);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
+  const evidenceFileInputRef = useRef<HTMLInputElement>(null);
+  const evidencePhotoInputRef = useRef<HTMLInputElement>(null);
+  const evidenceCameraInputRef = useRef<HTMLInputElement>(null);
 
   const goalTypes = [
     "Promotion",
@@ -85,6 +89,31 @@ export function QuickSetup3({
   const handleTakePhoto = () => {
     setShowPhotoSheet(false);
     cameraInputRef.current?.click();
+  };
+
+  const handleEvidenceChooseFromPhotos = () => {
+    setShowEvidenceSheet(false);
+    evidencePhotoInputRef.current?.click();
+  };
+
+  const handleEvidenceTakePhoto = () => {
+    setShowEvidenceSheet(false);
+    evidenceCameraInputRef.current?.click();
+  };
+
+  const handleEvidenceChooseFile = () => {
+    setShowEvidenceSheet(false);
+    evidenceFileInputRef.current?.click();
+  };
+
+  const handleEvidenceFileChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      console.log('Evidence file selected:', file);
+      // Handle evidence file upload logic here
+    }
   };
 
   const handleFileChange = (
@@ -486,7 +515,10 @@ export function QuickSetup3({
                       color: evidence ? "#0A0A0A" : "#717182",
                     }}
                   />
-                  <button className="flex justify-center items-center gap-1 py-3.5 h-12 border border-black/10 rounded-3xl bg-transparent">
+                  <button
+                    onClick={() => setShowEvidenceSheet(true)}
+                    className="flex justify-center items-center gap-1 py-3.5 h-12 border border-black/10 rounded-3xl bg-transparent"
+                  >
                     <Plus
                       className="w-4 h-4 text-[#0A0A0A]"
                       strokeWidth={1.33}
@@ -1415,6 +1447,149 @@ export function QuickSetup3({
         onChange={handleFileChange}
         className="hidden"
       />
+
+      {/* Evidence File Input */}
+      <input
+        type="file"
+        ref={evidenceFileInputRef}
+        onChange={handleEvidenceFileChange}
+        className="hidden"
+      />
+
+      {/* Evidence Photo Input */}
+      <input
+        type="file"
+        ref={evidencePhotoInputRef}
+        accept="image/*"
+        onChange={handleEvidenceFileChange}
+        className="hidden"
+      />
+
+      {/* Evidence Camera Input */}
+      <input
+        type="file"
+        ref={evidenceCameraInputRef}
+        accept="image/*"
+        capture="environment"
+        onChange={handleEvidenceFileChange}
+        className="hidden"
+      />
+
+      {/* Evidence Upload Sheet */}
+      {showEvidenceSheet && (
+        <>
+          {/* Backdrop */}
+          <div
+            className="absolute left-0 right-0 top-0 bottom-0 bg-black/40 z-40 transition-opacity"
+            onClick={() => setShowEvidenceSheet(false)}
+          />
+
+          {/* Action Sheet */}
+          <div className="absolute left-0 right-0 bottom-0 z-50 px-2 pb-2">
+            {/* Options Container */}
+            <div
+              className="bg-white rounded-[13px] overflow-hidden mb-2"
+              style={{
+                backdropFilter: "blur(20px)",
+                backgroundColor: "rgba(255, 255, 255, 0.94)",
+              }}
+            >
+              {/* Choose from Photos */}
+              <button
+                onClick={handleEvidenceChooseFromPhotos}
+                className="w-full px-4 h-[57px] flex items-center justify-center border-b"
+                style={{
+                  borderBottomColor: "rgba(60, 60, 67, 0.29)",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "SF Pro",
+                    fontSize: "20px",
+                    fontWeight: 400,
+                    lineHeight: "24px",
+                    letterSpacing: "-0.45px",
+                    color: "#007AFF",
+                  }}
+                >
+                  Choose from Photos
+                </span>
+              </button>
+
+              {/* Take Photo */}
+              <button
+                onClick={handleEvidenceTakePhoto}
+                className="w-full px-4 h-[57px] flex items-center justify-center border-b"
+                style={{
+                  borderBottomColor: "rgba(60, 60, 67, 0.29)",
+                }}
+              >
+                <span
+                  style={{
+                    fontFamily: "SF Pro",
+                    fontSize: "20px",
+                    fontWeight: 400,
+                    lineHeight: "24px",
+                    letterSpacing: "-0.45px",
+                    color: "#007AFF",
+                  }}
+                >
+                  Take Photo
+                </span>
+              </button>
+
+              {/* Choose File */}
+              <button
+                onClick={handleEvidenceChooseFile}
+                className="w-full px-4 h-[57px] flex items-center justify-center"
+              >
+                <span
+                  style={{
+                    fontFamily: "SF Pro",
+                    fontSize: "20px",
+                    fontWeight: 400,
+                    lineHeight: "24px",
+                    letterSpacing: "-0.45px",
+                    color: "#007AFF",
+                  }}
+                >
+                  Choose File
+                </span>
+              </button>
+            </div>
+
+            {/* Cancel Button */}
+            <div
+              className="bg-white rounded-[13px] overflow-hidden"
+              style={{
+                backdropFilter: "blur(20px)",
+                backgroundColor: "rgba(255, 255, 255, 0.94)",
+              }}
+            >
+              <button
+                onClick={() => setShowEvidenceSheet(false)}
+                className="w-full px-4 h-[57px] flex items-center justify-center"
+              >
+                <span
+                  style={{
+                    fontFamily: "SF Pro",
+                    fontSize: "20px",
+                    fontWeight: 600,
+                    lineHeight: "24px",
+                    letterSpacing: "-0.45px",
+                    color: "#007AFF",
+                  }}
+                >
+                  Cancel
+                </span>
+              </button>
+            </div>
+
+            {/* Home Indicator Space */}
+            <div className="h-[34px]" />
+          </div>
+        </>
+      )}
     </div>
   );
 }
