@@ -60,16 +60,17 @@ function Frame4() {
 function CommunicationProgressCard() {
   return (
     <motion.div
-      className="flex flex-row items-center gap-[8px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
-      style={{ width: 'calc(50% - 8px)' }}
+      className="flex flex-row items-center gap-[8px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px] overflow-hidden"
+      style={{ 
+        flex: '1 1 0',
+        minWidth: 0,
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)"
+      }}
       whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
         transition: { duration: 0.2 }
       }}
       whileTap={{ scale: 0.98 }}
-      style={{
-        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)"
-      }}
     >
       {/* Circle Icon with Chart */}
       <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E8E0FF] to-[#D4C4FF] rounded-full flex-shrink-0 flex items-center justify-center">
@@ -80,14 +81,14 @@ function CommunicationProgressCard() {
       </div>
 
       {/* Text */}
-      <div className="flex flex-col justify-center h-[48px]">
+      <div className="flex flex-col justify-center h-[48px] min-w-0 flex-1">
         <p
           className="m-0"
           style={{
             fontFamily: 'SF Pro',
             fontWeight: 700,
-            fontSize: '14px',
-            lineHeight: '18px',
+            fontSize: '13px',
+            lineHeight: '17px',
             color: 'rgba(0, 0, 0, 0.9)'
           }}
         >
@@ -116,16 +117,17 @@ function CommunicationProgressCard() {
 function PracticeHistoryCard() {
   return (
     <motion.div
-      className="flex flex-row items-center gap-[8px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px]"
-      style={{ width: 'calc(50% - 8px)' }}
+      className="flex flex-row items-center gap-[8px] h-[88px] bg-white rounded-[16px] px-[12px] py-[20px] overflow-hidden"
+      style={{ 
+        flex: '1 1 0',
+        minWidth: 0,
+        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)"
+      }}
       whileHover={{
         boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
         transition: { duration: 0.2 }
       }}
       whileTap={{ scale: 0.98 }}
-      style={{
-        boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)"
-      }}
     >
       {/* Circle Icon with History */}
       <div className="w-[42px] h-[42px] bg-gradient-to-br from-[#E0F0FF] to-[#C4DFFF] rounded-full flex-shrink-0 flex items-center justify-center">
@@ -136,14 +138,14 @@ function PracticeHistoryCard() {
       </div>
 
       {/* Text */}
-      <div className="flex flex-col justify-center h-[48px]">
+      <div className="flex flex-col justify-center h-[48px] min-w-0 flex-1">
         <p
           className="m-0"
           style={{
             fontFamily: 'SF Pro',
             fontWeight: 700,
-            fontSize: '14px',
-            lineHeight: '18px',
+            fontSize: '13px',
+            lineHeight: '17px',
             color: 'rgba(0, 0, 0, 0.9)'
           }}
         >
