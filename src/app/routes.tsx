@@ -55,7 +55,9 @@ const router = createBrowserRouter([
     path: '/ai-chat',
     element: <AIChatPage />,
   },
-]);
+], {
+  basename: '/Aihomescreendesign',
+});
 
 export function AppRouter() {
   return <RouterProvider router={router} />;
