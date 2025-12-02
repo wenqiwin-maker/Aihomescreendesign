@@ -343,7 +343,7 @@ export function VoiceChat({
 
       {/* Top Section - Fixed */}
       <div className="absolute top-0 left-0 w-[390px] flex flex-col z-20">
-        <StatusBar />
+        <StatusBar variant="light" />
 
         {/* Navigation */}
         <div className="flex items-center px-4 pb-2 gap-3 h-[56px]">

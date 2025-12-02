@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { Sparkles } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { ChatInputBar } from './ChatInputBar';
+import progressIcon from '../assets/Progress.png';
+import tipsIcon from '../assets/Subtract.png';
 
 interface AIChatProps {
   onClose: () => void;
@@ -41,23 +43,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
 
   return (
     <div className="relative w-[390px] h-screen bg-white mx-auto overflow-hidden">
-      {/* Status Bar */}
-      <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] gap-[154px] h-[62px]">
-        <div className="flex-1 flex justify-center items-center">
-          <span
-            className="text-black text-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "17px",
-              fontWeight: 590,
-              lineHeight: "22px",
-            }}
-          >
-            9:41
-          </span>
-        </div>
-        <StatusBar />
-      </div>
+      <StatusBar variant="dark" />
 
       {/* Header */}
       <div className="flex justify-between items-center px-4 pb-[10px] h-[54px]">
@@ -217,16 +203,13 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
               }}
             >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
-                style={{
-                  background: "rgba(62, 95, 255, 0.1)",
-                }}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#3E5FFF"/>
-                  <path d="M2 17L12 22L22 17M2 12L12 17L22 12" stroke="#3E5FFF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="w-12 h-12 flex items-center justify-center">
+                <img
+                  src={progressIcon}
+                  alt="Progress icon"
+                  className="object-contain"
+                  style={{ width: '40px', height: '47px' }}
+                />
               </div>
               <div className="flex-1 text-left">
                 <h3
@@ -273,15 +256,13 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
               }}
             >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
-                style={{
-                  background: "rgba(255, 82, 236, 0.1)",
-                }}
-              >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M9 5H7C5.89543 5 5 5.89543 5 7V19C5 20.1046 5.89543 21 7 21H17C18.1046 21 19 20.1046 19 19V7C19 5.89543 18.1046 5 17 5H15M9 5C9 6.10457 9.89543 7 11 7H13C14.1046 7 15 6.10457 15 5M9 5C9 3.89543 9.89543 3 11 3H13C14.1046 3 15 3.89543 15 5M12 12H15M12 16H15M9 12H9.01M9 16H9.01" stroke="#FF52EC" strokeWidth="2" strokeLinecap="round"/>
-                </svg>
+              <div className="w-12 h-12 flex items-center justify-center">
+                <img
+                  src={tipsIcon}
+                  alt="Conversation tips icon"
+                  className="object-contain"
+                  style={{ width: '40px', height: '40px' }}
+                />
               </div>
               <div className="flex-1 text-left">
                 <h3

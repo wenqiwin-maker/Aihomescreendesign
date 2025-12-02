@@ -26,23 +26,7 @@ export function QuickSetup({
 
   return (
     <div className="relative w-[390px] h-screen bg-white mx-auto">
-      {/* Status Bar */}
-      <div className="flex justify-center items-center px-4 pt-[21px] pb-[19px] gap-[154px] h-[62px]">
-        <div className="flex-1 flex justify-center items-center">
-          <span
-            className="text-black text-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "17px",
-              fontWeight: 590,
-              lineHeight: "22px",
-            }}
-          >
-            9:41
-          </span>
-        </div>
-        <StatusBar />
-      </div>
+      <StatusBar variant="dark" />
 
       {/* Toolbar */}
       <div className="flex justify-between items-center px-4 pb-[10px] h-[54px]">

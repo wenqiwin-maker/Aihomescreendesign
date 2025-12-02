@@ -140,11 +140,7 @@ export function HomePage() {
         <div className="absolute w-[390px] h-[321px] left-0 top-0 overflow-hidden">
           <AuroraBackground />
         </div>
-
-        {/* Status Bar */}
-        <div className="fixed w-[390px] h-[47px] left-1/2 -translate-x-1/2 top-0 z-50">
-          <StatusBar />
-        </div>
+        <StatusBar variant="light" className="absolute left-0 top-0 w-[390px]" />
 
         {/* Account Section */}
         <div className="absolute w-[390px] h-[56px] left-0 top-[47px] flex justify-between items-center px-5 gap-4">

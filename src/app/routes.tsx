@@ -10,54 +10,57 @@ import { PlaybackPage } from '../pages/PlaybackPage';
 import { SettingsPage } from '../pages/SettingsPage';
 import { AIChatPage } from '../pages/AIChatPage';
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: '/',
+      element: <HomePage />,
+    },
+    {
+      path: '/setup',
+      element: <QuickSetupPage />,
+    },
+    {
+      path: '/setup/details',
+      element: <QuickSetup2Page />,
+    },
+    {
+      path: '/setup/advanced',
+      element: <QuickSetup3Page />,
+    },
+    {
+      path: '/review',
+      element: <ReviewPage />,
+    },
+    {
+      path: '/chat',
+      element: <VoiceChatPage />,
+    },
+    {
+      path: '/chat/demo',
+      element: <VoiceChatPage />,
+    },
+    {
+      path: '/summary',
+      element: <SummaryPage />,
+    },
+    {
+      path: '/playback',
+      element: <PlaybackPage />,
+    },
+    {
+      path: '/settings',
+      element: <SettingsPage />,
+    },
+    {
+      path: '/ai-chat',
+      element: <AIChatPage />,
+    },
+  ],
   {
-    path: '/',
-    element: <HomePage />,
-  },
-  {
-    path: '/setup',
-    element: <QuickSetupPage />,
-  },
-  {
-    path: '/setup/details',
-    element: <QuickSetup2Page />,
-  },
-  {
-    path: '/setup/advanced',
-    element: <QuickSetup3Page />,
-  },
-  {
-    path: '/review',
-    element: <ReviewPage />,
-  },
-  {
-    path: '/chat',
-    element: <VoiceChatPage />,
-  },
-  {
-    path: '/chat/demo',
-    element: <VoiceChatPage />,
-  },
-  {
-    path: '/summary',
-    element: <SummaryPage />,
-  },
-  {
-    path: '/playback',
-    element: <PlaybackPage />,
-  },
-  {
-    path: '/settings',
-    element: <SettingsPage />,
-  },
-  {
-    path: '/ai-chat',
-    element: <AIChatPage />,
-  },
-], {
-  basename: '/Aihomescreendesign',
-});
+    basename: import.meta.env.BASE_URL,
+  }
+);
 
 export function AppRouter() {
   return <RouterProvider router={router} />;

@@ -142,10 +142,7 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
           <AuroraBackground />
         </div>
 
-        {/* Status Bar */}
-        <div className="absolute w-[390px] h-[47px] left-0 top-0">
-          <StatusBar />
-        </div>
+        <StatusBar variant="light" className="absolute left-0 top-0 w-[390px]" />
 
         {/* Account Section */}
         <div className="absolute w-[390px] h-[56px] left-0 top-[47px] flex justify-between items-center px-5 gap-4">
