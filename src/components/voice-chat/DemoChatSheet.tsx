@@ -1,13 +1,14 @@
-import { Sparkles } from "lucide-react";
+import { Sparkles, X } from "lucide-react";
 import { useRef, useEffect } from "react";
 import { Message } from "../../types";
 
 interface DemoChatSheetProps {
   messages: Message[];
   isVisible: boolean;
+  onClose?: () => void;
 }
 
-export function DemoChatSheet({ messages, isVisible }: DemoChatSheetProps) {
+export function DemoChatSheet({ messages, isVisible, onClose }: DemoChatSheetProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const prevMessageCountRef = useRef(0);
 
@@ -36,7 +37,29 @@ export function DemoChatSheet({ messages, isVisible }: DemoChatSheetProps) {
         <div className="w-9 h-1.5 bg-gray-300 rounded-full opacity-50" />
       </div>
 
-      <div className="px-6 py-4 flex flex-col gap-4 h-full overflow-y-auto pb-20">
+      {/* Header with close button */}
+      <div className="relative px-6 py-3 flex items-center justify-center">
+        <button
+          onClick={onClose}
+          className="absolute left-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+        >
+          <X size={20} className="text-gray-600" />
+        </button>
+        <h2
+          style={{
+            fontFamily: "SF Pro",
+            fontWeight: 600,
+            fontSize: "20px",
+            lineHeight: "24px",
+            letterSpacing: "-0.5px",
+            color: "#0A0A0A",
+          }}
+        >
+          Caption
+        </h2>
+      </div>
+
+      <div className="px-6 py-4 flex flex-col gap-4 overflow-y-auto pb-20" style={{ height: 'calc(100% - 120px)' }}>
         {messages.map((message) => (
           <div
             key={message.id}
