@@ -127,10 +127,10 @@ function CalendarPicker({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed left-1/2 -translate-x-1/2 z-[210] bg-white overflow-visible"
+          className="fixed left-1/2 - -translate-x-1/2 z-[210] bg-white overflow-visible"
           style={{
-            top: '50%',
-            transform: 'translate(-50%, -50%)',
+            bottom: '50px',
+            transform: 'translateX(-50%)',
             width: '358px',
             borderRadius: '26px',
             boxShadow: '0px 3px 30px 10px rgba(0, 0, 0, 0.2)',
@@ -324,7 +324,7 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
   const [selectedDate, setSelectedDate] = useState(new Date(2025, 3, 20)); // April 20, 2025 as per design
   const [selectedTime, setSelectedTime] = useState('00:00 AM');
   const [hapticEnabled, setHapticEnabled] = useState(true); // ON by default as per design
-  const [showCalendar, setShowCalendar] = useState(true); // Show calendar by default to match design
+  const [showCalendar, setShowCalendar] = useState(false); // Don't auto-open calendar
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
