@@ -9,7 +9,7 @@ export function SummaryPage() {
     <div className="relative w-[390px] h-screen mx-auto overflow-hidden">
       <AnimatePresence mode="wait">
         <SimulationSummary
-          onClose={() => navigate('/')}
+          onClose={() => navigate('/', { state: { showReminderModal: true } })}
           onPlay={() => navigate('/playback')}
         />
       </AnimatePresence>

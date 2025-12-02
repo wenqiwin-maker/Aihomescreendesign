@@ -1,8 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { StatusBar } from '../components/StatusBar';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { AuroraBackground } from '../components/AuroraBackground';
-import { motion } from 'motion/react';
+import { SetReminderSheet } from '../components/SetReminderSheet';
+import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect, ReactNode } from 'react';
 
 // Reusable card component with rotating icon on hover/click
@@ -69,13 +70,25 @@ function CardWithRotatingIcon({ bgColor, icon, label, className = '', onClick }:
 
 export function HomePage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [isButtonHovered, setIsButtonHovered] = useState(false);
   const [clickRotation, setClickRotation] = useState(0);
   const [titleText, setTitleText] = useState('');
   const [descText, setDescText] = useState('');
+  const [showReminderModal, setShowReminderModal] = useState(false);
+  const [showReminderSheet, setShowReminderSheet] = useState(false);
 
   const fullTitle = "I'm SimTalk";
   const fullDesc = "Your space to rehearse important conversations";
+
+  // Check if we should show the reminder modal (coming from summary page)
+  useEffect(() => {
+    if (location.state?.showReminderModal) {
+      setShowReminderModal(true);
+      // Clear the state so modal doesn't show again on refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
 
   // Typewriter effect for title
   useEffect(() => {
@@ -582,6 +595,136 @@ export function HomePage() {
 
       {/* Notch */}
       <div className="fixed w-[150px] h-[37px] left-1/2 -translate-x-1/2 top-0 bg-black rounded-b-[24px] z-50" />
+
+      {/* Reminder Modal Overlay */}
+      <AnimatePresence>
+        {showReminderModal && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 z-[100]"
+              style={{ backgroundColor: 'rgba(41, 41, 58, 0.23)' }}
+              onClick={() => setShowReminderModal(false)}
+            />
+
+            {/* Modal */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101]"
+              style={{
+                width: '300px',
+                borderRadius: '34px',
+                background: 'rgba(245, 245, 245, 0.6)',
+                backdropFilter: 'blur(40px)',
+                WebkitBackdropFilter: 'blur(40px)',
+                boxShadow: '0px 25px 50px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
+              }}
+            >
+              {/* Modal Content */}
+              <div className="p-4 flex flex-col gap-4">
+                {/* Title and Description */}
+                <div className="flex flex-col gap-2 px-2 pt-2">
+                  <h3
+                    style={{
+                      fontFamily: 'SF Pro',
+                      fontSize: '16px',
+                      fontWeight: 600,
+                      lineHeight: '24px',
+                      letterSpacing: '-0.32px',
+                      color: '#000000'
+                    }}
+                  >
+                    Ready for the real talk?
+                  </h3>
+                  <p
+                    style={{
+                      fontFamily: 'SF Pro',
+                      fontSize: '17px',
+                      fontWeight: 400,
+                      lineHeight: '22px',
+                      letterSpacing: '-0.43px',
+                      color: '#000000'
+                    }}
+                  >
+                    Set a gentle reminder before your real communication with your Manager.
+                  </p>
+                </div>
+
+                {/* Buttons */}
+                <div className="flex gap-4">
+                  {/* Skip Button */}
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowReminderModal(false)}
+                    className="flex-1 h-12 flex items-center justify-center"
+                    style={{
+                      borderRadius: '100px',
+                      backgroundColor: 'rgba(120, 120, 128, 0.16)'
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'SF Pro',
+                        fontSize: '17px',
+                        fontWeight: 510,
+                        lineHeight: '22px',
+                        letterSpacing: '-0.43px',
+                        color: '#000000'
+                      }}
+                    >
+                      Skip
+                    </span>
+                  </motion.button>
+
+                  {/* Add Reminder Button */}
+                  <motion.button
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setShowReminderModal(false);
+                      setShowReminderSheet(true);
+                    }}
+                    className="flex-1 h-12 flex items-center justify-center"
+                    style={{
+                      borderRadius: '100px',
+                      backgroundColor: '#0088FF'
+                    }}
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'SF Pro',
+                        fontSize: '17px',
+                        fontWeight: 510,
+                        lineHeight: '22px',
+                        letterSpacing: '-0.43px',
+                        color: '#FFFFFF'
+                      }}
+                    >
+                      Add Reminder
+                    </span>
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Set Reminder Sheet */}
+      <SetReminderSheet
+        isOpen={showReminderSheet}
+        onClose={() => setShowReminderSheet(false)}
+        onSave={(reminder) => {
+          console.log('Reminder saved:', reminder);
+          // Handle the reminder data here
+        }}
+      />
     </div>
   );
 }

@@ -1,8 +1,9 @@
 import { StatusBar } from './StatusBar';
 import { motion } from 'motion/react';
 import { useState } from 'react';
-import { Send, Paperclip, Sparkles } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { ChatInputBar } from './ChatInputBar';
 
 interface AIChatProps {
   onClose: () => void;
@@ -17,20 +18,16 @@ interface Message {
 
 export function AIChat({ onClose, onStartConversation }: AIChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
-  const [inputValue, setInputValue] = useState('');
 
-  const handleSend = () => {
-    if (!inputValue.trim()) return;
-    
+  const handleSendMessage = (text: string) => {
     const newMessage: Message = {
       id: Date.now().toString(),
       role: 'user',
-      content: inputValue
+      content: text
     };
-    
+
     setMessages([...messages, newMessage]);
-    setInputValue('');
-    
+
     // Simulate AI response
     setTimeout(() => {
       const aiMessage: Message = {
@@ -346,61 +343,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
       </div>
 
       {/* Input Area */}
-      <div className="absolute bottom-0 left-0 right-0 bg-white px-5 py-4" style={{ height: '120px' }}>
-        <div
-          className="flex items-center gap-2 p-3 rounded-3xl"
-          style={{
-            background: '#F7F7F7',
-            border: '1px solid #E9EBF3'
-          }}
-        >
-          {/* Upload Button */}
-          <button
-            className="flex items-center justify-center w-10 h-10 rounded-full flex-shrink-0"
-            style={{
-              background: '#FFFFFF',
-              boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.06)'
-            }}
-          >
-            <Paperclip size={20} color="#666666" />
-          </button>
-
-          {/* Input Field */}
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-            placeholder="Message AI..."
-            className="flex-1 bg-transparent outline-none"
-            style={{
-              fontFamily: 'SF Pro',
-              fontSize: '16px',
-              fontWeight: 400,
-              lineHeight: '20px',
-              color: '#333333'
-            }}
-          />
-
-          {/* Send Button */}
-          <motion.button
-            onClick={handleSend}
-            className="flex items-center justify-center w-10 h-10 rounded-full flex-shrink-0"
-            whileTap={{ scale: 0.9 }}
-            style={{
-              background: inputValue.trim() 
-                ? 'linear-gradient(135deg, #8C00FF 0%, #FF52EC 100%)'
-                : '#E9EBF3',
-              transition: 'background 0.2s ease'
-            }}
-          >
-            <Send 
-              size={18} 
-              color={inputValue.trim() ? '#FFFFFF' : '#999999'} 
-            />
-          </motion.button>
-        </div>
-      </div>
+      <ChatInputBar onSendMessage={handleSendMessage} />
 
       {/* Notch */}
       <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px]" />
