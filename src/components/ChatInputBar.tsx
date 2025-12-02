@@ -26,9 +26,12 @@ export function ChatInputBar({ onSendMessage, placeholder = "Type to chat with A
   return (
     <>
       <div
-        className="absolute bottom-0 left-0 right-0 px-[11px] py-[10px]"
+        className="absolute bottom-0 left-0 right-0 py-[10px]"
         style={{
-          background: '#F2F2F2',
+          background: '#FFFFFF',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <div
@@ -93,8 +96,9 @@ export function ChatInputBar({ onSendMessage, placeholder = "Type to chat with A
                 right: '0px',
                 top: '0px',
                 bottom: '0px',
-                background: 'linear-gradient(0deg, #F7F7F7, #F7F7F7), linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), #333333',
-                borderRadius: '296px'
+                background: '#FFFFFF',
+                borderRadius: '296px',
+                boxShadow: '0px 4px 12px 0px rgba(0, 0, 0, 0.15)'
               }}
             />
 

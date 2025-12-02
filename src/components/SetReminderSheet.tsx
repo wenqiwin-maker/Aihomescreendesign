@@ -84,56 +84,71 @@ function EarlyReminderDropdown({
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             className="fixed z-[210] bg-white overflow-hidden"
             style={{
-              bottom: '160px',
-              left: '50%',
-              marginLeft: '-85px',
+              bottom: '20px',
+              left: '55%',
+              marginLeft: '-115px',
               width: '230px',
               borderRadius: '14px',
               boxShadow: '0px 10px 40px rgba(0, 0, 0, 0.15)',
-              maxHeight: '320px',
+              maxHeight: '300px',
               overflowY: 'auto',
             }}
           >
             <div className="py-2">
-              {options.map((option) => (
-                <motion.button
-                  key={option}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={() => {
-                    onSelectOption(option);
-                    onClose();
-                  }}
-                  className="w-full flex items-center justify-between px-4 py-3"
-                  style={{
-                    backgroundColor: 'white',
-                  }}
-                >
-                  <span
+              {options.map((option, index) => (
+                <React.Fragment key={option}>
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      onSelectOption(option);
+                      onClose();
+                    }}
+                    className="w-full flex items-center px-4 py-3"
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                      fontSize: '17px',
-                      fontWeight: 400,
-                      lineHeight: '22px',
-                      letterSpacing: '-0.43px',
-                      color: '#000000',
-                      textAlign: 'left',
+                      backgroundColor: 'white',
+                      gap: '8px',
                     }}
                   >
-                    {option}
-                  </span>
-                  {selectedOption === option && (
+                    {selectedOption === option ? (
+                      <span
+                        style={{
+                          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                          fontSize: '17px',
+                          fontWeight: 600,
+                          color: '#000000',
+                          width: '20px',
+                        }}
+                      >
+                        ✓
+                      </span>
+                    ) : (
+                      <span style={{ width: '20px' }} />
+                    )}
                     <span
                       style={{
                         fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
-                        fontWeight: 600,
+                        fontWeight: 400,
+                        lineHeight: '22px',
+                        letterSpacing: '-0.43px',
                         color: '#000000',
+                        textAlign: 'left',
+                        flex: 1,
                       }}
                     >
-                      ✓
+                      {option}
                     </span>
+                  </motion.button>
+                  {index === 0 && (
+                    <div
+                      style={{
+                        height: '1px',
+                        backgroundColor: '#E6E6E6',
+                        margin: '0 8px',
+                      }}
+                    />
                   )}
-                </motion.button>
+                </React.Fragment>
               ))}
             </div>
           </motion.div>
