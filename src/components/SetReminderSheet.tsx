@@ -1,5 +1,5 @@
+import React, { useState, useRef, useEffect, useCallback, RefObject } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useState, useRef, useEffect, useCallback, RefObject } from 'react';
 
 interface SetReminderSheetProps {
   isOpen: boolean;
@@ -11,6 +11,7 @@ interface ReminderData {
   date: Date;
   time: string;
   hapticEnabled: boolean;
+  earlyReminder: string;
 }
 
 // Calendar icon component
@@ -28,6 +29,117 @@ function ClockIcon() {
     <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M11 5V11L15 13M21 11C21 16.5228 16.5228 21 11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11Z" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
+  );
+}
+
+// Bell icon component
+function BellIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M18 8C18 6.4087 17.3679 4.88258 16.2426 3.75736C15.1174 2.63214 13.5913 2 12 2C10.4087 2 8.88258 2.63214 7.75736 3.75736C6.63214 4.88258 6 6.4087 6 8C6 15 3 17 3 17H21C21 17 18 15 18 8Z" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M13.73 21C13.5542 21.3031 13.3019 21.5547 12.9982 21.7295C12.6946 21.9044 12.3504 21.9965 12 21.9965C11.6496 21.9965 11.3054 21.9044 11.0018 21.7295C10.6982 21.5547 10.4458 21.3031 10.27 21" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+}
+
+// Early Reminder Dropdown
+function EarlyReminderDropdown({
+  isOpen,
+  selectedOption,
+  onSelectOption,
+  onClose,
+}: {
+  isOpen: boolean;
+  selectedOption: string;
+  onSelectOption: (option: string) => void;
+  onClose: () => void;
+}) {
+  const options = [
+    'None',
+    '30 minutes before',
+    '1 day before',
+    '2 days before',
+    '1 week before',
+    '2 weeks before',
+    '1 month before',
+    '2 months before',
+  ];
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Invisible backdrop to close dropdown when clicking outside */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[209]"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed z-[210] bg-white overflow-hidden"
+            style={{
+              bottom: '160px',
+              left: '50%',
+              marginLeft: '-85px',
+              width: '230px',
+              borderRadius: '14px',
+              boxShadow: '0px 10px 40px rgba(0, 0, 0, 0.15)',
+              maxHeight: '320px',
+              overflowY: 'auto',
+            }}
+          >
+            <div className="py-2">
+              {options.map((option) => (
+                <motion.button
+                  key={option}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    onSelectOption(option);
+                    onClose();
+                  }}
+                  className="w-full flex items-center justify-between px-4 py-3"
+                  style={{
+                    backgroundColor: 'white',
+                  }}
+                >
+                  <span
+                    style={{
+                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                      fontSize: '17px',
+                      fontWeight: 400,
+                      lineHeight: '22px',
+                      letterSpacing: '-0.43px',
+                      color: '#000000',
+                      textAlign: 'left',
+                    }}
+                  >
+                    {option}
+                  </span>
+                  {selectedOption === option && (
+                    <span
+                      style={{
+                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                        fontSize: '17px',
+                        fontWeight: 600,
+                        color: '#000000',
+                      }}
+                    >
+                      ✓
+                    </span>
+                  )}
+                </motion.button>
+              ))}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
   );
 }
 
@@ -127,138 +239,165 @@ function CalendarPicker({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 10, scale: 0.95 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed left-1/2 - -translate-x-1/2 z-[210] bg-white overflow-visible"
+          className="fixed left-1/2 -translate-x-1/2 z-[210] bg-white overflow-hidden"
           style={{
             bottom: '50px',
-            transform: 'translateX(-50%)',
             width: '358px',
             borderRadius: '26px',
             boxShadow: '0px 3px 30px 10px rgba(0, 0, 0, 0.2)',
           }}
         >
-          {/* Header */}
-          <div className="flex items-center justify-between px-4 pt-4 pb-2">
-            <div className="flex items-center gap-1">
-              <span
-                style={{
-                  fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontSize: '17px',
-                  fontWeight: 600,
-                  lineHeight: '22px',
-                  letterSpacing: '-0.43px',
-                  color: '#000000',
-                }}
-              >
-                {monthNames[viewDate.getMonth()]} {viewDate.getFullYear()}
-              </span>
-              <span
-                style={{
-                  fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontSize: '15px',
-                  fontWeight: 700,
-                  color: '#0088FF',
-                }}
-              >
-                􀆊
-              </span>
-            </div>
-            <div className="flex items-center gap-7">
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={prevMonth}
-                style={{
-                  fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontSize: '20px',
-                  fontWeight: 500,
-                  color: '#0088FF',
-                }}
-              >
-                􀆉
-              </motion.button>
-              <motion.button
-                whileTap={{ scale: 0.9 }}
-                onClick={nextMonth}
-                style={{
-                  fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontSize: '20px',
-                  fontWeight: 500,
-                  color: '#0088FF',
-                }}
-              >
-                􀆊
-              </motion.button>
-            </div>
-          </div>
-
-          {/* Day Headers */}
-          <div className="flex justify-between px-4 py-1">
-            {dayHeaders.map((day) => (
-              <div
-                key={day}
-                className="w-11 text-center"
-                style={{
-                  fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                  fontSize: '13px',
-                  fontWeight: 600,
-                  textTransform: 'uppercase',
-                  color: 'rgba(60, 60, 67, 0.3)',
-                }}
-              >
-                {day}
-              </div>
-            ))}
-          </div>
-
-          {/* Calendar Grid */}
-          <div className="flex flex-col gap-[7px] px-4 pt-1 pb-3">
-            {weeks.map((week, weekIndex) => (
-              <div key={weekIndex} className="flex justify-between">
-                {week.map((day, dayIndex) => (
-                  <motion.button
-                    key={dayIndex}
-                    whileTap={day ? { scale: 0.9 } : undefined}
-                    onClick={() => day && handleDayClick(day)}
-                    className="w-11 h-11 flex items-center justify-center relative"
-                    disabled={!day}
-                  >
-                    {day && (
-                      <>
-                        {isSelected(day) && (
-                          <div
-                            className="absolute inset-0 rounded-full"
-                            style={{
-                              border: '2px solid #0088FF',
-                            }}
-                          />
-                        )}
-                        <span
-                          style={{
-                            fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                            fontSize: isSelected(day) ? '24px' : '20px',
-                            fontWeight: isSelected(day) ? 500 : 400,
-                            lineHeight: '25px',
-                            letterSpacing: '-0.45px',
-                            color: isToday(day) && day === 1 ? '#0088FF' : '#000000',
-                          }}
-                        >
-                          {day}
-                        </span>
-                      </>
-                    )}
-                  </motion.button>
-                ))}
-              </div>
-            ))}
-          </div>
-
-          {/* Bottom Separator */}
+          {/* Top separator */}
           <div
-            className="mx-4 mb-3"
             style={{
-              height: '0.5px',
-              backgroundColor: 'rgba(0, 0, 0, 0.12)',
+              height: '1px',
+              backgroundColor: '#E6E6E6',
             }}
           />
+
+          {/* Header Section */}
+          <div className="pt-[6px] pb-0">
+            {/* Month/Year and Navigation */}
+            <div className="flex items-center justify-between px-4 h-10 relative">
+              {/* Month and Year with dropdown arrow */}
+              <div className="flex items-center gap-1">
+                <span
+                  style={{
+                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                    fontSize: '17px',
+                    fontWeight: 600,
+                    lineHeight: '22px',
+                    letterSpacing: '-0.43px',
+                    color: '#000000',
+                  }}
+                >
+                  {monthNames[viewDate.getMonth()]} {viewDate.getFullYear()}
+                </span>
+                <span
+                  style={{
+                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                    fontSize: '15px',
+                    fontWeight: 700,
+                    lineHeight: '18px',
+                    letterSpacing: '-0.5px',
+                    color: '#0088FF',
+                  }}
+                >
+                  􀆊
+                </span>
+              </div>
+
+              {/* Navigation Arrows on the right */}
+              <div className="flex items-center gap-7">
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={prevMonth}
+                  className="w-[15px] h-6 flex items-center justify-center"
+                  style={{
+                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                    fontSize: '20px',
+                    fontWeight: 510,
+                    color: '#0088FF',
+                  }}
+                >
+                  􀆉
+                </motion.button>
+                <motion.button
+                  whileTap={{ scale: 0.9 }}
+                  onClick={nextMonth}
+                  className="w-[15px] h-6 flex items-center justify-center"
+                  style={{
+                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                    fontSize: '20px',
+                    fontWeight: 510,
+                    color: '#0088FF',
+                  }}
+                >
+                  􀆊
+                </motion.button>
+              </div>
+            </div>
+
+            {/* Day Headers */}
+            <div className="flex items-center justify-between px-4 h-5">
+              {dayHeaders.map((day) => (
+                <div
+                  key={day}
+                  className="w-8 h-[18px] flex items-center justify-center"
+                  style={{
+                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                    fontSize: '13px',
+                    fontWeight: 600,
+                    lineHeight: '18px',
+                    textTransform: 'uppercase',
+                    color: 'rgba(60, 60, 67, 0.3)',
+                  }}
+                >
+                  {day}
+                </div>
+              ))}
+            </div>
+
+            {/* Calendar Grid */}
+            <div className="flex flex-col gap-[7px] px-4 pt-[3px] pb-0">
+              {weeks.map((week, weekIndex) => (
+                <div key={weekIndex} className="flex items-start justify-between h-11">
+                  {week.map((day, dayIndex) => {
+                    const selected = day && isSelected(day);
+                    const today = day && isToday(day);
+                    
+                    return (
+                      <motion.button
+                        key={dayIndex}
+                        whileTap={day ? { scale: 0.9 } : undefined}
+                        onClick={() => day && handleDayClick(day)}
+                        className="w-11 h-11 flex items-center justify-center relative"
+                        disabled={!day}
+                      >
+                        {day && (
+                          <>
+                            {selected && (
+                              <div
+                                className="absolute w-11 h-11 rounded-full"
+                                style={{
+                                  backgroundColor: 'rgba(0, 136, 255, 0.12)',
+                                }}
+                              />
+                            )}
+                            <span
+                              style={{
+                                fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                                fontSize: selected ? '24px' : '20px',
+                                fontWeight: selected ? 510 : 400,
+                                lineHeight: '25px',
+                                letterSpacing: '-0.45px',
+                                color: selected ? '#08F' : (today ? '#0088FF' : '#000000'),
+                                position: 'relative',
+                                zIndex: 1,
+                              }}
+                            >
+                              {day}
+                            </span>
+                          </>
+                        )}
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              ))}
+
+              {/* Bottom Separator within calendar */}
+              <div className="flex flex-col h-[11px] items-start">
+                <div
+                  style={{
+                    height: '11px',
+                    width: '100%',
+                    borderBottom: '0.5px solid rgba(0, 0, 0, 0.12)',
+                  }}
+                />
+              </div>
+            </div>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>
@@ -579,8 +718,10 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
   const [selectedMinute, setSelectedMinute] = useState(0);
   const [selectedPeriod, setSelectedPeriod] = useState<'AM' | 'PM'>('PM');
   const [hapticEnabled, setHapticEnabled] = useState(true); // ON by default as per design
+  const [earlyReminder, setEarlyReminder] = useState('30 minutes before'); // Default as per design
   const [showCalendar, setShowCalendar] = useState(false); // Don't auto-open calendar
   const [showTimePicker, setShowTimePicker] = useState(false);
+  const [showEarlyReminderDropdown, setShowEarlyReminderDropdown] = useState(false);
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -601,6 +742,7 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
       date: selectedDate,
       time: formatTime(),
       hapticEnabled,
+      earlyReminder,
     });
     onClose();
   };
@@ -627,6 +769,8 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 setShowCalendar(false);
               } else if (showTimePicker) {
                 setShowTimePicker(false);
+              } else if (showEarlyReminderDropdown) {
+                setShowEarlyReminderDropdown(false);
               } else {
                 onClose();
               }
@@ -816,6 +960,48 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 </div>
               </div>
 
+              {/* Early Reminder Row */}
+              <div
+                className="flex items-center gap-2 py-4"
+                style={{ borderTop: '1px solid #E6E6E6' }}
+              >
+                <BellIcon />
+                <div className="flex items-center justify-between flex-1">
+                  <span
+                    style={{
+                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                      fontSize: '17px',
+                      fontWeight: 400,
+                      lineHeight: '22px',
+                      letterSpacing: '-0.43px',
+                      color: '#000000',
+                    }}
+                  >
+                    Early Reminder
+                  </span>
+
+                  {/* Early Reminder Dropdown Button */}
+                  <motion.button
+                    whileTap={{ scale: 0.97 }}
+                    onClick={() => setShowEarlyReminderDropdown(!showEarlyReminderDropdown)}
+                    className="flex items-center gap-1"
+                  >
+                    <span
+                      style={{
+                        fontFamily: 'SF Pro, Noto Sans, -apple-system, BlinkMacSystemFont, sans-serif',
+                        fontSize: '17px',
+                        fontWeight: 400,
+                        lineHeight: '22px',
+                        letterSpacing: '-0.43px',
+                        color: 'rgba(0, 0, 0, 0.5)',
+                      }}
+                    >
+                      {earlyReminder === 'None' ? 'None' : earlyReminder.replace(' before', '')} ∨
+                    </span>
+                  </motion.button>
+                </div>
+              </div>
+
               {/* Haptic Toggle Row */}
               <div
                 className="flex items-center justify-between py-4"
@@ -872,6 +1058,14 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
             selectedPeriod={selectedPeriod}
             onSelectTime={handleTimeSelect}
             onClose={() => setShowTimePicker(false)}
+          />
+
+          {/* Early Reminder Dropdown */}
+          <EarlyReminderDropdown
+            isOpen={showEarlyReminderDropdown}
+            selectedOption={earlyReminder}
+            onSelectOption={setEarlyReminder}
+            onClose={() => setShowEarlyReminderDropdown(false)}
           />
         </>
       )}
