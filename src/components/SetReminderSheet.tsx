@@ -720,9 +720,11 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   <motion.button
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowCalendar(!showCalendar)}
-                    className="flex items-center gap-[5px] px-[11px] py-[6px] rounded-md h-[34px]"
+                    className="flex items-center gap-[5px] py-[6px] rounded-md h-[34px]"
                     style={{
                       backgroundColor: 'rgba(118, 118, 128, 0.12)',
+                      paddingLeft: '8px',
+                      paddingRight: '8px',
                     }}
                   >
                     <span
@@ -733,9 +735,10 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                         lineHeight: '22px',
                         letterSpacing: '-0.43px',
                         color: '#000000',
+                        marginRight: '4px',
                       }}
                     >
-                      {months[selectedDate.getMonth()]}
+                      {months[selectedDate.getMonth()].slice(0,3)}
                     </span>
                     <span
                       style={{
@@ -745,6 +748,7 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                         lineHeight: '22px',
                         letterSpacing: '-0.43px',
                         color: '#000000',
+                        marginRight: '4px',
                       }}
                     >
                       {selectedDate.getDate()}
@@ -789,9 +793,11 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   <motion.button
                     whileTap={{ scale: 0.97 }}
                     onClick={() => setShowTimePicker(!showTimePicker)}
-                    className="flex items-center px-[11px] py-[6px] rounded-md h-[34px]"
+                    className="flex items-center py-[6px] rounded-md h-[34px]"
                     style={{
                       backgroundColor: 'rgba(118, 118, 128, 0.12)',
+                      paddingLeft: '8px',
+                      paddingRight: '8px',
                     }}
                   >
                     <span
