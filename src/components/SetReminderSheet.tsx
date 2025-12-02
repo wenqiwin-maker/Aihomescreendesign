@@ -56,8 +56,12 @@ function IOSSwitch({ checked, onChange }: { checked: boolean; onChange: (checked
   return (
     <motion.button
       onClick={() => onChange(!checked)}
-      className="relative w-[51px] h-[31px] rounded-full p-[2px]"
+      className="relative flex-shrink-0"
       style={{
+        width: '51px',
+        height: '31px',
+        borderRadius: '15.5px',
+        padding: '2px',
         backgroundColor: checked ? '#34C759' : 'rgba(120, 120, 128, 0.16)',
       }}
       animate={{
@@ -66,14 +70,16 @@ function IOSSwitch({ checked, onChange }: { checked: boolean; onChange: (checked
       transition={{ duration: 0.2 }}
     >
       <motion.div
-        className="w-[27px] h-[27px] bg-white rounded-full shadow-md"
+        className="bg-white rounded-full"
+        style={{
+          width: '27px',
+          height: '27px',
+          boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06)',
+        }}
         animate={{
           x: checked ? 20 : 0,
         }}
         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
-        style={{
-          boxShadow: '0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06)',
-        }}
       />
     </motion.button>
   );
@@ -116,7 +122,7 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed bottom-0 left-0 right-0 z-[201] bg-white rounded-t-[20px]"
+            className="fixed bottom-0 left-1/2 -translate-x-1/2 z-[201] bg-white rounded-t-[20px] w-[390px]"
             style={{
               maxHeight: '80vh',
               boxShadow: '0px -4px 20px rgba(0, 0, 0, 0.15)',
