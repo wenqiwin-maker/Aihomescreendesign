@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { useState } from 'react';
+import { useState, useRef, useEffect, useCallback, RefObject } from 'react';
 
 interface SetReminderSheetProps {
   isOpen: boolean;
@@ -265,6 +265,259 @@ function CalendarPicker({
   );
 }
 
+// Time Picker with iOS-style wheel picker (cylinder effect)
+function TimePickerWheel({
+  isOpen,
+  selectedHour,
+  selectedMinute,
+  selectedPeriod,
+  onSelectTime,
+  onClose,
+}: {
+  isOpen: boolean;
+  selectedHour: number;
+  selectedMinute: number;
+  selectedPeriod: 'AM' | 'PM';
+  onSelectTime: (hour: number, minute: number, period: 'AM' | 'PM') => void;
+  onClose: () => void;
+}) {
+  const hours = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const minutes = Array.from({ length: 12 }, (_, i) => i * 5); // 0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55
+  const periods: ('AM' | 'PM')[] = ['AM', 'PM'];
+
+  const [currentHour, setCurrentHour] = useState(selectedHour);
+  const [currentMinute, setCurrentMinute] = useState(selectedMinute);
+  const [currentPeriod, setCurrentPeriod] = useState(selectedPeriod);
+
+  const hourRef = useRef<HTMLDivElement>(null);
+  const minuteRef = useRef<HTMLDivElement>(null);
+  const periodRef = useRef<HTMLDivElement>(null);
+
+  const itemHeight = 40;
+  const visibleItems = 5;
+  const containerHeight = itemHeight * visibleItems;
+  const wheelRadius = containerHeight / 2;
+
+  // Scroll to selected item on mount
+  useEffect(() => {
+    if (isOpen) {
+      const hourIndex = hours.indexOf(currentHour);
+      const minuteIndex = minutes.indexOf(currentMinute);
+      const periodIndex = periods.indexOf(currentPeriod);
+
+      if (hourRef.current && hourIndex !== -1) {
+        hourRef.current.scrollTop = hourIndex * itemHeight;
+      }
+      if (minuteRef.current && minuteIndex !== -1) {
+        minuteRef.current.scrollTop = minuteIndex * itemHeight;
+      }
+      if (periodRef.current && periodIndex !== -1) {
+        periodRef.current.scrollTop = periodIndex * itemHeight;
+      }
+    }
+  }, [isOpen]);
+
+  const handleScroll = useCallback((
+    ref: RefObject<HTMLDivElement | null>,
+    items: (number | string)[],
+    setter: (value: number | 'AM' | 'PM') => void
+  ) => {
+    if (!ref.current) return;
+    const scrollTop = ref.current.scrollTop;
+    const index = Math.round(scrollTop / itemHeight);
+    const clampedIndex = Math.max(0, Math.min(items.length - 1, index));
+    setter(items[clampedIndex] as number | 'AM' | 'PM');
+  }, [itemHeight]);
+
+  const handleHourScroll = () => handleScroll(hourRef, hours, (v: number | 'AM' | 'PM') => setCurrentHour(v as number));
+  const handleMinuteScroll = () => handleScroll(minuteRef, minutes, (v: number | 'AM' | 'PM') => setCurrentMinute(v as number));
+  const handlePeriodScroll = () => handleScroll(periodRef, periods, (v: number | 'AM' | 'PM') => setCurrentPeriod(v as 'AM' | 'PM'));
+
+  // Update parent when values change
+  useEffect(() => {
+    onSelectTime(currentHour, currentMinute, currentPeriod);
+  }, [currentHour, currentMinute, currentPeriod]);
+
+  const scrollToItem = (ref: RefObject<HTMLDivElement | null>, index: number) => {
+    if (ref.current) {
+      ref.current.scrollTo({
+        top: index * itemHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  // Render a single wheel column with cylinder effect
+  const renderWheelColumn = (
+    ref: RefObject<HTMLDivElement | null>,
+    items: (number | string)[],
+    currentValue: number | string,
+    onScroll: () => void,
+    onItemClick: (value: number | string, index: number) => void,
+    formatValue: (value: number | string) => string
+  ) => {
+    return (
+      <div
+        className="flex-1 relative overflow-hidden"
+        style={{ 
+          height: `${containerHeight}px`,
+          perspective: '1000px',
+          perspectiveOrigin: 'center center',
+        }}
+      >
+        {/* Scrollable container */}
+        <div
+          ref={ref}
+          className="absolute inset-0 overflow-y-auto no-scrollbar"
+          style={{ 
+            scrollSnapType: 'y mandatory',
+            paddingTop: `${itemHeight * 2}px`,
+            paddingBottom: `${itemHeight * 2}px`,
+          }}
+          onScroll={onScroll}
+        >
+          {items.map((item, index) => {
+            const isSelected = item === currentValue;
+            return (
+              <div
+                key={`item-${item}`}
+                className="flex items-center justify-center cursor-pointer"
+                style={{
+                  height: `${itemHeight}px`,
+                  scrollSnapAlign: 'center',
+                  transformStyle: 'preserve-3d',
+                }}
+                onClick={() => onItemClick(item, index)}
+              >
+                <span
+                  style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif',
+                    fontSize: isSelected ? '23px' : '20px',
+                    fontWeight: isSelected ? 400 : 300,
+                    color: isSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
+                    transition: 'all 0.1s ease-out',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  {formatValue(item)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Top fade gradient for cylinder effect */}
+        <div
+          className="absolute top-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: `${itemHeight * 2}px`,
+            background: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%)',
+            zIndex: 10,
+          }}
+        />
+
+        {/* Bottom fade gradient for cylinder effect */}
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: `${itemHeight * 2}px`,
+            background: 'linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%)',
+            zIndex: 10,
+          }}
+        />
+      </div>
+    );
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Invisible backdrop to close picker when clicking outside */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[209]"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed z-[210] bg-white overflow-hidden"
+            style={{
+              bottom: '120px',
+              left: '50%',
+              marginLeft: '-150px',
+              width: '300px',
+              borderRadius: '14px',
+              boxShadow: '0px 10px 40px rgba(0, 0, 0, 0.15)',
+            }}
+          >
+          <div 
+            className="flex items-center justify-center relative"
+            style={{ height: `${containerHeight}px` }}
+          >
+            {/* Selection indicator - the highlighted row with iOS-style background */}
+            <div
+              className="absolute left-3 right-3 pointer-events-none rounded-lg"
+              style={{
+                top: '50%',
+                transform: 'translateY(-50%)',
+                height: `${itemHeight}px`,
+                backgroundColor: 'rgba(120, 120, 128, 0.12)',
+                zIndex: 5,
+              }}
+            />
+
+            {/* Hour Column */}
+            {renderWheelColumn(
+              hourRef,
+              hours,
+              currentHour,
+              handleHourScroll,
+              (value, index) => {
+                setCurrentHour(value as number);
+                scrollToItem(hourRef, index);
+              },
+              (value) => String(value)
+            )}
+
+            {/* Minute Column */}
+            {renderWheelColumn(
+              minuteRef,
+              minutes,
+              currentMinute,
+              handleMinuteScroll,
+              (value, index) => {
+                setCurrentMinute(value as number);
+                scrollToItem(minuteRef, index);
+              },
+              (value) => String(value).padStart(2, '0')
+            )}
+
+            {/* AM/PM Column */}
+            {renderWheelColumn(
+              periodRef,
+              periods,
+              currentPeriod,
+              handlePeriodScroll,
+              (value, index) => {
+                setCurrentPeriod(value as 'AM' | 'PM');
+                scrollToItem(periodRef, index);
+              },
+              (value) => String(value)
+            )}
+          </div>
+        </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
 // Close button with glass effect
 function CloseButton({ onClick }: { onClick: () => void }) {
   return (
@@ -322,16 +575,31 @@ function IOSSwitch({ checked, onChange }: { checked: boolean; onChange: (checked
 
 export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetProps) {
   const [selectedDate, setSelectedDate] = useState(new Date(2025, 3, 20)); // April 20, 2025 as per design
-  const [selectedTime, setSelectedTime] = useState('00:00 AM');
+  const [selectedHour, setSelectedHour] = useState(12);
+  const [selectedMinute, setSelectedMinute] = useState(0);
+  const [selectedPeriod, setSelectedPeriod] = useState<'AM' | 'PM'>('PM');
   const [hapticEnabled, setHapticEnabled] = useState(true); // ON by default as per design
   const [showCalendar, setShowCalendar] = useState(false); // Don't auto-open calendar
+  const [showTimePicker, setShowTimePicker] = useState(false);
 
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+  // Format time for display
+  const formatTime = () => {
+    const minuteStr = selectedMinute.toString().padStart(2, '0');
+    return `${selectedHour}:${minuteStr} ${selectedPeriod}`;
+  };
+
+  const handleTimeSelect = (hour: number, minute: number, period: 'AM' | 'PM') => {
+    setSelectedHour(hour);
+    setSelectedMinute(minute);
+    setSelectedPeriod(period);
+  };
 
   const handleSave = () => {
     onSave?.({
       date: selectedDate,
-      time: selectedTime,
+      time: formatTime(),
       hapticEnabled,
     });
     onClose();
@@ -357,6 +625,8 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
             onClick={() => {
               if (showCalendar) {
                 setShowCalendar(false);
+              } else if (showTimePicker) {
+                setShowTimePicker(false);
               } else {
                 onClose();
               }
@@ -515,9 +785,10 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                     Time
                   </span>
 
-                  {/* Time Picker */}
+                  {/* Time Picker Button */}
                   <motion.button
                     whileTap={{ scale: 0.97 }}
+                    onClick={() => setShowTimePicker(!showTimePicker)}
                     className="flex items-center px-[11px] py-[6px] rounded-md h-[34px]"
                     style={{
                       backgroundColor: 'rgba(118, 118, 128, 0.12)',
@@ -533,7 +804,7 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                         color: '#000000',
                       }}
                     >
-                      {selectedTime.replace('AM', 'AM/PM')}
+                      {formatTime()}
                     </span>
                   </motion.button>
                 </div>
@@ -585,6 +856,16 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
             selectedDate={selectedDate}
             onSelectDate={handleDateSelect}
             onClose={() => setShowCalendar(false)}
+          />
+
+          {/* Time Picker Popup */}
+          <TimePickerWheel
+            isOpen={showTimePicker}
+            selectedHour={selectedHour}
+            selectedMinute={selectedMinute}
+            selectedPeriod={selectedPeriod}
+            onSelectTime={handleTimeSelect}
+            onClose={() => setShowTimePicker(false)}
           />
         </>
       )}
