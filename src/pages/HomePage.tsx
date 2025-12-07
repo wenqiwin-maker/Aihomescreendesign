@@ -668,10 +668,10 @@ export function HomePage() {
                     <span
                       style={{
                         fontFamily: 'SF Pro',
-                        fontSize: '17px',
-                        fontWeight: 510,
-                        lineHeight: '22px',
-                        letterSpacing: '-0.43px',
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        lineHeight: '24px',
+                        letterSpacing: '-0.32px',
                         color: '#000000'
                       }}
                     >
@@ -695,10 +695,10 @@ export function HomePage() {
                     <span
                       style={{
                         fontFamily: 'SF Pro',
-                        fontSize: '17px',
-                        fontWeight: 510,
-                        lineHeight: '22px',
-                        letterSpacing: '-0.43px',
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        lineHeight: '24px',
+                        letterSpacing: '-0.32px',
                         color: '#FFFFFF'
                       }}
                     >
