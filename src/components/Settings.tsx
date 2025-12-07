@@ -4,6 +4,7 @@ import imgSubtract from "../assets/Subtract.png";
 import imgProgress from "../assets/Progress.png";
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
+import { useNavigate } from "react-router-dom";
 
 function EditIcon() {
   return (
@@ -420,6 +421,43 @@ function Frame19() {
   );
 }
 
+// Animated Main Content Container
+function Frame19Animated() {
+  return (
+    <>
+      {/* Top Cards - Communication Progress and Practice History */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 10 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+        }}
+      >
+        <Frame5 />
+      </motion.div>
+      
+      {/* Reminder Setting */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 10 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+        }}
+      >
+        <Frame />
+      </motion.div>
+      
+      {/* Support */}
+      <motion.div
+        variants={{
+          hidden: { opacity: 0, y: 10 },
+          visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+        }}
+      >
+        <Frame9 />
+      </motion.div>
+    </>
+  );
+}
+
 function Yellow() {
   return (
     <div className="absolute inset-[20.83%_12.5%_18.58%_12.5%]" data-name="yellow">
@@ -489,6 +527,8 @@ interface SettingsProps {
 }
 
 export function Settings({ onBack }: SettingsProps) {
+  const navigate = useNavigate();
+  
   return (
     <div className="relative w-[390px] h-screen mx-auto bg-[#f5f6fa] overflow-hidden flex flex-col">
       <StatusBar variant="dark" />
@@ -525,8 +565,20 @@ export function Settings({ onBack }: SettingsProps) {
       </div>
 
       {/* Scrollable Content */}
-      <div
+      <motion.div
         className="flex-1 overflow-y-auto flex flex-col gap-[24px]"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.12,
+              delayChildren: 0.1,
+            },
+          },
+        }}
         style={{
           paddingLeft: '20px',
           paddingRight: '20px',
@@ -534,14 +586,20 @@ export function Settings({ onBack }: SettingsProps) {
         }}
       >
         {/* Profile Section */}
-        <div className="flex justify-between items-center w-full">
+        <motion.div 
+          className="flex justify-between items-center w-full"
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+          }}
+        >
           <Frame4 />
           <UnlockPro />
-        </div>
+        </motion.div>
 
         {/* Main Content */}
-        <Frame19 />
-      </div>
+        <Frame19Animated />
+      </motion.div>
 
       {/* Bottom Navigation - Floating */}
       <div
@@ -580,7 +638,7 @@ export function Settings({ onBack }: SettingsProps) {
           <div className="w-14 h-14" />
 
           {/* AI Growy - Center with gradient */}
-          <button className="relative w-12 h-12">
+          <button className="relative w-12 h-12" onClick={() => navigate('/ai-chat')}>
             <motion.div
               className="w-12 h-12 rounded-full flex items-center justify-center"
               whileTap={{ scale: 0.9 }}
