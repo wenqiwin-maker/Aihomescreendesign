@@ -2,11 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import {
   Play,
   Pause,
-  Target,
-  Flag,
-  MessageSquare,
   Sparkles,
-  Pin,
 } from "lucide-react";
 import imgImageAiCharacter from "../assets/ai-character-static.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
@@ -503,9 +499,7 @@ export function PracticePlayback({
                 }`}
                 style={{ animationDelay: `${0.4 + index * 0.1}s` }}
               >
-                <div className={`w-9 h-9 shrink-0 rounded-lg p-2 flex items-center justify-center ${
-                  activeSection === index ? 'bg-[#8C00FF]/10 text-[#8C00FF]' : 'bg-gray-50 text-gray-600'
-                }`}>
+                <div className="w-9 h-9 shrink-0 rounded-lg p-2 flex items-center justify-center">
                   {topic.isImage ? (
                     <ImageWithFallback
                       src={topic.icon as string}
@@ -537,9 +531,9 @@ export function PracticePlayback({
         <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-5 bg-[#F5F6FA]">
           <div className="flex flex-col gap-6">
             {chatHistory.map((msg, idx) => {
-              // Check if this message is the first message of a bookmark section
-              const isFirstMessageOfBookmark = topics.some(
-                (topic) => topic.title === "Your bookmark" && topic.firstMessageIndex === idx
+              // Check if this message is the first message of any topic section
+              const topicForMessage = topics.find(
+                (topic) => topic.firstMessageIndex === idx
               );
               
               return (
@@ -562,10 +556,10 @@ export function PracticePlayback({
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5 mr-1">
-                        {isFirstMessageOfBookmark && (
+                        {topicForMessage && (
                           <div className="flex items-center gap-1">
-                            <Pin size={10} className="text-[#8C00FF]" />
-                            <span className="text-[11px] text-[#8C00FF] font-medium">Your bookmark</span>
+                            <ImageWithFallback src={topicForMessage.icon as string} alt="" className="w-[9px] h-[9px] object-contain" />
+                            <span className="text-[11px] text-[#8C00FF] font-medium">{topicForMessage.title}</span>
                             <span className="text-[11px] text-gray-300">·</span>
                           </div>
                         )}
@@ -590,10 +584,10 @@ export function PracticePlayback({
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5 ml-11">
-                        {isFirstMessageOfBookmark && (
+                        {topicForMessage && (
                           <div className="flex items-center gap-1">
-                            <Pin size={10} className="text-[#8C00FF]" />
-                            <span className="text-[11px] text-[#8C00FF] font-medium">Your bookmark</span>
+                            <ImageWithFallback src={topicForMessage.icon as string} alt="" className="w-[9px] h-[9px] object-contain" />
+                            <span className="text-[11px] text-[#8C00FF] font-medium">{topicForMessage.title}</span>
                             <span className="text-[11px] text-gray-300">·</span>
                           </div>
                         )}
