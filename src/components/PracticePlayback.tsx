@@ -14,6 +14,91 @@ import bookmarkIcon from "../assets/bookmark-icon.png";
 import hesitationIcon from "../assets/hesitation-icon.png";
 import risingEmotionIcon from "../assets/rising-emotion-icon.png";
 
+// Entrance animation styles
+const entranceStyles = `
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+  
+  .animate-video-entrance {
+    animation: fadeInScale 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  
+  .animate-chapter-card {
+    opacity: 0;
+    animation: slideInRight 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  
+  .animate-chat-message {
+    opacity: 0;
+    animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  
+  .animate-progress-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(140, 0, 255, 0.3) 0%,
+      rgba(140, 0, 255, 0.8) 50%,
+      rgba(140, 0, 255, 0.3) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s ease-in-out;
+  }
+  
+  .animate-button-pop {
+    opacity: 0;
+    animation: fadeInScale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+  
+  .animate-play-button {
+    opacity: 0;
+    animation: fadeInScale 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s forwards;
+  }
+  
+  .animate-progress-bar {
+    opacity: 0;
+    animation: fadeInUp 0.4s cubic-bezier(0.22, 1, 0.36, 1) 0.5s forwards;
+  }
+`;
+
 // Helper function to convert time string to seconds
 function timeToSeconds(time: string): number {
   const [minutes, seconds] = time.split(":").map(Number);
@@ -297,8 +382,11 @@ export function PracticePlayback({
 
   return (
     <div className="fixed inset-0 bg-[#F5F6FA] w-[390px] h-screen overflow-y-auto mx-auto font-['SF_Pro']">
+      {/* Inject entrance animation styles */}
+      <style dangerouslySetInnerHTML={{ __html: entranceStyles }} />
+      
       {/* Video Player Section */}
-      <div className="relative w-full aspect-[390/300] bg-black group shrink-0 shadow-sm">
+      <div className="relative w-full aspect-[390/300] bg-black group shrink-0 shadow-sm animate-video-entrance">
         <div className="absolute inset-0 overflow-hidden">
           <ImageWithFallback
             src={imgImageAiCharacter}
@@ -310,7 +398,7 @@ export function PracticePlayback({
         {/* Back Button */}
         <button
           onClick={onBack}
-          className="absolute top-4 left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
+          className="animate-button-pop absolute top-4 left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
           style={{
             background: "rgba(247, 247, 247, 0.85)",
             backdropFilter: "blur(20px)",
@@ -318,6 +406,7 @@ export function PracticePlayback({
             border: "0.5px solid rgba(255, 255, 255, 0.8)",
             boxShadow:
               "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
+            animationDelay: "0.2s",
           }}
         >
           <span
@@ -338,7 +427,7 @@ export function PracticePlayback({
         <div className="absolute inset-0 flex items-center justify-center z-10">
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
+            className="animate-play-button w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
           >
             {isPlaying ? (
               <Pause className="w-8 h-8 text-white fill-current" />
@@ -353,9 +442,8 @@ export function PracticePlayback({
           ref={progressBarRef}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
-          className={`absolute bottom-0 left-0 right-0 flex gap-0.5 cursor-pointer transition-all duration-300 items-end pb-[1px] ${
-            showProgressBarExpanded || isDragging ? 'h-[4px]' : 'h-[2px] group-hover:h-[4px]'
-          }`}
+          style={{ bottom: 12 }}
+          className="animate-progress-bar absolute left-0 right-0 flex gap-0.5 cursor-pointer items-end z-20 h-[5px]"
         >
           {topics.map((topic, index) => {
             let fillPercent = 0;
@@ -372,19 +460,21 @@ export function PracticePlayback({
                   if (!isDragging) handleSectionClick(index);
                 }}
                 style={{ width: topic.duration }}
-                className="h-full relative bg-white/30 cursor-pointer hover:bg-white/40 transition-colors"
+                className={`h-full relative bg-white/30 cursor-pointer hover:bg-white/40 transition-colors ${
+                  index === 0 ? 'rounded-l-full' : ''
+                } ${index === topics.length - 1 ? 'rounded-r-full' : ''}`}
               >
                 <div
                   style={{ width: `${fillPercent}%` }}
-                  className={`h-full bg-[#8C00FF] ${isDragging ? '' : 'transition-all duration-300'}`}
+                  className={`h-full bg-[#8C00FF] ${isDragging ? '' : 'transition-all duration-300'} ${
+                    index === 0 ? 'rounded-l-full' : ''
+                  }`}
                 />
                 {/* Playhead Knob - Only show on the active segment */}
                 {currentProgress > topic.startPercent &&
                   currentProgress < topic.endPercent && (
                     <div
-                      className={`absolute top-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-sm z-10 transition-transform duration-300 ${
-                        showProgressBarExpanded || isDragging ? 'scale-100' : 'scale-0 group-hover:scale-100'
-                      }`}
+                      className="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-sm z-10"
                       style={{
                         left: `${fillPercent}%`,
                         transform: "translate(-50%, 0%)",
@@ -406,11 +496,12 @@ export function PracticePlayback({
               <button
                 key={topic.id}
                 onClick={() => handleSectionClick(index)}
-                className={`flex items-center gap-3 p-3 bg-white rounded-xl border shadow-sm text-left group hover:border-[#8C00FF]/50 hover:shadow-md transition-all min-w-[180px] ${
+                className={`animate-chapter-card flex items-center gap-3 p-3 bg-white rounded-xl border shadow-sm text-left group hover:border-[#8C00FF]/50 hover:shadow-md transition-all min-w-[180px] ${
                   activeSection === index 
                     ? 'border-[#8C00FF] shadow-md ring-2 ring-[#8C00FF]/20' 
                     : 'border-gray-200'
                 }`}
+                style={{ animationDelay: `${0.4 + index * 0.1}s` }}
               >
                 <div className={`w-9 h-9 shrink-0 rounded-lg p-2 flex items-center justify-center ${
                   activeSection === index ? 'bg-[#8C00FF]/10 text-[#8C00FF]' : 'bg-gray-50 text-gray-600'
@@ -455,9 +546,10 @@ export function PracticePlayback({
                 <div
                   key={idx}
                   ref={(el) => { messageRefs.current[idx] = el; }}
-                  className={`flex flex-col gap-1 ${
+                  className={`animate-chat-message flex flex-col gap-1 ${
                     msg.speaker === "You" ? "items-end" : "items-start"
                   }`}
+                  style={{ animationDelay: `${0.6 + idx * 0.08}s` }}
                 >
                   {msg.speaker === "You" ? (
                     // User Message (Right)
