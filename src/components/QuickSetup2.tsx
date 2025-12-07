@@ -209,14 +209,20 @@ export function QuickSetup2({
             visible: {
               opacity: 1,
               transition: {
-                staggerChildren: 0.1,
-                delayChildren: 0.2,
+                staggerChildren: 0.12,
+                delayChildren: 0.3,
               },
             },
           }}
         >
           {/* What do you want to achieve? */}
-          <div className="flex flex-col gap-3">
+          <motion.div 
+            className="flex flex-col gap-3"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+          >
             <label
               style={{
                 fontFamily: "SF Pro",
@@ -243,10 +249,16 @@ export function QuickSetup2({
                 color: goal ? "#0A0A0A" : "#717182",
               }}
             />
-          </div>
+          </motion.div>
 
           {/* Who are you talking to? */}
-          <div className="flex flex-col gap-3">
+          <motion.div 
+            className="flex flex-col gap-3"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+          >
             <label
               style={{
                 fontFamily: "SF Pro",
@@ -312,10 +324,16 @@ export function QuickSetup2({
                 </motion.button>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Date (Optional) */}
-          <div className="flex flex-col gap-3">
+          <motion.div 
+            className="flex flex-col gap-3"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
+          >
             <label
               style={{
                 fontFamily: "SF Pro",
@@ -369,11 +387,15 @@ export function QuickSetup2({
                 />
               </PopoverContent>
             </Popover>
-          </div>
+          </motion.div>
 
           {/* Advanced Setup Module */}
-          <div
+          <motion.div
             className="flex flex-col items-center gap-2"
+            variants={{
+              hidden: { opacity: 0, y: 10 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+            }}
             style={{
               padding: "0px",
               width: "350px",
@@ -428,14 +450,17 @@ export function QuickSetup2({
             >
               Fine-tune your practice session for maximum impact
             </p>
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Start Practice Button */}
-        <button
+        <motion.button
           disabled={!isFormValid}
           onClick={onNext}
           className="flex justify-center items-center h-12 rounded-[28px] transition-opacity mt-auto"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.78 }}
           style={{
             width: "350px",
             padding: "14px 113px",
@@ -455,7 +480,7 @@ export function QuickSetup2({
           >
             Next
           </span>
-        </button>
+        </motion.button>
       </div>
 
       {/* Notch - Black container at top */}
