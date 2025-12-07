@@ -171,6 +171,11 @@ function CalendarPicker({
   onClose: () => void;
 }) {
   const [viewDate, setViewDate] = useState(selectedDate);
+  const [showMonthYearPicker, setShowMonthYearPicker] = useState(false);
+  
+  // Refs for cylinder scroll
+  const monthRef = useRef<HTMLDivElement>(null);
+  const yearRef = useRef<HTMLDivElement>(null);
 
   const monthNames = [
     'January', 'February', 'March', 'April', 'May', 'June',
@@ -178,6 +183,13 @@ function CalendarPicker({
   ];
 
   const dayHeaders = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+
+  // Generate year range (10 years before and after current year)
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 21 }, (_, i) => currentYear - 10 + i);
+
+  // Cylinder wheel settings
+  const itemHeight = 44;
 
   const getDaysInMonth = (date: Date) => {
     const year = date.getFullYear();
@@ -203,6 +215,50 @@ function CalendarPicker({
     onClose();
   };
 
+  // Scroll to current month/year when picker opens
+  useEffect(() => {
+    if (showMonthYearPicker) {
+      const monthIndex = viewDate.getMonth();
+      const yearIndex = years.indexOf(viewDate.getFullYear());
+      
+      if (monthRef.current) {
+        monthRef.current.scrollTop = monthIndex * itemHeight;
+      }
+      if (yearRef.current && yearIndex !== -1) {
+        yearRef.current.scrollTop = yearIndex * itemHeight;
+      }
+    }
+  }, [showMonthYearPicker]);
+
+  const handleMonthScroll = useCallback(() => {
+    if (!monthRef.current) return;
+    const scrollTop = monthRef.current.scrollTop;
+    const index = Math.round(scrollTop / itemHeight);
+    const clampedIndex = Math.max(0, Math.min(monthNames.length - 1, index));
+    setViewDate(new Date(viewDate.getFullYear(), clampedIndex, 1));
+  }, [viewDate, itemHeight]);
+
+  const handleYearScroll = useCallback(() => {
+    if (!yearRef.current) return;
+    const scrollTop = yearRef.current.scrollTop;
+    const index = Math.round(scrollTop / itemHeight);
+    const clampedIndex = Math.max(0, Math.min(years.length - 1, index));
+    setViewDate(new Date(years[clampedIndex], viewDate.getMonth(), 1));
+  }, [viewDate, years, itemHeight]);
+
+  const scrollToItem = (ref: RefObject<HTMLDivElement | null>, index: number) => {
+    if (ref.current) {
+      ref.current.scrollTo({
+        top: index * itemHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const handleMonthYearDone = () => {
+    setShowMonthYearPicker(false);
+  };
+
   const isToday = (day: number) => {
     const today = new Date();
     return (
@@ -217,6 +273,89 @@ function CalendarPicker({
       day === selectedDate.getDate() &&
       viewDate.getMonth() === selectedDate.getMonth() &&
       viewDate.getFullYear() === selectedDate.getFullYear()
+    );
+  };
+
+  // Fixed wheel height to match date picker (288px)
+  const wheelContainerHeight = 288;
+  const wheelPadding = (wheelContainerHeight - itemHeight) / 2; // Center the selection
+
+  // Render a cylinder wheel column
+  const renderWheelColumn = (
+    ref: RefObject<HTMLDivElement | null>,
+    items: (number | string)[],
+    currentValue: number | string,
+    onScroll: () => void,
+    onItemClick: (index: number) => void,
+    formatValue: (value: number | string) => string
+  ) => {
+    return (
+      <div
+        className="flex-1 relative overflow-hidden"
+        style={{ 
+          height: `${wheelContainerHeight}px`,
+        }}
+      >
+        {/* Scrollable container */}
+        <div
+          ref={ref}
+          className="absolute inset-0 overflow-y-auto no-scrollbar"
+          style={{ 
+            scrollSnapType: 'y mandatory',
+            paddingTop: `${wheelPadding}px`,
+            paddingBottom: `${wheelPadding}px`,
+          }}
+          onScroll={onScroll}
+        >
+          {items.map((item, index) => {
+            const isItemSelected = item === currentValue;
+            return (
+              <div
+                key={`item-${item}`}
+                className="flex items-center justify-center cursor-pointer"
+                style={{
+                  height: `${itemHeight}px`,
+                  scrollSnapAlign: 'center',
+                }}
+                onClick={() => onItemClick(index)}
+              >
+                <span
+                  style={{
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif',
+                    fontSize: isItemSelected ? '23px' : '20px',
+                    fontWeight: isItemSelected ? 400 : 300,
+                    color: isItemSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
+                    transition: 'all 0.1s ease-out',
+                    letterSpacing: '-0.5px',
+                  }}
+                >
+                  {formatValue(item)}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Top fade gradient for cylinder effect */}
+        <div
+          className="absolute top-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: `${wheelPadding}px`,
+            background: 'linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%)',
+            zIndex: 10,
+          }}
+        />
+
+        {/* Bottom fade gradient for cylinder effect */}
+        <div
+          className="absolute bottom-0 left-0 right-0 pointer-events-none"
+          style={{
+            height: `${wheelPadding}px`,
+            background: 'linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 30%, rgba(255,255,255,0.7) 60%, rgba(255,255,255,0) 100%)',
+            zIndex: 10,
+          }}
+        />
+      </div>
     );
   };
 
@@ -249,171 +388,266 @@ function CalendarPicker({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div
-          initial={{ opacity: 0, y: 10, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 10, scale: 0.95 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed left-1/2 -translate-x-1/2 z-[210] bg-white overflow-hidden"
-          style={{
-            bottom: '50px',
-            width: '358px',
-            borderRadius: '26px',
-            boxShadow: '0px 3px 30px 10px rgba(0, 0, 0, 0.2)',
-          }}
-        >
-          {/* Top separator */}
-          <div
-            style={{
-              height: '1px',
-              backgroundColor: '#E6E6E6',
-            }}
+        <>
+          {/* Backdrop overlay to close on outside click */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[205]"
+            onClick={onClose}
           />
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="fixed left-1/2 -translate-x-1/2 z-[210] bg-white overflow-hidden"
+            style={{
+              bottom: '50px',
+              width: '358px',
+              borderRadius: '26px',
+              boxShadow: '0px 3px 30px 10px rgba(0, 0, 0, 0.2)',
+            }}
+          >
+            {/* Top separator */}
+            <div
+              style={{
+                height: '1px',
+                backgroundColor: '#E6E6E6',
+              }}
+            />
 
-          {/* Header Section */}
-          <div className="pt-[6px] pb-0">
-            {/* Month/Year and Navigation */}
-            <div className="flex items-center justify-between px-4 h-10 relative">
-              {/* Month and Year with dropdown arrow */}
-              <div className="flex items-center gap-1">
-                <span
-                  style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                    fontSize: '17px',
-                    fontWeight: 600,
-                    lineHeight: '22px',
-                    letterSpacing: '-0.43px',
-                    color: '#000000',
-                  }}
+            {/* Header Section */}
+            <div className="pt-[6px] pb-0">
+              {/* Month/Year and Navigation */}
+              <div className="flex items-center justify-between px-4 h-10 relative">
+                {/* Month and Year with dropdown arrow - clickable */}
+                <motion.button
+                  whileTap={{ scale: 0.97 }}
+                  onClick={() => setShowMonthYearPicker(!showMonthYearPicker)}
+                  className="flex items-center gap-1"
                 >
-                  {monthNames[viewDate.getMonth()]} {viewDate.getFullYear()}
-                </span>
-                <span
-                  style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                    fontSize: '15px',
-                    fontWeight: 700,
-                    lineHeight: '18px',
-                    letterSpacing: '-0.5px',
-                    color: '#0088FF',
-                  }}
-                >
-                  􀆊
-                </span>
+                  <span
+                    style={{
+                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                      fontSize: '17px',
+                      fontWeight: 600,
+                      lineHeight: '22px',
+                      letterSpacing: '-0.43px',
+                      color: '#000000',
+                    }}
+                  >
+                    {monthNames[viewDate.getMonth()]} {viewDate.getFullYear()}
+                  </span>
+                  <motion.span
+                    animate={{ rotate: showMonthYearPicker ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                    style={{
+                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                      fontSize: '15px',
+                      fontWeight: 700,
+                      lineHeight: '18px',
+                      letterSpacing: '-0.5px',
+                      color: '#0088FF',
+                    }}
+                  >
+                    􀆈
+                  </motion.span>
+                </motion.button>
+
+                {/* Navigation Arrows on the right - only show when not in month/year picker mode */}
+                {!showMonthYearPicker && (
+                  <div className="flex items-center gap-7">
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
+                      onClick={prevMonth}
+                      className="w-[15px] h-6 flex items-center justify-center"
+                      style={{
+                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                        fontSize: '20px',
+                        fontWeight: 510,
+                        color: '#0088FF',
+                      }}
+                    >
+                      􀆉
+                    </motion.button>
+                    <motion.button
+                      whileTap={{ scale: 0.9 }}
+                      onClick={nextMonth}
+                      className="w-[15px] h-6 flex items-center justify-center"
+                      style={{
+                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                        fontSize: '20px',
+                        fontWeight: 510,
+                        color: '#0088FF',
+                      }}
+                    >
+                      􀆊
+                    </motion.button>
+                  </div>
+                )}
               </div>
 
-              {/* Navigation Arrows on the right */}
-              <div className="flex items-center gap-7">
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  onClick={prevMonth}
-                  className="w-[15px] h-6 flex items-center justify-center"
-                  style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                    fontSize: '20px',
-                    fontWeight: 510,
-                    color: '#0088FF',
-                  }}
+              {/* Conditional content: Month/Year Picker OR Calendar Grid */}
+              {showMonthYearPicker ? (
+                /* Month/Year Picker - iOS cylinder wheel style */
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  style={{ minHeight: '299px' }}
                 >
-                  􀆉
-                </motion.button>
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  onClick={nextMonth}
-                  className="w-[15px] h-6 flex items-center justify-center"
-                  style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                    fontSize: '20px',
-                    fontWeight: 510,
-                    color: '#0088FF',
-                  }}
-                >
-                  􀆊
-                </motion.button>
-              </div>
-            </div>
+                  {/* Cylinder wheel picker - matches date picker height */}
+                  <div 
+                    className="flex items-center justify-center relative px-4"
+                    style={{ height: '288px' }}
+                  >
+                    {/* Selection indicator - iOS-style highlighted row */}
+                    <div
+                      className="absolute left-4 right-4 pointer-events-none rounded-lg"
+                      style={{
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        height: `${itemHeight}px`,
+                        backgroundColor: 'rgba(120, 120, 128, 0.12)',
+                        zIndex: 5,
+                      }}
+                    />
 
-            {/* Day Headers */}
-            <div className="flex items-center justify-between px-4 h-5">
-              {dayHeaders.map((day) => (
-                <div
-                  key={day}
-                  className="w-8 h-[18px] flex items-center justify-center"
-                  style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    lineHeight: '18px',
-                    textTransform: 'uppercase',
-                    color: 'rgba(60, 60, 67, 0.3)',
-                  }}
-                >
-                  {day}
-                </div>
-              ))}
-            </div>
+                    {/* Month Column */}
+                    {renderWheelColumn(
+                      monthRef,
+                      monthNames,
+                      monthNames[viewDate.getMonth()],
+                      handleMonthScroll,
+                      (index) => {
+                        setViewDate(new Date(viewDate.getFullYear(), index, 1));
+                        scrollToItem(monthRef, index);
+                      },
+                      (value) => String(value)
+                    )}
 
-            {/* Calendar Grid */}
-            <div className="flex flex-col gap-[7px] px-4 pt-[3px] pb-0">
-              {weeks.map((week, weekIndex) => (
-                <div key={weekIndex} className="flex items-start justify-between h-11">
-                  {week.map((day, dayIndex) => {
-                    const selected = day && isSelected(day);
-                    const today = day && isToday(day);
-                    
-                    return (
-                      <motion.button
-                        key={dayIndex}
-                        whileTap={day ? { scale: 0.9 } : undefined}
-                        onClick={() => day && handleDayClick(day)}
-                        className="w-11 h-11 flex items-center justify-center relative"
-                        disabled={!day}
+                    {/* Year Column */}
+                    {renderWheelColumn(
+                      yearRef,
+                      years,
+                      viewDate.getFullYear(),
+                      handleYearScroll,
+                      (index) => {
+                        setViewDate(new Date(years[index], viewDate.getMonth(), 1));
+                        scrollToItem(yearRef, index);
+                      },
+                      (value) => String(value)
+                    )}
+                  </div>
+
+                  {/* Bottom Separator */}
+                  <div className="flex flex-col h-[11px] items-start px-4">
+                    <div
+                      style={{
+                        height: '11px',
+                        width: '100%',
+                        borderBottom: '0.5px solid rgba(0, 0, 0, 0.12)',
+                      }}
+                    />
+                  </div>
+                </motion.div>
+              ) : (
+                /* Calendar Grid - shows when month/year picker is closed */
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.15 }}
+                  style={{ minHeight: '299px' }}
+                >
+                  {/* Day Headers */}
+                  <div className="flex items-center justify-between px-4 h-5">
+                    {dayHeaders.map((day) => (
+                      <div
+                        key={day}
+                        className="w-8 h-[18px] flex items-center justify-center"
+                        style={{
+                          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                          fontSize: '13px',
+                          fontWeight: 600,
+                          lineHeight: '18px',
+                          textTransform: 'uppercase',
+                          color: 'rgba(60, 60, 67, 0.3)',
+                        }}
                       >
-                        {day && (
-                          <>
-                            {selected && (
-                              <div
-                                className="absolute w-11 h-11 rounded-full"
-                                style={{
-                                  backgroundColor: 'rgba(0, 136, 255, 0.12)',
-                                }}
-                              />
-                            )}
-                            <span
-                              style={{
-                                fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                                fontSize: selected ? '24px' : '20px',
-                                fontWeight: selected ? 510 : 400,
-                                lineHeight: '25px',
-                                letterSpacing: '-0.45px',
-                                color: selected ? '#08F' : (today ? '#0088FF' : '#000000'),
-                                position: 'relative',
-                                zIndex: 1,
-                              }}
-                            >
-                              {day}
-                            </span>
-                          </>
-                        )}
-                      </motion.button>
-                    );
-                  })}
-                </div>
-              ))}
+                        {day}
+                      </div>
+                    ))}
+                  </div>
 
-              {/* Bottom Separator within calendar */}
-              <div className="flex flex-col h-[11px] items-start">
-                <div
-                  style={{
-                    height: '11px',
-                    width: '100%',
-                    borderBottom: '0.5px solid rgba(0, 0, 0, 0.12)',
-                  }}
-                />
-              </div>
+                  {/* Calendar Grid */}
+                  <div className="flex flex-col gap-[7px] px-4 pt-[3px] pb-0">
+                    {weeks.map((week, weekIndex) => (
+                      <div key={weekIndex} className="flex items-start justify-between h-11">
+                        {week.map((day, dayIndex) => {
+                          const selected = day && isSelected(day);
+                          const today = day && isToday(day);
+                          
+                          return (
+                            <motion.button
+                              key={dayIndex}
+                              whileTap={day ? { scale: 0.9 } : undefined}
+                              onClick={() => day && handleDayClick(day)}
+                              className="w-11 h-11 flex items-center justify-center relative"
+                              disabled={!day}
+                            >
+                              {day && (
+                                <>
+                                  {selected && (
+                                    <div
+                                      className="absolute w-11 h-11 rounded-full"
+                                      style={{
+                                        backgroundColor: 'rgba(0, 136, 255, 0.12)',
+                                      }}
+                                    />
+                                  )}
+                                  <span
+                                    style={{
+                                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
+                                      fontSize: selected ? '24px' : '20px',
+                                      fontWeight: selected ? 510 : 400,
+                                      lineHeight: '25px',
+                                      letterSpacing: '-0.45px',
+                                      color: selected ? '#08F' : (today ? '#0088FF' : '#000000'),
+                                      position: 'relative',
+                                      zIndex: 1,
+                                    }}
+                                  >
+                                    {day}
+                                  </span>
+                                </>
+                              )}
+                            </motion.button>
+                          );
+                        })}
+                      </div>
+                    ))}
+
+                    {/* Bottom Separator within calendar */}
+                    <div className="flex flex-col h-[11px] items-start">
+                      <div
+                        style={{
+                          height: '11px',
+                          width: '100%',
+                          borderBottom: '0.5px solid rgba(0, 0, 0, 0.12)',
+                        }}
+                      />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </>
       )}
     </AnimatePresence>
   );
