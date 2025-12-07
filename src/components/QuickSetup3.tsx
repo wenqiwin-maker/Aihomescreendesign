@@ -212,7 +212,12 @@ export function QuickSetup3({
         {/* QuickSetup Content */}
         <div className="flex flex-col items-start pt-8 px-5 gap-10 pb-[30px]">
           {/* Title */}
-          <div className="flex flex-col gap-2">
+          <motion.div 
+            className="flex flex-col gap-2"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+          >
             <h2
               style={{
                 fontFamily: "SF Pro",
@@ -236,12 +241,32 @@ export function QuickSetup3({
               AI will play your manager, client, or partner to
               help you practice before the real talk
             </p>
-          </div>
+          </motion.div>
 
           {/* Form Container */}
-          <div className="flex flex-col gap-10 w-full">
+          <motion.div 
+            className="flex flex-col gap-10 w-full"
+            initial="hidden"
+            animate="visible"
+            variants={{
+              hidden: { opacity: 0 },
+              visible: {
+                opacity: 1,
+                transition: {
+                  staggerChildren: 0.12,
+                  delayChildren: 0.3,
+                },
+              },
+            }}
+          >
             {/* GOAL TYPE SECTION */}
-            <div className="flex flex-col gap-3">
+            <motion.div 
+              className="flex flex-col gap-3"
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+              }}
+            >
               <div className="flex flex-col">
                 <h3
                   style={{
@@ -335,10 +360,16 @@ export function QuickSetup3({
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* CONSTRAINTS SECTION */}
-            <div className="flex flex-col gap-3">
+            <motion.div 
+              className="flex flex-col gap-3"
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+              }}
+            >
               <div className="flex flex-col">
                 <h3
                   style={{
@@ -418,10 +449,16 @@ export function QuickSetup3({
                   ))}
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
 
             {/* EVIDENCE SECTION */}
-            <div className="flex flex-col gap-3">
+            <motion.div 
+              className="flex flex-col gap-3"
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+              }}
+            >
               <div className="flex flex-col">
                 <div
                   className="flex justify-between items-center"
@@ -522,10 +559,16 @@ export function QuickSetup3({
                   </button>
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
 
             {/* CONVERSATION DYNAMICS SECTION */}
-            <div className="flex flex-col gap-3">
+            <motion.div 
+              className="flex flex-col gap-3"
+              variants={{
+                hidden: { opacity: 0, y: 10 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+              }}
+            >
               <div className="flex flex-col">
                 <h3
                   style={{
@@ -1026,7 +1069,13 @@ export function QuickSetup3({
               </motion.div>
 
               {/* AVATAR APPEARANCE SECTION */}
-              <div className="flex flex-col gap-3 mt-2">
+              <motion.div 
+                className="flex flex-col gap-3 mt-2"
+                variants={{
+                  hidden: { opacity: 0, y: 10 },
+                  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+                }}
+              >
                 <div className="flex flex-col">
                   <h3
                     style={{
@@ -1268,14 +1317,17 @@ export function QuickSetup3({
                     )}
                   </div>
                 </motion.div>
-              </div>
-            </div>
-          </div>
+              </motion.div>
+            </motion.div>
+          </motion.div>
 
           {/* Start Practice Button */}
-          <button
+          <motion.button
             onClick={onStartPractice}
             className="flex justify-center items-center py-3.5 h-12 rounded-[28px] w-[350px]"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 0.9 }}
             style={{
               backgroundColor: "#000000",
             }}
@@ -1292,12 +1344,15 @@ export function QuickSetup3({
             >
               Next
             </span>
-          </button>
+          </motion.button>
 
           {/* Skip Link */}
-          <button
+          <motion.button
             onClick={onStartPractice}
             className="w-full flex justify-center items-center h-5"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, ease: "easeOut", delay: 1.0 }}
             style={{ marginTop: "-20px" }}
           >
             <span
@@ -1312,7 +1367,7 @@ export function QuickSetup3({
             >
               Skip
             </span>
-          </button>
+          </motion.button>
         </div>
       </div>
 

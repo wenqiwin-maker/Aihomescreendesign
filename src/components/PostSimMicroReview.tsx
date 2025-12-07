@@ -234,7 +234,12 @@ export function PostSimMicroReview({
         </div>
 
         {/* Instant Recap */}
-        <div className="flex flex-col items-start px-5 pt-4 pb-5 gap-3 bg-white">
+        <motion.div 
+          className="flex flex-col items-start px-5 pt-4 pb-5 gap-3 bg-white"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.1 }}
+        >
           <div className="flex justify-between items-start w-full">
             <span
               style={{
@@ -334,13 +339,33 @@ export function PostSimMicroReview({
               </span>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Scrollable Content */}
-      <div className="px-5 pt-6 pb-9 flex flex-col gap-10">
+      <motion.div 
+        className="px-5 pt-6 pb-9 flex flex-col gap-10"
+        initial="hidden"
+        animate="visible"
+        variants={{
+          hidden: { opacity: 0 },
+          visible: {
+            opacity: 1,
+            transition: {
+              staggerChildren: 0.12,
+              delayChildren: 0.25,
+            },
+          },
+        }}
+      >
         {/* Communication Structure */}
-        <div className="flex flex-col gap-3">
+        <motion.div 
+          className="flex flex-col gap-3"
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+          }}
+        >
           <h2
             style={{
               fontFamily: "SF Pro",
@@ -526,13 +551,25 @@ export function PostSimMicroReview({
               </button>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Divider */}
-        <div className="h-px bg-black/[0.078]" />
+        <motion.div 
+          className="h-px bg-black/[0.078]"
+          variants={{
+            hidden: { opacity: 0, scaleX: 0 },
+            visible: { opacity: 1, scaleX: 1, transition: { duration: 0.4, ease: "easeOut" } }
+          }}
+        />
 
         {/* Moments to Watch */}
-        <div className="flex flex-col gap-3">
+        <motion.div 
+          className="flex flex-col gap-3"
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+          }}
+        >
           <h2
             style={{
               fontFamily: "SF Pro",
@@ -734,12 +771,16 @@ export function PostSimMicroReview({
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Start Practice Button - Scrolls with content */}
-        <button
+        <motion.button
           onClick={onStartPractice}
           className="w-full h-12 rounded-[28px] flex items-center justify-center"
+          variants={{
+            hidden: { opacity: 0, y: 10 },
+            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
+          }}
           style={{
             backgroundColor: "#000000",
           }}
@@ -756,8 +797,8 @@ export function PostSimMicroReview({
           >
             Start Practice
           </span>
-        </button>
-      </div>
+        </motion.button>
+      </motion.div>
 
       {/* Notch */}
       <div className="fixed w-[150px] h-[37px] left-1/2 -translate-x-1/2 top-0 bg-black rounded-b-[24px] z-50" />
