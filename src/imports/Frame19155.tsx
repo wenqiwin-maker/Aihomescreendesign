@@ -39,15 +39,26 @@ function AnimatedPath({
   );
 }
 
-function Group() {
+function Group({ onSelect, isSelected }: { onSelect?: () => void; isSelected?: boolean }) {
   return (
-    <div className="absolute inset-[4.35%]" data-name="Group">
+    <div 
+      className="absolute inset-[4.35%] cursor-pointer" 
+      data-name="Group"
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect?.();
+      }}
+    >
       <div className="absolute inset-[-4.29%]">
         <svg
           className="block size-full"
           fill="none"
           preserveAspectRatio="none"
           viewBox="0 0 114 114"
+          style={{ 
+            filter: isSelected ? 'drop-shadow(0 0 6px rgba(250, 44, 188, 0.6))' : 'none',
+            transition: 'filter 0.2s ease'
+          }}
         >
           <g id="Group">
             <path
@@ -67,15 +78,26 @@ function Group() {
   );
 }
 
-function Group1() {
+function Group1({ onSelect, isSelected }: { onSelect?: () => void; isSelected?: boolean }) {
   return (
-    <div className="absolute inset-[13.91%]" data-name="Group">
+    <div 
+      className="absolute inset-[13.91%] cursor-pointer" 
+      data-name="Group"
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect?.();
+      }}
+    >
       <div className="absolute inset-[-5.42%]">
         <svg
           className="block size-full"
           fill="none"
           preserveAspectRatio="none"
           viewBox="0 0 92 92"
+          style={{ 
+            filter: isSelected ? 'drop-shadow(0 0 6px rgba(6, 182, 255, 0.6))' : 'none',
+            transition: 'filter 0.2s ease'
+          }}
         >
           <g id="Group">
             <path
@@ -95,15 +117,26 @@ function Group1() {
   );
 }
 
-function Group2() {
+function Group2({ onSelect, isSelected }: { onSelect?: () => void; isSelected?: boolean }) {
   return (
-    <div className="absolute inset-[23.48%]" data-name="Group">
+    <div 
+      className="absolute inset-[23.48%] cursor-pointer" 
+      data-name="Group"
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect?.();
+      }}
+    >
       <div className="absolute inset-[-7.38%]">
         <svg
           className="block size-full"
           fill="none"
           preserveAspectRatio="none"
           viewBox="0 0 70 70"
+          style={{ 
+            filter: isSelected ? 'drop-shadow(0 0 6px rgba(255, 123, 0, 0.6))' : 'none',
+            transition: 'filter 0.2s ease'
+          }}
         >
           <g id="Group">
             <path
@@ -123,15 +156,26 @@ function Group2() {
   );
 }
 
-function Group3() {
+function Group3({ onSelect, isSelected }: { onSelect?: () => void; isSelected?: boolean }) {
   return (
-    <div className="absolute inset-[33.04%]" data-name="Group">
+    <div 
+      className="absolute inset-[33.04%] cursor-pointer" 
+      data-name="Group"
+      onClick={(e) => {
+        e.stopPropagation();
+        onSelect?.();
+      }}
+    >
       <div className="absolute inset-[-11.54%]">
         <svg
           className="block size-full"
           fill="none"
           preserveAspectRatio="none"
           viewBox="0 0 48 48"
+          style={{ 
+            filter: isSelected ? 'drop-shadow(0 0 6px rgba(23, 218, 213, 0.6))' : 'none',
+            transition: 'filter 0.2s ease'
+          }}
         >
           <g id="Group">
             <path
@@ -151,21 +195,45 @@ function Group3() {
   );
 }
 
-function Group4() {
+function Group4({ 
+  onSelectRing, 
+  selectedPill 
+}: { 
+  onSelectRing?: (ring: string) => void; 
+  selectedPill?: string;
+}) {
   return (
     <div className="absolute contents inset-[4.35%]">
-      <Group />
-      <Group1 />
-      <Group2 />
-      <Group3 />
+      <Group 
+        onSelect={() => onSelectRing?.('clarity')} 
+        isSelected={selectedPill === 'clarity'}
+      />
+      <Group1 
+        onSelect={() => onSelectRing?.('tone')} 
+        isSelected={selectedPill === 'tone'}
+      />
+      <Group2 
+        onSelect={() => onSelectRing?.('boundaries')} 
+        isSelected={selectedPill === 'boundaries'}
+      />
+      <Group3 
+        onSelect={() => onSelectRing?.('actionable')} 
+        isSelected={selectedPill === 'actionable'}
+      />
     </div>
   );
 }
 
-function Frame8() {
+function Frame8({ 
+  onSelectRing, 
+  selectedPill 
+}: { 
+  onSelectRing?: (ring: string) => void; 
+  selectedPill?: string;
+}) {
   return (
     <div className="[grid-area:1_/_1] ml-0 mt-0 relative size-[115px]">
-      <Group4 />
+      <Group4 onSelectRing={onSelectRing} selectedPill={selectedPill} />
       <div
         className="absolute flex items-center justify-center left-[109px] size-[2px] top-[56px]"
         style={
@@ -519,16 +587,28 @@ function Frame6() {
   );
 }
 
-function Group5() {
+function Group5({ 
+  onSelectRing, 
+  selectedPill 
+}: { 
+  onSelectRing?: (ring: string) => void; 
+  selectedPill?: string;
+}) {
   return (
     <div className="grid-cols-[max-content] grid-rows-[max-content] inline-grid place-items-start relative">
-      <Frame8 />
+      <Frame8 onSelectRing={onSelectRing} selectedPill={selectedPill} />
       <Frame6 />
     </div>
   );
 }
 
-function Frame7() {
+function Frame7({ 
+  onSelectRing, 
+  selectedPill 
+}: { 
+  onSelectRing?: (ring: string) => void; 
+  selectedPill?: string;
+}) {
   return (
     <div className="relative rounded-[14px] shrink-0 w-full">
       <div
@@ -550,7 +630,7 @@ function Frame7() {
             }
           >
             <div className="flex-none rotate-[270deg]">
-              <Group5 />
+              <Group5 onSelectRing={onSelectRing} selectedPill={selectedPill} />
             </div>
           </div>
         </div>
@@ -1006,7 +1086,10 @@ export default function Frame10() {
     <div className="bg-white relative rounded-bl-[20px] rounded-br-[20px] shadow-[0px_2px_6px_0px_rgba(0,0,0,0.05),0px_6px_16px_0px_rgba(0,0,0,0.06)] w-full overflow-hidden">
       <div className="size-full overflow-hidden">
         <div className="box-border content-stretch flex flex-col gap-[20px] items-start px-[16px] py-[20px] relative size-full overflow-hidden">
-          <Frame7 />
+          <Frame7 
+            onSelectRing={handlePillClick} 
+            selectedPill={selectedPill}
+          />
           <Frame
             selectedPill={selectedPill}
             onPillClick={handlePillClick}
