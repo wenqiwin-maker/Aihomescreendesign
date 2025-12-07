@@ -1,11 +1,11 @@
 import { StatusBar } from './StatusBar';
 import { motion } from 'motion/react';
-import { useState } from 'react';
-import { Sparkles } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useState, useEffect } from 'react';
 import { ChatInputBar } from './ChatInputBar';
 import progressIcon from '../assets/Progress.png';
 import tipsIcon from '../assets/Subtract.png';
+import unionIcon from '../assets/Union.svg';
+import backgroundAiChat from '../assets/background_ai_chat.png';
 
 interface AIChatProps {
   onClose: () => void;
@@ -20,6 +20,17 @@ interface Message {
 
 export function AIChat({ onClose, onStartConversation }: AIChatProps) {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isConversationCardSelected, setIsConversationCardSelected] = useState(false);
+  const [isProgressCardSelected, setIsProgressCardSelected] = useState(false);
+  const [isTipsCardSelected, setIsTipsCardSelected] = useState(false);
+
+  // Prevent any button from being selected by default when entering the page
+  useEffect(() => {
+    // Remove focus from any focused element
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  }, []);
 
   const handleSendMessage = (text: string) => {
     const newMessage: Message = {
@@ -132,8 +143,14 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
 
             {/* Start a conversation card */}
             <motion.button
-              onClick={onStartConversation}
-              className="flex items-center gap-4 p-4 rounded-2xl"
+              onClick={() => {
+                setIsConversationCardSelected(true);
+                onStartConversation?.();
+              }}
+              onFocus={() => setIsConversationCardSelected(true)}
+              onBlur={() => setIsConversationCardSelected(false)}
+              className="flex items-center gap-4 p-4 rounded-2xl overflow-hidden"
+              tabIndex={0}
               whileTap={{ scale: 0.97 }}
               whileHover={{
                 boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
@@ -141,7 +158,10 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               }}
               style={{
                 boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-                background: "linear-gradient(135deg, #8C00FF 0%, #FF52EC 100%)",
+                border: isConversationCardSelected ? "none" : "1px solid #E9EBF3",
+                background: isConversationCardSelected 
+                  ? `url(${backgroundAiChat}) center/cover no-repeat`
+                  : "#FFFFFF",
                 cursor: "pointer"
               }}
               variants={{
@@ -149,13 +169,16 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
               }}
             >
-              <div
-                className="w-12 h-12 rounded-full flex items-center justify-center"
-                style={{
-                  background: "rgba(255, 255, 255, 0.2)",
-                }}
-              >
-                <Sparkles size={24} color="white" />
+              <div className="w-12 h-12 flex items-center justify-center">
+                <img 
+                  src={unionIcon} 
+                  alt="Start conversation" 
+                  style={{ 
+                    width: '40px', 
+                    height: '40px',
+                    filter: isConversationCardSelected ? 'brightness(0) invert(1)' : 'none'
+                  }} 
+                />
               </div>
               <div className="flex-1 text-left">
                 <h3
@@ -164,7 +187,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
-                    color: '#FFFFFF'
+                    color: isConversationCardSelected ? '#FFFFFF' : '#333333'
                   }}
                 >
                   Start a conversation
@@ -175,7 +198,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
-                    color: 'rgba(255, 255, 255, 0.8)',
+                    color: isConversationCardSelected ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)',
                     marginTop: '2px'
                   }}
                 >
@@ -186,7 +209,10 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
 
             {/* Additional quick access cards */}
             <motion.button
-              className="flex items-center gap-4 p-4 rounded-2xl"
+              onFocus={() => setIsProgressCardSelected(true)}
+              onBlur={() => setIsProgressCardSelected(false)}
+              className="flex items-center gap-4 p-4 rounded-2xl overflow-hidden"
+              tabIndex={0}
               whileTap={{ scale: 0.97 }}
               whileHover={{
                 boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
@@ -194,8 +220,10 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               }}
               style={{
                 boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-                border: "1px solid #E9EBF3",
-                background: "#FFFFFF",
+                border: isProgressCardSelected ? "none" : "1px solid #E9EBF3",
+                background: isProgressCardSelected 
+                  ? `url(${backgroundAiChat}) center/cover no-repeat`
+                  : "#FFFFFF",
                 cursor: "pointer"
               }}
               variants={{
@@ -208,7 +236,11 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                   src={progressIcon}
                   alt="Progress icon"
                   className="object-contain"
-                  style={{ width: '40px', height: '47px' }}
+                  style={{ 
+                    width: '40px', 
+                    height: '47px',
+                    filter: isProgressCardSelected ? 'brightness(0) invert(1)' : 'none'
+                  }}
                 />
               </div>
               <div className="flex-1 text-left">
@@ -218,7 +250,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
-                    color: '#333333'
+                    color: isProgressCardSelected ? '#FFFFFF' : '#333333'
                   }}
                 >
                   Review my progress
@@ -229,7 +261,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
-                    color: 'rgba(0, 0, 0, 0.6)',
+                    color: isProgressCardSelected ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)',
                     marginTop: '2px'
                   }}
                 >
@@ -239,7 +271,10 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
             </motion.button>
 
             <motion.button
-              className="flex items-center gap-4 p-4 rounded-2xl"
+              onFocus={() => setIsTipsCardSelected(true)}
+              onBlur={() => setIsTipsCardSelected(false)}
+              className="flex items-center gap-4 p-4 rounded-2xl overflow-hidden"
+              tabIndex={0}
               whileTap={{ scale: 0.97 }}
               whileHover={{
                 boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
@@ -247,8 +282,10 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               }}
               style={{
                 boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
-                border: "1px solid #E9EBF3",
-                background: "#FFFFFF",
+                border: isTipsCardSelected ? "none" : "1px solid #E9EBF3",
+                background: isTipsCardSelected 
+                  ? `url(${backgroundAiChat}) center/cover no-repeat`
+                  : "#FFFFFF",
                 cursor: "pointer"
               }}
               variants={{
@@ -261,7 +298,11 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                   src={tipsIcon}
                   alt="Conversation tips icon"
                   className="object-contain"
-                  style={{ width: '40px', height: '40px' }}
+                  style={{ 
+                    width: '40px', 
+                    height: '40px',
+                    filter: isTipsCardSelected ? 'brightness(0) invert(1)' : 'none'
+                  }}
                 />
               </div>
               <div className="flex-1 text-left">
@@ -271,7 +312,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
-                    color: '#333333'
+                    color: isTipsCardSelected ? '#FFFFFF' : '#333333'
                   }}
                 >
                   Get conversation tips
@@ -282,7 +323,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
-                    color: 'rgba(0, 0, 0, 0.6)',
+                    color: isTipsCardSelected ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.6)',
                     marginTop: '2px'
                   }}
                 >
