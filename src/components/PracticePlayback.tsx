@@ -1,6 +1,5 @@
 import { useState, useRef, useEffect } from "react";
 import {
-  ChevronLeft,
   Play,
   Pause,
   Target,
@@ -311,9 +310,28 @@ export function PracticePlayback({
         {/* Back Button */}
         <button
           onClick={onBack}
-          className="absolute top-4 left-4 w-10 h-10 bg-black/20 backdrop-blur-md rounded-full flex items-center justify-center z-20 hover:bg-black/30 transition-colors"
+          className="absolute top-4 left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
+          style={{
+            background: "rgba(247, 247, 247, 0.85)",
+            backdropFilter: "blur(20px)",
+            WebkitBackdropFilter: "blur(20px)",
+            border: "0.5px solid rgba(255, 255, 255, 0.8)",
+            boxShadow:
+              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
+          }}
         >
-          <ChevronLeft className="w-6 h-6 text-white" />
+          <span
+            className="flex items-center justify-center"
+            style={{
+              fontFamily: "SF Pro",
+              fontSize: "20px",
+              fontWeight: 400,
+              lineHeight: "20px",
+              color: "#404040",
+            }}
+          >
+            􀯶
+          </span>
         </button>
 
         {/* Play/Pause Overlay */}
