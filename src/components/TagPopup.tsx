@@ -154,7 +154,7 @@ export function TagPopup({
                     disabled={!currentTagText.trim()}
                     className="flex items-center justify-center w-8 h-8 rounded-full bg-[#8C00FF] disabled:bg-gray-300 transition-colors"
                   >
-                    <Send className="w-4 h-4 text-white ml-0.5 mt-0.5" />
+                    <Send className="w-4 h-4 text-white" />
                   </button>
                 </div>
               </div>
