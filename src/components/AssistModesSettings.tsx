@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
+import React from "react";
 import { StatusBar } from "./StatusBar";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 
 // Design tokens from Figma
 const tokens = {
@@ -83,10 +84,14 @@ function ToggleSwitch({
   checked: boolean;
   onChange: (checked: boolean) => void;
 }) {
+  // Knob width: 39px, track width: 64px, padding: 2px each side
+  // Travel distance: 64 - 4 (padding) - 39 (knob) = 21px
+  const knobTravel = 21;
+
   return (
     <motion.button
       onClick={() => onChange(!checked)}
-      className="relative flex-shrink-0 flex items-center justify-between overflow-hidden"
+      className="relative flex-shrink-0 flex items-center overflow-hidden"
       style={{
         width: "64px",
         height: "28px",
@@ -101,16 +106,19 @@ function ToggleSwitch({
       transition={{ duration: 0.2 }}
     >
       {/* On indicator - white vertical line (AX Label) */}
-      <div className="flex-1 flex items-center justify-center">
+      <motion.div
+        className="absolute left-[10px] flex items-center justify-center"
+        animate={{ opacity: checked ? 1 : 0 }}
+        transition={{ duration: 0.15 }}
+      >
         <div
           className="bg-white shrink-0"
           style={{
             width: "1px",
             height: "10px",
-            opacity: checked ? 1 : 0,
           }}
         />
-      </div>
+      </motion.div>
       {/* Knob - 39px wide, 24px tall */}
       <motion.div
         className="bg-white rounded-[100px] shrink-0"
@@ -121,8 +129,7 @@ function ToggleSwitch({
             "0px 3px 8px rgba(0, 0, 0, 0.15), 0px 3px 1px rgba(0, 0, 0, 0.06)",
         }}
         animate={{
-          marginLeft: checked ? "auto" : "0px",
-          marginRight: checked ? "0px" : "auto",
+          x: checked ? knobTravel : 0,
         }}
         transition={{ type: "spring", stiffness: 500, damping: 30 }}
       />
@@ -260,6 +267,132 @@ function LiquidGlassButton({
   );
 }
 
+// Cooldown dropdown component matching the project's dropdown pattern
+function CooldownDropdown({
+  isOpen,
+  selectedOption,
+  onSelectOption,
+  onClose,
+  anchorRef,
+}: {
+  isOpen: boolean;
+  selectedOption: string;
+  onSelectOption: (option: string) => void;
+  onClose: () => void;
+  anchorRef: React.RefObject<HTMLButtonElement | null>;
+}) {
+  const options = ["10s", "15s", "20s", "25s", "30s", "45s", "60s"];
+  const [position, setPosition] = React.useState({ top: 0, left: 0 });
+
+  React.useEffect(() => {
+    if (isOpen && anchorRef.current) {
+      const rect = anchorRef.current.getBoundingClientRect();
+      // Position dropdown with top-right corner aligned with "25s" text
+      setPosition({
+        top: rect.top + 4, // Align near the top of the row
+        left: rect.right - 150 - 50, // Align right edge with the value text area
+      });
+    }
+  }, [isOpen, anchorRef]);
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Invisible backdrop to close dropdown when clicking outside */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[209]"
+            onClick={onClose}
+          />
+          <motion.div
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className="fixed z-[210] bg-white overflow-hidden"
+            style={{
+              top: position.top,
+              left: position.left,
+              width: "150px",
+              borderRadius: "14px",
+              boxShadow: "0px 10px 40px rgba(0, 0, 0, 0.15)",
+              maxHeight: "300px",
+              overflowY: "auto",
+            }}
+          >
+            <div className="py-2">
+              {options.map((option, index) => (
+                <React.Fragment key={option}>
+                  <motion.button
+                    whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      onSelectOption(option);
+                      onClose();
+                    }}
+                    className="w-full flex items-center px-4 py-3"
+                    style={{
+                      backgroundColor: "white",
+                      gap: "8px",
+                    }}
+                  >
+                    {selectedOption === option ? (
+                      <span
+                        style={{
+                          fontFamily:
+                            "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
+                          fontSize: "17px",
+                          fontWeight: 600,
+                          color: tokens.colors.accentPurple,
+                          width: "20px",
+                        }}
+                      >
+                        ✓
+                      </span>
+                    ) : (
+                      <span style={{ width: "20px" }} />
+                    )}
+                    <span
+                      style={{
+                        fontFamily:
+                          "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
+                        fontSize: "17px",
+                        fontWeight: selectedOption === option ? 600 : 400,
+                        lineHeight: "22px",
+                        letterSpacing: "-0.43px",
+                        color:
+                          selectedOption === option
+                            ? tokens.colors.accentPurple
+                            : "#000000",
+                        textAlign: "left",
+                        flex: 1,
+                      }}
+                    >
+                      {option}
+                    </span>
+                  </motion.button>
+                  {index < options.length - 1 && (
+                    <div
+                      style={{
+                        height: "1px",
+                        backgroundColor: tokens.colors.separatorsVibrant,
+                        marginLeft: "16px",
+                        marginRight: "16px",
+                      }}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  );
+}
+
 interface AssistModesSettingsProps {
   onBack: () => void;
 }
@@ -270,6 +403,9 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
   );
   const [sensitivity, setSensitivity] = useState(50);
   const [whisperOnPause, setWhisperOnPause] = useState(true);
+  const [cooldown, setCooldown] = useState("25s");
+  const [cooldownDropdownOpen, setCooldownDropdownOpen] = useState(false);
+  const cooldownButtonRef = useRef<HTMLButtonElement>(null);
 
   return (
     <div
@@ -489,15 +625,17 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
             </div>
 
             {/* Cooldown Row */}
-            <div
-              className="flex items-center h-[52px] w-full px-[16px]"
+            <button
+              ref={cooldownButtonRef}
+              className="flex items-center h-[52px] w-full px-[16px] cursor-pointer"
               style={{
                 backgroundColor: tokens.colors.backgroundsGroupedSecondary,
               }}
+              onClick={() => setCooldownDropdownOpen(true)}
             >
               {/* Title */}
               <p
-                className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap"
+                className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left"
                 style={{
                   fontFamily: tokens.typography.body.fontFamily,
                   fontWeight: tokens.typography.body.fontWeight,
@@ -520,10 +658,19 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                   color: tokens.colors.labelsSecondary,
                 }}
               >
-                <span className="whitespace-nowrap">25s</span>
+                <span className="whitespace-nowrap">{cooldown}</span>
                 <span className="whitespace-nowrap">􀆏</span>
               </div>
-            </div>
+            </button>
+
+            {/* Cooldown Dropdown */}
+            <CooldownDropdown
+              isOpen={cooldownDropdownOpen}
+              selectedOption={cooldown}
+              onSelectOption={setCooldown}
+              onClose={() => setCooldownDropdownOpen(false)}
+              anchorRef={cooldownButtonRef}
+            />
           </div>
         </motion.div>
 
