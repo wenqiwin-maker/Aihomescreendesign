@@ -197,7 +197,7 @@ function ArrowBackSimple() {
 }
 
 // Reminder Setting Section
-function Frame({ onAssistModesClick, onCalibrationClick }: { onAssistModesClick: () => void; onCalibrationClick: () => void }) {
+function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }: { onAssistModesClick: () => void; onCalibrationClick: () => void; onNudgesDeliveryClick: () => void }) {
   return (
     <div className="flex flex-col items-start gap-[8px] w-full">
       {/* Title */}
@@ -278,7 +278,10 @@ function Frame({ onAssistModesClick, onCalibrationClick }: { onAssistModesClick:
           </div>
 
           {/* Nudges & Delivery */}
-          <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+          <div
+            className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer"
+            onClick={onNudgesDeliveryClick}
+          >
             <p
               className="m-0"
               style={{
@@ -428,7 +431,7 @@ function Frame19() {
 }
 
 // Animated Main Content Container
-function Frame19Animated({ onAssistModesClick, onCalibrationClick }: { onAssistModesClick: () => void; onCalibrationClick: () => void }) {
+function Frame19Animated({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }: { onAssistModesClick: () => void; onCalibrationClick: () => void; onNudgesDeliveryClick: () => void }) {
   return (
     <>
       {/* Top Cards - Communication Progress and Practice History */}
@@ -448,7 +451,7 @@ function Frame19Animated({ onAssistModesClick, onCalibrationClick }: { onAssistM
           visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
         }}
       >
-        <Frame onAssistModesClick={onAssistModesClick} onCalibrationClick={onCalibrationClick} />
+        <Frame onAssistModesClick={onAssistModesClick} onCalibrationClick={onCalibrationClick} onNudgesDeliveryClick={onNudgesDeliveryClick} />
       </motion.div>
       
       {/* Support */}
@@ -604,7 +607,7 @@ export function Settings({ onBack }: SettingsProps) {
         </motion.div>
 
         {/* Main Content */}
-        <Frame19Animated onAssistModesClick={() => navigate('/settings/assist-modes')} onCalibrationClick={() => navigate('/settings/calibration')} />
+        <Frame19Animated onAssistModesClick={() => navigate('/settings/assist-modes')} onCalibrationClick={() => navigate('/settings/calibration')} onNudgesDeliveryClick={() => navigate('/settings/nudges-delivery')} />
       </motion.div>
 
       {/* Bottom Navigation - Floating */}

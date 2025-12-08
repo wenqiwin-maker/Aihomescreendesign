@@ -12,6 +12,7 @@ import { AIChatPage } from '../pages/AIChatPage';
 import { AssistModesPage } from '../pages/AssistModesPage';
 import { CalibrationPage } from '../pages/CalibrationPage';
 import { CalibrationSheetPage } from '../pages/CalibrationSheetPage';
+import { NudgesDeliveryPage } from '../pages/NudgesDeliveryPage';
 
 const router = createBrowserRouter(
   [
@@ -70,6 +71,10 @@ const router = createBrowserRouter(
     {
       path: '/settings/calibration/sheet',
       element: <CalibrationSheetPage />,
+    },
+    {
+      path: '/settings/nudges-delivery',
+      element: <NudgesDeliveryPage />,
     },
   ],
   {

@@ -1,5 +1,7 @@
+import React, { useState } from "react";
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
+import { GlassIconButton, ICONS } from "./shared/GlassButton";
 
 // Design tokens from Figma
 const tokens = {
@@ -76,27 +78,6 @@ function Grabber() {
   );
 }
 
-// Close button (X button in circle)
-function CloseButton({ onClick }: { onClick: () => void }) {
-  return (
-    <button
-      onClick={onClick}
-      className="flex items-center justify-center w-[44px] h-[44px] rounded-full"
-      style={{ backgroundColor: tokens.colors.closeButtonBg }}
-    >
-      <span
-        style={{
-          fontFamily: "SF Pro",
-          fontWeight: 510,
-          fontSize: "17px",
-          color: tokens.colors.closeButtonIcon,
-        }}
-      >
-        􀆄
-      </span>
-    </button>
-  );
-}
 
 // Individual Metric Card
 function MetricCard({
@@ -196,36 +177,54 @@ function GoodBadge() {
   );
 }
 
-// Last Calibration Section
-function LastCalibrationSection() {
+// Calibration Record type
+interface CalibrationRecord {
+  id: string;
+  date: string;
+  pace: string;
+  volume: string;
+  hrv: string;
+}
+
+// Single Calibration Record Card
+function CalibrationRecordCard({
+  record,
+  isFirst,
+  isSecond,
+}: {
+  record: CalibrationRecord;
+  isFirst: boolean;
+  isSecond: boolean;
+}) {
+  // Only show label for "Last calibration" (first) and "Previous calibration" (second only)
+  const showLabel = isFirst || isSecond;
+  const labelText = isFirst ? "Last calibration" : "Previous calibration";
+
   return (
     <motion.div
       className="flex flex-col gap-[8px] w-[350px]"
-      variants={{
-        hidden: { opacity: 0, y: 10 },
-        visible: {
-          opacity: 1,
-          y: 0,
-          transition: { duration: 0.4, ease: "easeOut" },
-        },
-      }}
+      initial={isFirst ? { opacity: 0, y: -20 } : false}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
     >
-      {/* Header row */}
-      <div className="flex items-center justify-between">
-        <p
-          className="m-0"
-          style={{
-            fontFamily: tokens.typography.body.fontFamily,
-            fontWeight: tokens.typography.body.fontWeight,
-            fontSize: tokens.typography.body.fontSize,
-            lineHeight: tokens.typography.body.lineHeight,
-            letterSpacing: "-0.15px",
-            color: tokens.colors.labelSecondary,
-          }}
-        >
-          Last calibration
-        </p>
-      </div>
+      {/* Header row - only show for first and second records */}
+      {showLabel && (
+        <div className="flex items-center justify-between">
+          <p
+            className="m-0"
+            style={{
+              fontFamily: tokens.typography.body.fontFamily,
+              fontWeight: tokens.typography.body.fontWeight,
+              fontSize: tokens.typography.body.fontSize,
+              lineHeight: tokens.typography.body.lineHeight,
+              letterSpacing: "-0.15px",
+              color: tokens.colors.labelSecondary,
+            }}
+          >
+            {labelText}
+          </p>
+        </div>
+      )}
 
       {/* Date and badge row */}
       <div className="flex items-center justify-between">
@@ -240,23 +239,68 @@ function LastCalibrationSection() {
             color: tokens.colors.textPrimary,
           }}
         >
-          Today, 9:30 AM
+          {record.date}
         </p>
         <GoodBadge />
       </div>
 
       {/* Metrics cards row */}
       <div className="flex w-full">
-        <MetricCard label="Pace" value="145" unit="words/min" position="left" />
-        <MetricCard label="Volume" value="65" unit="dB" position="center" />
-        <MetricCard label="HRV" value="58" unit="ms" position="right" />
+        <MetricCard
+          label="Pace"
+          value={record.pace}
+          unit="words/min"
+          position="left"
+        />
+        <MetricCard
+          label="Volume"
+          value={record.volume}
+          unit="dB"
+          position="center"
+        />
+        <MetricCard
+          label="HRV"
+          value={record.hrv}
+          unit="ms"
+          position="right"
+        />
       </div>
     </motion.div>
   );
 }
 
+// Calibration Records Section
+function CalibrationRecordsSection({
+  records,
+}: {
+  records: CalibrationRecord[];
+}) {
+  return (
+    <motion.div
+      className="flex flex-col gap-[24px]"
+      variants={{
+        hidden: { opacity: 0, y: 10 },
+        visible: {
+          opacity: 1,
+          y: 0,
+          transition: { duration: 0.4, ease: "easeOut" },
+        },
+      }}
+    >
+      {records.map((record, index) => (
+        <CalibrationRecordCard
+          key={record.id}
+          record={record}
+          isFirst={index === 0}
+          isSecond={index === 1}
+        />
+      ))}
+    </motion.div>
+  );
+}
+
 // Animated Calibration Illustration - AI Listening Effect
-function CalibrationIllustration() {
+function CalibrationIllustration({ isAnimating }: { isAnimating: boolean }) {
   return (
     <div className="flex flex-col items-center gap-[0px]">
       <div className="w-[174px] h-[168px] relative">
@@ -415,12 +459,16 @@ function CalibrationIllustration() {
           <motion.g
             filter="url(#filter2_f_227_23360)"
             style={{ transformOrigin: "81px 77px" }}
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 6,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            animate={isAnimating ? { rotate: 360 } : { rotate: 0 }}
+            transition={
+              isAnimating
+                ? {
+                    duration: 6,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }
+                : { duration: 0.3 }
+            }
           >
             <path
               d="M20.7928 105.805C4.6434 77.8339 22.9927 42.7438 53.7975 24.9586C84.6024 7.17334 122.666 15.431 138.816 43.4026C154.965 71.3742 143.085 108.467 112.28 126.253C81.4748 144.038 36.9422 133.777 20.7928 105.805Z"
@@ -439,12 +487,16 @@ function CalibrationIllustration() {
           <motion.g
             filter="url(#filter0_f_227_23360)"
             style={{ transformOrigin: "81px 77px" }}
-            animate={{ rotate: 360 }}
-            transition={{
-              duration: 12,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+            animate={isAnimating ? { rotate: 360 } : { rotate: 0 }}
+            transition={
+              isAnimating
+                ? {
+                    duration: 12,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }
+                : { duration: 0.3 }
+            }
           >
             <path
               d="M148 81.2262C148 113.535 114.417 134.756 78.6897 134.756C42.9626 134.756 14 108.564 14 76.2556C14 43.947 42.9626 17.7556 78.6897 17.7556C114.417 17.7556 148 48.9176 148 81.2262Z"
@@ -480,13 +532,23 @@ to your iPhone`}
   );
 }
 
-// Start Calibrate Button
-function StartCalibrateButton({ onClick }: { onClick: () => void }) {
+// Start/Stop Calibrate Button
+function CalibrateButton({
+  onClick,
+  isCalibrating,
+}: {
+  onClick: () => void;
+  isCalibrating: boolean;
+}) {
   return (
     <motion.button
       onClick={onClick}
       className="flex items-center justify-center w-[308px] h-[36px] rounded-[18px]"
-      style={{ backgroundColor: tokens.colors.brandPrimary }}
+      style={{
+        backgroundColor: isCalibrating
+          ? tokens.colors.brandPrimary
+          : "#000000",
+      }}
       whileTap={{ scale: 0.98 }}
       whileHover={{ opacity: 0.9 }}
     >
@@ -500,7 +562,7 @@ function StartCalibrateButton({ onClick }: { onClick: () => void }) {
           color: "#FFFFFF",
         }}
       >
-        Start to Calibrate
+        {isCalibrating ? "Stop" : "Start to Calibrate"}
       </span>
     </motion.button>
   );
@@ -510,7 +572,54 @@ interface CalibrationSheetProps {
   onBack: () => void;
 }
 
+// Helper to generate random metrics
+function generateRandomMetrics() {
+  return {
+    pace: String(Math.floor(Math.random() * 40) + 130), // 130-170
+    volume: String(Math.floor(Math.random() * 20) + 55), // 55-75
+    hrv: String(Math.floor(Math.random() * 30) + 45), // 45-75
+  };
+}
+
+// Helper to format current time
+function formatCurrentTime() {
+  const now = new Date();
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const period = hours >= 12 ? "PM" : "AM";
+  const formattedHours = hours % 12 || 12;
+  const formattedMinutes = minutes.toString().padStart(2, "0");
+  return `Today, ${formattedHours}:${formattedMinutes} ${period}`;
+}
+
 export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
+  const [isCalibrating, setIsCalibrating] = useState(false);
+  const [calibrationRecords, setCalibrationRecords] = useState<
+    CalibrationRecord[]
+  >([
+    {
+      id: "initial",
+      date: "Today, 9:30 AM",
+      pace: "145",
+      volume: "65",
+      hrv: "58",
+    },
+  ]);
+
+  const handleToggleCalibration = () => {
+    if (isCalibrating) {
+      // Stopping - add a new record
+      const metrics = generateRandomMetrics();
+      const newRecord: CalibrationRecord = {
+        id: `record-${Date.now()}`,
+        date: formatCurrentTime(),
+        ...metrics,
+      };
+      setCalibrationRecords((prev) => [newRecord, ...prev]);
+    }
+    setIsCalibrating(!isCalibrating);
+  };
+
   return (
     <div
       className="relative w-[390px] h-screen mx-auto overflow-hidden flex flex-col"
@@ -520,7 +629,7 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
 
       {/* Sheet Modal */}
       <div
-        className="flex-1 flex flex-col"
+        className="flex-1 flex flex-col overflow-hidden"
         style={{
           backgroundColor: tokens.colors.sheetBackground,
           borderRadius: "38px 38px 0 0",
@@ -533,8 +642,8 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
 
         {/* Toolbar */}
         <div className="flex items-center justify-between px-[16px] pb-[10px]">
-          {/* Close button */}
-          <CloseButton onClick={onBack} />
+          {/* Close button - using shared GlassIconButton */}
+          <GlassIconButton icon={ICONS.close} onClick={onBack} />
 
           {/* Title - centered */}
           <p
@@ -557,7 +666,7 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
 
         {/* Content */}
         <motion.div
-          className="flex-1 flex flex-col items-center pt-[20px] px-[20px] gap-[40px]"
+          className="flex-1 flex flex-col items-center pt-[20px] px-[20px] gap-[40px] overflow-y-auto"
           initial="hidden"
           animate="visible"
           variants={{
@@ -582,10 +691,10 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
               },
             }}
           >
-            <CalibrationIllustration />
+            <CalibrationIllustration isAnimating={isCalibrating} />
           </motion.div>
 
-          {/* Start Calibrate Button */}
+          {/* Start/Stop Calibrate Button */}
           <motion.div
             variants={{
               hidden: { opacity: 0, y: 10 },
@@ -596,15 +705,17 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
               },
             }}
           >
-            <StartCalibrateButton
-              onClick={() => {
-                console.log("Starting calibration...");
-              }}
+            <CalibrateButton
+              onClick={handleToggleCalibration}
+              isCalibrating={isCalibrating}
             />
           </motion.div>
 
-          {/* Last Calibration Section */}
-          <LastCalibrationSection />
+          {/* Calibration Records Section */}
+          <CalibrationRecordsSection records={calibrationRecords} />
+
+          {/* Bottom padding for scroll */}
+          <div className="h-[20px] flex-shrink-0" />
         </motion.div>
       </div>
 

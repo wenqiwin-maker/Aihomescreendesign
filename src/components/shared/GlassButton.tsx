@@ -1,7 +1,7 @@
-import { ReactNode, ButtonHTMLAttributes } from 'react';
+import React, { ReactNode, ButtonHTMLAttributes } from 'react';
 import { cn } from '../../lib/cn';
 
-interface GlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface GlassButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   size?: 'sm' | 'md' | 'lg';
 }
@@ -45,6 +45,10 @@ export function GlassButton({
   );
 }
 
+export interface GlassIconButtonProps extends Omit<GlassButtonProps, 'children'> {
+  icon: string;
+}
+
 /**
  * Glass button with SF Symbol icon
  * Used for back, close, etc.
@@ -53,7 +57,7 @@ export function GlassIconButton({
   icon,
   size = 'md',
   ...props
-}: Omit<GlassButtonProps, 'children'> & { icon: string }) {
+}: GlassIconButtonProps) {
   return (
     <GlassButton size={size} {...props}>
       <span

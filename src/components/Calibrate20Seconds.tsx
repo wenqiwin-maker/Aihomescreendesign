@@ -1,5 +1,6 @@
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
+import questionIcon from "../assets/question.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -79,34 +80,10 @@ function LiquidGlassButton({
   );
 }
 
-// Calibration icon (circle with checkmark) matching Figma
-function CalibrationIcon() {
+// Question icon
+function QuestionIcon() {
   return (
-    <div className="w-[20px] h-[20px] flex items-center justify-center">
-      <svg
-        width="20"
-        height="20"
-        viewBox="0 0 20 20"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          cx="10"
-          cy="10"
-          r="8.33"
-          stroke={tokens.colors.accentPurple}
-          strokeWidth="1.33"
-          fill="none"
-        />
-        <path
-          d="M7.58 10L9.17 11.67L12.42 8.33"
-          stroke={tokens.colors.accentPurple}
-          strokeWidth="1.33"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </div>
+    <img src={questionIcon} alt="Question" width={20} height={20} />
   );
 }
 
@@ -259,22 +236,21 @@ export function Calibrate20Seconds({ onBack, onCalibrate }: Calibrate20SecondsPr
             },
           }}
         >
-          {/* Section Header: 20s Baseline with icon */}
-          <div className="flex items-center gap-[4px] mb-[10px]">
+          {/* Section Header: 20s Baseline with question icon */}
+          <div className="flex items-center justify-between w-full mb-[10px]">
             <p
-              className="text-right"
+              className="text-left"
               style={{
                 fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,
                 color: tokens.colors.labelsPrimary,
-                width: "120px",
               }}
             >
               20s Baseline
             </p>
-            <CalibrationIcon />
+            <QuestionIcon />
           </div>
 
           {/* Calibration Row */}
