@@ -124,8 +124,17 @@
     @apply border-border outline-ring/50;
   }
 
+  html, body {
+    @apply h-full w-full;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground flex justify-center items-start;
+    min-height: 100vh;
+  }
+
+  #root {
+    @apply flex justify-center w-full;
   }
 }
 
@@ -186,4 +195,30 @@
 
 html {
   font-size: var(--font-size);
+}
+
+/* Custom placeholder styles */
+textarea::placeholder {
+  color: rgba(10, 10, 10, 0.4);
+  font-family: 'SF Pro';
+}
+
+/* Gradient flow animation */
+@keyframes gradientFlow {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    transform: scale(1.05) translate(-2%, -1%);
+  }
+  66% {
+    transform: scale(1.03) translate(1%, -2%);
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+  }
+}
+
+.gradient-flow {
+  animation: gradientFlow 15s ease-in-out infinite;
 }

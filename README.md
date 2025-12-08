@@ -1,7 +1,7 @@
 
-  # AI Home Screen Design
+  # AI Home Screen Design (Final)
 
-  This is a code bundle for AI Home Screen Design. The original project is available at https://www.figma.com/design/YGn3a8qOcamLrDzm7j2efa/AI-Home-Screen-Design.
+  This is a code bundle for AI Home Screen Design (Final). The original project is available at https://www.figma.com/design/9yAbucJShWfuNwdlLKMSIC/AI-Home-Screen-Design--Final-.
 
   ## Running the code
 
