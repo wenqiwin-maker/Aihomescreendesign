@@ -65,13 +65,21 @@ export function ProgressBar({
       </div>
 
       {/* Tags on Progress Bar */}
-      {tags.map((tag, index) => (
+      {tags.map((tag, index) => {
+        // Calculate gap offset to center tag on the gap between segments
+        // Gap appears to the right of the tag position, so shift right by half the gap
+        const gapWidth = 4;
+        const containerWidth = 300;
+        const gapPercentage = (gapWidth / containerWidth) * 100;
+        const centeredPosition = tag.position + gapPercentage / 2;
+        
+        return (
         <div
           key={index}
           className="absolute cursor-pointer"
           style={{
-            left: `${tag.position}%`,
-            top: "-5px",
+            left: `${centeredPosition}%`,
+            top: "-25px",
             transform: "translateX(-50%)",
             zIndex: 30,
           }}
@@ -93,17 +101,9 @@ export function ProgressBar({
               fill="white"
             />
           </svg>
-          {/* Progress Dot */}
-          <div
-            className="absolute w-2 h-2 rounded-full bg-[#8C00FF] border-2 border-white"
-            style={{
-              left: "50%",
-              top: "23px",
-              transform: "translate(-50%, -50%)",
-            }}
-          />
         </div>
-      ))}
+        );
+      })}
 
       {/* Progress Bar Background - Segmented with Extended Touch Area */}
       <div
@@ -149,38 +149,52 @@ export function ProgressBar({
               });
             }
 
-            return segments.map((segment, index) => {
-              const segmentWidth =
-                segment.end - segment.start;
-              const gapWidth = 4;
-              const containerWidth = 300;
-              const gapPercentage =
-                (gapWidth / containerWidth) * 100;
+            return (
+              <>
+                {segments.map((segment, index) => {
+                  const segmentWidth =
+                    segment.end - segment.start;
+                  const gapWidth = 4;
+                  const containerWidth = 300;
+                  const gapPercentage =
+                    (gapWidth / containerWidth) * 100;
 
-              return (
-                <div
-                  key={index}
-                  className="absolute h-1 rounded-full"
-                  style={{
-                    left: `${segment.start}%`,
-                    width: `calc(${segmentWidth}% - ${gapPercentage}%)`,
-                    background: "rgba(0, 0, 0, 0.6)",
-                  }}
-                >
-                  {segment.isActive && (
+                  return (
                     <div
-                      className="absolute h-1 rounded-full bg-[#8C00FF]"
+                      key={index}
+                      className="absolute h-1 rounded-full"
                       style={{
-                        width:
-                          segment.end <= currentProgress
-                            ? "100%"
-                            : `${((currentProgress - segment.start) / segmentWidth) * 100}%`,
+                        left: `${segment.start}%`,
+                        width: `calc(${segmentWidth}% - ${gapPercentage}%)`,
+                        background: "rgba(0, 0, 0, 0.6)",
                       }}
-                    />
-                  )}
-                </div>
-              );
-            });
+                    >
+                      {segment.isActive && (
+                        <div
+                          className="absolute h-1 rounded-full bg-[#8C00FF]"
+                          style={{
+                            width:
+                              segment.end <= currentProgress
+                                ? "100%"
+                                : `${((currentProgress - segment.start) / segmentWidth) * 100}%`,
+                          }}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+                {/* Progress Pin - Circle indicator */}
+                <div
+                  className="absolute w-3 h-3 rounded-full bg-[#8C00FF] border-2 border-white shadow-md"
+                  style={{
+                    left: `${currentProgress}%`,
+                    top: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    zIndex: 20,
+                  }}
+                />
+              </>
+            );
           })()}
         </div>
       </div>
