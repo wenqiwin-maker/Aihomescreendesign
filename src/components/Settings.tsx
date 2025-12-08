@@ -197,7 +197,7 @@ function ArrowBackSimple() {
 }
 
 // Reminder Setting Section
-function Frame() {
+function Frame({ onAssistModesClick }: { onAssistModesClick: () => void }) {
   return (
     <div className="flex flex-col items-start gap-[8px] w-full">
       {/* Title */}
@@ -229,7 +229,10 @@ function Frame() {
         >
           {/* Assist Mode & Sensitivity */}
           <div className="flex flex-col w-full gap-[0px]">
-            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+            <div
+              className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer"
+              onClick={onAssistModesClick}
+            >
               <p
                 className="m-0"
                 style={{
@@ -422,7 +425,7 @@ function Frame19() {
 }
 
 // Animated Main Content Container
-function Frame19Animated() {
+function Frame19Animated({ onAssistModesClick }: { onAssistModesClick: () => void }) {
   return (
     <>
       {/* Top Cards - Communication Progress and Practice History */}
@@ -442,7 +445,7 @@ function Frame19Animated() {
           visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
         }}
       >
-        <Frame />
+        <Frame onAssistModesClick={onAssistModesClick} />
       </motion.div>
       
       {/* Support */}
@@ -598,7 +601,7 @@ export function Settings({ onBack }: SettingsProps) {
         </motion.div>
 
         {/* Main Content */}
-        <Frame19Animated />
+        <Frame19Animated onAssistModesClick={() => navigate('/settings/assist-modes')} />
       </motion.div>
 
       {/* Bottom Navigation - Floating */}

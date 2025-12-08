@@ -6,6 +6,9 @@
   export default defineConfig({
     base: '/Aihomescreendesign/',
     plugins: [react()],
+    css: {
+      postcss: './postcss.config.js',
+    },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {

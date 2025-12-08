@@ -9,6 +9,7 @@ import { SummaryPage } from '../pages/SummaryPage';
 import { PlaybackPage } from '../pages/PlaybackPage';
 import { SettingsPage } from '../pages/SettingsPage';
 import { AIChatPage } from '../pages/AIChatPage';
+import { AssistModesPage } from '../pages/AssistModesPage';
 
 const router = createBrowserRouter(
   [
@@ -55,6 +56,10 @@ const router = createBrowserRouter(
     {
       path: '/ai-chat',
       element: <AIChatPage />,
+    },
+    {
+      path: '/settings/assist-modes',
+      element: <AssistModesPage />,
     },
   ],
   {
