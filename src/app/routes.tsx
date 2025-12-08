@@ -10,6 +10,8 @@ import { PlaybackPage } from '../pages/PlaybackPage';
 import { SettingsPage } from '../pages/SettingsPage';
 import { AIChatPage } from '../pages/AIChatPage';
 import { AssistModesPage } from '../pages/AssistModesPage';
+import { CalibrationPage } from '../pages/CalibrationPage';
+import { CalibrationSheetPage } from '../pages/CalibrationSheetPage';
 
 const router = createBrowserRouter(
   [
@@ -60,6 +62,14 @@ const router = createBrowserRouter(
     {
       path: '/settings/assist-modes',
       element: <AssistModesPage />,
+    },
+    {
+      path: '/settings/calibration',
+      element: <CalibrationPage />,
+    },
+    {
+      path: '/settings/calibration/sheet',
+      element: <CalibrationSheetPage />,
     },
   ],
   {

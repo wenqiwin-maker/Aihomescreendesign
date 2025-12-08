@@ -197,7 +197,7 @@ function ArrowBackSimple() {
 }
 
 // Reminder Setting Section
-function Frame({ onAssistModesClick }: { onAssistModesClick: () => void }) {
+function Frame({ onAssistModesClick, onCalibrationClick }: { onAssistModesClick: () => void; onCalibrationClick: () => void }) {
   return (
     <div className="flex flex-col items-start gap-[8px] w-full">
       {/* Title */}
@@ -254,7 +254,10 @@ function Frame({ onAssistModesClick }: { onAssistModesClick: () => void }) {
 
           {/* Calibrate in 20 Seconds */}
           <div className="flex flex-col w-full gap-[0px]">
-            <div className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer">
+            <div
+              className="flex flex-row justify-between items-center w-full h-[54px] cursor-pointer"
+              onClick={onCalibrationClick}
+            >
               <p
                 className="m-0"
                 style={{
@@ -425,7 +428,7 @@ function Frame19() {
 }
 
 // Animated Main Content Container
-function Frame19Animated({ onAssistModesClick }: { onAssistModesClick: () => void }) {
+function Frame19Animated({ onAssistModesClick, onCalibrationClick }: { onAssistModesClick: () => void; onCalibrationClick: () => void }) {
   return (
     <>
       {/* Top Cards - Communication Progress and Practice History */}
@@ -445,7 +448,7 @@ function Frame19Animated({ onAssistModesClick }: { onAssistModesClick: () => voi
           visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
         }}
       >
-        <Frame onAssistModesClick={onAssistModesClick} />
+        <Frame onAssistModesClick={onAssistModesClick} onCalibrationClick={onCalibrationClick} />
       </motion.div>
       
       {/* Support */}
@@ -601,7 +604,7 @@ export function Settings({ onBack }: SettingsProps) {
         </motion.div>
 
         {/* Main Content */}
-        <Frame19Animated onAssistModesClick={() => navigate('/settings/assist-modes')} />
+        <Frame19Animated onAssistModesClick={() => navigate('/settings/assist-modes')} onCalibrationClick={() => navigate('/settings/calibration')} />
       </motion.div>
 
       {/* Bottom Navigation - Floating */}
