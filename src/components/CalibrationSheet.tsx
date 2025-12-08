@@ -1,6 +1,5 @@
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
-import calibrationIllustration from "../assets/calibration-illustration.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -256,15 +255,210 @@ function LastCalibrationSection() {
   );
 }
 
-// Calibration Illustration
+// Animated Calibration Illustration - AI Listening Effect
 function CalibrationIllustration() {
   return (
     <div className="flex flex-col items-center gap-[0px]">
-      <img
-        src={calibrationIllustration}
-        alt="Calibration"
-        className="w-[174px] h-[168px]"
-      />
+      <div className="w-[174px] h-[168px] relative">
+        <svg
+          width="162"
+          height="154"
+          viewBox="0 0 162 154"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+        >
+          <defs>
+            <filter
+              id="filter0_f_227_23360"
+              x="0"
+              y="3.75562"
+              width="162"
+              height="145"
+              filterUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
+              />
+              <feGaussianBlur
+                stdDeviation="4.5"
+                result="effect1_foregroundBlur_227_23360"
+              />
+            </filter>
+            <filter
+              id="filter1_d_227_23360"
+              x="12.2467"
+              y="0"
+              width="137.104"
+              height="153.993"
+              filterUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feColorMatrix
+                in="SourceAlpha"
+                type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                result="hardAlpha"
+              />
+              <feOffset />
+              <feGaussianBlur stdDeviation="4" />
+              <feColorMatrix
+                type="matrix"
+                values="0 0 0 0 0.0437326 0 0 0 0 0.407906 0 0 0 0 0.954167 0 0 0 1 0"
+              />
+              <feBlend
+                mode="normal"
+                in2="BackgroundImageFix"
+                result="effect1_dropShadow_227_23360"
+              />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="effect1_dropShadow_227_23360"
+                result="shape"
+              />
+            </filter>
+            <filter
+              id="filter2_f_227_23360"
+              x="1.30298"
+              y="2.09107"
+              width="158.241"
+              height="146.482"
+              filterUnits="userSpaceOnUse"
+              colorInterpolationFilters="sRGB"
+            >
+              <feFlood floodOpacity="0" result="BackgroundImageFix" />
+              <feBlend
+                mode="normal"
+                in="SourceGraphic"
+                in2="BackgroundImageFix"
+                result="shape"
+              />
+              <feGaussianBlur
+                stdDeviation="4.5"
+                result="effect1_foregroundBlur_227_23360"
+              />
+            </filter>
+            <linearGradient
+              id="paint0_linear_227_23360"
+              x1="81.7701"
+              y1="17.7556"
+              x2="81.7701"
+              y2="134.756"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#A056F7" />
+              <stop offset="1" stopColor="#20C1E4" />
+            </linearGradient>
+            <linearGradient
+              id="paint1_linear_227_23360"
+              x1="21.3161"
+              y1="75.8733"
+              x2="130.823"
+              y2="122.308"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.0104167" stopColor="#0A05F8" stopOpacity="0.33" />
+              <stop offset="1" stopColor="white" stopOpacity="0.15" />
+            </linearGradient>
+            <linearGradient
+              id="paint2_linear_227_23360"
+              x1="22.629"
+              y1="72.669"
+              x2="139.314"
+              y2="80.7489"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.338542" stopColor="#B522FF" />
+              <stop offset="1" stopColor="#0BC9F2" />
+            </linearGradient>
+            <linearGradient
+              id="paint3_linear_227_23360"
+              x1="109.624"
+              y1="127.786"
+              x2="51.1415"
+              y2="26.492"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stopColor="#A056F7" />
+              <stop offset="1" stopColor="#20C1E4" />
+            </linearGradient>
+            <linearGradient
+              id="paint4_linear_227_23360"
+              x1="132.699"
+              y1="47.3756"
+              x2="15.1116"
+              y2="62.0337"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop offset="0.0104167" stopColor="#0A05F8" stopOpacity="0.33" />
+              <stop offset="1" stopColor="white" stopOpacity="0.15" />
+            </linearGradient>
+          </defs>
+
+          {/* Layer 1 - Static main ring with shadow (very back) */}
+          <g filter="url(#filter1_d_227_23360)">
+            <path
+              d="M93.6294 10.1089C125.851 12.3401 141.554 48.3988 139.102 83.8014C136.651 119.204 108.543 146.095 76.3212 143.864C44.0996 141.632 19.9662 111.124 22.4176 75.7215C24.8691 40.3189 61.4078 7.87769 93.6294 10.1089Z"
+              stroke="url(#paint2_linear_227_23360)"
+              strokeWidth="4"
+            />
+          </g>
+
+          {/* Layer 2 - Fastest rotation (middle) */}
+          <motion.g
+            filter="url(#filter2_f_227_23360)"
+            style={{ transformOrigin: "81px 77px" }}
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            <path
+              d="M20.7928 105.805C4.6434 77.8339 22.9927 42.7438 53.7975 24.9586C84.6024 7.17334 122.666 15.431 138.816 43.4026C154.965 71.3742 143.085 108.467 112.28 126.253C81.4748 144.038 36.9422 133.777 20.7928 105.805Z"
+              stroke="url(#paint3_linear_227_23360)"
+              strokeWidth="9"
+            />
+            <path
+              d="M20.7928 105.805C4.6434 77.8339 22.9927 42.7438 53.7975 24.9586C84.6024 7.17334 122.666 15.431 138.816 43.4026C154.965 71.3742 143.085 108.467 112.28 126.253C81.4748 144.038 36.9422 133.777 20.7928 105.805Z"
+              stroke="url(#paint4_linear_227_23360)"
+              strokeOpacity="0.2"
+              strokeWidth="9"
+            />
+          </motion.g>
+
+          {/* Layer 3 - Slowest rotation (on top) */}
+          <motion.g
+            filter="url(#filter0_f_227_23360)"
+            style={{ transformOrigin: "81px 77px" }}
+            animate={{ rotate: 360 }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "linear",
+            }}
+          >
+            <path
+              d="M148 81.2262C148 113.535 114.417 134.756 78.6897 134.756C42.9626 134.756 14 108.564 14 76.2556C14 43.947 42.9626 17.7556 78.6897 17.7556C114.417 17.7556 148 48.9176 148 81.2262Z"
+              stroke="url(#paint0_linear_227_23360)"
+              strokeWidth="10"
+            />
+            <path
+              d="M148 81.2262C148 113.535 114.417 134.756 78.6897 134.756C42.9626 134.756 14 108.564 14 76.2556C14 43.947 42.9626 17.7556 78.6897 17.7556C114.417 17.7556 148 48.9176 148 81.2262Z"
+              stroke="url(#paint1_linear_227_23360)"
+              strokeWidth="10"
+            />
+          </motion.g>
+        </svg>
+      </div>
       <p
         className="m-0 text-center whitespace-pre-line"
         style={{
