@@ -1,6 +1,6 @@
 import svgPaths from "./svg-iau0xe5r7j";
 import imgPill from "../assets/gradient-pill-bg.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Animated path component for rings
 function AnimatedPath({ 
@@ -642,15 +642,18 @@ function Frame7({
 function Pill({
   onClick,
   isSelected,
+  pillId,
 }: {
   onClick: () => void;
   isSelected: boolean;
+  pillId: string;
 }) {
   return (
     <button
       onClick={onClick}
       className="h-[35.99px] relative rounded-[2.5061e+07px] shrink-0 transition-all"
       data-name="Pill"
+      data-pill={pillId}
     >
       {isSelected && (
         <img
@@ -691,15 +694,18 @@ function Pill({
 function Pill1({
   onClick,
   isSelected,
+  pillId,
 }: {
   onClick: () => void;
   isSelected: boolean;
+  pillId: string;
 }) {
   return (
     <button
       onClick={onClick}
       className="h-[35.99px] relative rounded-[2.5061e+07px] shrink-0 transition-all"
       data-name="Pill"
+      data-pill={pillId}
     >
       {isSelected && (
         <img
@@ -740,15 +746,18 @@ function Pill1({
 function Pill2({
   onClick,
   isSelected,
+  pillId,
 }: {
   onClick: () => void;
   isSelected: boolean;
+  pillId: string;
 }) {
   return (
     <button
       onClick={onClick}
       className="h-[35.99px] relative rounded-[2.5061e+07px] shrink-0 transition-all"
       data-name="Pill"
+      data-pill={pillId}
     >
       {isSelected && (
         <img
@@ -789,15 +798,18 @@ function Pill2({
 function Pill3({
   onClick,
   isSelected,
+  pillId,
 }: {
   onClick: () => void;
   isSelected: boolean;
+  pillId: string;
 }) {
   return (
     <button
       onClick={onClick}
       className="h-[35.99px] relative rounded-[2.5061e+07px] shrink-0 transition-all"
       data-name="Pill"
+      data-pill={pillId}
     >
       {isSelected && (
         <img
@@ -842,8 +854,27 @@ function Summary({
   selectedPill: string;
   onPillClick: (pill: string) => void;
 }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Scroll selected pill into view when it changes
+  useEffect(() => {
+    if (containerRef.current && selectedPill) {
+      const selectedElement = containerRef.current.querySelector(
+        `[data-pill="${selectedPill}"]`
+      );
+      if (selectedElement) {
+        selectedElement.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+          inline: "center",
+        });
+      }
+    }
+  }, [selectedPill]);
+
   return (
     <div
+      ref={containerRef}
       className="content-stretch flex gap-[8px] items-start overflow-x-auto overflow-y-hidden relative w-full max-w-full"
       data-name="Summary"
       style={{
@@ -859,18 +890,22 @@ function Summary({
       <Pill
         onClick={() => onPillClick("clarity")}
         isSelected={selectedPill === "clarity"}
+        pillId="clarity"
       />
       <Pill1
         onClick={() => onPillClick("tone")}
         isSelected={selectedPill === "tone"}
+        pillId="tone"
       />
       <Pill2
         onClick={() => onPillClick("boundaries")}
         isSelected={selectedPill === "boundaries"}
+        pillId="boundaries"
       />
       <Pill3
         onClick={() => onPillClick("actionable")}
         isSelected={selectedPill === "actionable"}
+        pillId="actionable"
       />
     </div>
   );
