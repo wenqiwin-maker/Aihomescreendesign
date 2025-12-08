@@ -5,6 +5,7 @@ import { AuroraBackground } from './AuroraBackground';
 import { motion } from 'motion/react';
 import { useState, useEffect, ReactNode } from 'react';
 import { Settings as SettingsPage } from './Settings';
+import selfViewProfile from '../assets/self-view-profile.jpg';
 
 // Reusable card component with rotating icon on hover/click
 interface CardWithRotatingIconProps {
@@ -148,7 +149,11 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
         <div className="absolute w-[390px] h-[56px] left-0 top-[47px] flex justify-between items-center px-5 gap-4">
           {/* User */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#AAD5E2] rounded-full" />
+            <img 
+              src={selfViewProfile} 
+              alt="User profile" 
+              className="w-10 h-10 rounded-full object-cover"
+            />
             <span 
               className="text-white"
               style={{ 
