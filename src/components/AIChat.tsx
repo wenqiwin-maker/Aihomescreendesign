@@ -81,7 +81,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               color: "#404040",
             }}
           >
-            ←
+            􀯶
           </span>
         </button>
 
