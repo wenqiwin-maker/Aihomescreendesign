@@ -66,6 +66,6 @@
       "scripts": {
             "dev": "vite",
             "build": "vite build",
-            "deploy": "vite build && gh-pages -d build -b gh-pages -r https://wenqiwin-maker:$QI_GH_TOKEN@github.com/wenqiwin-maker/Aihomescreendesign.git --user \"Qi Wen <wenqiwin@gmail.com>\""
+            "deploy": "vite build && gh-pages -d build -b gh-pages -r https://github.com/wenqiwin-maker/Aihomescreendesign.git --user \"Qi Wen <wenqiwin@gmail.com>\""
       }
 }
