@@ -594,8 +594,6 @@ export function HomePage() {
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full" />
 
-      {/* Notch */}
-      <div className="fixed w-[150px] h-[37px] left-1/2 -translate-x-1/2 top-0 bg-black rounded-b-[24px] z-50" />
 
       {/* Reminder Modal Overlay */}
       <AnimatePresence>

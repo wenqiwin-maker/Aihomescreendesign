@@ -3,7 +3,6 @@ import { ReactNode } from 'react';
 interface MobileFrameProps {
   children: ReactNode;
   className?: string;
-  showNotch?: boolean;
   showHomeIndicator?: boolean;
   backgroundColor?: string;
 }
@@ -11,12 +10,11 @@ interface MobileFrameProps {
 /**
  * Mobile phone frame container
  * Renders content at exact iPhone dimensions: 390x844
- * Includes optional notch and home indicator
+ * Includes optional home indicator
  */
 export function MobileFrame({
   children,
   className = '',
-  showNotch = true,
   showHomeIndicator = true,
   backgroundColor = 'white',
 }: MobileFrameProps) {
@@ -27,25 +25,11 @@ export function MobileFrame({
     >
       {children}
 
-      {/* Notch - exact same as original */}
-      {showNotch && (
-        <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px] z-50 pointer-events-none" />
-      )}
-
       {/* Home Indicator - exact same as original */}
       {showHomeIndicator && (
         <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full z-50 pointer-events-none" />
       )}
     </div>
-  );
-}
-
-/**
- * Notch component for custom positioning
- */
-export function Notch() {
-  return (
-    <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px] z-50 pointer-events-none" />
   );
 }
 

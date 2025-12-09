@@ -596,8 +596,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full" />
 
-      {/* Notch */}
-      <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px]" />
     </div>
   );
 }

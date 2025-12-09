@@ -10,8 +10,8 @@ import { TagPopup } from "./TagPopup";
 import { UploadPopup } from "./UploadPopup";
 import { toast } from "sonner@2.0.3";
 import { Message, Tag } from "../types";
+import { StatusBar } from "./StatusBar";
 import {
-  StatusBar,
   ProgressBar,
   ActionButtons,
   DemoChatSheet,
@@ -422,8 +422,6 @@ export function VoiceChat({
       {/* Tag Button - Floating Bottom Right */}
       <TagButton isActive={isTagPopupOpen} onClick={handleAddTag} />
 
-      {/* Notch */}
-      <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px] z-30" />
 
       <CaptionPopup
         isOpen={isCaptionPopupOpen}
