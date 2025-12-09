@@ -374,8 +374,6 @@ export function QuickSetup({
         </div>
       </div>
 
-      {/* Notch - Black container at top */}
-      <div className="absolute w-[150px] h-[37px] left-[126px] top-0 bg-black rounded-b-[24px]" />
     </div>
   );
 }

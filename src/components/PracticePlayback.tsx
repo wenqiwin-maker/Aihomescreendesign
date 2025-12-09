@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import imgImageAiCharacter from "../assets/ai-character-static.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { StatusBar } from "./StatusBar";
 import bookmarkIcon from "../assets/bookmark-icon.png";
 import hesitationIcon from "../assets/hesitation-icon.png";
 import risingEmotionIcon from "../assets/rising-emotion-icon.png";
@@ -391,10 +392,13 @@ export function PracticePlayback({
           />
         </div>
 
+        {/* Status Bar */}
+        <StatusBar variant="light" className="absolute top-0 left-0 w-full z-20" />
+
         {/* Back Button */}
         <button
           onClick={onBack}
-          className="animate-button-pop absolute top-4 left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
+          className="animate-button-pop absolute top-[70px] left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
           style={{
             background: "rgba(247, 247, 247, 0.85)",
             backdropFilter: "blur(20px)",

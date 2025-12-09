@@ -5,6 +5,7 @@ import { AuroraBackground } from '../components/AuroraBackground';
 import { SetReminderSheet } from '../components/SetReminderSheet';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect, ReactNode } from 'react';
+import selfViewProfile from '../assets/self-view-profile.jpg';
 
 // Reusable card component with rotating icon on hover/click
 interface CardWithRotatingIconProps {
@@ -146,7 +147,11 @@ export function HomePage() {
         <div className="absolute w-[390px] h-[56px] left-0 top-[47px] flex justify-between items-center px-5 gap-4">
           {/* User */}
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#AAD5E2] rounded-full" />
+            <img 
+              src={selfViewProfile} 
+              alt="User profile" 
+              className="w-10 h-10 rounded-full object-cover"
+            />
             <span
               className="text-white"
               style={{
@@ -589,8 +594,6 @@ export function HomePage() {
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full" />
 
-      {/* Notch */}
-      <div className="fixed w-[150px] h-[37px] left-1/2 -translate-x-1/2 top-0 bg-black rounded-b-[24px] z-50" />
 
       {/* Reminder Modal Overlay */}
       <AnimatePresence>

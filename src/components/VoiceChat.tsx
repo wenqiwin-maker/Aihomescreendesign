@@ -1,5 +1,6 @@
 import imgImageAiCharacter1 from "../assets/user-pip.png";
 import aiCharacterGif from "../assets/ai-character.gif";
+import selfViewVideo from "../assets/self-view-video.mp4";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ChatBubblePopup } from "./ChatBubblePopup";
@@ -9,8 +10,8 @@ import { TagPopup } from "./TagPopup";
 import { UploadPopup } from "./UploadPopup";
 import { toast } from "sonner@2.0.3";
 import { Message, Tag } from "../types";
+import { StatusBar } from "./StatusBar";
 import {
-  StatusBar,
   ProgressBar,
   ActionButtons,
   DemoChatSheet,
@@ -320,18 +321,24 @@ export function VoiceChat({
         <div
           className="absolute h-[153px] left-[252px] rounded-[24px] top-[500px] w-[118px] z-20"
           style={{
-            boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.12)",
+            boxShadow: "0px 4px 24px rgba(0, 0, 0, 0.25), 0px 8px 32px rgba(0, 0, 0, 0.15)",
           }}
         >
-          <img
-            alt="User"
+          <video
             className="absolute inset-0 max-w-none object-cover pointer-events-none rounded-[24px] size-full"
-            src={imgImageAiCharacter1}
+            src={selfViewVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
           />
           <div className="h-[153px] overflow-clip rounded-[inherit] w-[118px]" />
           <div
             aria-hidden="true"
-            className="absolute border border-solid border-white inset-0 pointer-events-none rounded-[24px]"
+            className="absolute border-[1px] border-solid border-white/80 inset-0 pointer-events-none rounded-[24px]"
+            style={{
+              boxShadow: "inset 0px 0px 0px 1px rgba(255, 255, 255, 0.3)",
+            }}
           />
         </div>
       )}
@@ -415,8 +422,6 @@ export function VoiceChat({
       {/* Tag Button - Floating Bottom Right */}
       <TagButton isActive={isTagPopupOpen} onClick={handleAddTag} />
 
-      {/* Notch */}
-      <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px] z-30" />
 
       <CaptionPopup
         isOpen={isCaptionPopupOpen}

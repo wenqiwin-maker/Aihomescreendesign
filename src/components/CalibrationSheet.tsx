@@ -719,8 +719,6 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
         </motion.div>
       </div>
 
-      {/* Notch */}
-      <div className="absolute w-[150px] h-[37px] left-[126px] top-0 bg-black rounded-b-[24px] pointer-events-none z-50" />
     </div>
   );
 }

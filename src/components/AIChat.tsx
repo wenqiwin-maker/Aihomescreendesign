@@ -81,7 +81,7 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               color: "#404040",
             }}
           >
-            ←
+            􀯶
           </span>
         </button>
 
@@ -367,8 +367,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
       {/* Input Area */}
       <ChatInputBar onSendMessage={handleSendMessage} />
 
-      {/* Notch */}
-      <div className="absolute w-[150px] h-[37px] left-[120px] top-0 bg-black rounded-b-[24px]" />
 
       {/* Home Indicator */}
       <div className="absolute bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full" />

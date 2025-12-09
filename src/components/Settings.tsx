@@ -690,8 +690,6 @@ export function Settings({ onBack }: SettingsProps) {
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full z-30" />
 
-      {/* Notch - Black container at top */}
-      <div className="absolute w-[150px] h-[37px] left-[126px] top-0 bg-black rounded-b-[24px] pointer-events-none z-50" />
     </div>
   );
 }
