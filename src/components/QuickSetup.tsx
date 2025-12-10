@@ -38,7 +38,6 @@ export function QuickSetup({
           <h1
             className="text-[#333333] text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "17px",
               fontWeight: 590,
               lineHeight: "22px",
@@ -65,7 +64,6 @@ export function QuickSetup({
           <span
             className="flex items-center justify-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "20px",
@@ -160,7 +158,6 @@ export function QuickSetup({
               >
                 <h2
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "28px",
                     fontWeight: 600,
                     lineHeight: "34px",
@@ -171,7 +168,6 @@ export function QuickSetup({
                 </h2>
                 <p
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 350,
                     lineHeight: "20px",
@@ -248,7 +244,6 @@ export function QuickSetup({
                     {/* Text */}
                     <div
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "16px",
                         fontWeight: 590,
                         lineHeight: "20px",
@@ -324,7 +319,6 @@ export function QuickSetup({
                     {/* Text */}
                     <div
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "16px",
                         fontWeight: 590,
                         lineHeight: "20px",
@@ -360,7 +354,6 @@ export function QuickSetup({
               <span
                 className="text-white text-center"
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "16px",
                   fontWeight: 590,
                   lineHeight: "20px",

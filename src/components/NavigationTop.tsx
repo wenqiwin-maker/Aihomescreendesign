@@ -7,7 +7,7 @@ export function NavigationTop() {
         <div className="w-10 h-10 bg-[#AAD5E2] rounded-full" />
         
         {/* User Name */}
-        <div className="text-white/90" style={{ fontFamily: 'Space Grotesk', fontSize: '18px', fontWeight: 700, lineHeight: '135%' }}>
+        <div className="text-white/90" style={{  fontSize: '18px', fontWeight: 700, lineHeight: '135%' }}>
           Hi
         </div>
       </div>
@@ -25,7 +25,7 @@ export function NavigationTop() {
         </div>
         
         {/* Text */}
-        <span className="text-white" style={{ fontFamily: 'Space Grotesk', fontSize: '12px', fontWeight: 700, lineHeight: '130%' }}>
+        <span className="text-white" style={{  fontSize: '12px', fontWeight: 700, lineHeight: '130%' }}>
           Unlock
         </span>
       </button>

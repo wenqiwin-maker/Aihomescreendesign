@@ -17,21 +17,18 @@ const tokens = {
   },
   typography: {
     headline: {
-      fontFamily: "SF Pro",
       fontWeight: 590,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     body: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     subheadline: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "15px",
       lineHeight: "20px",
@@ -68,7 +65,6 @@ function LiquidGlassButton({
       <div
         className="relative z-10 flex items-center justify-center h-[36px] min-w-[36px] px-[8px] rounded-[100px]"
         style={{
-          fontFamily: tokens.typography.headline.fontFamily,
           fontWeight: 510,
           fontSize: "17px",
           color: tokens.colors.labelsVibrantControlsPrimary,
@@ -92,7 +88,6 @@ function DrillInChevron() {
   return (
     <span
       style={{
-        fontFamily: "SF Pro",
         fontWeight: 590,
         fontSize: "17px",
         lineHeight: "22px",
@@ -131,7 +126,6 @@ function SettingsRow({
         <p
           className="text-left"
           style={{
-            fontFamily: tokens.typography.body.fontFamily,
             fontWeight: tokens.typography.body.fontWeight,
             fontSize: tokens.typography.body.fontSize,
             lineHeight: tokens.typography.body.lineHeight,
@@ -145,7 +139,6 @@ function SettingsRow({
           <p
             className="text-left"
             style={{
-              fontFamily: tokens.typography.subheadline.fontFamily,
               fontWeight: tokens.typography.subheadline.fontWeight,
               fontSize: tokens.typography.subheadline.fontSize,
               lineHeight: tokens.typography.subheadline.lineHeight,
@@ -195,7 +188,6 @@ export function Calibrate20Seconds({ onBack, onCalibrate }: Calibrate20SecondsPr
           <p
             className="text-center whitespace-nowrap"
             style={{
-              fontFamily: tokens.typography.headline.fontFamily,
               fontWeight: tokens.typography.headline.fontWeight,
               fontSize: tokens.typography.headline.fontSize,
               lineHeight: tokens.typography.headline.lineHeight,
@@ -241,7 +233,6 @@ export function Calibrate20Seconds({ onBack, onCalibrate }: Calibrate20SecondsPr
             <p
               className="text-left"
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,

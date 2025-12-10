@@ -112,7 +112,6 @@ function EarlyReminderDropdown({
                     {selectedOption === option ? (
                       <span
                         style={{
-                          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                           fontSize: '17px',
                           fontWeight: 600,
                           color: '#000000',
@@ -126,7 +125,6 @@ function EarlyReminderDropdown({
                     )}
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -321,7 +319,6 @@ function CalendarPicker({
               >
                 <span
                   style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif',
                     fontSize: isItemSelected ? '23px' : '20px',
                     fontWeight: isItemSelected ? 400 : 300,
                     color: isItemSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
@@ -431,7 +428,6 @@ function CalendarPicker({
                 >
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 600,
                       lineHeight: '22px',
@@ -445,7 +441,6 @@ function CalendarPicker({
                     animate={{ rotate: showMonthYearPicker ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '15px',
                       fontWeight: 700,
                       lineHeight: '18px',
@@ -465,7 +460,6 @@ function CalendarPicker({
                       onClick={prevMonth}
                       className="w-[15px] h-6 flex items-center justify-center"
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '20px',
                         fontWeight: 510,
                         color: '#0088FF',
@@ -478,7 +472,6 @@ function CalendarPicker({
                       onClick={nextMonth}
                       className="w-[15px] h-6 flex items-center justify-center"
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '20px',
                         fontWeight: 510,
                         color: '#0088FF',
@@ -571,7 +564,6 @@ function CalendarPicker({
                         key={day}
                         className="w-8 h-[18px] flex items-center justify-center"
                         style={{
-                          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                           fontSize: '13px',
                           fontWeight: 600,
                           lineHeight: '18px',
@@ -612,7 +604,6 @@ function CalendarPicker({
                                   )}
                                   <span
                                     style={{
-                                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                                       fontSize: selected ? '24px' : '20px',
                                       fontWeight: selected ? 510 : 400,
                                       lineHeight: '25px',
@@ -779,7 +770,6 @@ function TimePickerWheel({
               >
                 <span
                   style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif',
                     fontSize: isSelected ? '23px' : '20px',
                     fontWeight: isSelected ? 400 : 300,
                     color: isSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
@@ -1059,7 +1049,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 {/* Title */}
                 <span
                   style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                     fontSize: '17px',
                     fontWeight: 600,
                     lineHeight: '22px',
@@ -1097,7 +1086,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 <div className="flex items-center justify-between flex-1">
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -1122,7 +1110,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1135,7 +1122,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                     </span>
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1148,7 +1134,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                     </span>
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1171,7 +1156,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 <div className="flex items-center justify-between flex-1">
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -1195,7 +1179,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1218,7 +1201,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 <div className="flex items-center justify-between flex-1">
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -1237,7 +1219,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro, Noto Sans, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1258,7 +1239,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                     fontSize: '17px',
                     fontWeight: 400,
                     lineHeight: '22px',

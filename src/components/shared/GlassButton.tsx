@@ -63,7 +63,6 @@ export function GlassIconButton({
       <span
         className="flex items-center justify-center"
         style={{
-          fontFamily: 'SF Pro',
           fontSize: '20px',
           fontWeight: 400,
           lineHeight: '20px',

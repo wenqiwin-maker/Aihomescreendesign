@@ -156,7 +156,6 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                         style={{
                           width: '150px',
                           height: '22px',
-                          fontFamily: 'SF Pro',
                           fontWeight: 400,
                           fontSize: '16px',
                           lineHeight: '22px',
@@ -282,7 +281,6 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                           width: '85.33px',
                           height: '25px',
                           borderRadius: '4.6px',
-                          fontFamily: 'SF Pro',
                           fontWeight: 400,
                           fontSize: '17px',
                           lineHeight: '22px',
@@ -333,7 +331,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                   {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((letter, idx) => (
                     <div key={idx} className="relative" style={{ width: '31.85px', height: '42px', borderRadius: '8.5px', flex: 'none', flexGrow: 1 }}>
                       <div style={{ position: 'absolute', left: 0, right: '-0.15px', top: 0, bottom: 0, background: '#FFFFFF', borderRadius: '8.5px' }} />
-                      <div style={{ position: 'absolute', height: '30px', left: 0, right: '-0.15px', top: 'calc(50% - 30px/2 - 2px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
+                      <div style={{ position: 'absolute', height: '30px', left: 0, right: '-0.15px', top: 'calc(50% - 30px/2 - 2px)',  fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
                         {letter}
                       </div>
                     </div>
@@ -345,7 +343,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                   {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((letter, idx) => (
                     <div key={idx} className="relative" style={{ width: '31.67px', height: '42px', borderRadius: '8.5px', flex: 'none', flexGrow: 1 }}>
                       <div style={{ position: 'absolute', left: 0, right: '-0.33px', top: 0, bottom: 0, background: '#FFFFFF', borderRadius: '8.5px' }} />
-                      <div style={{ position: 'absolute', height: '30px', left: 0, right: '-0.33px', top: 'calc(50% - 30px/2 - 2px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
+                      <div style={{ position: 'absolute', height: '30px', left: 0, right: '-0.33px', top: 'calc(50% - 30px/2 - 2px)',  fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
                         {letter}
                       </div>
                     </div>
@@ -357,7 +355,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                   {/* Shift Key */}
                   <div className="relative" style={{ width: '45px', height: '42px', borderRadius: '8.5px', flex: 'none' }}>
                     <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, background: '#C7C7CC', borderRadius: '8.5px' }} />
-                    <div style={{ position: 'absolute', height: '28px', left: 0, right: 0, top: 'calc(50% - 28px/2 - 1px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '23px', lineHeight: '28px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959', textTransform: 'uppercase' }}>
+                    <div style={{ position: 'absolute', height: '28px', left: 0, right: 0, top: 'calc(50% - 28px/2 - 1px)',  fontWeight: 400, fontSize: '23px', lineHeight: '28px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959', textTransform: 'uppercase' }}>
                       ⇧
                     </div>
                   </div>
@@ -367,7 +365,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                     {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((letter, idx) => (
                       <div key={idx} className="relative" style={{ width: '31.36px', height: '42px', borderRadius: '8.5px', flex: 'none', flexGrow: 1 }}>
                         <div style={{ position: 'absolute', left: 0, right: '0.36px', top: 0, bottom: 0, background: '#FFFFFF', borderRadius: '8.5px' }} />
-                        <div style={{ position: 'absolute', height: '30px', left: 0, right: '0.36px', top: 'calc(50% - 30px/2 - 2px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
+                        <div style={{ position: 'absolute', height: '30px', left: 0, right: '0.36px', top: 'calc(50% - 30px/2 - 2px)',  fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
                           {letter}
                         </div>
                       </div>
@@ -377,7 +375,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                   {/* Delete Key */}
                   <div className="relative" style={{ width: '45px', height: '42px', borderRadius: '8.5px', flex: 'none' }}>
                     <div style={{ position: 'absolute', left: 0, right: 0, top: 0, bottom: 0, background: '#C7C7CC', borderRadius: '8.5px' }} />
-                    <div style={{ position: 'absolute', height: '28px', left: 0, right: 0, top: 'calc(50% - 28px/2 - 1px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '23px', lineHeight: '28px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959', textTransform: 'uppercase' }}>
+                    <div style={{ position: 'absolute', height: '28px', left: 0, right: 0, top: 'calc(50% - 28px/2 - 1px)',  fontWeight: 400, fontSize: '23px', lineHeight: '28px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959', textTransform: 'uppercase' }}>
                       ⌫
                     </div>
                   </div>
@@ -388,7 +386,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                   {/* Keyboard Switch */}
                   <div className="relative" style={{ width: '92.25px', height: '42px', borderRadius: '8.5px', flex: 'none' }}>
                     <div style={{ position: 'absolute', left: 0, right: '0.25px', top: 0, bottom: 0, background: '#C7C7CC', borderRadius: '8.5px' }} />
-                    <div style={{ position: 'absolute', height: '21px', left: '-2px', right: '-1.75px', top: 'calc(50% - 21px/2 - 0.5px)', fontFamily: 'SF Compact Rounded', fontWeight: 400, fontSize: '18px', lineHeight: '21px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
+                    <div style={{ position: 'absolute', height: '21px', left: '-2px', right: '-1.75px', top: 'calc(50% - 21px/2 - 0.5px)',  fontWeight: 400, fontSize: '18px', lineHeight: '21px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
                       123
                     </div>
                   </div>
@@ -397,7 +395,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                   <div className="relative flex flex-row items-center" style={{ padding: '0px', gap: '10px', width: '180.5px', height: '42px', borderRadius: '8.5px', flex: 'none', flexGrow: 1 }}>
                     <div className="relative" style={{ width: '180.5px', height: '42px', borderRadius: '8.5px', flex: 'none', flexGrow: 1 }}>
                       <div style={{ position: 'absolute', left: 0, right: '-0.5px', top: 0, bottom: 0, background: '#FFFFFF', borderRadius: '8.5px' }} />
-                      <div style={{ position: 'absolute', height: '30px', left: 0, right: '-0.5px', top: 'calc(50% - 30px/2 - 2px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
+                      <div style={{ position: 'absolute', height: '30px', left: 0, right: '-0.5px', top: 'calc(50% - 30px/2 - 2px)',  fontWeight: 400, fontSize: '25px', lineHeight: '30px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#595959' }}>
                         space
                       </div>
                     </div>
@@ -410,7 +408,7 @@ export function KeyboardInput({ isOpen, onSendMessage, onClose, showInput = true
                     style={{ width: '92.25px', height: '42px', borderRadius: '8.5px', flex: 'none' }}
                   >
                     <div style={{ position: 'absolute', left: 0, right: '0.25px', top: 0, bottom: 0, background: '#8C00FF', borderRadius: '8.5px' }} />
-                    <div style={{ position: 'absolute', height: '42px', left: 0, right: '0.25px', top: 'calc(50% - 42px/2 + 2px)', fontFamily: 'SF Pro', fontWeight: 400, fontSize: '19px', lineHeight: '28px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
+                    <div style={{ position: 'absolute', height: '42px', left: 0, right: '0.25px', top: 'calc(50% - 42px/2 + 2px)',  fontWeight: 400, fontSize: '19px', lineHeight: '28px', display: 'flex', alignItems: 'center', textAlign: 'center', justifyContent: 'center', color: '#FFFFFF' }}>
                       ↵
                     </div>
                   </button>

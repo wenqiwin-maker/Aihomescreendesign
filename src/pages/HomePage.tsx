@@ -54,7 +54,6 @@ function CardWithRotatingIcon({ bgColor, icon, label, className = '', onClick }:
       <span
         className="text-white flex items-center"
         style={{
-          fontFamily: 'SF Pro',
           fontSize: '16px',
           fontWeight: 590,
           lineHeight: '20px',
@@ -155,7 +154,6 @@ export function HomePage() {
             <span
               className="text-white"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '18px',
                 fontWeight: 700,
                 lineHeight: '135%',
@@ -179,7 +177,6 @@ export function HomePage() {
             <span
               className="text-white"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 700,
                 lineHeight: '130%'
@@ -235,7 +232,6 @@ export function HomePage() {
             <span
               className="text-[#8C00FF]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '16px',
                 fontWeight: 700,
                 lineHeight: '135%'
@@ -294,7 +290,6 @@ export function HomePage() {
         >
           <motion.h2
             style={{
-              fontFamily: 'SF Pro',
               fontSize: '14px',
               fontWeight: 590,
               lineHeight: '135%',
@@ -379,7 +374,6 @@ export function HomePage() {
           >
             <h2
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '14px',
                 fontWeight: 590,
                 lineHeight: '135%',
@@ -390,7 +384,6 @@ export function HomePage() {
             </h2>
             <span
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 400,
                 lineHeight: '130%',
@@ -434,7 +427,6 @@ export function HomePage() {
               <div className="flex flex-col justify-center gap-1">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 700,
                     lineHeight: '20px',
@@ -445,7 +437,6 @@ export function HomePage() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '12px',
                     fontWeight: 274,
                     lineHeight: '135%',
@@ -482,7 +473,6 @@ export function HomePage() {
               <div className="flex flex-col justify-center gap-1">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 700,
                     lineHeight: '20px',
@@ -493,7 +483,6 @@ export function HomePage() {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '12px',
                     fontWeight: 274,
                     lineHeight: '135%',
@@ -531,7 +520,6 @@ export function HomePage() {
             <span
               className="text-[#8C00FF]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 510,
                 lineHeight: '130%'
@@ -579,7 +567,6 @@ export function HomePage() {
             <span
               className="text-[#515B70]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 510,
                 lineHeight: '130%'
@@ -632,7 +619,6 @@ export function HomePage() {
                 <div className="flex flex-col gap-2 px-2 pt-2">
                   <h3
                     style={{
-                      fontFamily: 'SF Pro',
                       fontSize: '16px',
                       fontWeight: 600,
                       lineHeight: '24px',
@@ -644,7 +630,6 @@ export function HomePage() {
                   </h3>
                   <p
                     style={{
-                      fontFamily: 'SF Pro',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -670,7 +655,6 @@ export function HomePage() {
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro',
                         fontSize: '16px',
                         fontWeight: 600,
                         lineHeight: '24px',
@@ -697,7 +681,6 @@ export function HomePage() {
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro',
                         fontSize: '16px',
                         fontWeight: 600,
                         lineHeight: '24px',

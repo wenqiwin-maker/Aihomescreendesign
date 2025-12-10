@@ -6,7 +6,6 @@ export function StatusBar() {
         <span
           className="text-white"
           style={{
-            fontFamily: "SF Pro",
             fontSize: "17px",
             fontWeight: 590,
             lineHeight: "22px",

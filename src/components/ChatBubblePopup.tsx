@@ -263,7 +263,6 @@ function AIChatBubble({ text, delay, isActive, onComplete }: AIChatBubbleProps) 
       </div>
       <span
         style={{
-          fontFamily: "SF Pro",
           fontWeight: 400,
           fontSize: "16px",
           lineHeight: "22px",
@@ -302,7 +301,7 @@ function UserBubble({ text, delay, isActive, onComplete }: UserBubbleProps) {
     if (showContent && !bubbleWidth) {
       // Create a temporary span to measure the full text width
       const tempSpan = document.createElement('span');
-      tempSpan.style.fontFamily = 'SF Pro';
+      tempSpan.style.fontFamily = 'inherit';
       tempSpan.style.fontWeight = '400';
       tempSpan.style.fontSize = '16px';
       tempSpan.style.lineHeight = '22px';
@@ -354,7 +353,6 @@ function UserBubble({ text, delay, isActive, onComplete }: UserBubbleProps) {
       <span
         ref={textRef}
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '22px',
@@ -478,7 +476,6 @@ function DynamicAIChatBubble({ text, onComplete, delay = 0, isReplay = false }: 
       </div>
       <span
         style={{
-          fontFamily: "SF Pro",
           fontWeight: 400,
           fontSize: "16px",
           lineHeight: "22px",
@@ -570,7 +567,6 @@ function DynamicUserBubble({ text, delay = 0 }: DynamicUserBubbleProps) {
     >
       <span
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '22px',
@@ -786,7 +782,6 @@ export function ChatBubblePopup({ isOpen, onClose, messages, isWaitingForAI = fa
                 <span 
                   className="flex items-center justify-center"
                   style={{ 
-                    fontFamily: 'SF Pro', 
                     fontSize: '17px', 
                     fontWeight: 510,
                     lineHeight: '20px',
@@ -812,7 +807,6 @@ export function ChatBubblePopup({ isOpen, onClose, messages, isWaitingForAI = fa
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro',
                     fontWeight: 590,
                     fontSize: '17px',
                     lineHeight: '22px',
@@ -841,7 +835,6 @@ export function ChatBubblePopup({ isOpen, onClose, messages, isWaitingForAI = fa
               <div className="w-1.5 h-1.5 bg-black rounded-full" />
               <span
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 510,
                   fontSize: '16px',
                   lineHeight: '20px',

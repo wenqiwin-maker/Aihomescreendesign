@@ -74,7 +74,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
           <span
             className="flex items-center justify-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "20px",
@@ -90,7 +89,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
           <h1
             className="text-[#333333] text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "17px",
               fontWeight: 590,
               lineHeight: "22px",
@@ -126,7 +124,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
           >
             <motion.h2
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '20px',
                 fontWeight: 600,
                 lineHeight: '24px',
@@ -183,7 +180,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               <div className="flex-1 text-left">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
@@ -194,7 +190,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
@@ -246,7 +241,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               <div className="flex-1 text-left">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
@@ -257,7 +251,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
@@ -308,7 +301,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               <div className="flex-1 text-left">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
@@ -319,7 +311,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
@@ -350,7 +341,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                       ? 'linear-gradient(135deg, #8C00FF 0%, #FF52EC 100%)'
                       : '#F7F7F7',
                     color: message.role === 'user' ? '#FFFFFF' : '#333333',
-                    fontFamily: 'SF Pro',
                     fontSize: '15px',
                     fontWeight: 400,
                     lineHeight: '20px'

@@ -145,7 +145,6 @@ export function PostSimMicroReview({
             <span
               className="flex items-center justify-center"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "20px",
                 fontWeight: 400,
                 lineHeight: "20px",
@@ -161,7 +160,6 @@ export function PostSimMicroReview({
             <h1
               className="text-[#333333] text-center"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "17px",
                 fontWeight: 590,
                 lineHeight: "22px",
@@ -188,7 +186,6 @@ export function PostSimMicroReview({
             <span
               className="flex items-center justify-center"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "20px",
                 fontWeight: 400,
                 lineHeight: "20px",
@@ -243,7 +240,6 @@ export function PostSimMicroReview({
           <div className="flex justify-between items-start w-full">
             <span
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "17px",
                 fontWeight: 600,
                 lineHeight: "22px",
@@ -273,7 +269,6 @@ export function PostSimMicroReview({
               </svg>
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "14px",
                   fontWeight: 510,
                   lineHeight: "18px",
@@ -300,7 +295,6 @@ export function PostSimMicroReview({
               </svg>
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "14px",
                   fontWeight: 510,
                   lineHeight: "18px",
@@ -327,7 +321,6 @@ export function PostSimMicroReview({
               </svg>
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "14px",
                   fontWeight: 510,
                   lineHeight: "18px",
@@ -368,7 +361,6 @@ export function PostSimMicroReview({
         >
           <h2
             style={{
-              fontFamily: "SF Pro",
               fontSize: "28px",
               fontWeight: 600,
               lineHeight: "34px",
@@ -423,7 +415,6 @@ export function PostSimMicroReview({
                       <div className="flex flex-col">
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "16px",
                             fontWeight: 510,
                             lineHeight: "24px",
@@ -435,7 +426,6 @@ export function PostSimMicroReview({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             fontWeight: 274,
                             lineHeight: "16px",
@@ -484,7 +474,6 @@ export function PostSimMicroReview({
                             <div className="flex flex-col gap-1 flex-1">
                               <span
                                 style={{
-                                  fontFamily: "SF Pro",
                                   fontSize: "14px",
                                   fontWeight: 590,
                                   lineHeight: "20px",
@@ -496,7 +485,6 @@ export function PostSimMicroReview({
                               </span>
                               <span
                                 style={{
-                                  fontFamily: "SF Pro",
                                   fontSize: "14px",
                                   fontWeight: 400,
                                   lineHeight: "20px",
@@ -534,7 +522,6 @@ export function PostSimMicroReview({
                     )}
                     <span
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "12px",
                         fontWeight: 400,
                         lineHeight: "20px",
@@ -572,7 +559,6 @@ export function PostSimMicroReview({
         >
           <h2
             style={{
-              fontFamily: "SF Pro",
               fontSize: "14px",
               fontWeight: 510,
               lineHeight: "20px",
@@ -646,7 +632,6 @@ export function PostSimMicroReview({
                 </svg>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "12px",
                     fontWeight: 500,
                     lineHeight: "16px",
@@ -687,7 +672,6 @@ export function PostSimMicroReview({
                 </svg>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "12px",
                     fontWeight: 400,
                     lineHeight: "16px",
@@ -704,7 +688,6 @@ export function PostSimMicroReview({
               <div className="flex flex-col">
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "16px",
                     fontWeight: 510,
                     lineHeight: "24px",
@@ -716,7 +699,6 @@ export function PostSimMicroReview({
                 </span>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "14px",
                     fontWeight: 400,
                     lineHeight: "20px",
@@ -758,7 +740,6 @@ export function PostSimMicroReview({
                 </svg>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "14px",
                     fontWeight: 510,
                     lineHeight: "20px",
@@ -787,7 +768,6 @@ export function PostSimMicroReview({
         >
           <span
             style={{
-              fontFamily: "SF Pro",
               fontSize: "16px",
               fontWeight: 590,
               lineHeight: "20px",

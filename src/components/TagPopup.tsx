@@ -60,7 +60,6 @@ export function TagPopup({
               {/* Notice Title */}
               <h3 
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 510,
                   fontSize: '20px',
                   lineHeight: '24px',
@@ -79,7 +78,6 @@ export function TagPopup({
               >
                 <span
                   style={{ 
-                    fontFamily: 'SF Pro', 
                     fontSize: '20px', 
                     fontWeight: 400,
                     lineHeight: '20px',
@@ -104,7 +102,6 @@ export function TagPopup({
                   placeholder="Enter your tag note here..."
                   className="w-full resize-none outline-none border-none"
                   style={{
-                    fontFamily: 'SF Pro',
                     fontWeight: 510,
                     fontSize: '16px',
                     lineHeight: '20px',
@@ -138,7 +135,6 @@ export function TagPopup({
                   {/* Character Count */}
                   <div 
                     style={{
-                      fontFamily: 'SF Pro',
                       fontWeight: 400,
                       fontSize: '12px',
                       lineHeight: '16px',

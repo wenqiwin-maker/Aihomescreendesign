@@ -18,14 +18,12 @@ const tokens = {
   },
   typography: {
     headline: {
-      fontFamily: "SF Pro",
       fontWeight: 590,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     body: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "17px",
       lineHeight: "22px",
@@ -255,7 +253,6 @@ function LiquidGlassButton({
       <div
         className="relative z-10 flex items-center justify-center h-[36px] min-w-[36px] px-[8px] rounded-[100px]"
         style={{
-          fontFamily: tokens.typography.headline.fontFamily,
           fontWeight: 510,
           fontSize: "17px",
           color: tokens.colors.labelsVibrantControlsPrimary,
@@ -341,8 +338,6 @@ function CooldownDropdown({
                     {selectedOption === option ? (
                       <span
                         style={{
-                          fontFamily:
-                            "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
                           fontSize: "17px",
                           fontWeight: 600,
                           color: tokens.colors.accentPurple,
@@ -356,8 +351,6 @@ function CooldownDropdown({
                     )}
                     <span
                       style={{
-                        fontFamily:
-                          "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
                         fontSize: "17px",
                         fontWeight: selectedOption === option ? 600 : 400,
                         lineHeight: "22px",
@@ -431,7 +424,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
           <p
             className="text-center whitespace-nowrap"
             style={{
-              fontFamily: tokens.typography.headline.fontFamily,
               fontWeight: tokens.typography.headline.fontWeight,
               fontSize: tokens.typography.headline.fontSize,
               lineHeight: tokens.typography.headline.lineHeight,
@@ -475,7 +467,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
           {/* Section Label */}
           <p
             style={{
-              fontFamily: tokens.typography.body.fontFamily,
               fontWeight: tokens.typography.body.fontWeight,
               fontSize: tokens.typography.body.fontSize,
               lineHeight: tokens.typography.body.lineHeight,
@@ -503,7 +494,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 />
                 <p
                   style={{
-                    fontFamily: tokens.typography.body.fontFamily,
                     fontWeight: tokens.typography.body.fontWeight,
                     fontSize: tokens.typography.body.fontSize,
                     lineHeight: "20px",
@@ -530,7 +520,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 />
                 <p
                   style={{
-                    fontFamily: tokens.typography.body.fontFamily,
                     fontWeight: tokens.typography.body.fontWeight,
                     fontSize: tokens.typography.body.fontSize,
                     lineHeight: "20px",
@@ -559,7 +548,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
           {/* Sensitivity Label */}
           <p
             style={{
-              fontFamily: tokens.typography.body.fontFamily,
               fontWeight: tokens.typography.body.fontWeight,
               fontSize: tokens.typography.body.fontSize,
               lineHeight: tokens.typography.body.lineHeight,
@@ -584,7 +572,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 <p
                   className="whitespace-nowrap shrink-0"
                   style={{
-                    fontFamily: tokens.typography.headline.fontFamily,
                     fontWeight: tokens.typography.headline.fontWeight,
                     fontSize: tokens.typography.headline.fontSize,
                     lineHeight: tokens.typography.headline.lineHeight,
@@ -604,7 +591,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 <p
                   className="whitespace-nowrap shrink-0 text-right"
                   style={{
-                    fontFamily: tokens.typography.headline.fontFamily,
                     fontWeight: tokens.typography.headline.fontWeight,
                     fontSize: tokens.typography.headline.fontSize,
                     lineHeight: tokens.typography.headline.lineHeight,
@@ -637,7 +623,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
               <p
                 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left"
                 style={{
-                  fontFamily: tokens.typography.body.fontFamily,
                   fontWeight: tokens.typography.body.fontWeight,
                   fontSize: tokens.typography.body.fontSize,
                   lineHeight: tokens.typography.body.lineHeight,
@@ -651,7 +636,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
               <div
                 className="flex items-center justify-end gap-[10px]"
                 style={{
-                  fontFamily: tokens.typography.body.fontFamily,
                   fontWeight: tokens.typography.body.fontWeight,
                   fontSize: tokens.typography.body.fontSize,
                   lineHeight: tokens.typography.body.lineHeight,
@@ -696,7 +680,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
             <p
               className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap"
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,

@@ -73,7 +73,6 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
           <h1 
             className="text-[#333333] text-center"
             style={{ 
-              fontFamily: 'SF Pro', 
               fontSize: '17px', 
               fontWeight: 590, 
               lineHeight: '22px',
@@ -99,7 +98,6 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
           <span 
             className="flex items-center justify-center"
             style={{ 
-              fontFamily: 'SF Pro', 
               fontSize: '17px', 
               fontWeight: 510,
               lineHeight: '20px',

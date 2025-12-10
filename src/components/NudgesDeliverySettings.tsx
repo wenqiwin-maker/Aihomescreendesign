@@ -16,21 +16,18 @@ const tokens = {
   },
   typography: {
     headline: {
-      fontFamily: "SF Pro",
       fontWeight: 590,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     body: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     subheadline: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "15px",
       lineHeight: "20px",
@@ -129,7 +126,6 @@ function TryButton({ onTry }: { onTry: () => void }) {
     >
       <span
         style={{
-          fontFamily: "Inter",
           fontWeight: 500,
           fontSize: "14px",
           lineHeight: "20px",
@@ -169,7 +165,6 @@ function HapticRow({ title, subtitle, enabled, onToggle, onTry, showTryButton = 
           <div className="flex flex-col justify-center flex-1">
             <p
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,
@@ -181,7 +176,6 @@ function HapticRow({ title, subtitle, enabled, onToggle, onTry, showTryButton = 
             </p>
             <p
               style={{
-                fontFamily: tokens.typography.subheadline.fontFamily,
                 fontWeight: tokens.typography.subheadline.fontWeight,
                 fontSize: tokens.typography.subheadline.fontSize,
                 lineHeight: tokens.typography.subheadline.lineHeight,
@@ -228,7 +222,6 @@ function ReminderRow({ title, subtitle, enabled, onToggle, showTryButton = false
           <div className="flex flex-col justify-center flex-1">
             <p
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,
@@ -240,7 +233,6 @@ function ReminderRow({ title, subtitle, enabled, onToggle, showTryButton = false
             </p>
             <p
               style={{
-                fontFamily: tokens.typography.subheadline.fontFamily,
                 fontWeight: tokens.typography.subheadline.fontWeight,
                 fontSize: tokens.typography.subheadline.fontSize,
                 lineHeight: tokens.typography.subheadline.lineHeight,
@@ -317,7 +309,6 @@ export function NudgesDeliverySettings({ onBack }: NudgesDeliverySettingsProps) 
         >
           <span
             style={{
-              fontFamily: "SF Pro",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "20px",
@@ -333,7 +324,6 @@ export function NudgesDeliverySettings({ onBack }: NudgesDeliverySettingsProps) 
           <p
             className="text-center whitespace-nowrap"
             style={{
-              fontFamily: tokens.typography.headline.fontFamily,
               fontWeight: tokens.typography.headline.fontWeight,
               fontSize: tokens.typography.headline.fontSize,
               lineHeight: tokens.typography.headline.lineHeight,
@@ -382,7 +372,6 @@ export function NudgesDeliverySettings({ onBack }: NudgesDeliverySettingsProps) 
           <div className="flex items-center gap-[4px] mb-[10px]">
             <p
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,
@@ -439,7 +428,6 @@ export function NudgesDeliverySettings({ onBack }: NudgesDeliverySettingsProps) 
           <div className="flex items-center gap-[4px] mb-[10px]">
             <p
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,

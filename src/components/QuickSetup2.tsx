@@ -79,7 +79,6 @@ export function QuickSetup2({
           <span
             className="flex items-center justify-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "20px",
@@ -95,7 +94,6 @@ export function QuickSetup2({
           <h1
             className="text-[#333333] text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "17px",
               fontWeight: 590,
               lineHeight: "22px",
@@ -122,7 +120,6 @@ export function QuickSetup2({
           <span
             className="flex items-center justify-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "20px",
@@ -176,7 +173,6 @@ export function QuickSetup2({
         >
           <h2
             style={{
-              fontFamily: "SF Pro",
               fontSize: "28px",
               fontWeight: 600,
               lineHeight: "34px",
@@ -187,7 +183,6 @@ export function QuickSetup2({
           </h2>
           <p
             style={{
-              fontFamily: "SF Pro",
               fontSize: "15px",
               fontWeight: 350,
               lineHeight: "20px",
@@ -225,7 +220,6 @@ export function QuickSetup2({
           >
             <label
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "20px",
@@ -241,7 +235,6 @@ export function QuickSetup2({
               placeholder="e.g., Ask for a raise, Set boundaries..."
               className="w-full h-12 px-5 border border-[#E9EBF3] rounded-[26px] outline-none"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "16px",
                 fontWeight: 400,
                 lineHeight: "20px",
@@ -261,7 +254,6 @@ export function QuickSetup2({
           >
             <label
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "20px",
@@ -308,7 +300,6 @@ export function QuickSetup2({
                   <span
                     className="relative z-10"
                     style={{
-                      fontFamily: "SF Compact",
                       fontSize: "16px",
                       fontWeight: 400,
                       lineHeight: "21px",
@@ -336,7 +327,6 @@ export function QuickSetup2({
           >
             <label
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "20px",
@@ -362,7 +352,6 @@ export function QuickSetup2({
                     placeholder="Select date"
                     className="flex-1 outline-none bg-transparent cursor-pointer placeholder:text-[#99A1AF]"
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "16px",
                       fontWeight: 400,
                       lineHeight: "20px",
@@ -421,7 +410,6 @@ export function QuickSetup2({
             >
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontStyle: "normal",
                   fontWeight: 510,
                   fontSize: "16px",
@@ -436,7 +424,6 @@ export function QuickSetup2({
             </button>
             <p
               style={{
-                fontFamily: "SF Pro",
                 fontStyle: "normal",
                 fontWeight: 274,
                 fontSize: "14px",
@@ -471,7 +458,6 @@ export function QuickSetup2({
           <span
             className="text-white text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "16px",
               fontWeight: 590,
               lineHeight: "20px",

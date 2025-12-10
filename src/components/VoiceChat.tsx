@@ -236,7 +236,6 @@ export function VoiceChat({
       toast.success(`Tag saved at ${newTags[activeTagIndex].timestamp}`, {
         duration: 3000,
         style: {
-          fontFamily: "SF Pro",
           fontSize: "15px",
           fontWeight: 510,
         },
@@ -359,7 +358,6 @@ export function VoiceChat({
             <span
               className="flex items-center justify-center"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "20px",
                 fontWeight: 400,
                 lineHeight: "20px",
@@ -385,7 +383,6 @@ export function VoiceChat({
               <span
                 className="flex items-center justify-center"
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "20px",
                   fontWeight: 400,
                   lineHeight: "20px",

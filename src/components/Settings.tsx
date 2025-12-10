@@ -93,7 +93,6 @@ function CommunicationProgressCard() {
         <p
           className="m-0"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 700,
             fontSize: '13px',
             lineHeight: '17px',
@@ -107,7 +106,6 @@ function CommunicationProgressCard() {
         <p
           className="m-0 mt-[4px]"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 400,
             fontSize: '13px',
             lineHeight: '16px',
@@ -147,7 +145,6 @@ function PracticeHistoryCard() {
         <p
           className="m-0"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 700,
             fontSize: '13px',
             lineHeight: '17px',
@@ -161,7 +158,6 @@ function PracticeHistoryCard() {
         <p
           className="m-0 mt-[4px]"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 400,
             fontSize: '13px',
             lineHeight: '16px',
@@ -204,7 +200,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
       <h2
         className="m-0 w-full mb-[4px]"
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 600,
           fontSize: '17px',
           lineHeight: '22px',
@@ -236,7 +231,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -261,7 +255,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -285,7 +278,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
             <p
               className="m-0"
               style={{
-                fontFamily: 'SF Pro',
                 fontWeight: 500,
                 fontSize: '16px',
                 color: '#000000',
@@ -299,7 +291,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 400,
                   fontSize: '15px',
                   color: 'rgba(60, 60, 67, 0.6)',
@@ -325,7 +316,6 @@ function Frame9() {
       <h2
         className="m-0 w-full mb-[4px]"
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 600,
           fontSize: '17px',
           lineHeight: '22px',
@@ -354,7 +344,6 @@ function Frame9() {
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -376,7 +365,6 @@ function Frame9() {
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -398,7 +386,6 @@ function Frame9() {
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -561,7 +548,6 @@ export function Settings({ onBack }: SettingsProps) {
         >
           <span
             style={{
-              fontFamily: "SF Pro",
               fontSize: "20px",
               fontWeight: 400,
               lineHeight: "20px",
@@ -633,7 +619,6 @@ export function Settings({ onBack }: SettingsProps) {
             <span
               className="text-[#515B70]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 510,
                 lineHeight: '130%'
@@ -675,7 +660,6 @@ export function Settings({ onBack }: SettingsProps) {
             <span
               className="text-[#8C00FF]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 510,
                 lineHeight: '130%'

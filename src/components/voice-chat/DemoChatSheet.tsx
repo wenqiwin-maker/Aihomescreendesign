@@ -47,7 +47,6 @@ export function DemoChatSheet({ messages, isVisible, onClose }: DemoChatSheetPro
         </button>
         <h2
           style={{
-            fontFamily: "SF Pro",
             fontWeight: 600,
             fontSize: "20px",
             lineHeight: "24px",
@@ -102,7 +101,6 @@ export function DemoChatSheet({ messages, isVisible, onClose }: DemoChatSheetPro
             >
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontWeight: 400,
                   fontSize: "16px",
                   lineHeight: "22px",

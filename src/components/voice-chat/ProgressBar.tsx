@@ -44,7 +44,6 @@ export function ProgressBar({
       <div className="absolute -top-5 left-0 right-0 flex justify-between px-1">
         <span
           style={{
-            fontFamily: "SF Pro",
             fontSize: "11px",
             fontWeight: 510,
             color: "white",
@@ -54,7 +53,6 @@ export function ProgressBar({
         </span>
         <span
           style={{
-            fontFamily: "SF Pro",
             fontSize: "11px",
             fontWeight: 510,
             color: "white",

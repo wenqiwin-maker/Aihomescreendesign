@@ -102,7 +102,6 @@ export function UploadPopup({ isOpen, onClose }: UploadPopupProps) {
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '20px',
                     fontWeight: 400,
                     lineHeight: '24px',
@@ -124,7 +123,6 @@ export function UploadPopup({ isOpen, onClose }: UploadPopupProps) {
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '20px',
                     fontWeight: 400,
                     lineHeight: '24px',
@@ -143,7 +141,6 @@ export function UploadPopup({ isOpen, onClose }: UploadPopupProps) {
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '20px',
                     fontWeight: 400,
                     lineHeight: '24px',
@@ -170,7 +167,6 @@ export function UploadPopup({ isOpen, onClose }: UploadPopupProps) {
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '20px',
                     fontWeight: 600,
                     lineHeight: '24px',
