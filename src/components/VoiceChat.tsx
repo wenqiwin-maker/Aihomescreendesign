@@ -2,6 +2,7 @@ import imgImageAiCharacter1 from "../assets/user-pip.png";
 import aiCharacterGif from "../assets/ai-character.gif";
 import selfViewVideo from "../assets/self-view-video.mp4";
 import backIcon from "../assets/back-icon.svg";
+import closeIcon from "../assets/close-icon.svg";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ChatBubblePopup } from "./ChatBubblePopup";
@@ -371,17 +372,7 @@ export function VoiceChat({
           {/* Close Button - Hidden in Demo */}
           {!isDemo && (
             <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
-              <span
-                className="flex items-center justify-center"
-                style={{
-                  fontSize: "20px",
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  color: "#404040",
-                }}
-              >
-                􀆄
-              </span>
+              <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
             </LiquidGlassButton>
           )}
         </div>
