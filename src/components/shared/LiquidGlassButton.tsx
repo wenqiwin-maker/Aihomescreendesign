@@ -45,16 +45,6 @@ export function LiquidGlassButton({
         overflow: 'hidden',
       }}
     >
-      {/* Inner highlight ring for glass depth */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 1,
-          borderRadius: '50%',
-          border: '0.5px solid rgba(255, 255, 255, 0.4)',
-          pointerEvents: 'none',
-        }}
-      />
       {children}
     </button>
   );
