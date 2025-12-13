@@ -32,8 +32,7 @@ export function LiquidGlassButton({
         boxShadow: `
           inset 0 0.5px 0.5px rgba(255, 255, 255, 0.5),
           inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.05),
-          0 4px 16px rgba(0, 0, 0, 0.1),
-          0 1px 3px rgba(0, 0, 0, 0.08)
+          0 4px 4px rgba(0, 0, 0, 0.25)
         `,
         display: 'flex',
         alignItems: 'center',
