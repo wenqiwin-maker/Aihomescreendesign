@@ -16,8 +16,8 @@ import {
   ActionButtons,
   DemoChatSheet,
   TagButton,
-  GlassIconButton,
 } from "./voice-chat";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
 
 interface VoiceChatProps {
   onClose: () => void;
@@ -354,7 +354,7 @@ export function VoiceChat({
         {/* Navigation */}
         <div className="flex items-center px-4 pb-2 gap-3 h-[56px]">
           {/* Back Button */}
-          <GlassIconButton onClick={onBack}>
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
             <span
               className="flex items-center justify-center"
               style={{
@@ -366,7 +366,7 @@ export function VoiceChat({
             >
               􀯶
             </span>
-          </GlassIconButton>
+          </LiquidGlassButton>
 
           {/* Progress Bar */}
           <ProgressBar
@@ -379,7 +379,7 @@ export function VoiceChat({
 
           {/* Close Button - Hidden in Demo */}
           {!isDemo && (
-            <GlassIconButton onClick={onClose}>
+            <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
               <span
                 className="flex items-center justify-center"
                 style={{
@@ -391,7 +391,7 @@ export function VoiceChat({
               >
                 􀆄
               </span>
-            </GlassIconButton>
+            </LiquidGlassButton>
           )}
         </div>
       </div>
