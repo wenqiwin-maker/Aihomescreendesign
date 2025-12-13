@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Keyboard } from "lucide-react";
 import { LiquidGlassButton } from "../shared/LiquidGlassButton";
 
 interface ActionButtonsProps {
@@ -79,22 +78,37 @@ export function ActionButtons({
           </svg>
         </button>
 
-        {/* Keyboard Button */}
-        <button
-          onClick={onOpenKeyboard}
-          className="flex items-center justify-center rounded-full bg-white"
-          style={{
-            width: "48px",
-            height: "48px",
-            boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.2)",
-          }}
-        >
-          <Keyboard
-            size={24}
-            color="#000"
-            strokeWidth={1.5}
-          />
-        </button>
+        {/* Keyboard Button - Liquid Glass Effect */}
+        <LiquidGlassButton onClick={onOpenKeyboard} size={60}>
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            {/* Circle outline */}
+            <circle
+              cx="14"
+              cy="14"
+              r="12.5"
+              stroke="white"
+              strokeWidth="1.5"
+              fill="none"
+            />
+            {/* Top row dots */}
+            <circle cx="8" cy="10" r="1.25" fill="white" />
+            <circle cx="12" cy="10" r="1.25" fill="white" />
+            <circle cx="16" cy="10" r="1.25" fill="white" />
+            <circle cx="20" cy="10" r="1.25" fill="white" />
+            {/* Middle row dots */}
+            <circle cx="10" cy="14" r="1.25" fill="white" />
+            <circle cx="14" cy="14" r="1.25" fill="white" />
+            <circle cx="18" cy="14" r="1.25" fill="white" />
+            {/* Space bar */}
+            <rect x="9" y="17.5" width="10" height="1.5" rx="0.75" fill="white" />
+          </svg>
+        </LiquidGlassButton>
 
         {/* Upload Button */}
         <button
