@@ -10,6 +10,8 @@ import { StatusBar } from "./StatusBar";
 import bookmarkIcon from "../assets/bookmark-icon.png";
 import hesitationIcon from "../assets/hesitation-icon.png";
 import risingEmotionIcon from "../assets/rising-emotion-icon.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon.svg";
 
 // Entrance animation styles
 const entranceStyles = `
@@ -396,31 +398,11 @@ export function PracticePlayback({
         <StatusBar variant="light" className="absolute top-0 left-0 w-full z-20" />
 
         {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="animate-button-pop absolute top-[70px] left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-            animationDelay: "0.2s",
-          }}
-        >
-          <span
-            className="flex items-center justify-center"
-            style={{
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀯶
-          </span>
-        </button>
+        <div className="animate-button-pop absolute top-[70px] left-4 z-20" style={{ animationDelay: "0.2s" }}>
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
+        </div>
 
         {/* Play/Pause Overlay */}
         <div className="absolute inset-0 flex items-center justify-center z-10">

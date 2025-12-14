@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
-import { GlassIconButton, ICONS } from "./shared/GlassButton";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -628,8 +629,10 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
 
         {/* Toolbar */}
         <div className="flex items-center justify-between px-[16px] pb-[10px]">
-          {/* Close button - using shared GlassIconButton */}
-          <GlassIconButton icon={ICONS.close} onClick={onBack} />
+          {/* Close button */}
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
 
           {/* Title - centered */}
           <p

@@ -7,6 +7,9 @@ import blufIcon from "../assets/bluf-icon.png";
 import starIcon from "../assets/star-icon.png";
 import neutralIcon from "../assets/neutral-icon.png";
 import imgImageAiCharacter from "../assets/ai-character-static.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 interface PostSimMicroReviewProps {
   onClose: () => void;
@@ -129,31 +132,10 @@ export function PostSimMicroReview({
 
         {/* Toolbar */}
         <div className="flex justify-between items-start px-4 pb-[10px] h-[54px]">
-          {/* Back Button with Glass Effect */}
-          <button
-            onClick={onBack}
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-            style={{
-              background: "rgba(247, 247, 247, 0.85)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "0.5px solid rgba(255, 255, 255, 0.8)",
-              boxShadow:
-                "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-            }}
-          >
-            <span
-              className="flex items-center justify-center"
-              style={{
-                fontSize: "20px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#404040",
-              }}
-            >
-              􀯶
-            </span>
-          </button>
+          {/* Back Button */}
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
 
           {/* Title */}
           <div className="absolute left-1/2 -translate-x-1/2">
@@ -170,31 +152,10 @@ export function PostSimMicroReview({
             </h1>
           </div>
 
-          {/* Close Button with Glass Effect */}
-          <button
-            onClick={onClose}
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-            style={{
-              background: "rgba(247, 247, 247, 0.85)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "0.5px solid rgba(255, 255, 255, 0.8)",
-              boxShadow:
-                "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-            }}
-          >
-            <span
-              className="flex items-center justify-center"
-              style={{
-                fontSize: "20px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#404040",
-              }}
-            >
-              􀆄
-            </span>
-          </button>
+          {/* Close Button */}
+          <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+            <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
         </div>
 
         {/* Progress */}
