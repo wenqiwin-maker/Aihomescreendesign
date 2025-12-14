@@ -405,7 +405,7 @@ export function PracticePlayback({
         </div>
 
         {/* Play/Pause Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center z-10">
+        <div className="absolute inset-0 flex items-center justify-center z-10 pt-8">
           <div className="animate-play-button">
             <LiquidGlassButton onClick={() => setIsPlaying(!isPlaying)} size={64}>
               {isPlaying ? (

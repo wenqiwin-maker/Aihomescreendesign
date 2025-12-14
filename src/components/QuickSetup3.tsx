@@ -15,6 +15,8 @@ import defensiveIconWhite from "../assets/defensive-icon-white.png";
 import cooperativeGradientBgImg from "../assets/gradient-bg-pink.png";
 import neutralGradientBgImg from "../assets/gradient-bg-blue.png";
 import defensiveGradientBgImg from "../assets/gradient-bg-defensive.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
 
 const cooperativeIcon = cooperativeIconImg;
 const neutralIcon = neutralIconImg;
@@ -161,30 +163,9 @@ export function QuickSetup3({
           {/* Title and Controls */}
           <div className="flex justify-between items-center px-4 gap-[66px] w-full h-11 mt-2">
             {/* Leading Button */}
-            <button
-              onClick={onBack}
-              className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-              style={{
-                background: "rgba(247, 247, 247, 0.85)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "0.5px solid rgba(255, 255, 255, 0.8)",
-                boxShadow:
-                  "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-              }}
-            >
-              <span
-                className="flex items-center justify-center"
-                style={{
-                  fontSize: "20px",
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  color: "#404040",
-                }}
-              >
-                􀯶
-              </span>
-            </button>
+            <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+              <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+            </LiquidGlassButton>
 
             {/* Spacer */}
             <div className="w-2 h-11" />

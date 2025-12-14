@@ -3,6 +3,7 @@ import { StatusBar } from '../components/StatusBar';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { AuroraBackground } from '../components/AuroraBackground';
 import { SetReminderSheet } from '../components/SetReminderSheet';
+import { LiquidGlassButton } from '../components/shared/LiquidGlassButton';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect, ReactNode } from 'react';
 import selfViewProfile from '../assets/self-view-profile.jpg';
@@ -493,21 +494,62 @@ export function HomePage() {
                 </p>
               </div>
             </motion.div>
+
+            {/* Scenario 3 */}
+            <motion.div
+              className="flex gap-3"
+              whileTap={{ scale: 0.97 }}
+              whileHover={{
+                boxShadow: "0px 8px 24px rgba(0, 0, 0, 0.15)",
+                transition: { duration: 0.2 }
+              }}
+              style={{
+                boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.08)",
+                padding: "12px",
+                borderRadius: "12px",
+                cursor: "pointer"
+              }}
+            >
+              <div className="w-[86px] h-[86px] bg-[#D9D9D9] rounded-xl overflow-hidden flex-shrink-0">
+                <ImageWithFallback
+                  src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop"
+                  alt="Team feedback session"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col justify-center gap-1">
+                <h3
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 700,
+                    lineHeight: '20px',
+                    color: 'rgba(0, 0, 0, 0.9)'
+                  }}
+                >
+                  Difficult Feedback Conversation
+                </h3>
+                <p
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: 274,
+                    lineHeight: '135%',
+                    color: 'rgba(0, 0, 0, 0.6)'
+                  }}
+                >
+                  Practice delivering constructive feedback to a team member about their recent...
+                </p>
+              </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
 
       {/* Bottom Navigation - Floating */}
-      <div
-        className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[350px]"
-        style={{
-          borderRadius: '42px',
-          background: 'rgba(247, 247, 247, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '0.5px solid rgba(255, 255, 255, 0.8)',
-          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
-        }}
+      <LiquidGlassButton
+        shape="pill"
+        width={350}
+        height={64}
+        className="fixed bottom-5 left-1/2 -translate-x-1/2"
       >
         <div className="flex justify-center items-center py-1 px-5">
           {/* Home - Active */}
@@ -576,7 +618,7 @@ export function HomePage() {
             </span>
           </button>
         </div>
-      </div>
+      </LiquidGlassButton>
 
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full" />

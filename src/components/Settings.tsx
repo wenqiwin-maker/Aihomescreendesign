@@ -579,16 +579,11 @@ export function Settings({ onBack }: SettingsProps) {
       </motion.div>
 
       {/* Bottom Navigation - Floating */}
-      <div
-        className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[350px] z-30"
-        style={{
-          borderRadius: '42px',
-          background: 'rgba(247, 247, 247, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '0.5px solid rgba(255, 255, 255, 0.8)',
-          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
-        }}
+      <LiquidGlassButton
+        shape="pill"
+        width={350}
+        height={64}
+        className="fixed bottom-5 left-1/2 -translate-x-1/2 z-30"
       >
         <div className="flex justify-center items-center py-1 px-5">
           {/* Home */}
@@ -651,7 +646,7 @@ export function Settings({ onBack }: SettingsProps) {
             </span>
           </button>
         </div>
-      </div>
+      </LiquidGlassButton>
 
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full z-30" />

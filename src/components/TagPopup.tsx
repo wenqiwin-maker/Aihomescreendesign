@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Send } from 'lucide-react';
+import closeIcon from '../assets/close-icon-dark.svg';
 
 interface TagPopupProps {
   isOpen: boolean;
@@ -76,16 +77,7 @@ export function TagPopup({
                 onClick={onClose}
                 className="flex items-center justify-center w-6 h-6 flex-shrink-0"
               >
-                <span
-                  style={{ 
-                    fontSize: '20px', 
-                    fontWeight: 400,
-                    lineHeight: '20px',
-                    color: '#404040'
-                  }}
-                >
-                  􀆄
-                </span>
+                <img src={closeIcon} alt="Close" className="w-6 h-6" />
               </button>
             </div>
 
