@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -295,29 +297,9 @@ export function NudgesDeliverySettings({ onBack }: NudgesDeliverySettingsProps) 
       {/* Toolbar - Top */}
       <div className="relative flex items-center justify-between w-[390px] pt-0 pb-[10px] px-[20px] shrink-0">
         {/* Leading - Back button */}
-        <button
-          onClick={onBack}
-          className="flex items-center justify-center w-11 h-11 rounded-full"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-          }}
-        >
-          <span
-            style={{
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀯶
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+          <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
 
         {/* Title - Centered absolutely */}
         <div className="absolute h-[22px] left-1/2 top-[13px] -translate-x-1/2">
