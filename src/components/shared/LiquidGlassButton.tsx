@@ -7,14 +7,17 @@ interface LiquidGlassButtonProps {
   height?: number;
   onClick?: () => void;
   className?: string;
-  variant?: 'default' | 'blue';
+  variant?: 'default' | 'blue' | 'onDark';
   shape?: 'circle' | 'pill';
 }
 
 /**
  * Apple Liquid Glass effect button (iOS 26 style)
  * Clean glass morphism without distortion for crisp edges
- * Supports 'default' (white/glass) and 'blue' variants
+ * Variants:
+ * - 'default': For use on varied/light backgrounds (blur creates milky effect)
+ * - 'blue': Blue tinted button
+ * - 'onDark': For use on solid dark backgrounds (higher opacity to simulate milky look)
  * Supports 'circle' (default) and 'pill' shapes
  */
 export function LiquidGlassButton({
@@ -28,6 +31,7 @@ export function LiquidGlassButton({
   shape = 'circle',
 }: LiquidGlassButtonProps) {
   const isBlue = variant === 'blue';
+  const isOnDark = variant === 'onDark';
   const isPill = shape === 'pill';
   
   // For pill shape, use width/height; for circle, use size
@@ -45,7 +49,9 @@ export function LiquidGlassButton({
         borderRadius,
         background: isBlue 
           ? 'linear-gradient(135deg, rgba(0, 136, 255, 0.9) 0%, rgba(0, 100, 200, 0.85) 100%)'
-          : 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%)',
+          : isOnDark
+            ? 'linear-gradient(135deg, rgba(200, 200, 200, 0.5) 0%, rgba(180, 180, 180, 0.4) 100%)'
+            : 'linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 100%)',
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
         border: 'none',
@@ -56,12 +62,19 @@ export function LiquidGlassButton({
             0 4px 16px rgba(0, 0, 0, 0.15),
             0 1px 3px rgba(0, 0, 0, 0.1)
           `
-          : `
-            inset 0 0.5px 0.5px rgba(255, 255, 255, 0.5),
-            inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.05),
-            0 4px 16px rgba(0, 0, 0, 0.1),
-            0 1px 3px rgba(0, 0, 0, 0.08)
-          `,
+          : isOnDark
+            ? `
+              inset 0 1px 1px rgba(255, 255, 255, 0.6),
+              inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.1),
+              0 4px 16px rgba(0, 0, 0, 0.25),
+              0 1px 3px rgba(0, 0, 0, 0.15)
+            `
+            : `
+              inset 0 0.5px 0.5px rgba(255, 255, 255, 0.5),
+              inset 0 -0.5px 0.5px rgba(0, 0, 0, 0.05),
+              0 4px 16px rgba(0, 0, 0, 0.1),
+              0 1px 3px rgba(0, 0, 0, 0.08)
+            `,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

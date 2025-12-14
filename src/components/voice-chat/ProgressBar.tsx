@@ -8,6 +8,13 @@ interface ProgressBarProps {
   onTagClick: (index: number) => void;
 }
 
+// Helper function to format time in m:ss format
+function formatTime(seconds: number): string {
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs.toString().padStart(2, '0')}`;
+}
+
 export function ProgressBar({
   currentTime,
   totalDuration,
@@ -49,7 +56,7 @@ export function ProgressBar({
             color: "white",
           }}
         >
-          0:00
+          {formatTime(currentTime)}
         </span>
         <span
           style={{
@@ -58,7 +65,7 @@ export function ProgressBar({
             color: "white",
           }}
         >
-          2:00
+          {formatTime(totalDuration)}
         </span>
       </div>
 

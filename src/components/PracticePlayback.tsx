@@ -399,7 +399,7 @@ export function PracticePlayback({
 
         {/* Back Button */}
         <div className="animate-button-pop absolute top-[70px] left-4 z-20" style={{ animationDelay: "0.2s" }}>
-          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+          <LiquidGlassButton onClick={onBack} size={44} variant="onDark" className="flex-shrink-0">
             <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
           </LiquidGlassButton>
         </div>
@@ -407,7 +407,7 @@ export function PracticePlayback({
         {/* Play/Pause Overlay */}
         <div className="absolute inset-0 flex items-center justify-center z-10 pt-8">
           <div className="animate-play-button">
-            <LiquidGlassButton onClick={() => setIsPlaying(!isPlaying)} size={64}>
+            <LiquidGlassButton onClick={() => setIsPlaying(!isPlaying)} size={64} variant="onDark">
               {isPlaying ? (
                 <Pause className="w-8 h-8 text-white fill-current" />
               ) : (
