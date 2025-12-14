@@ -406,16 +406,15 @@ export function PracticePlayback({
 
         {/* Play/Pause Overlay */}
         <div className="absolute inset-0 flex items-center justify-center z-10">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="animate-play-button w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
-          >
-            {isPlaying ? (
-              <Pause className="w-8 h-8 text-white fill-current" />
-            ) : (
-              <Play className="w-8 h-8 text-white fill-current ml-1" />
-            )}
-          </button>
+          <div className="animate-play-button">
+            <LiquidGlassButton onClick={() => setIsPlaying(!isPlaying)} size={64}>
+              {isPlaying ? (
+                <Pause className="w-8 h-8 text-white fill-current" />
+              ) : (
+                <Play className="w-8 h-8 text-white fill-current ml-1" />
+              )}
+            </LiquidGlassButton>
+          </div>
         </div>
 
         {/* Video Progress Bar */}
