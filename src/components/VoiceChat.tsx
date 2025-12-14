@@ -45,6 +45,7 @@ export function VoiceChat({
   const [currentTime, setCurrentTime] = useState(0);
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isAiSpeaking, setIsAiSpeaking] = useState(false);
+  const [isDemoChatVisible, setIsDemoChatVisible] = useState(true);
 
   const totalDuration = 120;
 
@@ -346,7 +347,11 @@ export function VoiceChat({
 
       {/* Demo Chat Sheet */}
       {isDemo && (
-        <DemoChatSheet messages={messages} isVisible={messages.length > 0} />
+        <DemoChatSheet 
+          messages={messages} 
+          isVisible={messages.length > 0 && isDemoChatVisible} 
+          onClose={() => setIsDemoChatVisible(false)}
+        />
       )}
 
       {/* Top Section - Fixed */}

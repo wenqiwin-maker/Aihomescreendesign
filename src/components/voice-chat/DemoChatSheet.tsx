@@ -1,6 +1,8 @@
-import { Sparkles, X } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useRef, useEffect } from "react";
 import { Message } from "../../types";
+import { LiquidGlassButton } from "../shared/LiquidGlassButton";
+import closeIconDark from "../../assets/close-icon-dark.svg";
 
 interface DemoChatSheetProps {
   messages: Message[];
@@ -13,14 +15,14 @@ export function DemoChatSheet({ messages, isVisible, onClose }: DemoChatSheetPro
   const prevMessageCountRef = useRef(0);
 
   useEffect(() => {
-    // Only scroll if messages were added (not on initial render)
-    if (messages.length > prevMessageCountRef.current && messagesEndRef.current) {
+    // Only scroll if messages were added AND sheet is visible
+    if (isVisible && messages.length > prevMessageCountRef.current && messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({
         behavior: "smooth",
       });
     }
     prevMessageCountRef.current = messages.length;
-  }, [messages]);
+  }, [messages, isVisible]);
 
   return (
     <div
@@ -39,12 +41,13 @@ export function DemoChatSheet({ messages, isVisible, onClose }: DemoChatSheetPro
 
       {/* Header with close button */}
       <div className="relative px-6 py-3 flex items-center justify-center">
-        <button
-          onClick={onClose}
-          className="absolute left-4 w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm hover:bg-gray-50 transition-colors"
+        <LiquidGlassButton 
+          onClick={onClose} 
+          size={40} 
+          className="absolute left-4 z-10"
         >
-          <X size={20} className="text-gray-600" />
-        </button>
+          <img src={closeIconDark} alt="Close" className="w-[28px] h-[28px]" />
+        </LiquidGlassButton>
         <h2
           style={{
             fontWeight: 600,
