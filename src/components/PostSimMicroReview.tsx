@@ -192,7 +192,7 @@ export function PostSimMicroReview({
         </div>
 
         {/* Instant Recap */}
-        <motion.div 
+        <motion.div
           className="flex flex-col items-start px-5 pt-4 pb-5 gap-3 bg-white"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -297,7 +297,7 @@ export function PostSimMicroReview({
       </div>
 
       {/* Scrollable Content */}
-      <motion.div 
+      <motion.div
         className="px-5 pt-6 pb-9 flex flex-col gap-10"
         initial="hidden"
         animate="visible"
@@ -313,7 +313,7 @@ export function PostSimMicroReview({
         }}
       >
         {/* Communication Structure */}
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-3"
           variants={{
             hidden: { opacity: 0, y: 10 },
@@ -502,7 +502,7 @@ export function PostSimMicroReview({
         </motion.div>
 
         {/* Divider */}
-        <motion.div 
+        <motion.div
           className="h-px bg-black/[0.078]"
           variants={{
             hidden: { opacity: 0, scaleX: 0 },
@@ -511,7 +511,7 @@ export function PostSimMicroReview({
         />
 
         {/* Moments to Watch */}
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-3"
           variants={{
             hidden: { opacity: 0, y: 10 },
@@ -559,7 +559,7 @@ export function PostSimMicroReview({
                       "0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)",
                   }}
                 >
-                  <Play className="w-6 h-6 text-[#155DFC] fill-[#155DFC] ml-1" />
+                  <Play className="w-6 h-6 text-[#8C00FF] fill-[#8C00FF] ml-1" />
                 </div>
               </div>
 
