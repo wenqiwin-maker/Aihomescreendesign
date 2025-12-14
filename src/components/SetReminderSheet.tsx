@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, RefObject } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { LiquidGlassButton } from './shared/LiquidGlassButton';
+import closeIcon from '../assets/close-icon-dark.svg';
 
 interface SetReminderSheetProps {
   isOpen: boolean;
@@ -896,23 +898,12 @@ function TimePickerWheel({
   );
 }
 
-// Close button with glass effect
+// Close button with liquid glass effect
 function CloseButton({ onClick }: { onClick: () => void }) {
   return (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={onClick}
-      className="w-9 h-9 rounded-full flex items-center justify-center"
-      style={{
-        background: 'rgba(120, 120, 128, 0.12)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-      }}
-    >
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L11 11M1 11L11 1" stroke="#404040" strokeWidth="2" strokeLinecap="round"/>
-      </svg>
-    </motion.button>
+    <LiquidGlassButton onClick={onClick} size={44} className="flex-shrink-0">
+      <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+    </LiquidGlassButton>
   );
 }
 
@@ -1060,18 +1051,11 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 </span>
 
                 {/* Save button */}
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSave}
-                  className="w-11 h-11 rounded-full flex items-center justify-center"
-                  style={{
-                    background: '#0088FF',
-                  }}
-                >
+                <LiquidGlassButton onClick={handleSave} size={44} variant="blue" className="flex-shrink-0">
                   <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.5 7L6.5 12L16.5 2" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                </motion.button>
+                </LiquidGlassButton>
               </div>
             </div>
 
