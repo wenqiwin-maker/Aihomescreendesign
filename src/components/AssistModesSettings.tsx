@@ -590,7 +590,10 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 }}
               >
                 <span className="whitespace-nowrap">{cooldown}</span>
-                <span className="whitespace-nowrap">􀆏</span>
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                  <path d="M2 6L5 3L8 6" stroke="rgba(60, 60, 67, 0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2 10L5 13L8 10" stroke="rgba(60, 60, 67, 0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
             </button>
 

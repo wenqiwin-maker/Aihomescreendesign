@@ -47,20 +47,12 @@ function QuestionIcon() {
   );
 }
 
-// Drill-in chevron (SF Symbol: chevron.right)
+// Drill-in chevron SVG
 function DrillInChevron() {
   return (
-    <span
-      style={{
-        fontWeight: 590,
-        fontSize: "17px",
-        lineHeight: "22px",
-        color: tokens.colors.drillInChevron,
-        width: "8px",
-      }}
-    >
-      􀆊
-    </span>
+    <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L7 7L1 13" stroke="rgba(60, 60, 67, 0.3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
   );
 }
 
@@ -115,7 +107,18 @@ function SettingsRow({
       </div>
 
       {/* Trailing accessories */}
-      <div className="flex items-center justify-end gap-[16px]">
+      <div className="flex items-center justify-end gap-[8px]">
+        <span
+          style={{
+            fontWeight: 400,
+            fontSize: "17px",
+            lineHeight: "22px",
+            letterSpacing: "-0.43px",
+            color: "rgba(60, 60, 67, 0.6)",
+          }}
+        >
+          Detail
+        </span>
         <DrillInChevron />
       </div>
     </motion.button>

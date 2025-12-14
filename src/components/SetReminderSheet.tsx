@@ -442,15 +442,11 @@ function CalendarPicker({
                   <motion.span
                     animate={{ rotate: showMonthYearPicker ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
-                    style={{
-                      fontSize: '15px',
-                      fontWeight: 700,
-                      lineHeight: '18px',
-                      letterSpacing: '-0.5px',
-                      color: '#0088FF',
-                    }}
+                    className="flex items-center justify-center"
                   >
-                    􀆈
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1L6 6L11 1" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </motion.span>
                 </motion.button>
 
@@ -460,26 +456,20 @@ function CalendarPicker({
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={prevMonth}
-                      className="w-[15px] h-6 flex items-center justify-center"
-                      style={{
-                        fontSize: '20px',
-                        fontWeight: 510,
-                        color: '#0088FF',
-                      }}
+                      className="w-6 h-6 flex items-center justify-center"
                     >
-                      􀆉
+                      <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 1L1 7L7 13" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </motion.button>
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={nextMonth}
-                      className="w-[15px] h-6 flex items-center justify-center"
-                      style={{
-                        fontSize: '20px',
-                        fontWeight: 510,
-                        color: '#0088FF',
-                      }}
+                      className="w-6 h-6 flex items-center justify-center"
                     >
-                      􀆊
+                      <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L7 7L1 13" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </motion.button>
                   </div>
                 )}
