@@ -3,6 +3,8 @@ import { X, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { LiquidGlassButton } from "./shared/LiquidGlassButton";
 import closeIcon from "../assets/close-icon-dark.svg";
+import { useSetupStore } from "../stores/useSetupStore";
+import { captionScripts, type DialogueSection, type DialogueMessage } from "../data/captionScripts";
 
 // Typewriter component for AI messages
 interface TypewriterTextProps {
@@ -441,11 +443,51 @@ function UserBubbleWithAIResponse({
   );
 }
 
+// Helper function to calculate cumulative delay for messages
+function calculateMessageDelay(
+  sections: DialogueSection[],
+  sectionIndex: number,
+  messageIndex: number,
+  baseDelay: number = 0.5
+): number {
+  let totalDelay = baseDelay;
+  const userTypingSpeed = 25; // ms per character
+  const aiTypingSpeed = 30; // ms per character
+  const aiThinkingDuration = 800; // ms
+  const pauseBetweenMessages = 300; // ms
+
+  for (let s = 0; s <= sectionIndex; s++) {
+    const section = sections[s];
+    const maxMsg = s === sectionIndex ? messageIndex : section.messages.length;
+
+    // Add section header delay (first section starts immediately after baseDelay)
+    if (s > 0 && s === sectionIndex && messageIndex === 0) {
+      totalDelay += 0.5; // Section title animation delay
+    }
+
+    for (let m = 0; m < maxMsg; m++) {
+      const msg = section.messages[m];
+      const charCount = msg.text.length;
+
+      if (msg.type === 'ai') {
+        totalDelay += (aiThinkingDuration + charCount * aiTypingSpeed) / 1000;
+      } else {
+        totalDelay += (charCount * userTypingSpeed) / 1000;
+      }
+      totalDelay += pauseBetweenMessages / 1000;
+    }
+  }
+
+  return totalDelay;
+}
+
 export function CaptionPopup({
   isOpen,
   onClose,
 }: CaptionPopupProps) {
   const [isReady, setIsReady] = useState(false);
+  const { relationshipState } = useSetupStore();
+  const script = captionScripts[relationshipState];
 
   useEffect(() => {
     if (isOpen) {
@@ -453,7 +495,7 @@ export function CaptionPopup({
       const timer = setTimeout(() => {
         setIsReady(true);
       }, 100);
-      
+
       return () => {
         clearTimeout(timer);
         setIsReady(false);
@@ -464,7 +506,7 @@ export function CaptionPopup({
   }, [isOpen]);
 
   // Base delay for all animations after loading completes
-  const baseDelay = 2.5;
+  const baseDelay = 0.5;
 
   return (
     <AnimatePresence>
@@ -587,265 +629,138 @@ export function CaptionPopup({
             {/* Content */}
             {isReady && (
               <>
-                {/* Section 1: Opening-Ask */}
-                <div className="mb-1 pb-[10px]">
-                  {/* Title with dot */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 0.3 }}
-                    className="flex flex-row items-center gap-3 mb-1"
-                  >
-                    <div
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        background: "#000000",
-                        borderRadius: "50%",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontWeight: 510,
-                        fontSize: "16px",
-                        lineHeight: "20px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Opening-Ask
-                    </span>
-                  </motion.div>
+                {script.map((section, sectionIndex) => {
+                  // Calculate section start delay
+                  const sectionStartDelay = sectionIndex === 0
+                    ? 0.3
+                    : calculateMessageDelay(script, sectionIndex - 1, script[sectionIndex - 1].messages.length, baseDelay) + 0.5;
 
-                  {/* Line and bubbles container */}
-                  <div className="flex flex-row gap-0">
-                    {/* Vertical line */}
+                  // Calculate line animation duration based on section message count
+                  const lineDuration = section.messages.length * 2.5;
+                  const lineDelay = sectionStartDelay + 0.2;
+
+                  // Group messages into pairs for UserBubbleWithAIResponse
+                  const messagePairs: Array<{
+                    userText: string;
+                    aiText: string;
+                    startDelay: number;
+                    isLastMessage: boolean;
+                  }> = [];
+
+                  let currentIndex = 0;
+                  const messages = section.messages;
+
+                  // First message is always AI
+                  const firstAIDelay = sectionStartDelay + 0.2;
+
+                  // Process remaining messages as user+AI pairs
+                  currentIndex = 1;
+                  while (currentIndex < messages.length) {
+                    const userMsg = messages[currentIndex];
+                    const nextAIMsg = messages[currentIndex + 1];
+
+                    if (userMsg && userMsg.type === 'user') {
+                      const pairDelay = calculateMessageDelay(script, sectionIndex, currentIndex, baseDelay);
+                      messagePairs.push({
+                        userText: userMsg.text,
+                        aiText: nextAIMsg && nextAIMsg.type === 'ai' ? nextAIMsg.text : '',
+                        startDelay: pairDelay,
+                        isLastMessage: userMsg.isLastInSection || (!nextAIMsg && currentIndex === messages.length - 1),
+                      });
+                      currentIndex += nextAIMsg && nextAIMsg.type === 'ai' ? 2 : 1;
+                    } else {
+                      currentIndex++;
+                    }
+                  }
+
+                  return (
                     <div
-                      className="relative"
-                      style={{ width: "6px", flexShrink: 0 }}
+                      key={section.title}
+                      className={sectionIndex === 0 ? "mb-1 pb-[10px]" : "pt-5 mb-1 pb-[10px]"}
                     >
+                      {/* Title with dot */}
                       <motion.div
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{
-                          duration: 0.9,
-                          delay: 0.5,
-                          ease: "linear",
-                        }}
-                        style={{
-                          position: "absolute",
-                          left: "2px",
-                          top: "0px",
-                          width: "2px",
-                          bottom: "-10px",
-                          background: "rgba(233, 235, 243, 1)",
-                          transformOrigin: "top",
-                        }}
-                      />
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.3, delay: sectionStartDelay }}
+                        className="flex flex-row items-center gap-3 mb-1"
+                      >
+                        <div
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            background: "#000000",
+                            borderRadius: "50%",
+                            flexShrink: 0,
+                          }}
+                        />
+                        <span
+                          style={{
+                            fontWeight: 510,
+                            fontSize: "16px",
+                            lineHeight: "20px",
+                            letterSpacing: "-0.150391px",
+                            color: "#0A0A0A",
+                          }}
+                        >
+                          {section.title}
+                        </span>
+                      </motion.div>
+
+                      {/* Line and bubbles container */}
+                      <div className="flex flex-row gap-0">
+                        {/* Vertical line */}
+                        <div
+                          className="relative"
+                          style={{ width: "6px", flexShrink: 0 }}
+                        >
+                          <motion.div
+                            initial={{ scaleY: 0 }}
+                            animate={{ scaleY: 1 }}
+                            transition={{
+                              duration: lineDuration,
+                              delay: lineDelay,
+                              ease: "linear",
+                            }}
+                            style={{
+                              position: "absolute",
+                              left: "2px",
+                              top: "0px",
+                              width: "2px",
+                              bottom: "-10px",
+                              background: "rgba(233, 235, 243, 1)",
+                              transformOrigin: "top",
+                            }}
+                          />
+                        </div>
+
+                        {/* Bubbles */}
+                        <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
+                          {/* First AI message */}
+                          {messages[0] && messages[0].type === 'ai' && (
+                            <AIChatBubble
+                              text={messages[0].text}
+                              delay={firstAIDelay}
+                              isActive={isReady}
+                            />
+                          )}
+
+                          {/* User + AI response pairs */}
+                          {messagePairs.map((pair, pairIndex) => (
+                            <UserBubbleWithAIResponse
+                              key={pairIndex}
+                              userText={pair.userText}
+                              aiText={pair.aiText}
+                              startDelay={pair.startDelay}
+                              isActive={isReady}
+                              isLastMessage={pair.isLastMessage}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
-
-                    {/* Bubbles */}
-                    <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                      {/* chat-bubble-AI 1 */}
-                      <AIChatBubble
-                        text="I'd like to discuss your promotion timeline. What are you thinking?"
-                        delay={0.5}
-                        isActive={isReady}
-                      />
-
-                      {/* User bubble + next AI response */}
-                      <UserBubbleWithAIResponse
-                        userText="I'd like to apply for promotion from Senior Engineer to Staff Engineer in Q3."
-                        aiText="That sounds like a great goal. Tell me why you think you're ready."
-                        startDelay={3.5}
-                        isActive={isReady}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section 2: Evidence-Why */}
-                <div className="pt-5 mb-1 pb-[10px]">
-                  {/* Title with dot */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 8.0 }}
-                    className="flex flex-row items-center gap-3 mb-1"
-                  >
-                    <div
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        background: "#000000",
-                        borderRadius: "50%",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontWeight: 510,
-                        fontSize: "16px",
-                        lineHeight: "20px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Evidence-Why
-                    </span>
-                  </motion.div>
-
-                  {/* Line and bubbles container */}
-                  <div className="flex flex-row gap-0">
-                    {/* Vertical line */}
-                    <div
-                      className="relative"
-                      style={{ width: "6px", flexShrink: 0 }}
-                    >
-                      <motion.div
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{
-                          duration: 8.0,
-                          delay: 8.2,
-                          ease: "linear",
-                        }}
-                        style={{
-                          position: "absolute",
-                          left: "2px",
-                          top: "0px",
-                          width: "2px",
-                          bottom: "-10px",
-                          background: "rgba(233, 235, 243, 1)",
-                          transformOrigin: "top",
-                        }}
-                      />
-                    </div>
-
-                    {/* Bubbles */}
-                    <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                      {/* chat-bubble-AI 1 */}
-                      <AIChatBubble
-                        text="Can you walk me through your key projects?"
-                        delay={8.2}
-                        isActive={isReady}
-                      />
-
-                      {/* User bubble + next AI response */}
-                      <UserBubbleWithAIResponse
-                        userText="In the last two quarters, I led the payment system redesign project."
-                        aiText="What were the results?"
-                        startDelay={10.0}
-                        isActive={isReady}
-                      />
-
-                      {/* User bubble + next AI response */}
-                      <UserBubbleWithAIResponse
-                        userText="We reduced transaction failures by 40% and increased throughput by 3x."
-                        aiText="What about cross-functional impact?"
-                        startDelay={12.8}
-                        isActive={isReady}
-                      />
-
-                      {/* Last user bubble (no AI response follows) */}
-                      <UserBubbleWithAIResponse
-                        userText="I also mentored three junior engineers and they've all been promoted."
-                        aiText=""
-                        startDelay={15.8}
-                        isActive={isReady}
-                        isLastMessage={true}
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                {/* Section 3: Next steps */}
-                <div className="pt-8 mb-1 pb-[10px]">
-                  {/* Title with dot */}
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3, delay: 17.5 }}
-                    className="flex flex-row items-center gap-3 mb-1"
-                  >
-                    <div
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        background: "#000000",
-                        borderRadius: "50%",
-                        flexShrink: 0,
-                      }}
-                    />
-                    <span
-                      style={{
-                        fontWeight: 510,
-                        fontSize: "16px",
-                        lineHeight: "20px",
-                        letterSpacing: "-0.150391px",
-                        color: "#0A0A0A",
-                      }}
-                    >
-                      Next steps
-                    </span>
-                  </motion.div>
-
-                  {/* Line and bubbles container */}
-                  <div className="flex flex-row gap-0">
-                    {/* Vertical line */}
-                    <div
-                      className="relative"
-                      style={{ width: "6px", flexShrink: 0 }}
-                    >
-                      <motion.div
-                        initial={{ scaleY: 0 }}
-                        animate={{ scaleY: 1 }}
-                        transition={{
-                          duration: 10.0,
-                          delay: 17.7,
-                          ease: "linear",
-                        }}
-                        style={{
-                          position: "absolute",
-                          left: "2px",
-                          top: "0px",
-                          width: "2px",
-                          bottom: "-10px",
-                          background: "rgba(233, 235, 243, 1)",
-                          transformOrigin: "top",
-                        }}
-                      />
-                    </div>
-
-                    {/* Bubbles */}
-                    <div className="flex-1 flex flex-col gap-3 pt-2 pl-4">
-                      {/* chat-bubble-AI 1 */}
-                      <AIChatBubble
-                        text="Let's start with the formal review process. When would you like to submit?"
-                        delay={17.7}
-                        isActive={isReady}
-                      />
-
-                      {/* User bubble + next AI response */}
-                      <UserBubbleWithAIResponse
-                        userText="I'd like to submit by end of this month for Q3 review."
-                        aiText="That works. You'll need to prepare your packet and get peer reviews."
-                        startDelay={20.5}
-                        isActive={isReady}
-                      />
-
-                      {/* Last user bubble (no AI response follows) */}
-                      <UserBubbleWithAIResponse
-                        userText="I'll get started on that this week."
-                        aiText=""
-                        startDelay={24.5}
-                        isActive={isReady}
-                        isLastMessage={true}
-                      />
-                    </div>
-                  </div>
-                </div>
+                  );
+                })}
               </>
             )}
           </div>

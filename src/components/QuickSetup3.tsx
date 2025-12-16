@@ -2,6 +2,7 @@ import { Sparkles, Plus, AlertCircle, X } from "lucide-react";
 import { StatusBar } from "./StatusBar";
 import { useState, useRef } from "react";
 import { motion } from "motion/react";
+import { useSetupStore, type RelationshipState } from "../stores/useSetupStore";
 import { Textarea } from "./ui/textarea";
 import selectedBg from "../assets/gradient-pill-bg.png";
 import visualStyleSelectedBg from "../assets/gradient-pill-bg.png";
@@ -49,8 +50,7 @@ export function QuickSetup3({
   const [directness, setDirectness] = useState(50);
   const [supportiveness, setSupportiveness] = useState(50);
   const [timePressure, setTimePressure] = useState(50);
-  const [relationshipState, setRelationshipState] =
-    useState<string>("neutral");
+  const { relationshipState, setRelationshipState } = useSetupStore();
   const [avatarChoice, setAvatarChoice] =
     useState<string>("default");
   const [visualStyle, setVisualStyle] = useState<string>(
@@ -594,7 +594,7 @@ export function QuickSetup3({
                         <button
                           key={state.id}
                           onClick={() =>
-                            setRelationshipState(state.id)
+                            setRelationshipState(state.id as RelationshipState)
                           }
                           className="flex flex-col items-center justify-center gap-2 rounded-[10px] border transition-all"
                           style={{

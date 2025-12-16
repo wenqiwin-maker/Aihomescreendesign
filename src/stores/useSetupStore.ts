@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 
+export type RelationshipState = 'cooperative' | 'neutral' | 'defensive';
+
 interface SetupState {
   // Step 1: Category
   category: 'work' | 'life' | null;
@@ -9,11 +11,15 @@ interface SetupState {
   selectedPerson: string | null;
   date: Date | undefined;
 
+  // Step 3: Advanced - Conversation Dynamics
+  relationshipState: RelationshipState;
+
   // Actions
   setCategory: (category: 'work' | 'life') => void;
   setGoal: (goal: string) => void;
   setSelectedPerson: (person: string | null) => void;
   setDate: (date: Date | undefined) => void;
+  setRelationshipState: (state: RelationshipState) => void;
   reset: () => void;
 }
 
@@ -22,6 +28,7 @@ const initialState = {
   goal: '',
   selectedPerson: null as string | null,
   date: undefined as Date | undefined,
+  relationshipState: 'neutral' as RelationshipState,
 };
 
 export const useSetupStore = create<SetupState>((set) => ({
@@ -31,5 +38,6 @@ export const useSetupStore = create<SetupState>((set) => ({
   setGoal: (goal) => set({ goal }),
   setSelectedPerson: (selectedPerson) => set({ selectedPerson }),
   setDate: (date) => set({ date }),
+  setRelationshipState: (relationshipState) => set({ relationshipState }),
   reset: () => set(initialState),
 }));
