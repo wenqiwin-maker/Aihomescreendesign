@@ -14,6 +14,9 @@ import {
 import { format } from "date-fns";
 import { motion } from "motion/react";
 import optionButtonBg from "../assets/gradient-pill-bg.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 interface Setup2FormData {
   goal: string;
@@ -64,38 +67,15 @@ export function QuickSetup2({
       {/* Toolbar */}
       <div className="flex justify-between items-center px-4 pb-[10px] h-[54px]">
         {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-          }}
-        >
-          <span
-            className="flex items-center justify-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀯶
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+          <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
 
         {/* Title */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <h1
             className="text-[#333333] text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "17px",
               fontWeight: 590,
               lineHeight: "22px",
@@ -107,31 +87,9 @@ export function QuickSetup2({
         </div>
 
         {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-          }}
-        >
-          <span
-            className="flex items-center justify-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀆄
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+          <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
       </div>
 
       {/* Progress Indicator */}
@@ -176,7 +134,6 @@ export function QuickSetup2({
         >
           <h2
             style={{
-              fontFamily: "SF Pro",
               fontSize: "28px",
               fontWeight: 600,
               lineHeight: "34px",
@@ -187,7 +144,6 @@ export function QuickSetup2({
           </h2>
           <p
             style={{
-              fontFamily: "SF Pro",
               fontSize: "15px",
               fontWeight: 350,
               lineHeight: "20px",
@@ -225,7 +181,6 @@ export function QuickSetup2({
           >
             <label
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "20px",
@@ -241,7 +196,6 @@ export function QuickSetup2({
               placeholder="e.g., Ask for a raise, Set boundaries..."
               className="w-full h-12 px-5 border border-[#E9EBF3] rounded-[26px] outline-none"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "16px",
                 fontWeight: 400,
                 lineHeight: "20px",
@@ -261,7 +215,6 @@ export function QuickSetup2({
           >
             <label
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "20px",
@@ -308,7 +261,6 @@ export function QuickSetup2({
                   <span
                     className="relative z-10"
                     style={{
-                      fontFamily: "SF Compact",
                       fontSize: "16px",
                       fontWeight: 400,
                       lineHeight: "21px",
@@ -336,7 +288,6 @@ export function QuickSetup2({
           >
             <label
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 600,
                 lineHeight: "20px",
@@ -362,7 +313,6 @@ export function QuickSetup2({
                     placeholder="Select date"
                     className="flex-1 outline-none bg-transparent cursor-pointer placeholder:text-[#99A1AF]"
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "16px",
                       fontWeight: 400,
                       lineHeight: "20px",
@@ -421,7 +371,6 @@ export function QuickSetup2({
             >
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontStyle: "normal",
                   fontWeight: 510,
                   fontSize: "16px",
@@ -436,7 +385,6 @@ export function QuickSetup2({
             </button>
             <p
               style={{
-                fontFamily: "SF Pro",
                 fontStyle: "normal",
                 fontWeight: 274,
                 fontSize: "14px",
@@ -471,7 +419,6 @@ export function QuickSetup2({
           <span
             className="text-white text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "16px",
               fontWeight: 590,
               lineHeight: "20px",

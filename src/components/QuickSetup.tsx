@@ -8,6 +8,8 @@ import workIcon from "../assets/work-icon.png";
 import lifeIcon from "../assets/life-icon.png";
 import workBgHighlighted from "../assets/gradient-bg-blue.png";
 import lifeBgHighlighted from "../assets/gradient-bg-pink.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 interface QuickSetupProps {
   onClose: () => void;
@@ -38,7 +40,6 @@ export function QuickSetup({
           <h1
             className="text-[#333333] text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "17px",
               fontWeight: 590,
               lineHeight: "22px",
@@ -50,31 +51,9 @@ export function QuickSetup({
         </div>
 
         {/* Close Button */}
-        <button
-          onClick={onClose}
-          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-          }}
-        >
-          <span
-            className="flex items-center justify-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀆄
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+          <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
       </div>
 
       {/* Progress Indicator */}
@@ -160,7 +139,6 @@ export function QuickSetup({
               >
                 <h2
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "28px",
                     fontWeight: 600,
                     lineHeight: "34px",
@@ -171,7 +149,6 @@ export function QuickSetup({
                 </h2>
                 <p
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 350,
                     lineHeight: "20px",
@@ -248,7 +225,6 @@ export function QuickSetup({
                     {/* Text */}
                     <div
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "16px",
                         fontWeight: 590,
                         lineHeight: "20px",
@@ -324,7 +300,6 @@ export function QuickSetup({
                     {/* Text */}
                     <div
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "16px",
                         fontWeight: 590,
                         lineHeight: "20px",
@@ -360,7 +335,6 @@ export function QuickSetup({
               <span
                 className="text-white text-center"
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "16px",
                   fontWeight: 590,
                   lineHeight: "20px",

@@ -13,7 +13,6 @@ export function NavigationBottom() {
           <span 
             className="text-[#3E5FFF]"
             style={{ 
-              fontFamily: 'Space Grotesk', 
               fontSize: '12px', 
               fontWeight: 500, 
               lineHeight: '130%' 
@@ -54,7 +53,6 @@ export function NavigationBottom() {
           <span 
             className="text-[#515B70]"
             style={{ 
-              fontFamily: 'Space Grotesk', 
               fontSize: '12px', 
               fontWeight: 500, 
               lineHeight: '130%' 

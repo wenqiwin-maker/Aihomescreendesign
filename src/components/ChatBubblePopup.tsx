@@ -1,6 +1,8 @@
 import { motion, AnimatePresence, useAnimation } from 'motion/react';
 import { X, Sparkles } from 'lucide-react';
 import { useEffect, useRef, useState, useCallback } from 'react';
+import { LiquidGlassButton } from './shared/LiquidGlassButton';
+import closeIcon from '../assets/close-icon-dark.svg';
 
 interface Message {
   id: string;
@@ -263,7 +265,6 @@ function AIChatBubble({ text, delay, isActive, onComplete }: AIChatBubbleProps) 
       </div>
       <span
         style={{
-          fontFamily: "SF Pro",
           fontWeight: 400,
           fontSize: "16px",
           lineHeight: "22px",
@@ -302,7 +303,7 @@ function UserBubble({ text, delay, isActive, onComplete }: UserBubbleProps) {
     if (showContent && !bubbleWidth) {
       // Create a temporary span to measure the full text width
       const tempSpan = document.createElement('span');
-      tempSpan.style.fontFamily = 'SF Pro';
+      tempSpan.style.fontFamily = 'inherit';
       tempSpan.style.fontWeight = '400';
       tempSpan.style.fontSize = '16px';
       tempSpan.style.lineHeight = '22px';
@@ -354,7 +355,6 @@ function UserBubble({ text, delay, isActive, onComplete }: UserBubbleProps) {
       <span
         ref={textRef}
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '22px',
@@ -478,7 +478,6 @@ function DynamicAIChatBubble({ text, onComplete, delay = 0, isReplay = false }: 
       </div>
       <span
         style={{
-          fontFamily: "SF Pro",
           fontWeight: 400,
           fontSize: "16px",
           lineHeight: "22px",
@@ -570,7 +569,6 @@ function DynamicUserBubble({ text, delay = 0 }: DynamicUserBubbleProps) {
     >
       <span
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 400,
           fontSize: '16px',
           lineHeight: '22px',
@@ -765,38 +763,13 @@ export function ChatBubblePopup({ isOpen, onClose, messages, isWaitingForAI = fa
               }}
             >
               {/* Leading Button (Close) */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                className="flex flex-row justify-center items-center relative flex-shrink-0"
-                style={{
-                  width: '44px',
-                  height: '44px',
-                  borderRadius: '296px',
-                  background: 'rgba(247, 247, 247, 0.85)',
-                  backdropFilter: 'blur(20px)',
-                  WebkitBackdropFilter: 'blur(20px)',
-                  border: '0.5px solid rgba(255, 255, 255, 0.8)',
-                  boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)',
-                  isolation: 'isolate'
-                }}
+              <LiquidGlassButton
+                onClick={() => onClose()}
+                size={44}
+                className="flex-shrink-0"
               >
-                <span 
-                  className="flex items-center justify-center"
-                  style={{ 
-                    fontFamily: 'SF Pro', 
-                    fontSize: '17px', 
-                    fontWeight: 510,
-                    lineHeight: '20px',
-                    color: '#404040',
-                    fontFeatureSettings: "'ss16' on"
-                  }}
-                >
-                  ✕
-                </span>
-              </button>
+                <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+              </LiquidGlassButton>
 
               {/* Spacer */}
               <div style={{ margin: '0 auto', width: '8px', height: '44px' }} />
@@ -812,7 +785,6 @@ export function ChatBubblePopup({ isOpen, onClose, messages, isWaitingForAI = fa
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro',
                     fontWeight: 590,
                     fontSize: '17px',
                     lineHeight: '22px',
@@ -841,7 +813,6 @@ export function ChatBubblePopup({ isOpen, onClose, messages, isWaitingForAI = fa
               <div className="w-1.5 h-1.5 bg-black rounded-full" />
               <span
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 510,
                   fontSize: '16px',
                   lineHeight: '20px',

@@ -15,6 +15,8 @@ import defensiveIconWhite from "../assets/defensive-icon-white.png";
 import cooperativeGradientBgImg from "../assets/gradient-bg-pink.png";
 import neutralGradientBgImg from "../assets/gradient-bg-blue.png";
 import defensiveGradientBgImg from "../assets/gradient-bg-defensive.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
 
 const cooperativeIcon = cooperativeIconImg;
 const neutralIcon = neutralIconImg;
@@ -161,31 +163,9 @@ export function QuickSetup3({
           {/* Title and Controls */}
           <div className="flex justify-between items-center px-4 gap-[66px] w-full h-11 mt-2">
             {/* Leading Button */}
-            <button
-              onClick={onBack}
-              className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-              style={{
-                background: "rgba(247, 247, 247, 0.85)",
-                backdropFilter: "blur(20px)",
-                WebkitBackdropFilter: "blur(20px)",
-                border: "0.5px solid rgba(255, 255, 255, 0.8)",
-                boxShadow:
-                  "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-              }}
-            >
-              <span
-                className="flex items-center justify-center"
-                style={{
-                  fontFamily: "SF Pro",
-                  fontSize: "20px",
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  color: "#404040",
-                }}
-              >
-                􀯶
-              </span>
-            </button>
+            <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+              <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+            </LiquidGlassButton>
 
             {/* Spacer */}
             <div className="w-2 h-11" />
@@ -195,7 +175,6 @@ export function QuickSetup3({
               <h1
                 className="text-[#333333] text-center"
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "17px",
                   fontWeight: 590,
                   lineHeight: "22px",
@@ -220,7 +199,6 @@ export function QuickSetup3({
           >
             <h2
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "28px",
                 fontWeight: 600,
                 lineHeight: "34px",
@@ -231,7 +209,6 @@ export function QuickSetup3({
             </h2>
             <p
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "15px",
                 fontWeight: 400,
                 lineHeight: "20px",
@@ -270,7 +247,6 @@ export function QuickSetup3({
               <div className="flex flex-col">
                 <h3
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 600,
                     lineHeight: "20px",
@@ -281,7 +257,6 @@ export function QuickSetup3({
                 </h3>
                 <p
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 400,
                     lineHeight: "20px",
@@ -324,7 +299,6 @@ export function QuickSetup3({
                       >
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "16px",
                             fontWeight: 400,
                             lineHeight: "20px",
@@ -350,7 +324,6 @@ export function QuickSetup3({
                     placeholder="Other, e.g., Ask for a feedback..."
                     className="w-full h-12 pl-5 pr-3 border border-[#E9EBF3] rounded-[26px] outline-none bg-transparent"
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "16px",
                       fontWeight: 400,
                       lineHeight: "20px",
@@ -373,7 +346,6 @@ export function QuickSetup3({
               <div className="flex flex-col">
                 <h3
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 600,
                     lineHeight: "20px",
@@ -384,7 +356,6 @@ export function QuickSetup3({
                 </h3>
                 <p
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 400,
                     lineHeight: "20px",
@@ -430,7 +401,6 @@ export function QuickSetup3({
                     >
                       <span
                         style={{
-                          fontFamily: "SF Pro",
                           fontSize: "16px",
                           fontWeight: 400,
                           lineHeight: "20px",
@@ -466,7 +436,6 @@ export function QuickSetup3({
                 >
                   <h3
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "15px",
                       fontWeight: 600,
                       lineHeight: "20px",
@@ -483,7 +452,6 @@ export function QuickSetup3({
                     <span
                       className="text-[#8C00FF]"
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "14px",
                         fontWeight: 510,
                         lineHeight: "20px",
@@ -496,7 +464,6 @@ export function QuickSetup3({
                 </div>
                 <p
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 400,
                     lineHeight: "20px",
@@ -528,7 +495,6 @@ export function QuickSetup3({
                     placeholder="Situation: When..., Behavior: You..., Impact: It resulted in..."
                     className="min-h-[100px] border-[#E9EBF3] bg-transparent rounded-2xl resize-none pl-5 pr-3 py-3 focus-visible:ring-0 focus-visible:border-[#E9EBF3]"
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "14px",
                       fontWeight: 400,
                       lineHeight: "19px",
@@ -546,7 +512,6 @@ export function QuickSetup3({
                     />
                     <span
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "14px",
                         fontWeight: 510,
                         lineHeight: "20px",
@@ -572,7 +537,6 @@ export function QuickSetup3({
               <div className="flex flex-col">
                 <h3
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 600,
                     lineHeight: "20px",
@@ -583,7 +547,6 @@ export function QuickSetup3({
                 </h3>
                 <p
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "15px",
                     fontWeight: 400,
                     lineHeight: "20px",
@@ -611,7 +574,6 @@ export function QuickSetup3({
                   <div className="flex flex-col gap-3">
                     <label
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "15px",
                         fontWeight: 600,
                         lineHeight: "20px",
@@ -698,7 +660,6 @@ export function QuickSetup3({
                           )}
                           <span
                             style={{
-                              fontFamily: "SF Pro",
                               fontSize: "14px",
                               fontWeight: 500,
                               lineHeight: "20px",
@@ -720,7 +681,6 @@ export function QuickSetup3({
                   <div className="flex flex-col gap-5">
                     <label
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "14px",
                         fontWeight: 500,
                         lineHeight: "20px",
@@ -739,7 +699,6 @@ export function QuickSetup3({
                       >
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "14px",
                             fontWeight: 500,
                             lineHeight: "20px",
@@ -751,7 +710,6 @@ export function QuickSetup3({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "16px",
                             fontWeight: 400,
                             lineHeight: "20px",
@@ -815,7 +773,6 @@ export function QuickSetup3({
                       <div className="flex justify-between mt-[6px]">
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             lineHeight: "16px",
                             letterSpacing: "-0.3125px",
@@ -826,7 +783,6 @@ export function QuickSetup3({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             lineHeight: "16px",
                             textAlign: "right",
@@ -847,7 +803,6 @@ export function QuickSetup3({
                       >
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "14px",
                             fontWeight: 500,
                             lineHeight: "14px",
@@ -859,7 +814,6 @@ export function QuickSetup3({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "16px",
                             fontWeight: 400,
                             lineHeight: "24px",
@@ -935,7 +889,6 @@ export function QuickSetup3({
                       <div className="flex justify-between mt-[6px]">
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             lineHeight: "16px",
                             letterSpacing: "-0.3125px",
@@ -946,7 +899,6 @@ export function QuickSetup3({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             lineHeight: "16px",
                             letterSpacing: "-0.3125px",
@@ -966,7 +918,6 @@ export function QuickSetup3({
                       >
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "14px",
                             fontWeight: 500,
                             lineHeight: "14px",
@@ -978,7 +929,6 @@ export function QuickSetup3({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "16px",
                             fontWeight: 400,
                             lineHeight: "24px",
@@ -1042,7 +992,6 @@ export function QuickSetup3({
                       <div className="flex justify-between mt-[6px]">
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             lineHeight: "16px",
                             letterSpacing: "-0.3125px",
@@ -1053,7 +1002,6 @@ export function QuickSetup3({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             lineHeight: "16px",
                             letterSpacing: "-0.3125px",
@@ -1079,7 +1027,6 @@ export function QuickSetup3({
                 <div className="flex flex-col">
                   <h3
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "14px",
                       fontWeight: 500,
                       lineHeight: "20px",
@@ -1091,7 +1038,6 @@ export function QuickSetup3({
                   </h3>
                   <p
                     style={{
-                      fontFamily: "SF Pro",
                       fontSize: "14px",
                       fontWeight: 300,
                       lineHeight: "20px",
@@ -1159,7 +1105,6 @@ export function QuickSetup3({
                           <span
                             className="relative z-10"
                             style={{
-                              fontFamily: "SF Pro",
                               fontSize: "14px",
                               fontWeight: 500,
                               lineHeight: "20px",
@@ -1225,7 +1170,6 @@ export function QuickSetup3({
                               <span
                                 className="relative z-10"
                                 style={{
-                                  fontFamily: "SF Pro",
                                   fontSize: "14px",
                                   fontWeight: 500,
                                   lineHeight: "20px",
@@ -1249,7 +1193,6 @@ export function QuickSetup3({
                       <div className="flex flex-col gap-3">
                         <label
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "14px",
                             fontWeight: 500,
                             lineHeight: "20px",
@@ -1296,7 +1239,6 @@ export function QuickSetup3({
                             >
                               <span
                                 style={{
-                                  fontFamily: "SF Pro",
                                   fontSize: "16px",
                                   fontWeight: 400,
                                   lineHeight: "20px",
@@ -1335,7 +1277,6 @@ export function QuickSetup3({
             <span
               className="text-white text-center"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "16px",
                 fontWeight: 510,
                 lineHeight: "20px",
@@ -1357,7 +1298,6 @@ export function QuickSetup3({
           >
             <span
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "16px",
                 fontWeight: 510,
                 lineHeight: "20px",
@@ -1401,7 +1341,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 400,
                     lineHeight: "24px",
@@ -1420,7 +1359,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 400,
                     lineHeight: "24px",
@@ -1447,7 +1385,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 600,
                     lineHeight: "24px",
@@ -1541,7 +1478,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 400,
                     lineHeight: "24px",
@@ -1563,7 +1499,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 400,
                     lineHeight: "24px",
@@ -1582,7 +1517,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 400,
                     lineHeight: "24px",
@@ -1609,7 +1543,6 @@ export function QuickSetup3({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "20px",
                     fontWeight: 600,
                     lineHeight: "24px",

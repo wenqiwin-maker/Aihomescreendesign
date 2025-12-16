@@ -7,6 +7,9 @@ import blufIcon from "../assets/bluf-icon.png";
 import starIcon from "../assets/star-icon.png";
 import neutralIcon from "../assets/neutral-icon.png";
 import imgImageAiCharacter from "../assets/ai-character-static.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 interface PostSimMicroReviewProps {
   onClose: () => void;
@@ -129,39 +132,16 @@ export function PostSimMicroReview({
 
         {/* Toolbar */}
         <div className="flex justify-between items-start px-4 pb-[10px] h-[54px]">
-          {/* Back Button with Glass Effect */}
-          <button
-            onClick={onBack}
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-            style={{
-              background: "rgba(247, 247, 247, 0.85)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "0.5px solid rgba(255, 255, 255, 0.8)",
-              boxShadow:
-                "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-            }}
-          >
-            <span
-              className="flex items-center justify-center"
-              style={{
-                fontFamily: "SF Pro",
-                fontSize: "20px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#404040",
-              }}
-            >
-              􀯶
-            </span>
-          </button>
+          {/* Back Button */}
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
 
           {/* Title */}
           <div className="absolute left-1/2 -translate-x-1/2">
             <h1
               className="text-[#333333] text-center"
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "17px",
                 fontWeight: 590,
                 lineHeight: "22px",
@@ -172,32 +152,10 @@ export function PostSimMicroReview({
             </h1>
           </div>
 
-          {/* Close Button with Glass Effect */}
-          <button
-            onClick={onClose}
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-            style={{
-              background: "rgba(247, 247, 247, 0.85)",
-              backdropFilter: "blur(20px)",
-              WebkitBackdropFilter: "blur(20px)",
-              border: "0.5px solid rgba(255, 255, 255, 0.8)",
-              boxShadow:
-                "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-            }}
-          >
-            <span
-              className="flex items-center justify-center"
-              style={{
-                fontFamily: "SF Pro",
-                fontSize: "20px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#404040",
-              }}
-            >
-              􀆄
-            </span>
-          </button>
+          {/* Close Button */}
+          <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+            <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
         </div>
 
         {/* Progress */}
@@ -234,7 +192,7 @@ export function PostSimMicroReview({
         </div>
 
         {/* Instant Recap */}
-        <motion.div 
+        <motion.div
           className="flex flex-col items-start px-5 pt-4 pb-5 gap-3 bg-white"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
@@ -243,7 +201,6 @@ export function PostSimMicroReview({
           <div className="flex justify-between items-start w-full">
             <span
               style={{
-                fontFamily: "SF Pro",
                 fontSize: "17px",
                 fontWeight: 600,
                 lineHeight: "22px",
@@ -273,7 +230,6 @@ export function PostSimMicroReview({
               </svg>
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "14px",
                   fontWeight: 510,
                   lineHeight: "18px",
@@ -300,7 +256,6 @@ export function PostSimMicroReview({
               </svg>
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "14px",
                   fontWeight: 510,
                   lineHeight: "18px",
@@ -327,7 +282,6 @@ export function PostSimMicroReview({
               </svg>
               <span
                 style={{
-                  fontFamily: "SF Pro",
                   fontSize: "14px",
                   fontWeight: 510,
                   lineHeight: "18px",
@@ -343,7 +297,7 @@ export function PostSimMicroReview({
       </div>
 
       {/* Scrollable Content */}
-      <motion.div 
+      <motion.div
         className="px-5 pt-6 pb-9 flex flex-col gap-10"
         initial="hidden"
         animate="visible"
@@ -359,7 +313,7 @@ export function PostSimMicroReview({
         }}
       >
         {/* Communication Structure */}
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-3"
           variants={{
             hidden: { opacity: 0, y: 10 },
@@ -368,7 +322,6 @@ export function PostSimMicroReview({
         >
           <h2
             style={{
-              fontFamily: "SF Pro",
               fontSize: "28px",
               fontWeight: 600,
               lineHeight: "34px",
@@ -423,7 +376,6 @@ export function PostSimMicroReview({
                       <div className="flex flex-col">
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "16px",
                             fontWeight: 510,
                             lineHeight: "24px",
@@ -435,7 +387,6 @@ export function PostSimMicroReview({
                         </span>
                         <span
                           style={{
-                            fontFamily: "SF Pro",
                             fontSize: "12px",
                             fontWeight: 274,
                             lineHeight: "16px",
@@ -484,7 +435,6 @@ export function PostSimMicroReview({
                             <div className="flex flex-col gap-1 flex-1">
                               <span
                                 style={{
-                                  fontFamily: "SF Pro",
                                   fontSize: "14px",
                                   fontWeight: 590,
                                   lineHeight: "20px",
@@ -496,7 +446,6 @@ export function PostSimMicroReview({
                               </span>
                               <span
                                 style={{
-                                  fontFamily: "SF Pro",
                                   fontSize: "14px",
                                   fontWeight: 400,
                                   lineHeight: "20px",
@@ -534,7 +483,6 @@ export function PostSimMicroReview({
                     )}
                     <span
                       style={{
-                        fontFamily: "SF Pro",
                         fontSize: "12px",
                         fontWeight: 400,
                         lineHeight: "20px",
@@ -554,7 +502,7 @@ export function PostSimMicroReview({
         </motion.div>
 
         {/* Divider */}
-        <motion.div 
+        <motion.div
           className="h-px bg-black/[0.078]"
           variants={{
             hidden: { opacity: 0, scaleX: 0 },
@@ -563,7 +511,7 @@ export function PostSimMicroReview({
         />
 
         {/* Moments to Watch */}
-        <motion.div 
+        <motion.div
           className="flex flex-col gap-3"
           variants={{
             hidden: { opacity: 0, y: 10 },
@@ -572,7 +520,6 @@ export function PostSimMicroReview({
         >
           <h2
             style={{
-              fontFamily: "SF Pro",
               fontSize: "14px",
               fontWeight: 510,
               lineHeight: "20px",
@@ -612,7 +559,7 @@ export function PostSimMicroReview({
                       "0px 20px 25px -5px rgba(0, 0, 0, 0.1), 0px 8px 10px -6px rgba(0, 0, 0, 0.1)",
                   }}
                 >
-                  <Play className="w-6 h-6 text-[#155DFC] fill-[#155DFC] ml-1" />
+                  <Play className="w-6 h-6 text-[#8C00FF] fill-[#8C00FF] ml-1" />
                 </div>
               </div>
 
@@ -646,7 +593,6 @@ export function PostSimMicroReview({
                 </svg>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "12px",
                     fontWeight: 500,
                     lineHeight: "16px",
@@ -687,7 +633,6 @@ export function PostSimMicroReview({
                 </svg>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "12px",
                     fontWeight: 400,
                     lineHeight: "16px",
@@ -704,7 +649,6 @@ export function PostSimMicroReview({
               <div className="flex flex-col">
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "16px",
                     fontWeight: 510,
                     lineHeight: "24px",
@@ -716,7 +660,6 @@ export function PostSimMicroReview({
                 </span>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "14px",
                     fontWeight: 400,
                     lineHeight: "20px",
@@ -758,7 +701,6 @@ export function PostSimMicroReview({
                 </svg>
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontSize: "14px",
                     fontWeight: 510,
                     lineHeight: "20px",
@@ -787,7 +729,6 @@ export function PostSimMicroReview({
         >
           <span
             style={{
-              fontFamily: "SF Pro",
               fontSize: "16px",
               fontWeight: 590,
               lineHeight: "20px",

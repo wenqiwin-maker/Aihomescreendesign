@@ -7,7 +7,6 @@ export function FeatureCards() {
       <h2 
         className="mb-3 text-black/90"
         style={{ 
-          fontFamily: 'SF Pro', 
           fontSize: '16px', 
           fontWeight: 500, 
           lineHeight: '135%' 
@@ -26,7 +25,6 @@ export function FeatureCards() {
             <div 
               className="text-white mt-auto"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '16px', 
                 fontWeight: 700, 
                 lineHeight: '135%' 
@@ -45,7 +43,6 @@ export function FeatureCards() {
             <div 
               className="text-white mt-auto"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '16px', 
                 fontWeight: 700, 
                 lineHeight: '140%' 

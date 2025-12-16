@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { Send } from 'lucide-react';
+import closeIcon from '../assets/close-icon-dark.svg';
 
 interface TagPopupProps {
   isOpen: boolean;
@@ -60,7 +61,6 @@ export function TagPopup({
               {/* Notice Title */}
               <h3 
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 510,
                   fontSize: '20px',
                   lineHeight: '24px',
@@ -77,17 +77,7 @@ export function TagPopup({
                 onClick={onClose}
                 className="flex items-center justify-center w-6 h-6 flex-shrink-0"
               >
-                <span
-                  style={{ 
-                    fontFamily: 'SF Pro', 
-                    fontSize: '20px', 
-                    fontWeight: 400,
-                    lineHeight: '20px',
-                    color: '#404040'
-                  }}
-                >
-                  􀆄
-                </span>
+                <img src={closeIcon} alt="Close" className="w-6 h-6" />
               </button>
             </div>
 
@@ -104,7 +94,6 @@ export function TagPopup({
                   placeholder="Enter your tag note here..."
                   className="w-full resize-none outline-none border-none"
                   style={{
-                    fontFamily: 'SF Pro',
                     fontWeight: 510,
                     fontSize: '16px',
                     lineHeight: '20px',
@@ -138,7 +127,6 @@ export function TagPopup({
                   {/* Character Count */}
                   <div 
                     style={{
-                      fontFamily: 'SF Pro',
                       fontWeight: 400,
                       fontSize: '12px',
                       lineHeight: '16px',

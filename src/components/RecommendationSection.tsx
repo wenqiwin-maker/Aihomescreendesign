@@ -6,7 +6,6 @@ export function RecommendationSection() {
         <h3 
           className="text-black/90"
           style={{ 
-            fontFamily: 'Space Grotesk', 
             fontSize: '16px', 
             fontWeight: 500, 
             lineHeight: '135%' 
@@ -17,7 +16,6 @@ export function RecommendationSection() {
         <button 
           className="text-black"
           style={{ 
-            fontFamily: 'Space Grotesk', 
             fontSize: '12px', 
             fontWeight: 500, 
             lineHeight: '130%' 
@@ -35,7 +33,6 @@ export function RecommendationSection() {
           <p 
             className="text-black/90 flex-1"
             style={{ 
-              fontFamily: 'Space Grotesk', 
               fontSize: '16px', 
               fontWeight: 700, 
               lineHeight: '135%' 
@@ -51,7 +48,6 @@ export function RecommendationSection() {
           <p 
             className="text-black/90 flex-1"
             style={{ 
-              fontFamily: 'Space Grotesk', 
               fontSize: '16px', 
               fontWeight: 700, 
               lineHeight: '135%' 

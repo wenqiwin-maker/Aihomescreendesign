@@ -6,6 +6,8 @@ import progressIcon from '../assets/Progress.png';
 import tipsIcon from '../assets/Subtract.png';
 import unionIcon from '../assets/Union.svg';
 import backgroundAiChat from '../assets/background_ai_chat.png';
+import { LiquidGlassButton } from './shared/LiquidGlassButton';
+import backIcon from '../assets/back-icon-dark.svg';
 
 interface AIChatProps {
   onClose: () => void;
@@ -59,38 +61,15 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
       {/* Header */}
       <div className="flex justify-between items-center px-4 pb-[10px] h-[54px]">
         {/* Back Button */}
-        <button
-          onClick={onClose}
-          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-          }}
-        >
-          <span
-            className="flex items-center justify-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀯶
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+          <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
 
         {/* Title */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <h1
             className="text-[#333333] text-center"
             style={{
-              fontFamily: "SF Pro",
               fontSize: "17px",
               fontWeight: 590,
               lineHeight: "22px",
@@ -126,7 +105,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
           >
             <motion.h2
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '20px',
                 fontWeight: 600,
                 lineHeight: '24px',
@@ -183,7 +161,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               <div className="flex-1 text-left">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
@@ -194,7 +171,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
@@ -246,7 +222,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               <div className="flex-1 text-left">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
@@ -257,7 +232,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
@@ -308,7 +282,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
               <div className="flex-1 text-left">
                 <h3
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '16px',
                     fontWeight: 590,
                     lineHeight: '20px',
@@ -319,7 +292,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                 </h3>
                 <p
                   style={{
-                    fontFamily: 'SF Pro',
                     fontSize: '14px',
                     fontWeight: 400,
                     lineHeight: '18px',
@@ -350,7 +322,6 @@ export function AIChat({ onClose, onStartConversation }: AIChatProps) {
                       ? 'linear-gradient(135deg, #8C00FF 0%, #FF52EC 100%)'
                       : '#F7F7F7',
                     color: message.role === 'user' ? '#FFFFFF' : '#333333',
-                    fontFamily: 'SF Pro',
                     fontSize: '15px',
                     fontWeight: 400,
                     lineHeight: '20px'

@@ -54,7 +54,6 @@ function CardWithRotatingIcon({ bgColor, icon, label, className = '', onClick }:
       <span 
         className="text-white flex items-center"
         style={{ 
-          fontFamily: 'SF Pro', 
           fontSize: '16px', 
           fontWeight: 590, 
           lineHeight: '20px',
@@ -157,7 +156,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             <span 
               className="text-white"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '18px', 
                 fontWeight: 700, 
                 lineHeight: '135%',
@@ -181,7 +179,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             <span 
               className="text-white"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '12px', 
                 fontWeight: 700, 
                 lineHeight: '130%' 
@@ -237,7 +234,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             <span 
               className="text-[#8C00FF]"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '16px', 
                 fontWeight: 700, 
                 lineHeight: '135%' 
@@ -296,7 +292,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
         >
           <motion.h2 
             style={{ 
-              fontFamily: 'SF Pro', 
               fontSize: '14px', 
               fontWeight: 590, 
               lineHeight: '135%',
@@ -381,7 +376,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
           >
             <h2 
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '14px', 
                 fontWeight: 590, 
                 lineHeight: '135%',
@@ -392,7 +386,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             </h2>
             <span 
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '12px', 
                 fontWeight: 400, 
                 lineHeight: '130%',
@@ -436,7 +429,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
               <div className="flex flex-col justify-center gap-1">
                 <h3 
                   style={{ 
-                    fontFamily: 'SF Pro', 
                     fontSize: '16px', 
                     fontWeight: 700, 
                     lineHeight: '20px',
@@ -447,7 +439,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
                 </h3>
                 <p 
                   style={{ 
-                    fontFamily: 'SF Pro', 
                     fontSize: '12px', 
                     fontWeight: 274, 
                     lineHeight: '135%',
@@ -484,7 +475,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
               <div className="flex flex-col justify-center gap-1">
                 <h3 
                   style={{ 
-                    fontFamily: 'SF Pro', 
                     fontSize: '16px', 
                     fontWeight: 700, 
                     lineHeight: '20px',
@@ -495,7 +485,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
                 </h3>
                 <p 
                   style={{ 
-                    fontFamily: 'SF Pro', 
                     fontSize: '12px', 
                     fontWeight: 274, 
                     lineHeight: '135%',
@@ -533,7 +522,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             <span 
               className="text-[#8C00FF]"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '12px', 
                 fontWeight: 510, 
                 lineHeight: '130%' 
@@ -581,7 +569,6 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
             <span 
               className="text-[#515B70]"
               style={{ 
-                fontFamily: 'SF Pro', 
                 fontSize: '12px', 
                 fontWeight: 510, 
                 lineHeight: '130%' 

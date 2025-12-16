@@ -124,7 +124,6 @@ export function ChatInputBar({ onSendMessage, placeholder = "Type to chat with A
                 style={{
                   width: '150px',
                   height: '22px',
-                  fontFamily: 'SF Pro',
                   fontWeight: 400,
                   fontSize: '16px',
                   lineHeight: '22px',

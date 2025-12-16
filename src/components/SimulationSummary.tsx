@@ -8,6 +8,8 @@ import { MomentsToWatch } from './MomentsToWatch';
 import { AdjustPlan } from './AdjustPlan';
 import { DeleteRecording } from './DeleteRecording';
 import { BottomButton } from './BottomButton';
+import { LiquidGlassButton } from './shared/LiquidGlassButton';
+import closeIcon from '../assets/close-icon-dark.svg';
 
 interface SimulationSummaryProps {
   onClose: () => void;
@@ -51,29 +53,18 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
         {/* Left Icons */}
         <div className="flex flex-row items-center gap-3">
           {/* Download Button */}
-          <button 
-            onClick={handleDownloadPDF}
-            className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-            style={{
-              background: 'rgba(247, 247, 247, 0.85)',
-              backdropFilter: 'blur(20px)',
-              WebkitBackdropFilter: 'blur(20px)',
-              border: '0.5px solid rgba(255, 255, 255, 0.8)',
-              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
-            }}
-          >
+          <LiquidGlassButton onClick={handleDownloadPDF} size={44} className="flex-shrink-0">
             <svg width="18" height="17" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M9 1V11.5M9 11.5L13 7.5M9 11.5L5 7.5" stroke="#404040" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M3 12V14C3 14.5304 3.21071 15.0391 3.58579 15.4142C3.96086 15.7893 4.46957 16 5 16H13C13.5304 16 14.0391 15.7893 14.4142 15.4142C14.7893 15.0391 15 14.5304 15 14V12" stroke="#404040" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-          </button>
+          </LiquidGlassButton>
         </div>
         
         <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2">
           <h1 
             className="text-[#333333] text-center"
             style={{ 
-              fontFamily: 'SF Pro', 
               fontSize: '17px', 
               fontWeight: 590, 
               lineHeight: '22px',
@@ -85,31 +76,9 @@ export function SimulationSummary({ onClose, onPlay }: SimulationSummaryProps) {
           </h1>
         </div>
         
-        <button 
-          onClick={onClose}
-          className="flex flex-row justify-center items-center w-11 h-11 rounded-full relative flex-shrink-0"
-          style={{
-            background: 'rgba(247, 247, 247, 0.85)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '0.5px solid rgba(255, 255, 255, 0.8)',
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
-          }}
-        >
-          <span 
-            className="flex items-center justify-center"
-            style={{ 
-              fontFamily: 'SF Pro', 
-              fontSize: '17px', 
-              fontWeight: 510,
-              lineHeight: '20px',
-              color: '#404040',
-              fontFeatureSettings: "'ss16' on"
-            }}
-          >
-            ✕
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+          <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
       </div>
 
       {/* Main Content */}

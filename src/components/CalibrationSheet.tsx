@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
-import { GlassIconButton, ICONS } from "./shared/GlassButton";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -23,41 +24,35 @@ const tokens = {
   },
   typography: {
     headline: {
-      fontFamily: "SF Pro",
       fontWeight: 590,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     body: {
-      fontFamily: "Inter",
       fontWeight: 400,
       fontSize: "14px",
       lineHeight: "20px",
       letterSpacing: "-0.15px",
     },
     metricsValue: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "24px",
       lineHeight: "32px",
       letterSpacing: "0.07px",
     },
     metricsUnit: {
-      fontFamily: "Inter",
       fontWeight: 400,
       fontSize: "12px",
       lineHeight: "16px",
     },
     caption: {
-      fontFamily: "Inter",
       fontWeight: 400,
       fontSize: "16px",
       lineHeight: "24px",
       letterSpacing: "-0.31px",
     },
     button: {
-      fontFamily: "Inter",
       fontWeight: 500,
       fontSize: "14px",
       lineHeight: "20px",
@@ -110,7 +105,6 @@ function MetricCard({
       <p
         className="m-0 text-center"
         style={{
-          fontFamily: tokens.typography.body.fontFamily,
           fontWeight: tokens.typography.body.fontWeight,
           fontSize: tokens.typography.body.fontSize,
           lineHeight: tokens.typography.body.lineHeight,
@@ -124,7 +118,6 @@ function MetricCard({
       <p
         className="m-0 text-center"
         style={{
-          fontFamily: tokens.typography.metricsValue.fontFamily,
           fontWeight: tokens.typography.metricsValue.fontWeight,
           fontSize: tokens.typography.metricsValue.fontSize,
           lineHeight: tokens.typography.metricsValue.lineHeight,
@@ -139,7 +132,6 @@ function MetricCard({
       <p
         className="m-0 text-center"
         style={{
-          fontFamily: tokens.typography.metricsUnit.fontFamily,
           fontWeight: tokens.typography.metricsUnit.fontWeight,
           fontSize: tokens.typography.metricsUnit.fontSize,
           lineHeight: tokens.typography.metricsUnit.lineHeight,
@@ -164,7 +156,6 @@ function GoodBadge() {
     >
       <span
         style={{
-          fontFamily: "Inter",
           fontWeight: 500,
           fontSize: "12px",
           lineHeight: "16px",
@@ -213,7 +204,6 @@ function CalibrationRecordCard({
           <p
             className="m-0"
             style={{
-              fontFamily: tokens.typography.body.fontFamily,
               fontWeight: tokens.typography.body.fontWeight,
               fontSize: tokens.typography.body.fontSize,
               lineHeight: tokens.typography.body.lineHeight,
@@ -231,7 +221,6 @@ function CalibrationRecordCard({
         <p
           className="m-0"
           style={{
-            fontFamily: tokens.typography.caption.fontFamily,
             fontWeight: tokens.typography.caption.fontWeight,
             fontSize: tokens.typography.caption.fontSize,
             lineHeight: tokens.typography.caption.lineHeight,
@@ -514,7 +503,6 @@ function CalibrationIllustration({ isAnimating }: { isAnimating: boolean }) {
       <p
         className="m-0 text-center whitespace-pre-line"
         style={{
-          fontFamily: tokens.typography.body.fontFamily,
           fontWeight: tokens.typography.body.fontWeight,
           fontSize: tokens.typography.body.fontSize,
           lineHeight: tokens.typography.body.lineHeight,
@@ -554,7 +542,6 @@ function CalibrateButton({
     >
       <span
         style={{
-          fontFamily: tokens.typography.button.fontFamily,
           fontWeight: tokens.typography.button.fontWeight,
           fontSize: tokens.typography.button.fontSize,
           lineHeight: tokens.typography.button.lineHeight,
@@ -642,14 +629,15 @@ export function CalibrationSheet({ onBack }: CalibrationSheetProps) {
 
         {/* Toolbar */}
         <div className="flex items-center justify-between px-[16px] pb-[10px]">
-          {/* Close button - using shared GlassIconButton */}
-          <GlassIconButton icon={ICONS.close} onClick={onBack} />
+          {/* Close button */}
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
 
           {/* Title - centered */}
           <p
             className="absolute left-1/2 -translate-x-1/2 m-0 whitespace-nowrap"
             style={{
-              fontFamily: tokens.typography.headline.fontFamily,
               fontWeight: tokens.typography.headline.fontWeight,
               fontSize: tokens.typography.headline.fontSize,
               lineHeight: tokens.typography.headline.lineHeight,

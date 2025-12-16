@@ -5,6 +5,8 @@ import imgProgress from "../assets/Progress.png";
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
 import { useNavigate } from "react-router-dom";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
 
 function EditIcon() {
   return (
@@ -93,7 +95,6 @@ function CommunicationProgressCard() {
         <p
           className="m-0"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 700,
             fontSize: '13px',
             lineHeight: '17px',
@@ -107,7 +108,6 @@ function CommunicationProgressCard() {
         <p
           className="m-0 mt-[4px]"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 400,
             fontSize: '13px',
             lineHeight: '16px',
@@ -147,7 +147,6 @@ function PracticeHistoryCard() {
         <p
           className="m-0"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 700,
             fontSize: '13px',
             lineHeight: '17px',
@@ -161,7 +160,6 @@ function PracticeHistoryCard() {
         <p
           className="m-0 mt-[4px]"
           style={{
-            fontFamily: 'SF Pro',
             fontWeight: 400,
             fontSize: '13px',
             lineHeight: '16px',
@@ -204,7 +202,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
       <h2
         className="m-0 w-full mb-[4px]"
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 600,
           fontSize: '17px',
           lineHeight: '22px',
@@ -236,7 +233,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -261,7 +257,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -285,7 +280,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
             <p
               className="m-0"
               style={{
-                fontFamily: 'SF Pro',
                 fontWeight: 500,
                 fontSize: '16px',
                 color: '#000000',
@@ -299,7 +293,6 @@ function Frame({ onAssistModesClick, onCalibrationClick, onNudgesDeliveryClick }
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 400,
                   fontSize: '15px',
                   color: 'rgba(60, 60, 67, 0.6)',
@@ -325,7 +318,6 @@ function Frame9() {
       <h2
         className="m-0 w-full mb-[4px]"
         style={{
-          fontFamily: 'SF Pro',
           fontWeight: 600,
           fontSize: '17px',
           lineHeight: '22px',
@@ -354,7 +346,6 @@ function Frame9() {
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -376,7 +367,6 @@ function Frame9() {
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -398,7 +388,6 @@ function Frame9() {
               <p
                 className="m-0"
                 style={{
-                  fontFamily: 'SF Pro',
                   fontWeight: 500,
                   fontSize: '16px',
                   color: '#000000',
@@ -547,30 +536,9 @@ export function Settings({ onBack }: SettingsProps) {
         className="w-full pt-[18px] pb-[10px] shrink-0 z-10"
         style={{ paddingLeft: '20px', paddingRight: '20px' }}
       >
-        <button
-          onClick={onBack}
-          className="flex items-center justify-center w-11 h-11 rounded-full"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-          }}
-        >
-          <span
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀯶
-          </span>
-        </button>
+        <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+          <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+        </LiquidGlassButton>
       </div>
 
       {/* Scrollable Content */}
@@ -611,16 +579,11 @@ export function Settings({ onBack }: SettingsProps) {
       </motion.div>
 
       {/* Bottom Navigation - Floating */}
-      <div
-        className="fixed bottom-5 left-1/2 -translate-x-1/2 w-[350px] z-30"
-        style={{
-          borderRadius: '42px',
-          background: 'rgba(247, 247, 247, 0.85)',
-          backdropFilter: 'blur(20px)',
-          WebkitBackdropFilter: 'blur(20px)',
-          border: '0.5px solid rgba(255, 255, 255, 0.8)',
-          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)'
-        }}
+      <LiquidGlassButton
+        shape="pill"
+        width={350}
+        height={64}
+        className="fixed bottom-5 left-1/2 -translate-x-1/2 z-30"
       >
         <div className="flex justify-center items-center py-1 px-5">
           {/* Home */}
@@ -633,7 +596,6 @@ export function Settings({ onBack }: SettingsProps) {
             <span
               className="text-[#515B70]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 510,
                 lineHeight: '130%'
@@ -675,7 +637,6 @@ export function Settings({ onBack }: SettingsProps) {
             <span
               className="text-[#8C00FF]"
               style={{
-                fontFamily: 'SF Pro',
                 fontSize: '12px',
                 fontWeight: 510,
                 lineHeight: '130%'
@@ -685,7 +646,7 @@ export function Settings({ onBack }: SettingsProps) {
             </span>
           </button>
         </div>
-      </div>
+      </LiquidGlassButton>
 
       {/* Home Indicator */}
       <div className="fixed bottom-2 left-1/2 -translate-x-1/2 w-[134px] h-[5px] bg-black rounded-full z-30" />

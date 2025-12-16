@@ -1,6 +1,8 @@
 import { StatusBar } from "./StatusBar";
 import { motion } from "motion/react";
 import questionIcon from "../assets/question.svg";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -17,21 +19,18 @@ const tokens = {
   },
   typography: {
     headline: {
-      fontFamily: "SF Pro",
       fontWeight: 590,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     body: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     subheadline: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "15px",
       lineHeight: "20px",
@@ -40,45 +39,6 @@ const tokens = {
   },
 };
 
-// Liquid Glass button effect matching Figma
-function LiquidGlassButton({
-  onClick,
-  children,
-}: {
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="relative flex items-center justify-center rounded-[296px] overflow-hidden"
-      style={{
-        height: "44px",
-        minWidth: "44px",
-        padding: "0 2px",
-        background: "rgba(247, 247, 247, 0.85)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        border: "0.5px solid rgba(255, 255, 255, 0.8)",
-        boxShadow:
-          "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-      }}
-    >
-      {/* Content */}
-      <div
-        className="relative z-10 flex items-center justify-center h-[36px] min-w-[36px] px-[8px] rounded-[100px]"
-        style={{
-          fontFamily: tokens.typography.headline.fontFamily,
-          fontWeight: 510,
-          fontSize: "17px",
-          color: tokens.colors.labelsVibrantControlsPrimary,
-        }}
-      >
-        {children}
-      </div>
-    </button>
-  );
-}
 
 // Question icon
 function QuestionIcon() {
@@ -87,21 +47,12 @@ function QuestionIcon() {
   );
 }
 
-// Drill-in chevron (SF Symbol: chevron.right)
+// Drill-in chevron SVG
 function DrillInChevron() {
   return (
-    <span
-      style={{
-        fontFamily: "SF Pro",
-        fontWeight: 590,
-        fontSize: "17px",
-        lineHeight: "22px",
-        color: tokens.colors.drillInChevron,
-        width: "8px",
-      }}
-    >
-      􀆊
-    </span>
+    <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 1L7 7L1 13" stroke="rgba(60, 60, 67, 0.3)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
   );
 }
 
@@ -131,7 +82,6 @@ function SettingsRow({
         <p
           className="text-left"
           style={{
-            fontFamily: tokens.typography.body.fontFamily,
             fontWeight: tokens.typography.body.fontWeight,
             fontSize: tokens.typography.body.fontSize,
             lineHeight: tokens.typography.body.lineHeight,
@@ -145,7 +95,6 @@ function SettingsRow({
           <p
             className="text-left"
             style={{
-              fontFamily: tokens.typography.subheadline.fontFamily,
               fontWeight: tokens.typography.subheadline.fontWeight,
               fontSize: tokens.typography.subheadline.fontSize,
               lineHeight: tokens.typography.subheadline.lineHeight,
@@ -158,7 +107,18 @@ function SettingsRow({
       </div>
 
       {/* Trailing accessories */}
-      <div className="flex items-center justify-end gap-[16px]">
+      <div className="flex items-center justify-end gap-[8px]">
+        <span
+          style={{
+            fontWeight: 400,
+            fontSize: "17px",
+            lineHeight: "22px",
+            letterSpacing: "-0.43px",
+            color: "rgba(60, 60, 67, 0.6)",
+          }}
+        >
+          Detail
+        </span>
         <DrillInChevron />
       </div>
     </motion.button>
@@ -182,8 +142,8 @@ export function Calibrate20Seconds({ onBack, onCalibrate }: Calibrate20SecondsPr
       <div className="relative flex items-start justify-between w-[390px] pt-0 pb-[10px] px-[16px] shrink-0">
         {/* Leading - Back button */}
         <div className="flex gap-[10px] items-center shrink-0">
-          <LiquidGlassButton onClick={onBack}>
-            <span style={{ lineHeight: "normal" }}>􀯶</span>
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
           </LiquidGlassButton>
         </div>
 
@@ -195,7 +155,6 @@ export function Calibrate20Seconds({ onBack, onCalibrate }: Calibrate20SecondsPr
           <p
             className="text-center whitespace-nowrap"
             style={{
-              fontFamily: tokens.typography.headline.fontFamily,
               fontWeight: tokens.typography.headline.fontWeight,
               fontSize: tokens.typography.headline.fontSize,
               lineHeight: tokens.typography.headline.lineHeight,
@@ -241,7 +200,6 @@ export function Calibrate20Seconds({ onBack, onCalibrate }: Calibrate20SecondsPr
             <p
               className="text-left"
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,

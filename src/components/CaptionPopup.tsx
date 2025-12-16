@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "motion/react";
 import { X, Sparkles } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import closeIcon from "../assets/close-icon-dark.svg";
 
 // Typewriter component for AI messages
 interface TypewriterTextProps {
@@ -184,7 +186,6 @@ function AIChatBubble({ text, delay, isActive, onComplete }: AIChatBubbleProps) 
       </div>
       <span
         style={{
-          fontFamily: "SF Pro",
           fontWeight: 400,
           fontSize: "16px",
           lineHeight: "22px",
@@ -342,7 +343,6 @@ function UserBubbleWithAIResponse({
         >
           <span
             style={{
-              fontFamily: "SF Pro",
               fontWeight: 400,
               fontSize: "16px",
               lineHeight: "22px",
@@ -420,7 +420,6 @@ function UserBubbleWithAIResponse({
             </div>
             <span
               style={{
-                fontFamily: "SF Pro",
                 fontWeight: 400,
                 fontSize: "16px",
                 lineHeight: "22px",
@@ -530,39 +529,13 @@ export function CaptionPopup({
               }}
             >
               {/* Leading Button (Close) */}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                className="flex flex-row justify-center items-center relative flex-shrink-0"
-                style={{
-                  width: "44px",
-                  height: "44px",
-                  borderRadius: "296px",
-                  background: "rgba(247, 247, 247, 0.85)",
-                  backdropFilter: "blur(20px)",
-                  WebkitBackdropFilter: "blur(20px)",
-                  border:
-                    "0.5px solid rgba(255, 255, 255, 0.8)",
-                  boxShadow:
-                    "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-                  isolation: "isolate",
-                }}
+              <LiquidGlassButton
+                onClick={() => onClose()}
+                size={44}
+                className="flex-shrink-0"
               >
-                <span
-                  className="flex items-center justify-center"
-                  style={{
-                    fontFamily: "SF Pro",
-                    fontSize: "20px",
-                    fontWeight: 400,
-                    lineHeight: "20px",
-                    color: "#404040",
-                  }}
-                >
-                  􀆄
-                </span>
-              </button>
+                <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+              </LiquidGlassButton>
 
               {/* Spacer */}
               <div
@@ -584,7 +557,6 @@ export function CaptionPopup({
               >
                 <span
                   style={{
-                    fontFamily: "SF Pro",
                     fontWeight: 590,
                     fontSize: "17px",
                     lineHeight: "22px",
@@ -635,7 +607,6 @@ export function CaptionPopup({
                     />
                     <span
                       style={{
-                        fontFamily: "SF Pro",
                         fontWeight: 510,
                         fontSize: "16px",
                         lineHeight: "20px",
@@ -714,7 +685,6 @@ export function CaptionPopup({
                     />
                     <span
                       style={{
-                        fontFamily: "SF Pro",
                         fontWeight: 510,
                         fontSize: "16px",
                         lineHeight: "20px",
@@ -810,7 +780,6 @@ export function CaptionPopup({
                     />
                     <span
                       style={{
-                        fontFamily: "SF Pro",
                         fontWeight: 510,
                         fontSize: "16px",
                         lineHeight: "20px",

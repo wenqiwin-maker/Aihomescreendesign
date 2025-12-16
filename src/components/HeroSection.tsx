@@ -8,7 +8,6 @@ export function HeroSection({ onStartConversation }: HeroSectionProps) {
       {/* Title */}
       <h2 
         style={{ 
-          fontFamily: 'SF Pro', 
           fontSize: '28px', 
           fontWeight: 600, 
           lineHeight: '34px' 
@@ -21,7 +20,6 @@ export function HeroSection({ onStartConversation }: HeroSectionProps) {
       <p 
         className="text-white mb-6"
         style={{ 
-          fontFamily: 'Space Grotesk', 
           fontSize: '14px', 
           fontWeight: 400, 
           lineHeight: '135%' 
@@ -38,7 +36,6 @@ export function HeroSection({ onStartConversation }: HeroSectionProps) {
         <span 
           className="text-[#8C00FF]"
           style={{ 
-            fontFamily: 'SF Pro', 
             fontSize: '16px', 
             fontWeight: 700, 
             lineHeight: '135%' 

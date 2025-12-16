@@ -1,6 +1,8 @@
 import imgImageAiCharacter1 from "../assets/user-pip.png";
 import aiCharacterGif from "../assets/ai-character.gif";
 import selfViewVideo from "../assets/self-view-video.mp4";
+import backIcon from "../assets/back-icon.svg";
+import closeIcon from "../assets/close-icon.svg";
 import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { ChatBubblePopup } from "./ChatBubblePopup";
@@ -16,8 +18,8 @@ import {
   ActionButtons,
   DemoChatSheet,
   TagButton,
-  GlassIconButton,
 } from "./voice-chat";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
 
 interface VoiceChatProps {
   onClose: () => void;
@@ -43,6 +45,7 @@ export function VoiceChat({
   const [currentTime, setCurrentTime] = useState(0);
   const [isVideoOn, setIsVideoOn] = useState(false);
   const [isAiSpeaking, setIsAiSpeaking] = useState(false);
+  const [isDemoChatVisible, setIsDemoChatVisible] = useState(true);
 
   const totalDuration = 120;
 
@@ -236,7 +239,6 @@ export function VoiceChat({
       toast.success(`Tag saved at ${newTags[activeTagIndex].timestamp}`, {
         duration: 3000,
         style: {
-          fontFamily: "SF Pro",
           fontSize: "15px",
           fontWeight: 510,
         },
@@ -345,7 +347,11 @@ export function VoiceChat({
 
       {/* Demo Chat Sheet */}
       {isDemo && (
-        <DemoChatSheet messages={messages} isVisible={messages.length > 0} />
+        <DemoChatSheet 
+          messages={messages} 
+          isVisible={messages.length > 0 && isDemoChatVisible} 
+          onClose={() => setIsDemoChatVisible(false)}
+        />
       )}
 
       {/* Top Section - Fixed */}
@@ -355,20 +361,9 @@ export function VoiceChat({
         {/* Navigation */}
         <div className="flex items-center px-4 pb-2 gap-3 h-[56px]">
           {/* Back Button */}
-          <GlassIconButton onClick={onBack}>
-            <span
-              className="flex items-center justify-center"
-              style={{
-                fontFamily: "SF Pro",
-                fontSize: "20px",
-                fontWeight: 400,
-                lineHeight: "20px",
-                color: "#404040",
-              }}
-            >
-              􀯶
-            </span>
-          </GlassIconButton>
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
 
           {/* Progress Bar */}
           <ProgressBar
@@ -381,20 +376,9 @@ export function VoiceChat({
 
           {/* Close Button - Hidden in Demo */}
           {!isDemo && (
-            <GlassIconButton onClick={onClose}>
-              <span
-                className="flex items-center justify-center"
-                style={{
-                  fontFamily: "SF Pro",
-                  fontSize: "20px",
-                  fontWeight: 400,
-                  lineHeight: "20px",
-                  color: "#404040",
-                }}
-              >
-                􀆄
-              </span>
-            </GlassIconButton>
+            <LiquidGlassButton onClick={onClose} size={44} className="flex-shrink-0">
+              <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+            </LiquidGlassButton>
           )}
         </div>
       </div>

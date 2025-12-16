@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect, useCallback, RefObject } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import { LiquidGlassButton } from './shared/LiquidGlassButton';
+import closeIcon from '../assets/close-icon-dark.svg';
 
 interface SetReminderSheetProps {
   isOpen: boolean;
@@ -112,7 +114,6 @@ function EarlyReminderDropdown({
                     {selectedOption === option ? (
                       <span
                         style={{
-                          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                           fontSize: '17px',
                           fontWeight: 600,
                           color: '#000000',
@@ -126,7 +127,6 @@ function EarlyReminderDropdown({
                     )}
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -321,7 +321,6 @@ function CalendarPicker({
               >
                 <span
                   style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif',
                     fontSize: isItemSelected ? '23px' : '20px',
                     fontWeight: isItemSelected ? 400 : 300,
                     color: isItemSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
@@ -431,7 +430,6 @@ function CalendarPicker({
                 >
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 600,
                       lineHeight: '22px',
@@ -444,16 +442,11 @@ function CalendarPicker({
                   <motion.span
                     animate={{ rotate: showMonthYearPicker ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
-                    style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                      fontSize: '15px',
-                      fontWeight: 700,
-                      lineHeight: '18px',
-                      letterSpacing: '-0.5px',
-                      color: '#0088FF',
-                    }}
+                    className="flex items-center justify-center"
                   >
-                    􀆈
+                    <svg width="12" height="7" viewBox="0 0 12 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 1L6 6L11 1" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
                   </motion.span>
                 </motion.button>
 
@@ -463,28 +456,20 @@ function CalendarPicker({
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={prevMonth}
-                      className="w-[15px] h-6 flex items-center justify-center"
-                      style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                        fontSize: '20px',
-                        fontWeight: 510,
-                        color: '#0088FF',
-                      }}
+                      className="w-6 h-6 flex items-center justify-center"
                     >
-                      􀆉
+                      <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M7 1L1 7L7 13" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </motion.button>
                     <motion.button
                       whileTap={{ scale: 0.9 }}
                       onClick={nextMonth}
-                      className="w-[15px] h-6 flex items-center justify-center"
-                      style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
-                        fontSize: '20px',
-                        fontWeight: 510,
-                        color: '#0088FF',
-                      }}
+                      className="w-6 h-6 flex items-center justify-center"
                     >
-                      􀆊
+                      <svg width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M1 1L7 7L1 13" stroke="#0088FF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
                     </motion.button>
                   </div>
                 )}
@@ -571,7 +556,6 @@ function CalendarPicker({
                         key={day}
                         className="w-8 h-[18px] flex items-center justify-center"
                         style={{
-                          fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                           fontSize: '13px',
                           fontWeight: 600,
                           lineHeight: '18px',
@@ -612,7 +596,6 @@ function CalendarPicker({
                                   )}
                                   <span
                                     style={{
-                                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                                       fontSize: selected ? '24px' : '20px',
                                       fontWeight: selected ? 510 : 400,
                                       lineHeight: '25px',
@@ -779,7 +762,6 @@ function TimePickerWheel({
               >
                 <span
                   style={{
-                    fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", sans-serif',
                     fontSize: isSelected ? '23px' : '20px',
                     fontWeight: isSelected ? 400 : 300,
                     color: isSelected ? '#000000' : 'rgba(0, 0, 0, 0.25)',
@@ -906,23 +888,12 @@ function TimePickerWheel({
   );
 }
 
-// Close button with glass effect
+// Close button with liquid glass effect
 function CloseButton({ onClick }: { onClick: () => void }) {
   return (
-    <motion.button
-      whileTap={{ scale: 0.9 }}
-      onClick={onClick}
-      className="w-9 h-9 rounded-full flex items-center justify-center"
-      style={{
-        background: 'rgba(120, 120, 128, 0.12)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-      }}
-    >
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M1 1L11 11M1 11L11 1" stroke="#404040" strokeWidth="2" strokeLinecap="round"/>
-      </svg>
-    </motion.button>
+    <LiquidGlassButton onClick={onClick} size={44} className="flex-shrink-0">
+      <img src={closeIcon} alt="Close" className="w-[36px] h-[36px]" />
+    </LiquidGlassButton>
   );
 }
 
@@ -1059,7 +1030,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 {/* Title */}
                 <span
                   style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                     fontSize: '17px',
                     fontWeight: 600,
                     lineHeight: '22px',
@@ -1071,18 +1041,11 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 </span>
 
                 {/* Save button */}
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  onClick={handleSave}
-                  className="w-11 h-11 rounded-full flex items-center justify-center"
-                  style={{
-                    background: '#0088FF',
-                  }}
-                >
+                <LiquidGlassButton onClick={handleSave} size={44} variant="blue" className="flex-shrink-0">
                   <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M1.5 7L6.5 12L16.5 2" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
-                </motion.button>
+                </LiquidGlassButton>
               </div>
             </div>
 
@@ -1097,7 +1060,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 <div className="flex items-center justify-between flex-1">
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -1122,7 +1084,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1135,7 +1096,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                     </span>
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1148,7 +1108,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                     </span>
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1171,7 +1130,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 <div className="flex items-center justify-between flex-1">
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -1195,7 +1153,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1218,7 +1175,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                 <div className="flex items-center justify-between flex-1">
                   <span
                     style={{
-                      fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                       fontSize: '17px',
                       fontWeight: 400,
                       lineHeight: '22px',
@@ -1237,7 +1193,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
                   >
                     <span
                       style={{
-                        fontFamily: 'SF Pro, Noto Sans, -apple-system, BlinkMacSystemFont, sans-serif',
                         fontSize: '17px',
                         fontWeight: 400,
                         lineHeight: '22px',
@@ -1258,7 +1213,6 @@ export function SetReminderSheet({ isOpen, onClose, onSave }: SetReminderSheetPr
               >
                 <span
                   style={{
-                    fontFamily: 'SF Pro, -apple-system, BlinkMacSystemFont, sans-serif',
                     fontSize: '17px',
                     fontWeight: 400,
                     lineHeight: '22px',

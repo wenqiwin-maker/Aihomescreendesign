@@ -2,6 +2,8 @@ import { useState, useRef } from "react";
 import React from "react";
 import { StatusBar } from "./StatusBar";
 import { motion, AnimatePresence } from "motion/react";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon-dark.svg";
 
 // Design tokens from Figma
 const tokens = {
@@ -18,14 +20,12 @@ const tokens = {
   },
   typography: {
     headline: {
-      fontFamily: "SF Pro",
       fontWeight: 590,
       fontSize: "17px",
       lineHeight: "22px",
       letterSpacing: "-0.43px",
     },
     body: {
-      fontFamily: "SF Pro",
       fontWeight: 400,
       fontSize: "17px",
       lineHeight: "22px",
@@ -210,62 +210,6 @@ function SensitivitySlider({
   );
 }
 
-// Liquid Glass button effect matching Figma
-function LiquidGlassButton({
-  onClick,
-  children,
-}: {
-  onClick: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className="relative flex items-center justify-center rounded-[296px] overflow-hidden bg-white mix-blend-multiply"
-      style={{
-        height: "44px",
-        minWidth: "44px",
-        padding: "0 2px",
-      }}
-    >
-      {/* Glass effect layers */}
-      <div className="absolute inset-[-26px] opacity-[0.67]">
-        <div
-          className="absolute inset-[28px_26px_24px_26px] rounded-[1000px]"
-          style={{
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            backgroundColor: "rgba(0, 0, 0, 0.04)",
-            filter: "blur(10px)",
-            mixBlendMode: "hard-light",
-          }}
-        />
-      </div>
-      <div className="absolute inset-0 rounded-[296px]">
-        <div className="absolute inset-0 rounded-[296px] bg-[#333333] mix-blend-color-dodge" />
-        <div
-          className="absolute inset-0 rounded-[296px]"
-          style={{
-            backgroundImage:
-              "linear-gradient(90deg, rgb(247, 247, 247) 0%, rgb(247, 247, 247) 100%)",
-          }}
-        />
-      </div>
-      {/* Content */}
-      <div
-        className="relative z-10 flex items-center justify-center h-[36px] min-w-[36px] px-[8px] rounded-[100px]"
-        style={{
-          fontFamily: tokens.typography.headline.fontFamily,
-          fontWeight: 510,
-          fontSize: "17px",
-          color: tokens.colors.labelsVibrantControlsPrimary,
-        }}
-      >
-        {children}
-      </div>
-    </button>
-  );
-}
 
 // Cooldown dropdown component matching the project's dropdown pattern
 function CooldownDropdown({
@@ -341,8 +285,6 @@ function CooldownDropdown({
                     {selectedOption === option ? (
                       <span
                         style={{
-                          fontFamily:
-                            "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
                           fontSize: "17px",
                           fontWeight: 600,
                           color: tokens.colors.accentPurple,
@@ -356,8 +298,6 @@ function CooldownDropdown({
                     )}
                     <span
                       style={{
-                        fontFamily:
-                          "SF Pro, -apple-system, BlinkMacSystemFont, sans-serif",
                         fontSize: "17px",
                         fontWeight: selectedOption === option ? 600 : 400,
                         lineHeight: "22px",
@@ -418,8 +358,8 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
       <div className="relative flex items-start justify-between w-[390px] pt-0 pb-[10px] px-[16px] shrink-0">
         {/* Leading - Back button */}
         <div className="flex gap-[10px] items-center shrink-0">
-          <LiquidGlassButton onClick={onBack}>
-            <span style={{ lineHeight: "normal" }}>􀯶</span>
+          <LiquidGlassButton onClick={onBack} size={44} className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
           </LiquidGlassButton>
         </div>
 
@@ -431,7 +371,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
           <p
             className="text-center whitespace-nowrap"
             style={{
-              fontFamily: tokens.typography.headline.fontFamily,
               fontWeight: tokens.typography.headline.fontWeight,
               fontSize: tokens.typography.headline.fontSize,
               lineHeight: tokens.typography.headline.lineHeight,
@@ -475,7 +414,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
           {/* Section Label */}
           <p
             style={{
-              fontFamily: tokens.typography.body.fontFamily,
               fontWeight: tokens.typography.body.fontWeight,
               fontSize: tokens.typography.body.fontSize,
               lineHeight: tokens.typography.body.lineHeight,
@@ -503,7 +441,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 />
                 <p
                   style={{
-                    fontFamily: tokens.typography.body.fontFamily,
                     fontWeight: tokens.typography.body.fontWeight,
                     fontSize: tokens.typography.body.fontSize,
                     lineHeight: "20px",
@@ -530,7 +467,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 />
                 <p
                   style={{
-                    fontFamily: tokens.typography.body.fontFamily,
                     fontWeight: tokens.typography.body.fontWeight,
                     fontSize: tokens.typography.body.fontSize,
                     lineHeight: "20px",
@@ -559,7 +495,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
           {/* Sensitivity Label */}
           <p
             style={{
-              fontFamily: tokens.typography.body.fontFamily,
               fontWeight: tokens.typography.body.fontWeight,
               fontSize: tokens.typography.body.fontSize,
               lineHeight: tokens.typography.body.lineHeight,
@@ -584,7 +519,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 <p
                   className="whitespace-nowrap shrink-0"
                   style={{
-                    fontFamily: tokens.typography.headline.fontFamily,
                     fontWeight: tokens.typography.headline.fontWeight,
                     fontSize: tokens.typography.headline.fontSize,
                     lineHeight: tokens.typography.headline.lineHeight,
@@ -604,7 +538,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 <p
                   className="whitespace-nowrap shrink-0 text-right"
                   style={{
-                    fontFamily: tokens.typography.headline.fontFamily,
                     fontWeight: tokens.typography.headline.fontWeight,
                     fontSize: tokens.typography.headline.fontSize,
                     lineHeight: tokens.typography.headline.lineHeight,
@@ -637,7 +570,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
               <p
                 className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-left"
                 style={{
-                  fontFamily: tokens.typography.body.fontFamily,
                   fontWeight: tokens.typography.body.fontWeight,
                   fontSize: tokens.typography.body.fontSize,
                   lineHeight: tokens.typography.body.lineHeight,
@@ -651,7 +583,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
               <div
                 className="flex items-center justify-end gap-[10px]"
                 style={{
-                  fontFamily: tokens.typography.body.fontFamily,
                   fontWeight: tokens.typography.body.fontWeight,
                   fontSize: tokens.typography.body.fontSize,
                   lineHeight: tokens.typography.body.lineHeight,
@@ -659,7 +590,10 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
                 }}
               >
                 <span className="whitespace-nowrap">{cooldown}</span>
-                <span className="whitespace-nowrap">􀆏</span>
+                <svg width="10" height="16" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
+                  <path d="M2 6L5 3L8 6" stroke="rgba(60, 60, 67, 0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M2 10L5 13L8 10" stroke="rgba(60, 60, 67, 0.3)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </div>
             </button>
 
@@ -696,7 +630,6 @@ export function AssistModesSettings({ onBack }: AssistModesSettingsProps) {
             <p
               className="flex-1 overflow-hidden text-ellipsis whitespace-nowrap"
               style={{
-                fontFamily: tokens.typography.body.fontFamily,
                 fontWeight: tokens.typography.body.fontWeight,
                 fontSize: tokens.typography.body.fontSize,
                 lineHeight: tokens.typography.body.lineHeight,

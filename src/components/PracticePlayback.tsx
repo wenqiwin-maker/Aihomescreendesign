@@ -5,11 +5,14 @@ import {
   Sparkles,
 } from "lucide-react";
 import imgImageAiCharacter from "../assets/ai-character-static.png";
+import imgAiCharacterGif from "../assets/ai-character.gif";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { StatusBar } from "./StatusBar";
 import bookmarkIcon from "../assets/bookmark-icon.png";
 import hesitationIcon from "../assets/hesitation-icon.png";
 import risingEmotionIcon from "../assets/rising-emotion-icon.png";
+import { LiquidGlassButton } from "./shared/LiquidGlassButton";
+import backIcon from "../assets/back-icon.svg";
 
 // Entrance animation styles
 const entranceStyles = `
@@ -258,13 +261,13 @@ export function PracticePlayback({
     const topic = topics[sectionIndex];
     setActiveSection(sectionIndex);
     setCurrentProgress(topic.startPercent + 1); // Set progress to start of section
-    
+
     // Show expanded progress bar for 2 seconds
     setShowProgressBarExpanded(true);
     setTimeout(() => {
       setShowProgressBarExpanded(false);
     }, 2000);
-    
+
     // Scroll to the first message of this section
     const messageIndex = topic.firstMessageIndex;
     if (messageRefs.current[messageIndex] && chatContainerRef.current) {
@@ -281,25 +284,25 @@ export function PracticePlayback({
     const sectionIndex = topics.findIndex(
       (topic) => progress >= topic.startPercent && progress < topic.endPercent
     );
-    
+
     if (sectionIndex === -1) return;
-    
+
     const topic = topics[sectionIndex];
     // Calculate how far into this section we are (0 to 1)
     const sectionProgress = (progress - topic.startPercent) / (topic.endPercent - topic.startPercent);
-    
+
     // Get the message indices for this section
     const startMsgIndex = topic.firstMessageIndex;
     const nextTopic = topics[sectionIndex + 1];
     const endMsgIndex = nextTopic ? nextTopic.firstMessageIndex : chatHistory.length;
     const messagesInSection = endMsgIndex - startMsgIndex;
-    
+
     // Calculate which message to scroll to based on section progress
     const targetMsgIndex = Math.min(
       startMsgIndex + Math.floor(sectionProgress * messagesInSection),
       endMsgIndex - 1
     );
-    
+
     if (messageRefs.current[targetMsgIndex]) {
       messageRefs.current[targetMsgIndex]?.scrollIntoView({
         behavior: 'smooth',
@@ -311,7 +314,7 @@ export function PracticePlayback({
   // Calculate progress from mouse/touch position
   const calculateProgressFromPosition = (clientX: number) => {
     if (!progressBarRef.current) return currentProgress;
-    
+
     const rect = progressBarRef.current.getBoundingClientRect();
     const x = clientX - rect.left;
     const percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
@@ -323,7 +326,7 @@ export function PracticePlayback({
     e.preventDefault();
     setIsDragging(true);
     setShowProgressBarExpanded(true);
-    
+
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const newProgress = calculateProgressFromPosition(clientX);
     setCurrentProgress(newProgress);
@@ -332,7 +335,7 @@ export function PracticePlayback({
   // Handle drag move
   const handleDragMove = (e: MouseEvent | TouchEvent) => {
     if (!isDragging) return;
-    
+
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const newProgress = calculateProgressFromPosition(clientX);
     setCurrentProgress(newProgress);
@@ -358,7 +361,7 @@ export function PracticePlayback({
       window.addEventListener('touchmove', handleDragMove);
       window.addEventListener('touchend', handleDragEnd);
     }
-    
+
     return () => {
       window.removeEventListener('mousemove', handleDragMove);
       window.removeEventListener('mouseup', handleDragEnd);
@@ -381,12 +384,12 @@ export function PracticePlayback({
     <div className="fixed inset-0 bg-[#F5F6FA] w-[390px] h-screen overflow-y-auto mx-auto font-['SF_Pro']">
       {/* Inject entrance animation styles */}
       <style dangerouslySetInnerHTML={{ __html: entranceStyles }} />
-      
+
       {/* Video Player Section */}
       <div className="relative w-full aspect-[390/300] bg-black group shrink-0 shadow-sm animate-video-entrance">
         <div className="absolute inset-0 overflow-hidden">
           <ImageWithFallback
-            src={imgImageAiCharacter}
+            src={isPlaying ? imgAiCharacterGif : imgImageAiCharacter}
             alt="AI Character"
             className="w-full h-full object-cover object-[center_20%] opacity-90"
           />
@@ -396,49 +399,27 @@ export function PracticePlayback({
         <StatusBar variant="light" className="absolute top-0 left-0 w-full z-20" />
 
         {/* Back Button */}
-        <button
-          onClick={onBack}
-          className="animate-button-pop absolute top-[70px] left-4 flex flex-row justify-center items-center w-11 h-11 rounded-full flex-shrink-0 z-20"
-          style={{
-            background: "rgba(247, 247, 247, 0.85)",
-            backdropFilter: "blur(20px)",
-            WebkitBackdropFilter: "blur(20px)",
-            border: "0.5px solid rgba(255, 255, 255, 0.8)",
-            boxShadow:
-              "0px 4px 12px rgba(0, 0, 0, 0.15), inset 0px 1px 0px rgba(255, 255, 255, 0.4)",
-            animationDelay: "0.2s",
-          }}
-        >
-          <span
-            className="flex items-center justify-center"
-            style={{
-              fontFamily: "SF Pro",
-              fontSize: "20px",
-              fontWeight: 400,
-              lineHeight: "20px",
-              color: "#404040",
-            }}
-          >
-            􀯶
-          </span>
-        </button>
+        <div className="animate-button-pop absolute top-[70px] left-4 z-20" style={{ animationDelay: "0.2s" }}>
+          <LiquidGlassButton onClick={onBack} size={44} variant="onDark" className="flex-shrink-0">
+            <img src={backIcon} alt="Back" className="w-[36px] h-[36px]" />
+          </LiquidGlassButton>
+        </div>
 
         {/* Play/Pause Overlay */}
-        <div className="absolute inset-0 flex items-center justify-center z-10">
-          <button
-            onClick={() => setIsPlaying(!isPlaying)}
-            className="animate-play-button w-16 h-16 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-white/30 transition-colors"
-          >
-            {isPlaying ? (
-              <Pause className="w-8 h-8 text-white fill-current" />
-            ) : (
-              <Play className="w-8 h-8 text-white fill-current ml-1" />
-            )}
-          </button>
+        <div className="absolute inset-0 flex items-center justify-center z-10 pt-8">
+          <div className="animate-play-button">
+            <LiquidGlassButton onClick={() => setIsPlaying(!isPlaying)} size={64} variant="onDark">
+              {isPlaying ? (
+                <Pause className="w-8 h-8 text-white fill-current" />
+              ) : (
+                <Play className="w-8 h-8 text-white fill-current ml-1" />
+              )}
+            </LiquidGlassButton>
+          </div>
         </div>
 
         {/* Video Progress Bar */}
-        <div 
+        <div
           ref={progressBarRef}
           onMouseDown={handleDragStart}
           onTouchStart={handleDragStart}
@@ -460,15 +441,13 @@ export function PracticePlayback({
                   if (!isDragging) handleSectionClick(index);
                 }}
                 style={{ width: topic.duration }}
-                className={`h-full relative bg-white/30 cursor-pointer hover:bg-white/40 transition-colors ${
-                  index === 0 ? 'rounded-l-full' : ''
-                } ${index === topics.length - 1 ? 'rounded-r-full' : ''}`}
+                className={`h-full relative bg-white/30 cursor-pointer hover:bg-white/40 transition-colors ${index === 0 ? 'rounded-l-full' : ''
+                  } ${index === topics.length - 1 ? 'rounded-r-full' : ''}`}
               >
                 <div
                   style={{ width: `${fillPercent}%` }}
-                  className={`h-full bg-[#8C00FF] ${isDragging ? '' : 'transition-all duration-300'} ${
-                    index === 0 ? 'rounded-l-full' : ''
-                  }`}
+                  className={`h-full bg-[#8C00FF] ${isDragging ? '' : 'transition-all duration-300'} ${index === 0 ? 'rounded-l-full' : ''
+                    }`}
                 />
                 {/* Playhead Knob - Only show on the active segment */}
                 {currentProgress > topic.startPercent &&
@@ -496,11 +475,10 @@ export function PracticePlayback({
               <button
                 key={topic.id}
                 onClick={() => handleSectionClick(index)}
-                className={`animate-chapter-card flex items-center gap-3 p-3 bg-white rounded-xl border shadow-sm text-left group hover:border-[#8C00FF]/50 hover:shadow-md transition-all min-w-[180px] ${
-                  activeSection === index 
-                    ? 'border-[#8C00FF] shadow-md ring-2 ring-[#8C00FF]/20' 
+                className={`animate-chapter-card flex items-center gap-3 p-3 bg-white rounded-xl border shadow-sm text-left group hover:border-[#8C00FF]/50 hover:shadow-md transition-all min-w-[180px] ${activeSection === index
+                    ? 'border-[#8C00FF] shadow-md ring-2 ring-[#8C00FF]/20'
                     : 'border-gray-200'
-                }`}
+                  }`}
                 style={{ animationDelay: `${0.4 + index * 0.1}s` }}
               >
                 <div className="w-9 h-9 shrink-0 rounded-lg p-2 flex items-center justify-center">
@@ -515,14 +493,12 @@ export function PracticePlayback({
                   )}
                 </div>
                 <div className="flex flex-col gap-0.5">
-                  <span className={`text-xs font-medium ${
-                    activeSection === index ? 'text-[#8C00FF]' : 'text-gray-500'
-                  }`}>
+                  <span className={`text-xs font-medium ${activeSection === index ? 'text-[#8C00FF]' : 'text-gray-500'
+                    }`}>
                     {topic.startTime}
                   </span>
-                  <span className={`text-[13px] font-semibold leading-tight line-clamp-1 ${
-                    activeSection === index ? 'text-[#8C00FF]' : 'text-gray-900'
-                  }`}>
+                  <span className={`text-[13px] font-semibold leading-tight line-clamp-1 ${activeSection === index ? 'text-[#8C00FF]' : 'text-gray-900'
+                    }`}>
                     {topic.title}
                   </span>
                 </div>
@@ -539,14 +515,13 @@ export function PracticePlayback({
               const topicForMessage = topics.find(
                 (topic) => topic.firstMessageIndex === idx
               );
-              
+
               return (
                 <div
                   key={idx}
                   ref={(el) => { messageRefs.current[idx] = el; }}
-                  className={`animate-chat-message flex flex-col gap-1 ${
-                    msg.speaker === "You" ? "items-end" : "items-start"
-                  }`}
+                  className={`animate-chat-message flex flex-col gap-1 ${msg.speaker === "You" ? "items-end" : "items-start"
+                    }`}
                   style={{ animationDelay: `${0.6 + idx * 0.08}s` }}
                 >
                   {msg.speaker === "You" ? (
