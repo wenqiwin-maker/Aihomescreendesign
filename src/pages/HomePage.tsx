@@ -480,7 +480,7 @@ export function HomePage() {
                     color: 'rgba(0, 0, 0, 0.9)'
                   }}
                 >
-                  Partnership Performance Review
+                  Salary Negotiation Preparation
                 </h3>
                 <p
                   style={{
@@ -490,7 +490,7 @@ export function HomePage() {
                     color: 'rgba(0, 0, 0, 0.6)'
                   }}
                 >
-                  Talk to Sarah about how the recent investments have performed and discuss...
+                  Practice negotiating your compensation package with HR manager David, discuss benefits and growth...
                 </p>
               </div>
             </motion.div>

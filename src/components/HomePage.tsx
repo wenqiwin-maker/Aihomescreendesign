@@ -473,25 +473,25 @@ export function HomePage({ onStartConversation, onOpenAIChat }: HomePageProps) {
                 />
               </div>
               <div className="flex flex-col justify-center gap-1">
-                <h3 
-                  style={{ 
-                    fontSize: '16px', 
-                    fontWeight: 700, 
+                <h3
+                  style={{
+                    fontSize: '16px',
+                    fontWeight: 700,
                     lineHeight: '20px',
-                    color: 'rgba(0, 0, 0, 0.9)' 
+                    color: 'rgba(0, 0, 0, 0.9)'
                   }}
                 >
-                  Partnership Performance Review
+                  Salary Negotiation Strategy
                 </h3>
-                <p 
-                  style={{ 
-                    fontSize: '12px', 
-                    fontWeight: 274, 
+                <p
+                  style={{
+                    fontSize: '12px',
+                    fontWeight: 274,
                     lineHeight: '135%',
-                    color: 'rgba(0, 0, 0, 0.6)' 
+                    color: 'rgba(0, 0, 0, 0.6)'
                   }}
                 >
-                  Talk to Sarah about how the recent investments have performed and discuss...
+                  Practice negotiating your compensation package with HR manager David...
                 </p>
               </div>
             </motion.div>
