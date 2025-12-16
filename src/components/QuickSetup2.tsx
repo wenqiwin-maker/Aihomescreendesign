@@ -121,8 +121,8 @@ export function QuickSetup2({
 
       {/* Content */}
       <div
-        className="flex flex-col pt-8 px-5 gap-10"
-        style={{ paddingBottom: "36px" }}
+        className="flex flex-col pt-8 px-5 gap-10 overflow-y-auto"
+        style={{ paddingBottom: "120px", height: "calc(100vh - 107px)" }}
       >
         {/* Title */}
         <motion.div
@@ -400,20 +400,25 @@ export function QuickSetup2({
             </p>
           </motion.div>
         </motion.div>
+      </div>
 
-        {/* Start Practice Button */}
+      {/* Start Practice Button - Sticky at bottom */}
+      <div
+        className="absolute bottom-0 left-0 right-0 px-5 pb-10 pt-4"
+        style={{
+          background: "linear-gradient(to top, white 80%, transparent 100%)",
+        }}
+      >
         <motion.button
           disabled={!isFormValid}
           onClick={onNext}
-          className="flex justify-center items-center h-12 rounded-[28px] transition-opacity mt-auto"
+          className="flex justify-center items-center h-12 rounded-[28px] transition-all w-full"
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: "easeOut", delay: 0.78 }}
           style={{
-            width: "350px",
-            padding: "14px 113px",
-            background: "#000000",
-            opacity: isFormValid ? 1 : 0.5,
+            background: isFormValid ? "#000000" : "rgba(0, 0, 0, 0.3)",
+            cursor: isFormValid ? "pointer" : "not-allowed",
           }}
         >
           <span
@@ -429,7 +434,6 @@ export function QuickSetup2({
           </span>
         </motion.button>
       </div>
-
     </div>
   );
 }

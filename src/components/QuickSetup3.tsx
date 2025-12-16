@@ -189,7 +189,7 @@ export function QuickSetup3({
         </div>
 
         {/* QuickSetup Content */}
-        <div className="flex flex-col items-start pt-8 px-5 gap-10 pb-[30px]">
+        <div className="flex flex-col items-start pt-8 px-5 gap-10 pb-[140px]">
           {/* Title */}
           <motion.div 
             className="flex flex-col gap-2"
@@ -1263,52 +1263,60 @@ export function QuickSetup3({
             </motion.div>
           </motion.div>
 
-          {/* Start Practice Button */}
-          <motion.button
-            onClick={onStartPractice}
-            className="flex justify-center items-center py-3.5 h-12 rounded-[28px] w-[350px]"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 0.9 }}
+        </div>
+      </div>
+
+      {/* Sticky Bottom Buttons */}
+      <div
+        className="absolute bottom-0 left-0 right-0 px-5 pb-10 pt-4 flex flex-col items-center gap-3 z-[100]"
+        style={{
+          background: "linear-gradient(to top, #F5F6FA 80%, transparent 100%)",
+        }}
+      >
+        {/* Next Button */}
+        <motion.button
+          onClick={onStartPractice}
+          className="flex justify-center items-center py-3.5 h-12 rounded-[28px] w-[350px]"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.9 }}
+          style={{
+            backgroundColor: "#000000",
+          }}
+        >
+          <span
+            className="text-white text-center"
             style={{
-              backgroundColor: "#000000",
+              fontSize: "16px",
+              fontWeight: 510,
+              lineHeight: "20px",
+              letterSpacing: "-0.150391px",
             }}
           >
-            <span
-              className="text-white text-center"
-              style={{
-                fontSize: "16px",
-                fontWeight: 510,
-                lineHeight: "20px",
-                letterSpacing: "-0.150391px",
-              }}
-            >
-              Next
-            </span>
-          </motion.button>
+            Next
+          </span>
+        </motion.button>
 
-          {/* Skip Link */}
-          <motion.button
-            onClick={onStartPractice}
-            className="w-full flex justify-center items-center h-5"
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, ease: "easeOut", delay: 1.0 }}
-            style={{ marginTop: "-20px" }}
+        {/* Skip Link */}
+        <motion.button
+          onClick={onStartPractice}
+          className="flex justify-center items-center h-5"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 1.0 }}
+        >
+          <span
+            style={{
+              fontSize: "16px",
+              fontWeight: 510,
+              lineHeight: "20px",
+              letterSpacing: "-0.150391px",
+              color: "#000000",
+            }}
           >
-            <span
-              style={{
-                fontSize: "16px",
-                fontWeight: 510,
-                lineHeight: "20px",
-                letterSpacing: "-0.150391px",
-                color: "#000000",
-              }}
-            >
-              Skip
-            </span>
-          </motion.button>
-        </div>
+            Skip
+          </span>
+        </motion.button>
       </div>
 
 

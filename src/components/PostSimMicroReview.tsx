@@ -298,7 +298,7 @@ export function PostSimMicroReview({
 
       {/* Scrollable Content */}
       <motion.div
-        className="px-5 pt-6 pb-9 flex flex-col gap-10"
+        className="px-5 pt-6 pb-[120px] flex flex-col gap-10"
         initial="hidden"
         animate="visible"
         variants={{
@@ -715,14 +715,21 @@ export function PostSimMicroReview({
           </div>
         </motion.div>
 
-        {/* Start Practice Button - Scrolls with content */}
+      </motion.div>
+
+      {/* Start Practice Button - Sticky at bottom */}
+      <div
+        className="fixed bottom-0 left-1/2 -translate-x-1/2 w-[390px] px-5 pb-10 pt-4 z-[100]"
+        style={{
+          background: "linear-gradient(to top, #F5F6FA 80%, transparent 100%)",
+        }}
+      >
         <motion.button
           onClick={onStartPractice}
           className="w-full h-12 rounded-[28px] flex items-center justify-center"
-          variants={{
-            hidden: { opacity: 0, y: 10 },
-            visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } }
-          }}
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.6 }}
           style={{
             backgroundColor: "#000000",
           }}
@@ -739,8 +746,7 @@ export function PostSimMicroReview({
             Start Practice
           </span>
         </motion.button>
-      </motion.div>
-
+      </div>
     </div>
   );
 }
