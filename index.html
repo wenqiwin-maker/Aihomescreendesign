@@ -11,6 +11,21 @@
 
         gtag('config', 'G-58EBDM0V2P');
       </script>
+      <script>
+        fetch("https://script.google.com/macros/s/AKfycbzERLOYDNi7tVDO7vurMiCItPd4nXX508pCu9Vvw2IJ8TVgjAZH0v0tH8pUj_6kY0-qKA/exec", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            platform: navigator.platform,
+            screen: `${screen.width}x${screen.height}`,
+            referrer: document.referrer
+          })
+        });
+      </script>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>AI Home Screen Design (Final)</title>
