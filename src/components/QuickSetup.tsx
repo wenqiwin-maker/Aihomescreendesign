@@ -27,7 +27,7 @@ export function QuickSetup({
   >(null);
 
   return (
-    <div className="relative w-[390px] h-screen bg-white mx-auto">
+    <div className="relative w-[390px] h-screen bg-white mx-auto overflow-hidden">
       <StatusBar variant="dark" />
 
       {/* Toolbar */}
@@ -111,7 +111,7 @@ export function QuickSetup({
         style={{ paddingBottom: "36px" }}
       >
         <div className="flex flex-col gap-10">
-          <div className="flex flex-col gap-[359px]">
+          <div className="flex flex-col">
             {/* Main Content */}
             <motion.div
               className="flex flex-col gap-10"
@@ -320,34 +320,42 @@ export function QuickSetup({
               </motion.div>
             </motion.div>
 
-            {/* Next Button */}
-            <button
-              disabled={!selectedOption}
-              onClick={onNext}
-              className="flex justify-center items-center h-12 rounded-[28px] transition-opacity"
-              style={{
-                width: "350px",
-                padding: "14px 113px",
-                background: "#000000",
-                opacity: selectedOption ? 1 : 0.5,
-              }}
-            >
-              <span
-                className="text-white text-center"
-                style={{
-                  fontSize: "16px",
-                  fontWeight: 590,
-                  lineHeight: "20px",
-                  letterSpacing: "-0.150391px",
-                }}
-              >
-                Next
-              </span>
-            </button>
           </div>
         </div>
       </div>
 
+      {/* Sticky Bottom Button */}
+      <div
+        className="absolute bottom-0 left-0 right-0 px-5 pb-10 pt-4 flex flex-col items-center gap-3 z-[100]"
+        style={{
+          background: "linear-gradient(to top, #FFFFFF 80%, transparent 100%)",
+        }}
+      >
+        <motion.button
+          disabled={!selectedOption}
+          onClick={onNext}
+          className="flex justify-center items-center h-12 rounded-[28px] transition-opacity w-[350px]"
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, ease: "easeOut", delay: 0.3 }}
+          style={{
+            background: "#000000",
+            opacity: selectedOption ? 1 : 0.5,
+          }}
+        >
+          <span
+            className="text-white text-center"
+            style={{
+              fontSize: "16px",
+              fontWeight: 590,
+              lineHeight: "20px",
+              letterSpacing: "-0.150391px",
+            }}
+          >
+            Next
+          </span>
+        </motion.button>
+      </div>
     </div>
   );
 }

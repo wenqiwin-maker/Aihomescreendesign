@@ -1325,12 +1325,12 @@ export function QuickSetup3({
         <>
           {/* Backdrop */}
           <div
-            className="absolute left-0 right-0 top-0 bottom-0 bg-black/40 z-40 transition-opacity"
+            className="absolute left-0 right-0 top-0 bottom-0 bg-black/40 z-[200] transition-opacity"
             onClick={() => setShowPhotoSheet(false)}
           />
 
           {/* Action Sheet */}
-          <div className="absolute left-0 right-0 bottom-0 z-50 px-2 pb-2">
+          <div className="absolute left-0 right-0 bottom-0 z-[210] px-2 pb-2">
             {/* Options Container */}
             <div
               className="bg-white rounded-[13px] overflow-hidden mb-2"
@@ -1462,12 +1462,12 @@ export function QuickSetup3({
         <>
           {/* Backdrop */}
           <div
-            className="absolute left-0 right-0 top-0 bottom-0 bg-black/40 z-40 transition-opacity"
+            className="absolute left-0 right-0 top-0 bottom-0 bg-black/40 z-[200] transition-opacity"
             onClick={() => setShowEvidenceSheet(false)}
           />
 
           {/* Action Sheet */}
-          <div className="absolute left-0 right-0 bottom-0 z-50 px-2 pb-2">
+          <div className="absolute left-0 right-0 bottom-0 z-[210] px-2 pb-2">
             {/* Options Container */}
             <div
               className="bg-white rounded-[13px] overflow-hidden mb-2"
