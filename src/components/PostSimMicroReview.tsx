@@ -237,7 +237,7 @@ export function PostSimMicroReview({
                   color: "rgba(0, 0, 0, 0.9)",
                 }}
               >
-                Goal Type
+                Promotion
               </span>
             </div>
 
